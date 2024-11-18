@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>MainServlet</servlet-name>
-        <servlet-class>com.example.MainServlet</servlet-class>
+        <servlet-class>com.example.fave.MainServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
