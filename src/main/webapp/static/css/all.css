@@ -1,0 +1,253 @@
+@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+}
+
+body {
+    background-color: #E6E7F5;
+    font-family: "Noto Serif JP", serif;
+    color: #221D7E;
+    min-width: 1200px;
+}
+
+.FAVE {
+    background-color: #FFE4E4;
+}
+
+.RELATE {
+    background-color: #FFE9C5;
+}
+
+.SHIFT {
+    background-color: #CEF7FD;
+}
+
+.WORK {
+    background-color: #DAFFCE;
+}
+
+.MYPAGE {
+    background-color: #D2D2D2;
+}
+
+.con {
+    z-index: 100;
+    position: fixed;
+    align-items: center;
+    /* ロゴとメーターを垂直方向に中央寄せ */
+}
+
+.logo {
+    margin-left: 2%;
+    width: 13%;
+}
+
+.logo img {
+    width: 100%;
+}
+
+.meter {
+    width: 100%;
+}
+
+.meter h2 {
+    margin-left: 10%;
+    width: 60%;
+}
+
+.meter-container {
+    position: relative;
+    height: 45px;
+    margin-left: 10%;
+    /* ロゴとの距離 */
+    margin-right: 10%;
+
+}
+
+/* 背面のメーター */
+.background-meter {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+
+.background-meter::-webkit-meter-bar {
+    background-color: #FFFFF3;
+    /* 背景色（ライトグレー） */
+    border: 1px solid #221D7E;
+}
+
+.background-meter::-webkit-meter-optimum-value {
+    background-color: #A76CE6;
+    /* 背面の色 (指定の紫) */
+    border-radius: 15px;
+    border: 1px solid #FFFFF3;
+}
+
+/* 前面のメーター */
+.foreground-meter {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.foreground-meter::-webkit-meter-bar {
+    background-color: transparent;
+    /* 前面メーターの未達成部分を透明に */
+}
+
+.foreground-meter::-webkit-meter-optimum-value {
+    background-color: #31D1C1;
+    /* 前面の色 (指定のエメラルド) */
+    border-radius: 15px;
+    border: 1px solid #FFFFF3;
+}
+
+.meter img {
+    width: 6%;
+    margin: 0;
+    padding: 0;
+}
+
+.meterimg {
+    margin-left: 7%;
+}
+
+.temoti {
+    margin-left: 8.7%;
+    width: 100%;
+    display: inline;
+}
+
+.kyuuryoubi {
+    margin-top: -6.4%;
+    width: 100%;
+    display: inline;
+    margin-left: 12%;
+}
+
+.menu {
+    position: fixed;
+    width: 15%;
+    text-align: center;
+}
+
+.menu hr {
+    height: 3px;
+    background-color: #FFFFF3;
+    border: none;
+}
+
+.menu a {
+    margin: 10%;
+    color: #221D7E;
+    text-decoration: none;
+}
+
+.menu div {
+    height: 11vh;
+}
+
+.home {
+    background-color: #E6E7F5;
+}
+
+.menu div:hover {
+    background-color: #fbfbfd;
+}
+
+.menu div:hover a {
+    color: #433db6;
+}
+
+.fave {
+    background-color: #FFE4E4;
+}
+
+.relate {
+    background-color: #FFE9C5;
+}
+
+.shift {
+    background-color: #CEF7FD;
+}
+
+.work {
+    background-color: #DAFFCE;
+}
+
+.mypage {
+    background-color: #D2D2D2;
+}
+
+
+.maincontents {
+    margin-top: 10%;
+    padding-right: 2%;
+}
+
+.main {
+    margin-left: 15%;
+    overflow: auto;
+    height: 65vh;
+    margin-top: 2.1%;
+}
+
+.scroll-content {
+    width: 300px;
+    height: 600px;
+    margin: 0 20%;
+}
+
+.scroll-box::-webkit-scrollbar {
+    background: #E6E7F5;
+    width:10px;
+}
+
+.FAVE .scroll-box::-webkit-scrollbar{
+    background-color: #FFE4E4;
+}
+
+.RELATE .scroll-box::-webkit-scrollbar{
+    background-color: #FFE9C5;
+}
+
+.SHIFT .scroll-box::-webkit-scrollbar{
+    background-color: #CEF7FD;
+}
+
+.WORK .scroll-box::-webkit-scrollbar{
+    background-color: #DAFFCE;
+}
+
+.MYPAGE .scroll-box::-webkit-scrollbar{
+    background-color: #D2D2D2;
+}
+
+.scroll-box::-webkit-scrollbar-thumb {
+    background-color: #AAAAAA;
+    border-radius: 20px;
+}
+
+.scroll-box::-webkit-scrollbar-thumb:hover {
+    background-color: #776378;
+}
+
+/* フッターのスタイル */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+    bottom: 0;
+    background-color: #321633;
+    color: #E9CAFF;
+}
