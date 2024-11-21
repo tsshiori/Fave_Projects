@@ -12,8 +12,8 @@
           rel="stylesheet">
 
 
-    <link rel="stylesheet" con href="static/css/all.css">
-    <link rel="stylesheet" href="static/css/login.css">
+    <link rel="stylesheet" href="static/css/all.css">
+    <link rel="stylesheet" href="static/css/LogReDeleFile/login.css">
 
 
     <link rel="shortcut icon" href="static/img/TimeforFave.png">
@@ -25,7 +25,7 @@
 <div class="login_form">
     <form action="../../index/index.html">
 
-
+        <div class="logo"><img src="static/img/TimeforFave.png" alt="logo"></div>
         <div class="text">
             <input type="text" name="ID" placeholder="　ID">
             <input type="text" name="pass" placeholder="　パスワード" class="last-input">
