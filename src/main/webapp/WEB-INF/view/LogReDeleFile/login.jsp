@@ -11,17 +11,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&family=Yuji+Syuku&display=swap"
           rel="stylesheet">
 
-    <link rel="stylesheet" href="../../../static/css/all.css">
-    <link rel="stylesheet" href="../../../static/css/LogReDeleFile/login.css">
+    <link rel="stylesheet" con href="static/css/all.css">
+    <link rel="stylesheet" href="static/css/login.css">
 
-    <link rel="shortcut icon" href="../../../static/img/Time for Fave.png">
+
+    <link rel="shortcut icon" href="static/img/TimeforFave.png">
     <title>LOGIN | Time of Fave.</title>
 </head>
 
 <body>
 <div class="login_form">
     <form action="../../index/index.html">
-        <div class="logo"><img src="../../img/Time for Fave.png" alt="logo"></div>
+        <div class="logo"><img src="static/img/TimeforFave.png" alt="logo"></div>
         <div class="text">
             <input type="text" name="ID" placeholder="　ID">
             <input type="text" name="pass" placeholder="　パスワード" class="last-input">
