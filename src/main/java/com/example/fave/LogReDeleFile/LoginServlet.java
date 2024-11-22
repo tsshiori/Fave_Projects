@@ -1,17 +1,15 @@
-package com.example.fave;
+package com.example.fave.LogReDeleFile;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import utils.DAO.GenerateHash;
-import utils.Bean.userBean;
 
 import java.io.IOException;
 
-public class MainServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

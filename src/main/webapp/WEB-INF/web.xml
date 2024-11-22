@@ -5,11 +5,11 @@
          version="5.0">
 
     <servlet>
-        <servlet-name>MainServlet</servlet-name>
-        <servlet-class>com.example.fave.MainServlet</servlet-class>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.example.fave.LogReDeleFile.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MainServlet</servlet-name>
+        <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/fave</url-pattern>
     </servlet-mapping>
 
