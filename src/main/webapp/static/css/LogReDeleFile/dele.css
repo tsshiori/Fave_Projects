@@ -1,0 +1,250 @@
+@charset "utf-8";
+
+form {
+    text-align: center;
+}
+
+.logo {
+    margin: 0 auto;
+}
+
+.logo img {
+    width: 100%;
+}
+
+.dele_form {
+    margin: 0 auto;
+    margin-top: 7%;
+}
+
+input[type="text"] {
+    font-weight: bold;
+    font-size: 20px;
+    color: #66639C;
+    font-family: "Noto Serif JP", serif;
+    height: 40px;
+    width: 35%;
+    padding: 8px;
+    margin-bottom: 30px;
+    margin: 10px auto;
+    display: block;
+    border: 0.5px solid #221D7E;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background-color: #F5F5F5;
+}
+
+.text .a {
+    width: 70%;
+    display: block;
+    text-align: right;
+}
+
+.text .a a {
+    font-size: 15px;
+    color: #1456C7;
+}
+
+.text .a a:hover {
+    color: #5d94f3;
+    text-decoration: none;
+}
+
+.container_btn {
+    display: flex;       /* 横並びにする */
+    justify-content: center; /* ボタンを中央に配置 */
+    gap: 20px;           /* ボタン間に20pxのスペース */
+}
+
+/* 削除ボタンのカスタムスタイル */
+#modalOpen {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    border: 0.5px solid #221D7E;
+    border-radius: 3px;
+    padding: 5px 40px;
+    margin-right: 3%;
+    background-color: #FF6666;
+    height: 100%;
+}
+
+#modalOpen:hover {
+    background-color: #ff8787; /* ホバー時に色を少し暗い赤に */
+}
+
+/* 既存のbuttonスタイル（キャンセルボタンには変更不要） */
+.kyan {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+    height: 100%;
+}
+
+.kyan:hover {
+    background-color: #ececec;
+}
+
+footer {
+    position: fixed;
+}
+
+/* h2 のスタイル */
+h2 {
+    text-align: center;
+    vertical-align: -30%;
+    margin: 0 20px;
+    margin-top: -20px; /* ここで上にあげる調整 */
+    margin-bottom: 23px;
+    font-size: 20.7px;
+}
+
+/* モーダルの初期状態を非表示にする */
+.modal {
+    display: none; /* 初期状態では表示しない */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 背景の半透明黒 */
+}
+
+/* モーダル全体の中央揃え */
+.modal-content {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 42%;
+    height: 46%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 20px;
+    min-width: 500px;
+    text-align: center; /* モーダル全体のテキストを中央寄せ */
+}
+
+/* モーダルヘッダーのスタイル調整 */
+.modal-header {
+    text-align: center; /* テキストを中央揃え */
+    padding-top: 40px;
+    margin: 0 auto;
+    /* margin-bottom: 20px; */
+
+}
+
+/* モーダルのh3スタイル調整 */
+.modal-header h3 {
+    font-size: 28px;
+    color: #221D7E;
+    margin-bottom: 10px;
+    font-weight: 900;
+    text-align: center; /* h3も中央寄せ */
+}
+.modal-h4{
+    display: inline-block;
+    text-align: left;
+    margin: 0 auto;
+}
+.modal-header h4 {
+    color: #FE3939;
+    margin-left: 0;      /* 左マージンをリセット */
+    margin-right: 0;     /* 右マージンもリセット */
+    padding-left: 0;     /* 左の余白もリセット */
+    width: 100%;         /* 幅を100%に設定して、同じ幅に揃える */
+    display: block;      /* ブロック要素にして幅を確保 */
+    text-align: left;
+}
+
+/* ボタン配置の調整 */
+.modal-body {
+    display: flex;
+    justify-content: center; /* ボタンを中央に揃える */
+    gap: 15px; /* ボタンの間隔 */
+    padding-top: 20px;
+}
+
+
+/* 削除確認ボタン */
+#confirmDelete {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 900;
+    margin-top: 3%;
+    color: #221D7E;
+    border-radius: 3px;
+    padding: 5px 40px;
+    margin-right: 3%;
+    background-color: #FF6666;
+    height: 100%;
+    border: none;
+}
+
+
+/* 削除ボタンとキャンセルボタン */
+#confirmDelete, #cancelDelete {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    padding: 5px 40px;
+    background-color: #FF6666;
+    border-radius: 3px;
+    margin-right: 3%;
+    height: 100%;
+    border: #221D7E 0.5px solid;
+
+}
+
+#confirmDelete:hover {
+    background-color: #ff8787;
+}
+
+/* キャンセルボタン */
+#cancelDelete {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 900;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border-radius: 3px;
+    padding: 5px 20px;
+    text-decoration: none;
+    height: 100%;
+    border: none;
+    border: #221D7E 0.5px solid;
+
+}
+
+#cancelDelete:hover {
+    background-color: #ececec;
+}
+
+.btn{
+    margin-left: 20px;
+    border: #221D7E 0.5px solid;
+    margin: 0.2px;
+}
+
+#container_btn .modalOpen{
+    margin: 30px;
+}
+
+.modal-body .btn {
+    border: #221D7E 0.5px solid;
+
+
+}
