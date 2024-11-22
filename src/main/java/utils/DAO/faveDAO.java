@@ -28,6 +28,7 @@ public class faveDAO {
             pstmt.setString(5, log_id); // log_id
             pstmt.setInt(6, cate_id); // cate_id
 
+
             // 4.SQLの実行＆コミット
             pstmt.executeUpdate();
         } catch (SQLException e) {
