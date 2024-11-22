@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&family=Yuji+Syuku&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="static/css/all.css">
-    <link rel="stylesheet" href="static/css/LogReDeleFile/login.css">
+    <link rel="stylesheet" href="static/css/LogReDeleFile/dele.css">
 
     <link rel="shortcut icon" href="static/img/TimeforFave.png">
     <title>DELETE | Time of Fave.</title>
