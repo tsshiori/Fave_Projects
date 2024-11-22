@@ -23,14 +23,15 @@
 
 <body>
 <div class="login_form">
-    <form action="../../index/index.html">
+    <form action="MainServlet" method="post">
 
         <div class="logo"><img src="static/img/TimeforFave.png" alt="logo"></div>
         <div class="text">
-            <input type="text" name="ID" placeholder="　ID">
-            <input type="text" name="pass" placeholder="　パスワード" class="last-input">
+            <input type="text" name="log_id" placeholder="　ID">
+            <input type="text" name="password" placeholder="　パスワード" class="last-input">
             <div class="a">
-                <a href="re.jsp">新規登録はこちら ＞</a>
+                <a href="ReServlet">新規登録はこちら ＞</a>
+
             </div>
         </div>
         <button type="submit" class="btn">ログイン</button>
