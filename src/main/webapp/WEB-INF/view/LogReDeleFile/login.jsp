@@ -30,7 +30,7 @@
             <input type="text" name="ID" placeholder="　ID">
             <input type="text" name="pass" placeholder="　パスワード" class="last-input">
             <div class="a">
-                <a href="re.html">新規登録はこちら ＞</a>
+                <a href="re.jsp">新規登録はこちら ＞</a>
             </div>
         </div>
         <button type="submit" class="btn">ログイン</button>

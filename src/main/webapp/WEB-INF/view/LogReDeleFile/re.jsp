@@ -12,7 +12,7 @@
           rel="stylesheet">
 
     <link rel="stylesheet" href="static/css/all.css">
-    <link rel="stylesheet" href="static/css/LogReDeleFile/login.css">
+    <link rel="stylesheet" href="static/css/LogReDeleFile/re.css">
 
     <link rel="shortcut icon" href="static/img/TimeforFave.png">
     <title>Register | Time of Fave.</title>
@@ -64,11 +64,12 @@
 </div>
 <div class="btn">
     <button id="modalOpen" type="button" class="in">登録</button>
-    <a class="kyan" href="WEB-INF/view/LogReDeleFile">キャンセル</a>
+    <a class="kyan" href="./login.jsp">キャンセル</a>
 </div>
 </form>
 <br><br>
 </div>
+<%--モーダル--%>
 <div id="easyModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -110,7 +111,7 @@
         </div>
     </div>
 </div>
-<script src="re.js"></script>
+<script src="static/js/LogReDeleFile/re.js"></script>
 </body>
 
 <footer>
