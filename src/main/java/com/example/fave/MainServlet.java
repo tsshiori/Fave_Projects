@@ -5,26 +5,33 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import utils.DAO.GenerateHash;
+import utils.Bean.userBean;
 
 import java.io.IOException;
 
 public class MainServlet extends HttpServlet {
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-                // リクエストの文字エンコーディングを設定
+
+                HttpSession session = request.getSession();
                 request.setCharacterEncoding("utf-8");
+                int log_id = Integer.parseInt(request.getParameter("log_id"));
+                String password = request.getParameter("password");
+                utils.Bean.userBean user = utils.DAO.userDAO.selectById(log_id);
 
-                // レスポンスの文字エンコーディングを設定
-                response.setContentType("text/html; charset=utf-8");
-                response.setCharacterEncoding("utf-8");
+                if ( GenerateHash.checkPassword(password, user.getPassword()) ) {
+                        session.setAttribute("log_id",user.getLog_id());
+                        session.setAttribute("password", user.getPassword());
 
-                // ユーザーがログインしているかを確認
-                if (request.getSession().getAttribute("user") == null) {
-                        // 未ログインの場合はログインページへ
-                        request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/login.jsp").forward(request, response);
-                } else {
-                        // ログイン済みの場合はインデックスページへ
                         request.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request, response);
+
+                } else {
+                        request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/login.jsp").forward(request, response);
+
                 }
+
         }
 }
+
