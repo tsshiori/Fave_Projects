@@ -31,6 +31,7 @@
             <input type="text" name="password" placeholder="　パスワード" class="last-input">
             <div class="a">
                 <a href="ReServlet">新規登録はこちら ＞</a>
+
             </div>
         </div>
         <button type="submit" class="btn">ログイン</button>
