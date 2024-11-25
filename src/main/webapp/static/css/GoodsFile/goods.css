@@ -1,0 +1,662 @@
+@charset "utf-8";
+
+.main {
+    margin-left: 20%;
+    width: 90%;
+    overflow-x: hidden;
+}
+
+.main .add {
+    width: 7%;
+    margin-left: 10%;
+}
+
+.main .add:hover {
+    opacity: 0.7;
+}
+
+.scroll-box {
+    overflow: auto; /* スクロール可能にする */
+    margin-top: 2.1%;
+    width: 50%;
+    max-height: 80vh; /* 最大高さを80vhに設定（画面の80%の高さ） */
+}
+
+
+.ge-list {
+    width: 70%;
+    margin: 0 auto;
+    color: #24063A;
+}
+
+.ge-list img {
+    width: 75%;
+    margin-top: 8%;
+    border-radius: 35px;
+    border: 0.5px solid #24063A;
+}
+
+.guzzu, .event {
+    margin-top: 5px; /* 上部のマージンを縮小 */
+    margin-bottom: 10px; /* 下部のマージンをそのまま */
+    padding: 8px; /* パディングを少し減らす */
+    background-color: #FFFFF3;
+    border-radius: 8px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.guzzu {
+    /* margin-top: 20px; コンテンツとヘッダーの距離を広げる */
+    background-color: #FFFFF3;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 3%;
+    max-width: 400px; /* 箱の幅を小さく設定 */
+    margin-left: auto;
+    margin-right: auto;
+    position:relative;
+    top:-71px;
+}
+
+.guzzu .container {
+    color: #24063A;
+}
+
+.event .container {
+    color: #24063A;
+}
+
+.guzzu-right .container {
+    color: #24063A;
+}
+
+.event-right .container {
+    color: #24063A;
+}
+
+.right-side .guzzu-right {
+    padding: 10px;
+    border: solid;
+    border-color: #FFFFF3;
+    border-radius: 8px;
+    margin-bottom: 3%;
+    max-width: 400px; /* 箱の幅を小さく設定 */
+    margin-right: auto;
+    margin-left: auto;
+    position:relative;
+    top:-12px;
+}
+
+.event {
+    background-color: #FFFFD1;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 3%;
+    max-width: 400px; /* 箱の幅を小さく設定 */
+    margin-left: auto;
+    margin-right: auto;
+    position:relative;
+    top:-71px;
+}
+
+.event-right {
+    background-color: #FFFFD1;
+    border: 1px solid;
+    border-color: #FFFFF3;
+    opacity: 0.2;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 3%;
+    max-width: 400px; /* 箱の幅を小さく設定 */
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    top: -11px; /* これを調整して配置 */
+    overflow: visible; /* コンテンツがはみ出すようにする */
+}
+
+.purchase-icon {
+    position: relative;
+    z-index: 1; /* 前面に表示 */
+    margin-bottom: 3px; /* テキストとの間にスペースを追加 */
+}
+
+.event-text {
+    position: relative;
+    z-index: 1; /* 前面に表示 */
+}
+
+
+.event .hi-img,
+.guzzu .hi-img {
+    width: 13%;
+    text-align: center;
+    margin-right: 3%;
+}
+
+.guzzu .hi-img img {
+    border-radius: 50%; /* アイコンを丸くする */
+}
+
+.guzzu-right .hi-img-right img {
+    border-radius: 50%; /* アイコンを丸くする */
+}
+
+.event .hi-img img {
+    border-radius: 50%; /* アイコンを丸くする */
+}
+
+.event-right .hi-img-right img {
+    border-radius: 50%; /* アイコンを丸くする */
+}
+
+.guzzu .hi-img p {
+    display: none; /* 日にちを非表示にする */
+}
+
+.event .hi-img p {
+    display: none;
+}
+
+.guzzu-right .hi-img-right p {
+    display: none;
+}
+
+.event-right .hi-img-right p {
+    display: none;
+}
+
+.status {
+    text-align: center; /* 中央揃え */
+    font-weight: 700; /* 太字 */
+    font-size: 36px;
+    margin: 0; /* マージンをリセット */
+    margin-top: 1px; /* 負のマージンを削除 */
+}
+
+.status-right {
+    text-align: center; /* 中央揃え */
+    font-weight: 700; /* 太字 */
+    font-size: 36px;
+    margin: 0; /* マージンをリセット */
+    margin-top: 1px; /* 負のマージンを削除 */
+    position: relative;
+    right: 12px;
+}
+
+.inf-meter {
+    display: flex;
+    justify-content: space-between; /* 左右の配置を調整 */
+    align-items: center; /* 垂直方向に中央揃え */
+    width: 100%; /* 親要素の幅に合わせる */
+}
+
+/* 文字の配置と中央の線 */
+.osi-na-pri {
+    display: flex;
+    justify-content: space-between; /* 文字を左右に配置 */
+    align-items: center; /* 縦方向に中央寄せ */
+    position: relative; /* 線を絶対配置するため */
+}
+
+.osi-na-pri::before {
+    content: '';
+    position: absolute;
+    top: 50%; /* 中央に配置 */
+    left: 0;
+    right: 0;
+    height: 1px; /* 線の太さ */
+    background-color: #D2D2D2; /* 線の色 */
+    z-index: 1; /* 文字の下に表示 */
+}
+
+.osi-na-pri p {
+    text-align: center;
+    margin-top: 2%;
+    font-weight: 700;
+    font-size: 18px;
+    z-index: 2; /* 線の上に表示 */
+}
+
+.osi-na-pri .osi {
+    width: 30%;
+}
+
+.osi-na-pri .name {
+    width: 45%;
+}
+
+.osi-na-pri .price {
+    width: 20%;
+    text-align: right;
+}
+
+/* メーターの非表示 */
+.in-meter,
+.meter-app {
+    display: none; /* メーターを非表示にする */
+}
+
+.meter-app {
+    align-items: center;
+}
+
+.meter-app .app {
+    color: #FF1D1D;
+    font-weight: 700;
+    margin-top: 3%;
+    width: 27%;
+    text-align: center;
+}
+
+.meter-app .app span {
+    font-size: 20px;
+}
+
+.goods_detail_open {
+    text-decoration: none;
+    color: #24063A;
+}
+
+.goods_detail_open:hover {
+    opacity: 0.7;
+}
+
+/* 右側のsplit-containerの要素を垂直に揃えるためにflexboxを使用 */
+.split-container {
+    display: flex;
+    align-items: flex-start; /* 上に揃っているので修正 */
+    justify-content: space-between; /* 左右にスペースを取る */
+}
+
+.left-side {
+    width: 100%;
+    padding-right: 20px;
+}
+
+.right-side {
+    width: 100%;
+    padding-left: 20px;
+    overflow-y: hidden; /* 垂直方向のスクロールを非表示にする */
+    overflow-x: hidden; /* 水平方向のスクロールを非表示にする */
+    flex-direction: column;
+}
+
+.inf-meter {
+    display: flex;
+    justify-content: flex-end; /* 右寄せ */
+    align-items: center; /* 垂直方向に中央揃え */
+    width: 80%;
+}
+
+.name-container {
+    display: flex;
+    flex-direction: column; /* 縦に配置 */
+    align-items: flex-end; /* 右寄せ */
+}
+
+
+.name-divider {
+    display: flex;
+    flex-direction: column; /* 縦に配置 */
+    align-items: center; /* 中央に配置 */
+}
+
+.divider {
+    width: 150px; /* 線の長さを80pxに設定 */
+    border: 0.5px solid #BA9BDC; /* 線のスタイル */
+    margin: 5px 0; /* 上下のマージンを設定 */
+}
+
+.osi {
+    font-weight: 700;
+    margin: 0; /* マージンをリセット */
+}
+
+.name {
+    font-weight: 700;
+    margin: 0; /* マージンをリセット */
+}
+
+.price {
+    font-weight: 700;
+    text-align: right; /* 値段を右揃えに */
+    margin-left: 18%;
+    font-size: 25px; /* 見やすいサイズに調整 */
+}
+
+.hi-img img {
+    width: 60px; /* アイコンのサイズを調整 */
+}
+
+.hi-img-right img {
+    width: 60px;
+}
+
+
+.meterimg .temoti {
+    margin-left: 51.3%;
+}
+
+.meterimg .kyuuryoubi {
+    margin-left: 6%;
+}
+
+.status-container {
+    display: flex;
+    align-items: center; /* 垂直方向に中央揃え */
+    width: 100%; /* 幅を100%に設定 *//
+}
+
+.purchase-text {
+    color: #C80C0C;
+    font-weight: 700;
+    font-size: 10px; /* フォントサイズを調整 */
+    margin-right: auto; /* 自動で右側のマージンを設定 */
+    text-align: center; /* 中央揃え */
+    position:relative;
+    top:-59px;
+    margin-left: 40px;
+}
+
+.add-icon {
+    width: 80px; /* アイコンの幅を調整 */
+    height: auto; /* 高さを自動で設定 */
+    position:relative;
+    top: -56px;
+    right: 26px;
+}
+
+/* 右側のadd-iconを非表示にしつつ、レイアウトを維持する */
+.right-add-icon {
+    display: none; /* 右側のADDアイコンを非表示にする */
+}
+
+/* 右側のstatus-container内の要素を右揃えにする */
+.right-side .status-container {
+    color: #C80C0C;
+    font-weight: 700;
+    font-size: 10px; /* フォントサイズを調整 */
+    margin-right: auto; /* 自動で右側のマージンを設定 */
+    text-align: center; /* 中央揃え */
+    position:relative;
+    top:-37px;
+    margin-left: 40px;
+
+}
+
+.add-button {
+    background: none; /* 背景を消す */
+    border: none; /* ボーダーを消す */
+    cursor: pointer; /* カーソルをポインターに */
+}
+
+/* モーダルの基本スタイル */
+.modal {
+    display: none; /* 初期は非表示 */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* 背景の半透明 */
+}
+
+/* モーダルのコンテンツ */
+.modal-content {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 42%;
+    height: 72%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 26px;
+    min-width: 600px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+#mClose {
+    font-family: "Noto Serif JP", serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-top: 24%;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border-radius: 3px;
+    padding: 10px 27px;
+    text-decoration: none;
+    border: none;
+}
+
+#mClose:hover {
+    background-color: #ececec;
+}
+
+.modal-image {
+    width: 100px; /* 必要に応じてサイズを調整 */
+    height: 100px; /* 必要に応じてサイズを調整 */
+    border-radius: 50%; /* 丸い形にする */
+    border: solid 1px #221D7E;
+    float: left; /* 左寄せにする */
+    margin-right: 80px; /* 画像とテキストの間にスペースを追加 */
+    position: relative; /* 今の位置を基準 */
+    top: 30px; /* 上から30px */
+    left: 20px;
+}
+
+table{
+    text-align: right;
+
+}
+
+.value{
+    text-align: left !important;
+}
+
+.btn{
+    margin: auto;
+}
+
+.container.btn {
+    display: flex;
+    gap: 20px; /* アイコン同士の間隔を調整 */
+    justify-content: right;
+    align-items: center;
+    position: relative; /* 今の位置を基準 */
+    top: 173px; /* 上から153px */
+    right: 10px;
+}
+
+.img_icon {
+    width: 40px; /* アイコンのサイズ */
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_icon img {
+    width: 100%; /* アイコン画像を親要素にフィット */
+    height: auto;
+    cursor: pointer; /* ポインタアイコンを表示 */
+    border-radius: 5px;
+}
+
+.memo-label {
+    color: #221D7E;
+    text-align: left; /* 左寄せ */
+    position: relative;
+    right: 160px;
+    top: 60px;
+}
+
+.memo-value {
+    color: #221D7E;
+    font-size: 17px;
+    position: relative;
+    right: 246px;
+    top: 90px;
+}
+
+/* 必要に応じてマージンやパディングを調整 */
+.memo-value {
+    margin-left: 10px; /* 左側にスペースを追加 */
+}
+
+.arrow {
+    text-align: center;
+    font-size: 9px; /* 矢印のサイズ */
+    color: #C80C0C; /* 矢印の色 */
+    margin-top: 3px; /* 上のテキストとの間隔 */
+}
+
+.arrow-right {
+    text-align: center;
+    font-size: 9px; /* 矢印のサイズ */
+    color: #C80C0C; /* 矢印の色 */
+    margin-top: 3px; /* 上のテキストとの間隔 */
+}
+
+.modal-content-center h3 {
+    font-size: 28px;
+    color: #221D7E;
+    margin-bottom: 10px;
+    font-weight: 900;
+    text-align: center; /* h3も中央寄せ */
+}
+
+.modal-content-center h6 {
+    color: #FE3939;
+    margin-left: 0;      /* 左マージンをリセット */
+    margin-right: 0;     /* 右マージンもリセット */
+    padding-left: 0;     /* 左の余白もリセット */
+    width: 100%;         /* 幅を100%に設定して、同じ幅に揃える */
+    display: block;      /* ブロック要素にして幅を確保 */
+    text-align: center;
+}
+
+/* 削除ボタンのスタイル */
+#mDelete {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 700;
+    padding: 5px 40px;
+    background-color: #FF6666;
+    border-radius: 3px;
+    margin-right: 9%;
+    height: 9%;
+    color: #221D7E;
+    border: none;  /* ボーダーを消す */
+    outline: none; /* フォーカス時のアウトラインも消す */
+}
+
+#mDelete:hover {
+    background-color: #ff8787;
+}
+
+/* キャンセルボタンのスタイル */
+#mCancel {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 700;
+    margin-top: 6%;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border-radius: 3px;
+    padding: 5px 20px;
+    text-decoration: none;
+    height: 9%;
+    border: none;
+}
+
+#mCancel:hover {
+    background-color: #ececec;
+}
+
+/* 詳細情報のスタイル */
+.delete-details {
+    font-size: 19px;
+    color: #221D7E;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    width: 60%; /* テーブル全体の幅を調整 */
+    margin-left: 25%;
+    margin-right: 15%;
+    justify-content: center;
+}
+
+.delete-details table {
+    width: 100%;
+    margin: 0 auto; /* テーブル全体を中央に配置 */
+    border-collapse: collapse;
+}
+
+.delete-details th, .delete-details td {
+    padding: 4px;
+    text-align: right; /* 各セル内の内容を中央揃え */
+    vertical-align: middle;
+}
+
+.delete-details td {
+    text-align: left !important;
+}
+
+.delete-details th {
+    width: 120px;
+    font-weight: 700;
+}
+
+.priority-image {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%; /* 丸い形にする */
+
+}
+
+
+.modal-content-center {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 51%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 42%;
+    height: 83%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 26px;
+    min-width: 600px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.modal-body table td {
+    width: 55%;
+    font-weight: 600;
+    text-align: left;
+    margin-left: 4px;
+}
+
+td .text {
+    font-size: 9px;
+}
+
+img {
+    cursor: pointer;
+}
+
