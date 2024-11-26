@@ -9,7 +9,7 @@ public class userDAO {
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "morijyobi";
     // データの追加(INSERT)
-    public static void insertAccount(String log_id, String password, String nick, int regimg, int amounthand, int living, int saiosi, int mainwork) {
+    public static void insertAccount(String log_id, String password, String nick, int regimg, int amounthand, int living, int saiosi, Integer mainwork) {
         // SQL文
         String sql = "INSERT INTO account VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
