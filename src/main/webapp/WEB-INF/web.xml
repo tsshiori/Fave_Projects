@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
@@ -16,12 +15,12 @@
 
     <!-- RegisterServlet 設定 -->
     <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-name>ReServlet</servlet-name>
         <servlet-class>com.example.fave.LogReDeleFile.ReServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/fave/register</url-pattern>
-    </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>ReServlet</servlet-name>
+        <url-pattern>/ReServlet</url-pattern>  <!-- ここを修正 -->
+    </servlet-mapping>
 </web-app>
