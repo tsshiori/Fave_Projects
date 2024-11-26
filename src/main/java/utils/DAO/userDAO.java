@@ -40,7 +40,7 @@ public class userDAO {
     }
 
     // SELECT 条件あり
-    public static userBean selectById(int id) {
+    public static userBean selectById(String id) {
         String sql = "SELECT * FROM account WHERE id = ?";
         userBean result = null;
 
@@ -48,7 +48,7 @@ public class userDAO {
                 Connection con = DriverManager.getConnection(DB_URL);
                 PreparedStatement pstmt = con.prepareStatement(sql);
         ) {
-            pstmt.setInt(1, id);
+            pstmt.setString(1, id);
 
             // 実行＆結果をResultSetに格納
             try (ResultSet rs = pstmt.executeQuery()) {

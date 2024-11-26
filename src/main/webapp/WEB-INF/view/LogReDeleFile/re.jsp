@@ -20,7 +20,7 @@
 
 <body class="scroll-box_re">
 <div class="login_form scroll-content_re">
-    <form action="../login/login.html">
+    <form action="ReServlet" method="post">
         <div class="logo"><img src="static/img/TimeforFave.png" alt="logo"></div>
         <p class="hissu p">※ ＊は必須項目です。</p>
         <div class="text">

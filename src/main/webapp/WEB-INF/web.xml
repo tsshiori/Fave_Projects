@@ -4,6 +4,7 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
 
+    <!-- LoginServlet 設定 -->
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.example.fave.LogReDeleFile.LoginServlet</servlet-class>
@@ -13,13 +14,14 @@
         <url-pattern>/fave</url-pattern>
     </servlet-mapping>
 
+    <!-- RegisterServlet 設定 -->
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
-<!--        <servlet-class>com.example.fave.RegisterServlet</servlet-class>-->
+        <servlet-class>com.example.fave.LogReDeleFile.ReServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/fave/registre</url-pattern>
+        <url-pattern>/fave/register</url-pattern>
     </servlet-mapping>
 
 </web-app>
