@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/Fave")
+@WebServlet("/FaveList")
 public class FaveListServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

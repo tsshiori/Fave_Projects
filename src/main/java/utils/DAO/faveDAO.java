@@ -12,7 +12,7 @@ public class faveDAO {
     private static final String JDBC_PASSWORD = "morijyobi";
 
     // データの追加(INSERT)
-    public static void insertStudents(String img, String name, LocalDate birthday, String osimemo, String log_id, int cate_id) {
+    public static void insertFave(String img, String name, LocalDate birthday, String osimemo, String log_id, int cate_id) {
         // SQL文
         String sql = "INSERT INTO osi (img, name, birthday, osimemo, log_id, cate_id) VALUES (?, ?, ?, ?, ?, ?)";
 
