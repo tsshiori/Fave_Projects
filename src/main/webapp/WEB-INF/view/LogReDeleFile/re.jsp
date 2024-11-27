@@ -11,7 +11,7 @@
 </head>
 <body class="scroll-box_re">
 <div class="login_form scroll-content_re">
-    <form id="registerForm" action="/Fave-1.0-SNAPSHOT/ReServlet" method="post">
+    <form id="registerForm" action="${pageContext.request.contextPath}/ReServlet" method="post">
     <div class="logo"><img src="static/img/TimeforFave.png" alt="logo"></div>
         <p class="hissu p">※ ＊は必須項目です。</p>
         <div class="text">
