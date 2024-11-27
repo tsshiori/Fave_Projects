@@ -34,10 +34,10 @@ public class faveDAO {
         }
     }
 
-    public static Integer selectNameFave(String log_id, String name) {
+    public static int selectNameFave(String log_id, String name) {
         if (name == null || log_id == null) {
             System.out.println("name または log_id が null です");
-            return null;
+            return -1; // エラーを示す特別な値
         }
 
         String sql = "SELECT osi_id FROM osi WHERE name = ? AND log_id = ?";
@@ -56,7 +56,8 @@ public class faveDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return -1; // データが見つからなかった場合
     }
+
 
 }

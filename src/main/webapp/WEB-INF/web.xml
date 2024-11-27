@@ -21,6 +21,7 @@
 
     <servlet-mapping>
         <servlet-name>ReServlet</servlet-name>
-        <url-pattern>/ReServlet</url-pattern>  <!-- ここを修正 -->
+        <url-pattern>/ReServlet</url-pattern>
     </servlet-mapping>
+
 </web-app>

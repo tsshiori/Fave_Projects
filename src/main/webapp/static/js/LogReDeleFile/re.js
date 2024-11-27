@@ -29,13 +29,3 @@ function outsideClose(e) {
     }
 }
 
-document.getElementById('modalOpen').addEventListener('click', function () {
-    // モーダルを表示
-    document.getElementById('easyModal').style.display = 'block';
-});
-
-document.getElementById('cancelRe').addEventListener('click', function () {
-    // モーダルを閉じる
-    document.getElementById('easyModal').style.display = 'none';
-});
-
