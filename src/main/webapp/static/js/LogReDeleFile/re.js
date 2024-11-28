@@ -15,11 +15,11 @@ function modalClose() {
     modal.style.display = 'none';
 }
 
-// モーダルの「登録」ボタンを押したときの処理
-buttonConfirmRe.addEventListener('click', confirmRe); // 修正箇所
-function confirmRe() {
-    window.location.href = 'WEB-INF/view/LogReDeleFile/login.jsp';
-}
+document.getElementById('confirmRe').addEventListener('click', function () {
+    // フォームを送信
+    var form = document.getElementById('registerForm');
+    form.submit();
+});
 
 // モーダルの外をクリックして閉じる
 window.addEventListener('click', outsideClose);
@@ -28,3 +28,4 @@ function outsideClose(e) {
         modalClose();
     }
 }
+

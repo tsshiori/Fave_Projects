@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
@@ -15,22 +14,32 @@
     </servlet-mapping>
 
     <!-- RegisterServlet 設定 -->
-<!--    <servlet>-->
-<!--        <servlet-name>RegisterServlet</servlet-name>-->
-<!--        <servlet-class>com.example.fave.LogReDeleFile.ReServlet</servlet-class>-->
-<!--    </servlet>-->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>RegisterServlet</servlet-name>-->
-<!--        <url-pattern>/fave/register</url-pattern>-->
-<!--    </servlet-mapping>-->
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.example.fave.LogReDeleFile.ReServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReServlet</servlet-name>
+        <url-pattern>/ReServlet</url-pattern>
+    </servlet-mapping>
 
 <!--DeleServle 設定-->
     <servlet>
         <servlet-name>DeleServlet</servlet-name>
         <servlet-class>com.example.fave.LogReDeleFile.DeleServlet</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>DeleServlet</servlet-name>
         <url-pattern>/dele</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GoodsServlet</servlet-name>
+        <servlet-class>com.example.fave.GoodsFile.GoodsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoodsServlet</servlet-name>
+        <url-pattern>/goods</url-pattern>
     </servlet-mapping>
 </web-app>
