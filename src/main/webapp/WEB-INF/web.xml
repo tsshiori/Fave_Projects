@@ -24,4 +24,13 @@
         <url-pattern>/fave/register</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>GoodsServlet</servlet-name>
+        <servlet-class>com.example.fave.GoodsFile.GoodsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoodsServlet</servlet-name>
+        <url-pattern>/goods</url-pattern>
+    </servlet-mapping>
 </web-app>
