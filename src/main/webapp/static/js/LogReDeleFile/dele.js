@@ -20,12 +20,12 @@ function modalClose() {
 buttonConfirmDelete.addEventListener('click', confirmDelete);
 function confirmDelete() {
     // ページ遷移する
-    window.location.href = '../login/login.html';
+    window.location.href = 'WEB-INF/view/LogReDeleFile/login.jsp';
 }
 
 // キャンセルボタンをクリックしたらマイページに遷移する処理
 document.getElementById('cancelDeletePage').addEventListener('click', function() {
-    window.location.href = 'http://127.0.0.1:5500/Time%20of%20Fave/Time of Fave/MypageFile/mypage/mypage.html';
+    window.location.href = 'http://127.0.0.1:5500/TimeofFave/Time of WEB-INF/view/MypageFile/mypage.jsp';
 });
 
 // モーダル外をクリックしたときにモーダルを閉じる

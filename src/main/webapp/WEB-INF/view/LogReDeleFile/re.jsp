@@ -64,7 +64,7 @@
 </div>
 <div class="btn">
     <button id="modalOpen" type="button" class="in">登録</button>
-    <a class="kyan" href="./login.jsp">キャンセル</a>
+    <a class="kyan" href="fave">キャンセル</a>
 </div>
 </form>
 <br><br>

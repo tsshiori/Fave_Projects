@@ -72,4 +72,36 @@ public class userDAO {
 
         return result; // 検索結果の追加がなければnullが返却される
     }
+    //削除
+    public static boolean deleteUser(String log_id, String password) throws SQLException {
+        String sqlSelect = "SELECT password FROM account WHERE log_id = ?";
+        String sqlDelete = "DELETE FROM account WHERE log_id = ?";
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL);
+                PreparedStatement pstmtSelect = con.prepareStatement(sqlSelect);
+                PreparedStatement pstmtDelete = con.prepareStatement(sqlDelete)
+        ) {
+            // ユーザーのパスワードを取得
+            pstmtSelect.setString(1, log_id);
+            try (ResultSet rs = pstmtSelect.executeQuery()) {
+                if (rs.next()) {
+                    String storedPassword = rs.getString("password");
+
+                    // パスワードが一致するかを確認
+                    if (GenerateHash.checkPassword(password, storedPassword)) {
+                        // 一致した場合は削除
+                        pstmtDelete.setString(1, log_id);
+                        int rowsAffected = pstmtDelete.executeUpdate();
+                        return rowsAffected > 0; // 削除成功ならtrueを返す
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("削除中のエラー: " + e.getMessage());
+            throw e; // エラーを呼び出し元に伝える
+        }
+
+        return false; // パスワードが一致しない、または削除できなかった場合
+    }
 }

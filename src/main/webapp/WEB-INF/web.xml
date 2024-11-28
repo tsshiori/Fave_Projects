@@ -15,13 +15,22 @@
     </servlet-mapping>
 
     <!-- RegisterServlet 設定 -->
+<!--    <servlet>-->
+<!--        <servlet-name>RegisterServlet</servlet-name>-->
+<!--        <servlet-class>com.example.fave.LogReDeleFile.ReServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>RegisterServlet</servlet-name>-->
+<!--        <url-pattern>/fave/register</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--DeleServle 設定-->
     <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>com.example.fave.LogReDeleFile.ReServlet</servlet-class>
+        <servlet-name>DeleServlet</servlet-name>
+        <servlet-class>com.example.fave.LogReDeleFile.DeleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/fave/register</url-pattern>
+        <servlet-name>DeleServlet</servlet-name>
+        <url-pattern>/dele</url-pattern>
     </servlet-mapping>
-
 </web-app>

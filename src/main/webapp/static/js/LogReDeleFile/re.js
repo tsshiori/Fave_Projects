@@ -18,7 +18,7 @@ function modalClose() {
 // モーダルの「登録」ボタンを押したときの処理
 buttonConfirmRe.addEventListener('click', confirmRe); // 修正箇所
 function confirmRe() {
-    window.location.href = '../login/login.html';
+    window.location.href = 'WEB-INF/view/LogReDeleFile/login.jsp';
 }
 
 // モーダルの外をクリックして閉じる
