@@ -16,15 +16,24 @@
 
     <!-- RegisterServlet 設定 -->
     <servlet>
-        <servlet-name>ReServlet</servlet-name>
+        <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>com.example.fave.LogReDeleFile.ReServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+<!--DeleServle 設定-->
+    <servlet>
+        <servlet-name>DeleServlet</servlet-name>
+        <servlet-class>com.example.fave.LogReDeleFile.DeleServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>ReServlet</servlet-name>
-        <url-pattern>/ReServlet</url-pattern>
+        <servlet-name>DeleServlet</servlet-name>
+        <url-pattern>/dele</url-pattern>
     </servlet-mapping>
-
 
     <servlet>
         <servlet-name>GoodsServlet</servlet-name>
