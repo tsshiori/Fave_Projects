@@ -11,7 +11,7 @@
 </head>
 <body class="scroll-box_re">
 <div class="login_form scroll-content_re">
-    <form id="registerForm" action="${pageContext.request.contextPath}/ReServlet" method="post">
+    <form id="registerForm" action="register" method="post">
     <div class="logo"><img src="static/img/TimeforFave.png" alt="logo"></div>
         <p class="hissu p">※ ＊は必須項目です。</p>
         <div class="text">
@@ -30,7 +30,7 @@
         <br>
         <input type="text" name="amounthand" placeholder="　所持金額(円)"><br>
         <input type="text" name="living" placeholder="　生活費(円)"><br>
-        <input type="text" name="saiosi" placeholder="　最推し"><br>
+        <input type="text" name="name" placeholder="　最推し"><br>
     </form>
 </div>
 <div class="btn">

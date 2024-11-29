@@ -21,7 +21,7 @@
 
     <servlet-mapping>
         <servlet-name>ReServlet</servlet-name>
-        <url-pattern>/ReServlet</url-pattern>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
 
 </web-app>
