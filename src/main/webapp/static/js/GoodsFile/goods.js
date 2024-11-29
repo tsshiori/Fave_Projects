@@ -1,8 +1,65 @@
-function toggleModal(modalId, displayStyle) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = displayStyle; // 指定された表示スタイルを適用
+// アイテムを右側に移動させる関数
+function moveToPurchased(event, itemId) {
+    event.stopImmediatePropagation(); // 親要素のクリックイベントを完全に停止
+
+    const item = document.getElementById(itemId); // 元のアイテムを取得
+    if (!item) return; // アイテムが存在しない場合は処理しない
+
+    // ステータスを変更
+    const app = item.querySelector('.app');
+    if (app) {
+        app.innerHTML = 'Complete！'; // ステータスを更新
     }
+
+    // 右側の特定のコンテナにアイテムを追加
+    const targetContainer = document.querySelector('.right-side-one');
+    if (targetContainer) {
+        targetContainer.prepend(item); // アイテムを一番上に追加
+    } else {
+        console.error("ターゲット要素が見つかりません。");
+    }
+
+    // 左側のリストからアイテムを削除
+    const leftSide = document.querySelector('.left-side');
+    if (leftSide) {
+        leftSide.removeChild(item); // 左側からアイテムを削除
+    } else {
+        console.error("左側のコンテナが見つかりません。");
+    }
+}
+
+
+// アイコン画像をクリックして左側に移動させる関数
+function moveToLeftSide(event, itemId) {
+    event.stopPropagation(); // 親要素のクリックイベントをキャンセル
+
+    const item = document.getElementById(itemId);
+    if (!item) return; // アイテムが存在しない場合は処理しない
+
+    const itemClone = item.cloneNode(true); // アイテムを複製
+
+    // 移動元のアイテムの値段をそのまま複製
+    const price = item.querySelector('.price'); // 元のアイテムの値段を取得
+    if (price) {
+        const priceClone = itemClone.querySelector('.price');
+        priceClone.textContent = price.textContent; // 複製したアイテムに値段を反映
+    }
+
+    const app = itemClone.querySelector('.app');
+    if (app) {
+        app.innerHTML = ''; // ステータスをリセット
+    }
+
+    // 左側のリストにアイテムを追加
+    const leftSide = document.querySelector('.left-side');
+    if (leftSide) {
+        leftSide.appendChild(itemClone);
+    } else {
+        console.error("左側のコンテナが見つかりません。");
+    }
+
+    // 右側からアイテムを削除
+    item.remove();
 }
 
 // モーダルを開く関数
@@ -54,54 +111,3 @@ window.onclick = function(event) {
         closeDeleteModal();
     }
 };
-
-// アイコン画像をクリックして右側のリストの一番上に移動させる関数
-function moveToPurchased(event, itemId) {
-    event.stopPropagation(); // 親要素のクリックイベントをキャンセル
-
-    const item = document.getElementById(itemId); // 元のアイテムを取得
-
-    // ステータスを変更
-    const app = item.querySelector('.app');
-    app.innerHTML = 'Complete！'; // ステータスを更新
-
-    // 右側の特定のコンテナにアイテムを一番上に追加
-    const targetContainer = document.querySelector('.right-side-one');
-    if (targetContainer) {
-        targetContainer.prepend(item); // アイテムを一番上に追加
-    } else {
-        console.error("ターゲット要素が見つかりません。");
-    }
-}
-
-// 左から右に移動する関数
-function moveToPurchasedLeftToRight(event, itemId) {
-    moveToPurchased(event, itemId); // 右側に移動する処理を流用
-}
-
-// アイコン画像をクリックして左側に移動させる関数
-function moveToLeftSide(event, itemId) {
-    event.stopPropagation(); // 親要素のクリックイベントをキャンセル
-
-    const item = document.getElementById(itemId);
-    const itemClone = item.cloneNode(true); // アイテムを複製
-
-    // 移動元のアイテムの値段をそのまま複製
-    const price = item.querySelector('.price'); // 元のアイテムの値段を取得
-    const priceClone = itemClone.querySelector('.price');
-    priceClone.textContent = price.textContent; // 複製したアイテムに値段を反映
-
-    const app = itemClone.querySelector('.app');
-    app.innerHTML = ''; // ステータスをリセット
-
-    // 左側のリストにアイテムを追加
-    const leftSide = document.querySelector('.left-side');
-    leftSide.appendChild(itemClone);
-
-    // 右側からアイテムを削除
-    item.remove();
-}
-
-
-
-

@@ -331,6 +331,13 @@
 
 .hi-img img {
     width: 60px; /* アイコンのサイズを調整 */
+    pointer-events: auto; /* クリックを有効にする */
+}
+
+.hi-img {
+    position: relative;
+    z-index: 10; /* 高い値に設定して前面に表示 */
+    pointer-events: auto; /* 親要素がクリック可能であることを確認 */
 }
 
 .hi-img-right img {

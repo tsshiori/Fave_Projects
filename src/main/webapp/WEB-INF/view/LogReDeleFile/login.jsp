@@ -23,7 +23,6 @@
 
 <body>
 <div class="login_form">
-    <form action="MainServlet" method="post">
 
         <div class="logo"><img src="static/img/TimeforFave.png" alt="logo"></div>
         <div class="text">
@@ -34,6 +33,7 @@
 
             </div>
         </div>
+    <form action="LoginServlet" method="post">
         <button type="submit" class="btn">ログイン</button>
     </form>
 </div>
