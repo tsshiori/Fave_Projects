@@ -81,6 +81,41 @@ public class userDAO {
     }
 
 
+    // パスワードチェック
+    public static boolean checkPassword(int userId, String password) throws SQLException {
+        boolean isValid = false;
+        String sql = "SELECT password FROM account WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String dbPassword = rs.getString("password");
+                if (dbPassword.equals(password)) { // 簡略化、ハッシュ化推奨
+                    isValid = true;
+                }
+            }
+        }
+        return isValid;
+    }
+
+    // アカウント削除
+    public static boolean deleteUser(int userId) throws SQLException {
+        boolean isDeleted = false;
+        String sql = "DELETE FROM account WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                isDeleted = true;
+            }
+        }
+        return isDeleted;
+    }
+
     public static void updateSaiosi(int saiosi, String log_id) {
         String sql = "UPDATE account SET saiosi = ? WHERE log_id = ?";
 
@@ -103,6 +138,7 @@ public class userDAO {
             e.printStackTrace();  // エラーの詳細を表示
         }
     }
+
 
 
 

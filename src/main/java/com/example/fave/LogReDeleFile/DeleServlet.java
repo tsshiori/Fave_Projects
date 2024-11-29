@@ -16,45 +16,35 @@ public class DeleServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp");
         dispatcher.forward(request, response);
     }
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession();
-        request.setCharacterEncoding("UTF-8");
 
-        // セッションからユーザーIDを取得
-        Integer userId = (Integer) session.getAttribute("user_id");
-
-        if (userId == null) {
-            // ユーザーがログインしていない場合、エラーページまたはログインページにリダイレクト
-            response.sendRedirect("LoginServlet");
-            return;
-        }
-
-        // userId を String 型に変換
-        String logId = String.valueOf(userId);  // Integer を String に変換
-
-        // ユーザーが入力したパスワードを取得
-        String inputPassword = request.getParameter("pw");
-
-        try {
-            // パスワードの検証
-            boolean isDeleted = userDAO.deleteUser(logId, inputPassword);  // String 型の logId を渡す
-
-            if (isDeleted) {
-                // アカウント削除成功時
-                session.invalidate(); // セッションを無効化
-                response.sendRedirect("/WEB-INF/view/LogReDeleFile/login.jsp"); // 削除完了ページへリダイレクト
-            } else {
-                // アカウント削除失敗時（例: パスワード不一致）
-                request.setAttribute("errorMessage", "パスワードが正しくありません。");
-                request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp").forward(request, response);
-            }
-        } catch (SQLException e) {
-            // SQLExceptionの処理
-            System.err.println("SQL エラー: " + e.getMessage());
-            // エラーメッセージをリクエストにセット
-            request.setAttribute("errorMessage", "アカウント削除中にエラーが発生しました。");
-            // エラーページにフォワード
-            request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp").forward(request, response);
-        }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        // セッションから現在のユーザーIDを取得
+//        int userId = SessionManager.getCurrentUserId(request.getSession());
+//
+//        // パスワードをリクエストから取得
+//        String password = request.getParameter("password");
+//
+//        try {
+//            // パスワードが一致するか確認
+//            if (userDAO.checkPassword(userId, password)) {
+//                // アカウント削除処理
+//                boolean isDeleted = userDAO.deleteUser(userId);
+//                if (isDeleted) {
+//                    // セッションを無効化し、ログアウト状態にする
+//                    request.getSession().invalidate();
+//                    // 削除後はログインページにリダイレクト
+//                    response.sendRedirect(request.getContextPath() + "/login.jsp");
+//                } else {
+//                    request.setAttribute("errorMessage", "アカウント削除に失敗しました。");
+//                    request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp").forward(request, response);
+//                }
+//            } else {
+//                request.setAttribute("errorMessage", "パスワードが一致しません。");
+//                request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp").forward(request, response);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "サーバーエラーが発生しました。");
+//        }
     }
 }
