@@ -80,6 +80,7 @@ public class userDAO {
         return result; // ユーザーが見つからなければnull
     }
 
+
     public static void updateSaiosi(int saiosi, String log_id) {
         String sql = "UPDATE account SET saiosi = ? WHERE log_id = ?";
 
@@ -102,6 +103,7 @@ public class userDAO {
             e.printStackTrace();  // エラーの詳細を表示
         }
     }
+
 
 
 }
