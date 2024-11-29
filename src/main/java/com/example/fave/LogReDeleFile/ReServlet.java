@@ -20,6 +20,7 @@ public class ReServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // パラメータ受け取り
+        response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String log_id = request.getParameter("log_id");
         String password = request.getParameter("password");
@@ -37,12 +38,16 @@ public class ReServlet extends HttpServlet {
             }
 
             int saiosi = -1;
+            utils.DAO.userDAO.insertAccount(log_id, password, nick, regimg, amounthand, living, saiosi, null);
+
+
             if (name != null) {
-                utils.DAO.faveDAO.insertFave(null, name, null, null, log_id, 1);
+                utils.DAO.faveDAO.insertFave("def.png", name, null, null, log_id, 1);
                 saiosi = utils.DAO.faveDAO.selectNameFave(log_id, name);
+                utils.DAO.userDAO.updateSaiosi(saiosi,log_id);
             }
 
-            utils.DAO.userDAO.insertAccount(log_id, password, nick, regimg, amounthand, living, saiosi, null);
+
 
             String path = "/WEB-INF/view/LogReDeleFile/login.jsp";
             RequestDispatcher dispatcher = request.getRequestDispatcher(path);

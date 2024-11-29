@@ -20,7 +20,7 @@
 
 <body>
 <div class="dele_form">
-    <form action="../../index/index.html">
+    <form action="DeleServlet" method="post">
 
         <div class="logo"><img src="static/img/TimeforFave.png" alt="logo"></div>
         <div class="dele_t">
@@ -33,7 +33,7 @@
         <!-- モーダルを開くためのボタン -->
         <div class="container_btn">
             <button type="button" id="modalOpen" class="btn">削除</button>
-            <a class="kyan" href="WEB-INF/view/MypageFile/mypage.html">キャンセル</a>
+            <a id="cancelDeletePage" class="kyan" href="WEB-INF/view/MypageFile/mypage.html">キャンセル</a>
         </div>
 
 
@@ -56,10 +56,9 @@
             </div>
         </div>
     </div>
+</div>
+    <script src="static/js/LogReDeleFile/dele.js"></script>
 
-    <script src="dele.js"></script>
-</div>
-</div>
 </body>
 
 <footer>
