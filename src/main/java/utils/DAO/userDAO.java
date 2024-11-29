@@ -28,7 +28,7 @@ public class userDAO {
             pstmt.setString(1, log_id);
             String salt = GenerateHash.getSalt();
             String hashPW = GenerateHash.getHashPw(password, salt);
-            pstmt.setString(2, "aa");
+            pstmt.setString(2, hashPW);
             pstmt.setString(3, nick);
             pstmt.setInt(4, regimg);
             pstmt.setInt(5, amounthand);
@@ -46,7 +46,6 @@ public class userDAO {
             e.printStackTrace();  // エラー詳細を表示
         }
     }
-
 
     // SELECT 条件あり
     public static userBean selectById(String id) {
@@ -81,36 +80,30 @@ public class userDAO {
         return result; // ユーザーが見つからなければnull
     }
 
-    public static boolean deleteUser(String log_id, String password) throws SQLException {
-        String sqlSelect = "SELECT password FROM account WHERE log_id = ?";
-        String sqlDelete = "DELETE FROM account WHERE log_id = ?";
+
+    public static void updateSaiosi(int saiosi, String log_id) {
+        String sql = "UPDATE account SET saiosi = ? WHERE log_id = ?";
 
         try (
-                Connection con = DriverManager.getConnection(DB_URL);
-                PreparedStatement pstmtSelect = con.prepareStatement(sqlSelect);
-                PreparedStatement pstmtDelete = con.prepareStatement(sqlDelete)
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql)
         ) {
-            // ユーザーのパスワードを取得
-            pstmtSelect.setString(1, log_id);
-            try (ResultSet rs = pstmtSelect.executeQuery()) {
-                if (rs.next()) {
-                    String storedPassword = rs.getString("password");
+            // プレースホルダに値をセット
+            pstmt.setInt(1, saiosi);  // saiosi
+            pstmt.setString(2, log_id);  // log_id
 
-                    // パスワードが一致するかを確認
-                    if (GenerateHash.checkPassword(password, storedPassword)) {
-                        // 一致した場合は削除
-                        pstmtDelete.setString(1, log_id);
-                        int rowsAffected = pstmtDelete.executeUpdate();
-                        return rowsAffected > 0; // 削除成功ならtrueを返す
-                    }
-                }
+            // SQLを実行
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("指定されたlog_idに対応するデータが存在しません。");
+            } else {
+                System.out.println("saiosiが正常に更新されました。");
             }
         } catch (SQLException e) {
-            System.err.println("削除中のエラー: " + e.getMessage());
-            throw e; // エラーを呼び出し元に伝える
+            e.printStackTrace();  // エラーの詳細を表示
         }
-
-        return false; // パスワードが一致しない、または削除できなかった場合
     }
+
+
 
 }
