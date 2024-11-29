@@ -15,7 +15,7 @@
 
     <!-- RegisterServlet 設定 -->
     <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-name>ReServlet</servlet-name>
         <servlet-class>com.example.fave.LogReDeleFile.ReServlet</servlet-class>
     </servlet>
     <servlet-mapping>

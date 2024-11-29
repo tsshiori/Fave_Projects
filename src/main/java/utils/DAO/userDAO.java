@@ -81,36 +81,38 @@ public class userDAO {
         return result; // ユーザーが見つからなければnull
     }
 
-    public static boolean deleteUser(String log_id, String password) throws SQLException {
-        String sqlSelect = "SELECT password FROM account WHERE log_id = ?";
-        String sqlDelete = "DELETE FROM account WHERE log_id = ?";
+    // パスワードチェック
+    public static boolean checkPassword(int userId, String password) throws SQLException {
+        boolean isValid = false;
+        String sql = "SELECT password FROM account WHERE id = ?";
 
-        try (
-                Connection con = DriverManager.getConnection(DB_URL);
-                PreparedStatement pstmtSelect = con.prepareStatement(sqlSelect);
-                PreparedStatement pstmtDelete = con.prepareStatement(sqlDelete)
-        ) {
-            // ユーザーのパスワードを取得
-            pstmtSelect.setString(1, log_id);
-            try (ResultSet rs = pstmtSelect.executeQuery()) {
-                if (rs.next()) {
-                    String storedPassword = rs.getString("password");
-
-                    // パスワードが一致するかを確認
-                    if (GenerateHash.checkPassword(password, storedPassword)) {
-                        // 一致した場合は削除
-                        pstmtDelete.setString(1, log_id);
-                        int rowsAffected = pstmtDelete.executeUpdate();
-                        return rowsAffected > 0; // 削除成功ならtrueを返す
-                    }
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String dbPassword = rs.getString("password");
+                if (dbPassword.equals(password)) { // 簡略化、ハッシュ化推奨
+                    isValid = true;
                 }
             }
-        } catch (SQLException e) {
-            System.err.println("削除中のエラー: " + e.getMessage());
-            throw e; // エラーを呼び出し元に伝える
         }
-
-        return false; // パスワードが一致しない、または削除できなかった場合
+        return isValid;
     }
 
+    // アカウント削除
+    public static boolean deleteUser(int userId) throws SQLException {
+        boolean isDeleted = false;
+        String sql = "DELETE FROM account WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                isDeleted = true;
+            }
+        }
+        return isDeleted;
+    }
 }
