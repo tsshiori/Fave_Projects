@@ -104,8 +104,7 @@
 
                     <!-- カンパネルラ アクリルスタンドの商品ボックス -->
                     <div class="guzzu" style="margin-top: 20px;">
-                        <div class="container" id="item1"
-                             onclick="openModal('item1', 'グッズ：　アクリルスタンド<br> 金額(円)：　￥1,980<br> 推し：　カンパネルラ<br>  日付：　2024/11/16<br>')">
+                        <div class="container" id="item1" onclick="openModal('item1', 'グッズ：　アクリルスタンド<br> 金額(円)：　￥1,980<br> 推し：　カンパネルラ<br> 日付：　2024/11/16<br>'); event.stopPropagation();">
                             <div class="hi-img">
                                 <p>~11/16</p>
                                 <img src="static/img/Y_A.png" alt="A" onclick="moveToPurchased(event, 'item1')">
@@ -494,7 +493,7 @@
 </div>
 
 
-<script src="goods.js"></script>
+<script src="static/js/GoodsFile/goods.js"></script>
 
 
 <footer class="footer">

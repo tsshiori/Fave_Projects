@@ -10,8 +10,9 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/fave</url-pattern>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
+
 
     <!-- RegisterServlet 設定 -->
     <servlet>

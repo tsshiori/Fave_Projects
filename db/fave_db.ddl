@@ -1,4 +1,8 @@
-/*mysql -u root -p < fave_db.ddl*/
+/*  mysqldump -u root -p --no-data fave_db > fave_db.ddl (powershell) */
+/* 以下コマンドプロンプト */
+/* mysql -u root -p */
+/* morijyobi */
+/* source C:/Users/ユーザーパス/IdeaProjects/Fave_Projects/db/fave_db.ddl; */
 
 create table if not exists account
 (
@@ -113,4 +117,5 @@ create index work_id
 
 create index log_id
     on work (log_id);
+
 
