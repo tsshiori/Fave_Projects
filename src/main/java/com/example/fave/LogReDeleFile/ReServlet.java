@@ -44,7 +44,7 @@ public class ReServlet extends HttpServlet {
             if (name != null) {
                 utils.DAO.faveDAO.insertFave("def.png", name, null, null, log_id, 1);
                 saiosi = utils.DAO.faveDAO.selectNameFave(log_id, name);
-                utils.DAO.userDAO.updateSaiosi(saiosi,log_id);
+//                utils.DAO.userDAO.updateSaiosi(saiosi,log_id);
             }
 
 

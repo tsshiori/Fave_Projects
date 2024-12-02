@@ -32,7 +32,7 @@
         </div>
 
         <!-- エラーメッセージの表示 -->
-        <p style="color: red;">
+        <p style="color: red; text-align: center; font-size: 7px">
             <% if (request.getAttribute("errorMessage") != null) { %>
             <%= request.getAttribute("errorMessage") %>
             <% } %>
