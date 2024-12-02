@@ -80,66 +80,25 @@ public class userDAO {
         return result; // ユーザーが見つからなければnull
     }
 
-
-    // パスワードチェック
-    public static boolean checkPassword(int userId, String password) throws SQLException {
-        boolean isValid = false;
-        String sql = "SELECT password FROM account WHERE id = ?";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, userId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                String dbPassword = rs.getString("password");
-                if (dbPassword.equals(password)) { // 簡略化、ハッシュ化推奨
-                    isValid = true;
-                }
-            }
-        }
-        return isValid;
-    }
-
     // アカウント削除
-    public static boolean deleteUser(int userId) throws SQLException {
-        boolean isDeleted = false;
-        String sql = "DELETE FROM account WHERE id = ?";
+    public static void deleteUser(String log_id) throws SQLException {
+        String sql = "DELETE FROM account WHERE log_id = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, userId);
-            int rowsAffected = ps.executeUpdate();
+        try (Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setString(1, log_id);
+            int rowsAffected = pstmt.executeUpdate();  // 実行
+
             if (rowsAffected > 0) {
-                isDeleted = true;
-            }
-        }
-        return isDeleted;
-    }
-
-    public static void updateSaiosi(int saiosi, String log_id) {
-        String sql = "UPDATE account SET saiosi = ? WHERE log_id = ?";
-
-        try (
-                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
-                PreparedStatement pstmt = con.prepareStatement(sql)
-        ) {
-            // プレースホルダに値をセット
-            pstmt.setInt(1, saiosi);  // saiosi
-            pstmt.setString(2, log_id);  // log_id
-
-            // SQLを実行
-            int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected == 0) {
-                System.out.println("指定されたlog_idに対応するデータが存在しません。");
+                System.out.println("ユーザーが削除されました。");
             } else {
-                System.out.println("saiosiが正常に更新されました。");
+                System.out.println("指定されたlog_idに対応するデータが存在しません。");
             }
+
         } catch (SQLException e) {
             e.printStackTrace();  // エラーの詳細を表示
+            throw e;  // エラーが発生したら呼び出し元に例外を投げる
         }
     }
-
-
-
-
 }

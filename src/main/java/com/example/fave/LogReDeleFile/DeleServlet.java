@@ -6,6 +6,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
+import utils.Bean.userBean;
 import utils.DAO.userDAO;
 import java.sql.SQLException;
 
@@ -19,10 +20,12 @@ public class DeleServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        // セッションから現在のユーザーIDを取得
-//        int userId = SessionManager.getCurrentUserId(request.getSession());
-//
-//        // パスワードをリクエストから取得
-//        String password = request.getParameter("password");
+        HttpSession session = request.getSession();
+        request.setCharacterEncoding("utf-8");
+        String log_id = session.getAttribute("log_id").toString();
+        userBean user = utils.DAO.userDAO.selectById(log_id);
+        // パスワードをリクエストから取得
+        String password = request.getParameter("password");
 //
 //        try {
 //            // パスワードが一致するか確認
