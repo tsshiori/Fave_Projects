@@ -1,0 +1,187 @@
+@charset "utf-8";
+
+.main {
+    width: 85%;
+}
+
+.top-link {
+    margin-top: 5%;
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+.top-link .list-link {
+    float: left;
+    margin-left: 3%;
+}
+
+.top-link .list-link a {
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 17px;
+    color: #221D7E;
+}
+
+.top-link .out-link {
+    float: right;
+    margin-right: 3%;
+}
+
+.top-link .out-link a:hover {
+    color: #e84848;
+}
+
+.top-link .list-link a:hover {
+    color: #494683;
+}
+
+.top-link .out-link a {
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 17px;
+    color: #DD1010;
+}
+
+.mycontents {
+    width: 90%;
+    margin-top: 1%;
+    border: 1px solid #FFFFF3;
+    margin: 0 auto;
+    padding: 2%;
+    height: 120%;
+}
+
+.mycontents .icon{
+    width: 20%;
+    text-align: center;
+}
+
+.icon img{
+    width: 70%;
+    border-radius: 100%;
+}
+
+.mycontents .nick {
+    width: 60%;
+}
+
+.nick h1 {
+    font-size: 40px;
+    margin-top: 7%;
+    margin-left: 4%;
+    font-weight: 900;
+}
+
+.mycontents .edit {
+    width: 20%;
+    text-align: right;
+}
+
+.mycontents .edit:hover {
+    opacity: 0.7;
+}
+
+.edit img {
+    width: 50%;
+}
+
+.most {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 2%;
+    padding: 1%;
+    background-color: #FFFFF3;
+    border-radius: 5px;
+}
+
+.mo1{
+    align-items: center;
+}
+
+.favetag {
+    text-align: center;
+    width: 7%;
+    color: #CD0000;
+    font-weight: 700;
+}
+
+.moimg {
+    width: 10%;
+    height: 10%;
+    margin: 2%;
+}
+
+.moimg img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.favename {
+    font-weight: 200;
+}
+
+.cate {
+    color: #524DAE;
+    text-align: right;
+    margin-right: 3%;
+    margin-top: -5%;
+}
+
+.cate span {
+    font-size: 25px;
+    margin-right: 5px;
+    color: #221D7E;
+}
+
+.lm {
+    margin-top: 5%;
+}
+
+.life {
+    width: 50%;
+}
+
+.life h2 {
+    margin-left: 20%;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.life h1 {
+    text-align: center;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 45px;
+}
+
+.money {
+    width: 50%;
+}
+
+.money h2 {
+    margin-left: 20%;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.money h1 {
+    text-align: center;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 45px;
+}
+
+.akasaku {
+    text-decoration: none;
+    color: #DD1010;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    text-align: right;
+    margin-top: 7%;
+}
+
+.akasaku:hover {
+    color: #e84848;
+}
