@@ -53,4 +53,13 @@
         <servlet-name>GoodsServlet</servlet-name>
         <url-pattern>/goods</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MypageServlet</servlet-name>
+        <servlet-class>com.example.fave.MypageFile.MypageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MypageServlet</servlet-name>
+        <url-pattern>/my_page</url-pattern>
+    </servlet-mapping>
 </web-app>

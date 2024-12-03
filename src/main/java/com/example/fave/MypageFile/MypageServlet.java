@@ -1,14 +1,17 @@
 package com.example.fave.MypageFile;
 
-import java.io.*;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import utils.DAO.faveDAO;
+import utils.DAO.userDAO;
 
-@WebServlet("/mypage")
-public class mypage extends HttpServlet {
+import java.io.IOException;
+
+
+public class MypageServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String path = "/WEB-INF/view/MypageFile/mypage.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);
