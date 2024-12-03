@@ -19,7 +19,7 @@
           rel="stylesheet">
 
     <link rel="stylesheet" href="static/css/all.css">
-    <link rel="stylesheet" href="static/css/mypage.css">
+    <link rel="stylesheet" href="static/css/MypageFile/mypage.css">
 
     <link rel="shortcut icon" href="static/img/TimeforFave.png">
     <title>MYPAGE | Time of Fave.</title>
@@ -29,7 +29,7 @@
 <div class="container con">
     <!-- ロゴ -->
     <div class="logo">
-        <a href="../../index/index.html"><img src="static/img/TimeforFave.png" alt="logo"></a>
+        <a href="WEB-INF/view/index.jsp"><img src="static/img/TimeforFave.png" alt="logo"></a>
     </div>
 
     <!-- メーター -->
@@ -53,13 +53,13 @@
     <aside class="menu">
         <br>
         <div class="home">
-            <a href="../../index/index.html">
+            <a href="WEB-INF/view/index.jsp">
                 <h3>HOME</h3>
             </a>
         </div>
         <hr>
         <div class="fave">
-            <a href="../../FaveFile/fave/fave.html">
+            <a href="WEB-INF/view/FaveFile/fave.jsp">
                 <h3>FAVE</h3>
             </a>
         </div>
@@ -92,20 +92,24 @@
 
     <div class="main scroll-box">
         <div class="top-link">
-            <div class="list-link"><a href="../../GoodsFile/goods/goods.html">グッズリスト ＞</a></div>
-            <div class="out-link"><a href="LogoutServlet">LOGOUT</a></div>
+            <div class="list-link"><a href="WEB-INF/view/GoodsFile/goods.jsp">グッズリスト ＞</a></div>
+            <div class="out-link">
+                <form action="LogoutServlet" method="POST">
+                    <a href="#" onclick="logout()">LOGOUT</a>
+                </form>
+            </div>
         </div>
         <br><br>
         <div class="scroll-content mycontents">
             <div class="container">
                 <div class="icon">
-                    <img src="../../img/I_N.png" alt="Nomal">
+                    <img src="static/img/I_N.png" alt="Nomal">
                 </div>
                 <div class="nick">
                     <h1>ルイ・ルロイ</h1>
                 </div>
                 <div class="edit">
-                    <a href="../mypage_edit/mypage_edit.html"><img src="../../img/EDIT.png" alt="mypageedit"></a>
+                    <a href="../mypage_edit/mypage_edit.html"><img src="static/img/EDIT.png" alt="mypageedit"></a>
                 </div>
             </div>
 
@@ -116,7 +120,7 @@
                         <p>　Fave</p>
                     </div>
                     <div class="moimg">
-                        <img src="../../img/com.jpg" alt="">
+                        <img src="static/img/com.jpg" alt="">
                     </div>
                     <div class="favename">
                         <h2>カンパネルラ</h2>
@@ -139,13 +143,24 @@
                 </div>
             </div>
 
-            <a class="akasaku" href="DeleServlet">アカウント削除 ＞</a>
+            <a class="akasaku" href="dele">アカウント削除 ＞</a>
         </div>
 
     </div>
 </div>
 </body>
+<script>
+    function logout() {
+        // POSTリクエストを送信するためのフォームを動的に作成
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'LogoutServlet';
 
+        // フォームを送信
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
 <footer>
     <p>© 2024 Time of Fave Inc. All Rights Reserved.</p>
 </footer>
