@@ -6,11 +6,20 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String errorMessage = "";
+    if (errorMessage != null){
+        
+    }
+%>
 <html>
 <head>
     <title>エラー</title>
 </head>
 <body>
 DAOエラー確認用
+<% if (!errorMessage.isEmpty()) { %>
+<p style="color: red;"><%= errorMessage %></p>
+<% } %>
 </body>
 </html>
