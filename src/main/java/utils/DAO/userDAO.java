@@ -80,6 +80,27 @@ public class userDAO {
         return result; // ユーザーが見つからなければnull
     }
 
+    // アカウント削除
+    public static void deleteUser(String log_id) throws SQLException {
+        String sql = "DELETE FROM account WHERE log_id = ?";
+
+        try (Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setString(1, log_id);
+            int rowsAffected = pstmt.executeUpdate();  // 実行
+
+            if (rowsAffected > 0) {
+                System.out.println("ユーザーが削除されました。");
+            } else {
+                System.out.println("指定されたlog_idに対応するデータが存在しません。");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();  // エラーの詳細を表示
+            throw e;  // エラーが発生したら呼び出し元に例外を投げる
+        }
+    }
 
     public static void updateSaiosi(int saiosi, String log_id) {
         String sql = "UPDATE account SET saiosi = ? WHERE log_id = ?";
@@ -103,7 +124,6 @@ public class userDAO {
             e.printStackTrace();  // エラーの詳細を表示
         }
     }
-
 
 
 }

@@ -20,7 +20,7 @@
 
 <body>
 <div class="dele_form">
-    <form action="DeleServlet" method="post">
+    <form id="deleteForm" action="DeleServlet" method="post">
 
         <div class="logo"><img src="static/img/TimeforFave.png" alt="logo"></div>
         <div class="dele_t">
@@ -30,10 +30,18 @@
         <div class="text">
             <input type="text" name="pass" placeholder="パスワード" class="last-input">
         </div>
+
+        <!-- エラーメッセージの表示 -->
+        <p style="color: red; text-align: center; font-size: 7px">
+            <% if (request.getAttribute("errorMessage") != null) { %>
+            <%= request.getAttribute("errorMessage") %>
+            <% } %>
+        </p>
+
         <!-- モーダルを開くためのボタン -->
         <div class="container_btn">
             <button type="button" id="modalOpen" class="btn">削除</button>
-            <a id="cancelDeletePage" class="kyan" href="WEB-INF/view/MypageFile/mypage.html">キャンセル</a>
+            <a id="cancelDeletePage" class="kyan" href="WEB-INF/view/MypageFile/mypage.jsp">キャンセル</a>
         </div>
 
 

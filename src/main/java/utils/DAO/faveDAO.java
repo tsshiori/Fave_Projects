@@ -21,7 +21,12 @@ public class faveDAO {
             // 3.プレースホルダに値をセット
             pstmt.setString(1, img); // img
             pstmt.setString(2, name); // name
-            pstmt.setDate(3, java.sql.Date.valueOf(birthday)); // birthday (LocalDateをjava.sql.Dateに変換)
+            if (birthday != null) {
+                pstmt.setDate(3, java.sql.Date.valueOf(birthday)); // birthdayに値がある場合、変換してセット
+            } else {
+                pstmt.setNull(3, java.sql.Types.DATE); // birthdayがnullの場合、NULLをセット
+            }
+
             pstmt.setString(4, osimemo); // osimemo
             pstmt.setString(5, log_id); // log_id
             pstmt.setInt(6, cate_id); // cate_id
