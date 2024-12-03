@@ -5,6 +5,16 @@
 
     <!-- LoginServlet 設定 -->
     <servlet>
+        <servlet-name>IndexServlet</servlet-name>
+        <servlet-class>com.example.fave.IndexServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IndexServlet</servlet-name>
+        <url-pattern>/fave</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.example.fave.LogReDeleFile.LoginServlet</servlet-class>
     </servlet>
