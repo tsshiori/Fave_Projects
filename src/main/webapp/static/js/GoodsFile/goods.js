@@ -94,8 +94,8 @@ function confirmDelete() {
     // ここに削除処理を追加する場合は記述
     // 例: アイテムの削除処理を行う
 
-    // goods.htmlをリロード
-    window.location.href = 'goods.html';
+    //リロード
+    window.location.href = 'GoodsServlet';
 }
 
 // 閉じるボタンにイベントリスナーを設定
