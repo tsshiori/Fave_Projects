@@ -101,4 +101,29 @@ public class userDAO {
             throw e;  // エラーが発生したら呼び出し元に例外を投げる
         }
     }
+
+    public static void updateSaiosi(int saiosi, String log_id) {
+        String sql = "UPDATE account SET saiosi = ? WHERE log_id = ?";
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
+            // プレースホルダに値をセット
+            pstmt.setInt(1, saiosi);  // saiosi
+            pstmt.setString(2, log_id);  // log_id
+
+            // SQLを実行
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("指定されたlog_idに対応するデータが存在しません。");
+            } else {
+                System.out.println("saiosiが正常に更新されました。");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  // エラーの詳細を表示
+        }
+    }
+
+
 }

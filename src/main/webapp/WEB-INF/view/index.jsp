@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>ようこそ</title>
 </head>
 <body>
 <%
@@ -27,7 +27,8 @@
 <p style="color: red;"><%= errorMessage %></p>
 <% } %>
 
-<h1>やあ！<%= nick %></h1>
+<h1>やあ！<%= nick %>さん</h1>
 <h2>今日も元気に課金しようね！！</h2>
+
 </body>
 </html>
