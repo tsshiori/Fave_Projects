@@ -1,0 +1,697 @@
+@charset "utf-8";
+
+.main {
+    width: 85%;
+
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.main .add {
+    width: 7%;
+    margin-left: 10%;
+}
+
+.main .add:hover {
+    opacity: 0.7;
+}
+
+.scroll-content {
+    width: 90%;
+    height: 600px;
+    margin: 0 7%;
+}
+
+.hissu {
+    color: #FF1212;
+    font-weight: bold;
+    margin-right: 5px;
+    margin-left: auto;
+}
+
+.p {
+    text-align: right;
+    font-weight: bold;
+    margin-right: 10%;
+}
+
+.f_img {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+}
+
+.f_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    margin-top: 25px;
+}
+
+.left {
+    background-color: #FFFFF3;
+    width: 300px;
+    height: 300px;
+    border-radius: 8px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+table th {
+    width: 30%;
+    text-align: right;
+}
+
+table td {
+    width: 70%;
+}
+
+table .cc {
+    align-items: center;
+}
+
+.custom-file-select {
+    width: 200px;
+    color: #221D7E;
+    margin-left: 50px;
+    margin-top: 25px;
+    font-weight: bold;
+    text-align: left;
+    border-radius: 5px;
+    appearance: none;
+    padding: 5px 0 5px 5px;
+    font-size: 16px;
+    border: #221D7E 1px solid;
+    border-radius: 5px;
+    background-color: #A19BFF;
+    background-image: url('../../img/UPLOAD.png');
+    /* カスタム矢印の画像 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    /* 矢印の位置 */
+    background-size: 15px;
+    /* 矢印のサイズ */
+}
+
+.custom-file-select:hover {
+    opacity: 0.7;
+}
+
+input[type="text"] {
+    font-size: 16px;
+    color: #221D7E;
+    font-family: "Noto Serif JP", serif;
+    height: 30px;
+    width: 90%;
+    padding: 8px;
+    display: block;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFF3;
+    margin: 1% auto;
+    display: inline;
+}
+
+input[type="text"]::placeholder {
+    color: #A9A8C2;
+}
+
+.form-group {
+    font-size: 20px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 2% auto;
+}
+
+.pl {
+    font-size: 16px;
+    color: #221D7E;
+    font-family: "Noto Serif JP", serif;
+    height: 30px;
+    width: 90%;
+    padding: 8px;
+    display: block;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFF3;
+    margin: 1% auto 1% 0;
+    display: inline;
+}
+
+.date-text {
+    font-family: "Noto Serif JP", serif;
+    position: absolute;
+    color: #A9A8C2;
+    background-color: #FFFFF3;
+    padding-left: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    margin-left: -52%;
+}
+
+/* フォーカス時と入力済みの場合はプレースホルダーを非表示に */
+.pl:focus+.pl,
+.pl:not(:placeholder-shown)+.pl {
+    display: none;
+}
+
+.input-container {
+    position: relative;
+}
+
+.categori0 {
+    align-items: center;
+    justify-content: right;
+}
+
+.categori1 {
+    text-align: right;
+}
+
+#cont,
+#tab {
+    font-size: 16px;
+    color: #221D7E;
+    font-family: "Noto Serif JP", serif;
+    height: 30px;
+    width: 90%;
+    display: block;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFF3;
+    margin: 1% auto;
+    display: inline;
+    padding-left: 8px;
+
+    background-image: url('../../img/DOWN.png');
+    /* カスタム矢印の画像 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    /* 矢印の位置 */
+    background-size: 15px;
+    appearance: none;
+}
+
+#cont:has(option:checked[value=""]),
+#tab:has(option:checked[value=""]) {
+    color: #A9A8C2;
+}
+
+.btn-plus {
+    width: 10%;
+    display: flex;
+    align-items: center;
+}
+
+.btn-plus .plus2,
+.plus3 {
+    border: none;
+    background-color: #FFE4E4;
+    width: 90%;
+}
+
+.btn-plus .plus2:hover,
+.plus3:hover {
+    opacity: 0.7;
+}
+
+.btn-plus .plus2 img,
+.plus3 img {
+    width: 90%;
+    vertical-align: middle;
+    margin-top: 4px;
+}
+
+
+.form-group .memo-label {
+    display: block;
+    margin-bottom: 8%;
+    font-weight: bold;
+    font-size: 19px;
+}
+
+textarea.memo {
+    font-family: "Noto Serif JP", serif;
+    color: #221D7E;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 8px;
+    border: 0.5px solid #221D7E;
+    background-color: #FFFFF3;
+    resize: vertical;
+    max-width: 750px;
+    max-height: 300px;
+    min-width: 750px;
+    min-height: 100px;
+}
+
+
+textarea::placeholder {
+    color: #A9A8C2;
+    font-size: 20px;
+}
+
+.btn {
+    text-align: center;
+    width: 100%;
+}
+
+.in {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #C3F8B9;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 5%;
+}
+
+.in:hover {
+    background-color: #dcf5d7;
+}
+
+.kyan {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    margin-top: 20px;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+
+}
+
+.kyan:hover {
+    background-color: #ececec;
+}
+
+.in,
+.kyan {
+    white-space: noweap;
+}
+
+
+
+
+
+/* 以下　モーダルcss */
+/* モーダルの初期状態を非表示にする */
+.modal {
+    display: none;
+    /* 初期状態では表示しない */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 背景の半透明黒 */
+}
+
+/* モーダル全体の中央揃え */
+.modal-content {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45%;
+    height: 50%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 20px;
+    min-width: 500px;
+    text-align: center;
+    /* モーダル全体のテキストを中央寄せ */
+    padding-bottom: 30px;
+}
+
+.modal-header {
+    text-align: center;
+    /* テキストを中央揃え */
+    padding-top: 40px;
+    margin: 0 auto;
+    /* margin-bottom: 20px; */
+}
+
+h4 {
+    font-size: 28px;
+    color: #221D7E;
+    margin-bottom: 10px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.modal input[type="text"] {
+    font-size: 18px;
+    color: #221D7E;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    height: 40px;
+    width: 22.5rem;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFF3;
+}
+
+#addtab input[type="text"]::placeholder {
+    font-size: 18px;
+    color: #A9A8C2;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    height: 40px;
+    width: 20rem;
+}
+
+#addcon input[type="text"]::placeholder {
+    font-size: 15px;
+    color: #A9A8C2;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    height: 40px;
+    width: 20rem;
+}
+
+.modal-body {
+    display: flex;
+    justify-content: center;
+    /* ボタンを中央に揃える */
+    gap: 15px;
+    /* ボタンの間隔 */
+    padding-top: 20px;
+}
+
+.close {
+    cursor: pointer;
+    padding: 8px;
+    justify-self: end;
+}
+
+#cancel {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    margin-top: 20px;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+    width: 30%;
+
+}
+
+#cancel:hover {
+    background-color: #ececec;
+}
+
+#tabAdd {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #63ACF6;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 3px 40px;
+    margin-right: 3%;
+    width: 30%;
+}
+
+#tabAdd:hover {
+    background-color: #98c5f3;
+}
+
+#conAdd2 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #63ACF6;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 3%;
+    width: 30%;
+}
+
+#conAdd2:hover {
+    background-color: #98c5f3;
+}
+
+#fed {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #C3F8B9;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 3%;
+}
+
+#fed:hover {
+    background-color: #dcf5d7;
+}
+
+
+#fed_can {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    margin-top: 25px;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+}
+
+#fed_can:hover {
+    background-color: #ececec;
+}
+
+.modal-content0 {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 70%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 5px;
+    min-width: 500px;
+    text-align: center;
+    /* モーダル全体のテキストを中央寄せ */
+    padding-bottom: 30px;
+}
+
+.modal-body0 .container {
+    justify-content: center;
+}
+
+.mo-img {
+    width: 200px;
+    height: 100px;
+}
+
+.mo-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.modal-body0 .t_le {
+    width: 40%;
+}
+
+.modal-body0 .t_ri {
+    width: 60%;
+}
+
+.modal-body0 .t_le th,.t_ri th {
+    width: 50%;
+    text-align: right;
+}
+
+.modal-body0 .t_le td,.t_ri td {
+    width: 60%;
+}
+
+.memodiv{
+    width: 80%;
+}
+
+.memodiv th {
+    width: 30%;
+}
+
+.memodiv td {
+    width: 70%;
+}
+
+.f_dele {
+    text-align: right;
+}
+
+#fe_dele {
+    background-color: #FFE4E4;
+    border: none;
+    text-align: right;
+    width: 70px;
+    height: 70px;
+}
+
+#fe_dele:hover {
+    opacity: 0.7;
+}
+
+#fe_dele img {
+    width: 100%;
+}
+
+
+/* モーダルの初期状態を非表示にする */
+.modal4 {
+    display: none; /* 初期状態では表示しない */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 背景の半透明黒 */
+    z-index: 100;
+}
+
+/* モーダル全体の中央揃え */
+.modal-content4 {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 42%;
+    height: 38%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 20px;
+    padding-top: 26px;
+    min-width: 500px;
+    text-align: center; /* モーダル全体のテキストを中央寄せ */
+}
+
+/* モーダルヘッダーのスタイル調整 */
+.modal-header {
+    text-align: center; /* テキストを中央揃え */
+    padding-top: 40px;
+    margin: 0 auto;
+    /* margin-bottom: 20px; */
+
+}
+
+/* モーダルのh3スタイル調整 */
+.modal-header4 h3 {
+    color: #221D7E;
+    margin-bottom: 10px;
+    font-weight: 900;
+    text-align: center; /* h3も中央寄せ */
+}
+.modal-h4{
+    display: inline-block;
+    text-align: left;
+    margin: 4% auto 0 auto;
+}
+.modal-header4 h4 {
+    color: #FE3939;
+    margin-left: 0;      /* 左マージンをリセット */
+    margin-right: 0;     /* 右マージンもリセット */
+    padding-left: 0;     /* 左の余白もリセット */
+    width: 100%;         /* 幅を100%に設定して、同じ幅に揃える */
+    display: block;      /* ブロック要素にして幅を確保 */
+    text-align: left;
+    font-size: 16px;
+}
+
+/* ボタン配置の調整 */
+.modal-body {
+    display: flex;
+    justify-content: center; /* ボタンを中央に揃える */
+    gap: 15px; /* ボタンの間隔 */
+    padding-top: 20px;
+}
+
+#favedeleModal {
+    display: none; /* 初期状態で非表示にする */
+}
+
+/* 削除確認ボタン */
+#fe_Delete {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 900;
+    color: #221D7E;
+    border-radius: 3px;
+    padding: 5px 40px;
+    margin-right: 3%;
+    background-color: #FF6666;
+    height: 100%;
+    border: none;
+    border: #221D7E 0.5px solid;
+    width: 150px;
+}
+
+#fe_Delete:hover {
+    background-color: #ff8787;
+}
+
+/* キャンセルボタン */
+#fe_can_Delete {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 900;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border-radius: 3px;
+    padding: 5px 20px;
+    text-decoration: none;
+    height: 100%;
+    border: none;
+    border: #221D7E 0.5px solid;
+    width: 150px;
+}
+
+#fe_can_Delete:hover {
+    background-color: #ececec;
+}
