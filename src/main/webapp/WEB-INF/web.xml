@@ -54,6 +54,52 @@
         <url-pattern>/goods</url-pattern>
     </servlet-mapping>
 
+<!-- ↓　Faveファイルマッピング -->
+    <servlet>
+        <servlet-name>Fave</servlet-name>
+        <servlet-class>com.example.fave.FaveFile.Fave</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Fave</servlet-name>
+        <url-pattern>/fave_list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FaveAdd</servlet-name>
+        <servlet-class>com.example.fave.FaveFile.FaveAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FaveAdd</servlet-name>
+        <url-pattern>/fave_add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FaveDetail</servlet-name>
+        <servlet-class>com.example.fave.FaveFile.FaveDetailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FaveDetail</servlet-name>
+        <url-pattern>/fave_detail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FaveEdit</servlet-name>
+        <servlet-class>com.example.fave.FaveFile.FaveEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FaveEdit</servlet-name>
+        <url-pattern>/fave_edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Relate</servlet-name>
+        <servlet-class>com.example.fave.FaveFile.RelateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Relate</servlet-name>
+        <url-pattern>/relate</url-pattern>
+    </servlet-mapping>
+  
     <servlet>
         <servlet-name>MypageServlet</servlet-name>
         <servlet-class>com.example.fave.MypageFile.MypageServlet</servlet-class>
@@ -62,4 +108,5 @@
         <servlet-name>MypageServlet</servlet-name>
         <url-pattern>/my_page</url-pattern>
     </servlet-mapping>
+
 </web-app>
