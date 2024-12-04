@@ -1,0 +1,253 @@
+@charset "utf-8";
+
+
+.main {
+    width: 85%;
+}
+
+.main .add {
+    width: 7%;
+    margin-left: 10%;
+}
+
+.main .add:hover {
+    opacity: 0.7;
+}
+
+.ge-list {
+    width: 70%;
+    margin: 0 auto;
+    color: #24063A;
+}
+
+.ge-list img {
+    width: 75%;
+    margin-top: 8%;
+    border-radius: 35px;
+    border: 0.5px solid #24063A;
+}
+
+.guzzu {
+    background-color: #FFFFF3;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 3%;
+}
+
+.event {
+    background-color: #FFFFD1;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 3%;
+}
+
+.event .hi-img {
+    width: 13%;
+    text-align: center;
+    margin-right: 3%;
+}
+
+.guzzu .hi-img {
+    width: 13%;
+    text-align: center;
+    margin-right: 3%;
+}
+
+.inf-meter {
+    width: 80%;
+}
+
+.osi-na-pri p+p {
+    border-left: 1px solid #BA9BDC;
+}
+
+.osi-na-pri p {
+    text-align: center;
+    margin-top: 2%;
+    font-weight: 550;
+    font-size: 18px;
+}
+
+.osi-na-pri .osi {
+    width: 30%;
+}
+
+.osi-na-pri .name {
+    width: 45%;
+}
+
+.osi-na-pri .price {
+    width: 20%;
+    text-align: right;
+}
+
+.in-meter {
+    margin-top: 3%;
+}
+
+.meter-app {
+    align-items: center;
+    /* ロゴとメーターを垂直方向に中央寄せ */
+}
+
+.meter-app .in-meter {
+    width: 95%;
+}
+
+.meter-app .app {
+    color: #FF1D1D;
+    font-weight: bold;
+    margin-top: 3%;
+    width: 27%;
+    text-align: center;
+}
+
+.meter-app .app span {
+    font-size: 20px;
+}
+
+.goods_detail_open {
+    text-decoration: none;
+    color: #24063A;
+}
+
+.goods_detail_open:hover {
+    opacity: 0.7;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* 背景を半透明に */
+    z-index: 1000;
+    margin: 0 auto;
+}
+
+/* モーダルのコンテンツ */
+.modal-content {
+    background-color: #DADCFB;
+    margin: 2% auto;
+    padding: 20px;
+    border: 3px solid #221D7E;
+    width: 65%;
+    text-align: center;
+    color: #24063A;
+}
+
+.mohe {
+    align-items: center;
+}
+
+.yusendo {
+    width: 30%;
+}
+
+.goodsdetail {
+    width: 70%;
+    text-align: center;
+}
+
+.tate {
+    margin: 2% 0;
+    align-items: center;
+}
+
+.komo {
+    width: 30%;
+    text-align: right;
+}
+
+.de {
+    font-size: 30px;
+}
+
+.modal-content .yusendo img {
+    width: 50%;
+    border: 1px solid #221D7E;
+    border-radius: 65px;
+}
+
+.memo {
+    text-align: left;
+    margin-left: 10%;
+    height: 20vh;
+}
+
+.memo p {
+    font-size: 18px;
+    font-weight: 800;
+    margin-left: 5%;
+}
+
+/* 閉じるボタン */
+
+.modal-body {
+    text-align: center;
+}
+
+.edde {
+    justify-content: flex-end;
+}
+
+.edde a, .edde button{
+    margin: 2%;
+}
+
+.edit {
+    width: 7%;
+    padding: 0;
+}
+
+.edit:hover {
+    opacity: 0.7;
+}
+
+.edit img{
+    width: 100%;
+    border-radius: 8px;
+}
+
+.delete {
+    background-color: transparent; /* 背景を透明に */
+    border: none; /* ボーダーを削除 */
+    padding: 0; /* 余白を削除 */
+    cursor: pointer;
+    width: 7%;
+}
+
+.delete:hover {
+    opacity: 0.7;
+}
+
+.delete img{
+    width: 100%;
+    border-radius: 8px;
+}
+
+
+.close {
+    color: #221D7E;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 auto;
+    background-color: #FFFFF3;
+    padding: 5px 20px;
+    border-radius: 5px;
+    padding-top: 5px;
+    border: 0.5px solid #221D7E;
+    font-family: "Noto Serif JP", serif;
+
+}
+
+.close:hover,
+.close:focus {
+    color: #221D7E;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #ececec;
+}
