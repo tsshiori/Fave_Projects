@@ -108,25 +108,25 @@
 
             <div id="gallery">
                 <div class="container">
-                    <a class="a00" href="../fave_add/fave_add.html">
+                    <a class="a00" href="fave_add">
                         <div class="add0">
-                            <img src="../../img/ADD.png" alt="FaveAdd">
+                            <img src="static/img/ADD.png" alt="FaveAdd">
                         </div>
                     </a>
 
-                    <a href="../fave_detail/fave_detail.html">
+                    <a href="fave_detail">
                         <div class="card__item">
                             <div class="card_img">
-                                <img src="../../img/com.jpg" alt="カンパネルラ">
+                                <img src="static/img/com.jpg" alt="カンパネルラ">
                             </div>
                             <p>カンパネルラ</p>
                         </div>
                     </a>
 
-                    <a href="../fave_detail/fave_detail.html">
+                    <a href="fave_detail">
                         <div class="card__item">
                             <div class="card_img">
-                                <img src="../../img/myu.jpg" alt="ミューズ">
+                                <img src="static/img/myu.jpg" alt="ミューズ">
                             </div>
                             <p>ミューズ</p>
                         </div>
@@ -136,13 +136,13 @@
 
             <div id="list">
                 <div class="add1">
-                    <a href="../fave_add/fave_add.html"><img src="../../img/ADD.png" alt="Add"></a>
+                    <a href="fave_add"><img src="static/img/ADD.png" alt="Add"></a>
                 </div>
 
-                <a href="../fave_detaile/fave_detaile.html">
+                <a href="fave_detaile">
                     <div class="list_card container">
                         <div class="card_img">
-                            <img src="../../img/com.jpg" alt="カンパネルラ">
+                            <img src="static/img/com.jpg" alt="カンパネルラ">
                         </div>
                         <h3 class="name">カンパネルラ</h3>
                         <h4 class="rela">/ 銀河鉄道の夜　2号車組</h4>
@@ -150,10 +150,10 @@
                     </div>
                 </a>
 
-                <a href="../fave_detaile/fave_detaile.html">
+                <a href="fave_detaile">
                     <div class="list_card container">
                         <div class="card_img">
-                            <img src="../../img/myu.jpg" alt="ミューズ">
+                            <img src="static/img/myu.jpg" alt="ミューズ">
                         </div>
                         <h3 class="name">ミューズ</h3>
                         <h4 class="rela">/ STAR★BURST★SHIP　流星のキセキ</h4>
