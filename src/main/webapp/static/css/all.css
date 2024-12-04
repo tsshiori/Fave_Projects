@@ -39,13 +39,13 @@ body {
 .con {
     z-index: 100;
     position: fixed;
-    align-items: center;
     /* ロゴとメーターを垂直方向に中央寄せ */
+    width: 90%;
 }
 
 .logo {
-    margin-left: 2%;
-    width: 13%;
+    margin-left: 3%;
+    width: 15%;
 }
 
 .logo img {
@@ -64,11 +64,20 @@ body {
 .meter-container {
     position: relative;
     height: 45px;
-    margin-left: 10%;
+    margin-left: 7.3%;
     /* ロゴとの距離 */
-    margin-right: 10%;
-
 }
+
+.temoti img,
+.kyuuryoubi img {
+    position: absolute;
+    /* 画像を絶対位置にする */
+    transform: translateY(-5%);
+    /* 画像が縦に中央に配置されるように調整 */
+    transform: translateX(315%)
+}
+
+
 
 /* 背面のメーター */
 .background-meter {
@@ -77,6 +86,47 @@ body {
     height: 100%;
     z-index: 1;
 }
+
+/* 初期状態 */
+.temoti-value,
+.kyuuryoubi-value {
+    display: none; /* 初期状態では非表示 */
+    position: absolute;
+    top: 16%;
+    left: 38%;
+    transform: translateY(30px); /* 初期位置で下に隠す */
+    color: #221D7E;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 18px;
+    z-index: 10;
+    opacity: 0; /* 初期状態で透明 */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* スムーズに移動 */
+    border: #31D1C1 3px solid;
+}
+
+.kyuuryoubi-value{
+    border: #A76CE6 3px solid;
+}
+
+
+/* ホバー時に跳ねる */
+.temoti img:hover + .temoti-value,
+.kyuuryoubi img:hover + .kyuuryoubi-value {
+    display: block; /* 表示状態に変更 */
+    opacity: 1; /* 不透明に */
+    transform: translateY(0); /* 跳ねるアニメーション */
+    animation: bounce 0.5s ease; /* 跳ねるアニメーション */
+}
+
+/* 跳ねるアニメーション */
+@keyframes bounce {
+    0% { transform: translateY(20px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+
 
 
 .background-meter::-webkit-meter-bar {
@@ -119,7 +169,7 @@ body {
 }
 
 .meterimg {
-    margin-left: 7%;
+    margin-left: 9%;
 }
 
 .temoti {
@@ -129,7 +179,6 @@ body {
 }
 
 .kyuuryoubi {
-    margin-top: -6.4%;
     width: 100%;
     display: inline;
     margin-left: 12%;
@@ -210,26 +259,26 @@ body {
 
 .scroll-box::-webkit-scrollbar {
     background: #E6E7F5;
-    width:10px;
+    width: 10px;
 }
 
-.FAVE .scroll-box::-webkit-scrollbar{
+.FAVE .scroll-box::-webkit-scrollbar {
     background-color: #FFE4E4;
 }
 
-.RELATE .scroll-box::-webkit-scrollbar{
+.RELATE .scroll-box::-webkit-scrollbar {
     background-color: #FFE9C5;
 }
 
-.SHIFT .scroll-box::-webkit-scrollbar{
+.SHIFT .scroll-box::-webkit-scrollbar {
     background-color: #CEF7FD;
 }
 
-.WORK .scroll-box::-webkit-scrollbar{
+.WORK .scroll-box::-webkit-scrollbar {
     background-color: #DAFFCE;
 }
 
-.MYPAGE .scroll-box::-webkit-scrollbar{
+.MYPAGE .scroll-box::-webkit-scrollbar {
     background-color: #D2D2D2;
 }
 
@@ -250,4 +299,13 @@ footer {
     bottom: 0;
     background-color: #321633;
     color: #E9CAFF;
+}
+
+/* temoti と kyuuryoubi の画像位置を動的に設定 */
+.temoti img,
+.kyuuryoubi img {
+    position: absolute;
+    /* 動的に位置を設定するため */
+    transition: left 0.3s;
+    /* スムーズな動きを追加 */
 }
