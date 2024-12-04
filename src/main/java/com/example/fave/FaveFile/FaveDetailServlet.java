@@ -8,10 +8,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/FaveAdd")
-public class FaveAddServlet extends HttpServlet {
+@WebServlet("/FaveDetail")
+public class FaveDetailServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher("/WEB-INF/view/FaveFile/fave_add.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/FaveFile/fave_detail.jsp").forward(request, response);
 
     }
 }
