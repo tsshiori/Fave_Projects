@@ -42,8 +42,6 @@ public class faveDAO {
         }
     }
 
-
-
     public static int selectNameFave(String log_id, String name) {
         if (name == null || log_id == null) {
             System.out.println("name または log_id が null です");
