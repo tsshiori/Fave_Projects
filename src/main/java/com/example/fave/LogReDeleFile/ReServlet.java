@@ -43,7 +43,7 @@ public class ReServlet extends HttpServlet {
 
             if (name != null) {
                 utils.DAO.faveDAO.insertFave("def.png", name, null, null, log_id, 1);
-                saiosi = utils.DAO.faveDAO.selectNameFave(log_id, name);
+                saiosi = utils.DAO.faveDAO.selectNameFave(log_id, name);//-3 見つからない　→　登録処理が上手くいってない
                 utils.DAO.userDAO.updateSaiosi(saiosi,log_id);
             }
 

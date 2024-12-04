@@ -99,4 +99,14 @@
         <servlet-name>Relate</servlet-name>
         <url-pattern>/relate</url-pattern>
     </servlet-mapping>
+  
+    <servlet>
+        <servlet-name>MypageServlet</servlet-name>
+        <servlet-class>com.example.fave.MypageFile.MypageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MypageServlet</servlet-name>
+        <url-pattern>/my_page</url-pattern>
+    </servlet-mapping>
+
 </web-app>
