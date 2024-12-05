@@ -64,7 +64,7 @@
         </div>
         <hr>
         <div class="relate">
-            <a href="../../FaveFile/relate/relate.html">
+            <a href="relate">
                 <h3>RELATE</h3>
             </a>
         </div>
@@ -139,7 +139,7 @@
                     <a href="fave_add"><img src="static/img/ADD.png" alt="Add"></a>
                 </div>
 
-                <a href="fave_detaile">
+                <a href="fave_detail">
                     <div class="list_card container">
                         <div class="card_img">
                             <img src="static/img/com.jpg" alt="カンパネルラ">
@@ -150,7 +150,7 @@
                     </div>
                 </a>
 
-                <a href="fave_detaile">
+                <a href="fave_detail">
                     <div class="list_card container">
                         <div class="card_img">
                             <img src="static/img/myu.jpg" alt="ミューズ">

@@ -1,0 +1,518 @@
+@charset "utf-8";
+
+.main {
+    width: 90%;
+    margin-left: 10%;
+    height: 65vh !important;
+}
+
+.main .add {
+    width: 30% !important;
+    margin-left: 50% !important;
+}
+
+.main .add:hover {
+    opacity: 0.7;
+}
+
+.accordion {
+    width: 830px;
+    margin: 0 auto;
+}
+
+.accordion-item {
+    margin-bottom: 5px;
+}
+
+.accordion-button {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    margin: 0;
+    background-color: transparent;
+    color: #221D7E;
+    /* 余白をなくす */
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-bottom: 2px solid #221D7E;
+    /* ボーダーをテキストのすぐ下に */
+    cursor: pointer;
+    font-size: 23px;
+    line-height: 1.2;
+    /* 行間を詰めてボーダーが文字に近くなるように */
+    align-self: center;
+    /* ボタンを画像の上に揃える */
+    padding-left: 20px;
+}
+
+.accordion-content {
+    display: none;
+    /* 初期状態で非表示 */
+    border-radius: 5px;
+    padding-left: 10%;
+}
+
+.accordion-content.show {
+    display: block;
+    /* 'show'クラスが追加されると表示 */
+}
+
+ul {
+    width: 900px;
+    list-style: none;
+    font-size: 18px;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    margin-right: 10%;
+}
+
+ul li:nth-child(odd) {
+    background-color: rgba(255, 255, 243, 57%);
+    /* 奇数番目のアイテムに背景色を設定 */
+}
+
+.vertical-line {
+    width: 0.2rem;
+    /* 縦棒の幅 */
+    height: 1.5rem;
+    /* 縦棒の高さ */
+    border-radius: 5px;
+    background-color: #221D7E;
+    /* 縦棒の色 */
+    margin: 10px;
+    /* 余白（オプション） */
+    margin-right: 30px;
+}
+
+.li {
+    text-align: center;
+    align-items: center;
+}
+
+.licon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close {
+    cursor: pointer;
+    padding: 8px;
+    justify-self: end;
+}
+
+.accordion-button .container {
+    display: flex;
+    justify-content: space-between;
+    /* テキストと画像を両端に配置 */
+    align-items: center;
+    /* 画像とテキストを縦方向に中央揃え */
+}
+
+.EDIT {
+    width: 4rem;
+}
+
+.DOWN {
+    width: 1.7rem;
+    display: flex;
+}
+
+.DELEbtn,
+button {
+    background-color: transparent !important;
+    /* 強制的に背景を透明に */
+    border: none;
+    /* 強制的にボーダーを削除 */
+    outline: none !important;
+    /* フォーカスアウトラインも削除 */
+    cursor: pointer;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.DELE {
+    margin-left: 20px;
+    width: 4rem;
+}
+
+.ADD {
+    height: 4rem;
+    width: 4rem;
+    margin-right: 10px;
+}
+
+.ADDcon {
+    display: flex;
+    justify-content: flex-start;
+    /* 左寄せ */
+    align-items: flex-start;
+    /* 上寄せ */
+}
+
+.ADDcon1 {
+    display: flex;
+    justify-content: flex-start;
+    /* 左寄せ */
+    align-items: flex-start;
+    /* 上寄せ */
+}
+
+.libtn {
+    margin-right: 10%;
+}
+
+.libtn img {
+    width: 2.8rem;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.btnimg {
+    overflow: hidden;
+    /* 親要素にoverflow:hiddenを追加 */
+    border-radius: 5px;
+    /* 親要素にborder-radiusを追加 */
+}
+
+.btnimg:hover,
+.ADD:hover,
+.DELE:hover,
+.EDIT:hover,
+.ADD2:hover{
+    opacity: 0.7;
+}
+
+.btnimg img {
+    width: 100%;
+    /* 画像が親要素にフィットするように */
+    height: 100%;
+    /* 画像が親要素にフィットするように */
+    object-fit: cover;
+    /* 画像の歪みを防ぐためにobject-fitを使用 */
+}
+
+
+.ADD2con {
+    position: fixed;
+    /* 画面の固定配置 */
+    bottom: 50px;
+    /* 画面の下から20pxの位置 */
+    right: 60px;
+    /* 画面の右から20pxの位置 */
+    border-radius: 50%;
+    /* 丸いボタン */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: solid 1px #CB5B00;
+    object-fit: contain
+}
+
+.ADD2con img {
+    width: 5rem !important;
+    object-fit: contain;
+}
+
+
+/* モーダルの初期状態を非表示にする */
+.modal {
+    display: none;
+    /* 初期状態では表示しない */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 背景の半透明黒 */
+}
+
+/* モーダル全体の中央揃え */
+.modal-content {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 53%;
+    height: 55%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 20px;
+    min-width: 500px;
+    text-align: center;
+    /* モーダル全体のテキストを中央寄せ */
+    padding-bottom: 30px;
+}
+
+.modal-header {
+    text-align: center;
+    /* テキストを中央揃え */
+    padding-top: 40px;
+    margin: 0 auto;
+    /* margin-bottom: 20px; */
+}
+
+
+h4 {
+    font-size: 28px;
+    color: #221D7E;
+    margin-bottom: 10px;
+    font-weight: 800;
+    text-align: center;
+}
+
+h5 {
+    font-size: 1rem;
+    color: #FF1212;
+}
+
+.deleword {
+    margin-top: 10px;
+    text-align: center;
+    /* 全体を中央揃え */
+    color: #FF1212;
+    /* 全体の文字色を統一 */
+    font-weight: 700;
+}
+
+.line {
+    display: grid;
+    grid-template-columns: 20px 330px;
+    /* 米印とテキストの幅を調整 */
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    /* 米印とテキストの間に余白を追加 */
+    margin: 5px 0;
+    /* 行間の余白を調整 */
+}
+
+.asterisk {
+    text-align: right;
+    /* 米印を右に寄せる */
+    font-weight: bold;
+}
+
+.text {
+    text-align: left;
+    /* テキストを左に寄せる */
+}
+
+
+input[type="text"] {
+    font-size: 18px;
+    color: #221D7E;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    height: 40px;
+    width: 22.5rem;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFF3;
+}
+
+#deleteModal input[type="text"] {
+    font-size: 18px;
+    color: #221D7E;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    height: 40px;
+    width: 22.5rem;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding-left: 12px;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFF3;
+}
+
+#deleteModal2 input[type="text"] {
+    font-size: 18px;
+    color: #221D7E;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    height: 40px;
+    width: 22.5rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFF3;
+}
+
+input[type="text"]::placeholder {
+    font-size: 18px;
+    color: #221D7E;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    height: 40px;
+    width: 20rem;
+}
+
+
+#addModal input[type="text"]::placeholder {
+    font-size: 18px;
+    color: #A9A8C2;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    height: 40px;
+    width: 20rem;
+}
+
+#addModal2 input[type="text"]::placeholder {
+    font-size: 15px;
+    color: #A9A8C2;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    height: 40px;
+    width: 20rem;
+}
+
+.modal-body {
+    display: flex;
+    justify-content: center;
+    /* ボタンを中央に揃える */
+    gap: 15px;
+    /* ボタンの間隔 */
+    padding-top: 20px;
+}
+
+#re_con_can,
+#re_tab_can,
+#re_decon_can,
+#re_deletab_can,
+#re_edtab_can,
+#re_edcon_can{
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    color: #221D7E;
+    background-color: #FFFFF3 !important;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px !important;
+    text-decoration: none;
+}
+
+#re_con_can:hover,
+#re_tab_can:hover,
+#re_decon_can:hover,
+#re_deletab_can:hover,
+#re_edtab_can:hover,
+#re_edcon_can:hover{
+    background-color: #ececec !important;
+}
+
+#confirmEdit {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #C3F8B9 !important;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px !important;
+    margin-right: 3%;
+}
+
+#confirmEdit:hover {
+    background-color: #ddfbd7 !important;
+}
+
+#confirmEdit2 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #C3F8B9 !important;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px !important;
+    margin-right: 3%;
+}
+
+#confirmEdit2:hover {
+    background-color: #ddfbd7 !important;
+}
+
+#confirmAdd {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #63ACF6 !important;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px !important;
+    margin-right: 3%;
+}
+
+#confirmAdd:hover {
+    background-color: #98c5f3 !important;
+}
+
+#confirmAdd2 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #63ACF6 !important;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px !important;
+    margin-right: 3%;
+}
+
+#confirmAdd2:hover {
+    background-color: #98c5f3 !important;
+}
+
+#confirmDELE {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #FF6666 !important;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px !important;
+    margin-right: 3%;
+}
+
+#confirmDELE:hover {
+    background-color: #ff8787 !important;
+}
+
+#confirmDELE2 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #FF6666 !important;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px !important;
+    margin-right: 3%;
+}
+
+#confirmDELE2:hover {
+    background-color: #ff8787 !important;
+}

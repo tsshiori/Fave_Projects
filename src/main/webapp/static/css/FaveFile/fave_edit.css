@@ -177,7 +177,7 @@ input[type="text"]::placeholder {
 }
 
 #cont,
-#tab {
+.tab {
     font-size: 16px;
     color: #221D7E;
     font-family: "Noto Serif JP", serif;
@@ -202,7 +202,7 @@ input[type="text"]::placeholder {
 }
 
 #cont:has(option:checked[value=""]),
-#tab:has(option:checked[value=""]) {
+.tab:has(option:checked[value=""]) {
     color: #A9A8C2;
 }
 
@@ -408,7 +408,7 @@ h4 {
     justify-self: end;
 }
 
-#cancel {
+#edcon_can,edcon_can2 {
     font-family: "Noto Serif JP", serif;
     font-size: 19px;
     font-weight: bolder;
@@ -423,7 +423,7 @@ h4 {
 
 }
 
-#cancel:hover {
+#edcon_can:hover, edcon_can2:hover {
     background-color: #ececec;
 }
 

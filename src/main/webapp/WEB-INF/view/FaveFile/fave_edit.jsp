@@ -11,10 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&family=Yuji+Syuku&display=swap"
           rel="stylesheet">
 
-    <link rel="stylesheet" href="../../all.css">
-    <link rel="stylesheet" href="fave_edit.css">
+    <link rel="stylesheet" href="static/css/all.css">
+    <link rel="stylesheet" href="static/css/FaveFile/fave_edit.css">
 
-    <link rel="shortcut icon" href="../../img/Time for Fave.png">
+    <link rel="shortcut icon" href="static/img/Time for Fave.png">
     <title>FAVE_Edit | Time of Fave.</title>
 </head>
 
@@ -22,7 +22,7 @@
 <div class="container con">
     <!-- ロゴ -->
     <div class="logo">
-        <a href="../../index/index.html"><img src="../../img/Time for Fave.png" alt="logo"></a>
+        <a href="fave"><img src="static/img/TimeforFave.png" alt="logo"></a>
     </div>
 
     <!-- メーター -->
@@ -37,11 +37,11 @@
         </div>
         <div class="meterimg">
             <div class="temoti">
-                <img src="../../img/temoti.png" alt="temoti">
+                <img src="static/img/temoti.png" alt="temoti">
                 <span class="temoti-value">所持金額: 31.1</span> <!-- valueを表示する要素 -->
             </div>
             <div class="kyuuryoubi">
-                <img src="../../img/kyuuryoubi.png" alt="kyuuryoubi">
+                <img src="static/img/kyuuryoubi.png" alt="kyuuryoubi">
                 <span class="kyuuryoubi-value">給与予定額: 45.4</span> <!-- valueを表示する要素 -->
             </div>
         </div>
@@ -52,19 +52,19 @@
     <aside class="menu">
         <br>
         <div class="home">
-            <a href="../../index/index.html">
+            <a href="fave">
                 <h3>HOME</h3>
             </a>
         </div>
         <hr>
         <div class="fave">
-            <a href="../../FaveFile/fave/fave.html">
+            <a href="fave_list">
                 <h3>FAVE</h3>
             </a>
         </div>
         <hr>
         <div class="relate">
-            <a href="../../FaveFile/relate/relate.html">
+            <a href="relate">
                 <h3>RELATE</h3>
             </a>
         </div>
@@ -82,7 +82,7 @@
         </div>
         <hr>
         <div class="mypage">
-            <a href="../../MypageFile/mypage/mypage.html">
+            <a href="my_page">
                 <h3>MYPAGE</h3>
             </a>
         </div>
@@ -97,7 +97,7 @@
                     <div class="left_t">
                         <div class="left">
                             <div class="f_img">
-                                <img src="../../img/def.png" alt="カンパネルラ" id="preview">
+                                <img src="static/img/def.png" alt="カンパネルラ" id="preview">
                             </div>
                         </div>
 
@@ -148,7 +148,7 @@
                                         <!-- イベント用プラスボタン -->
                                         <div id="plusButtonCon" class="btn-plus">
                                             <button class="plus2" type="button">
-                                                <img src="../../img/plus.png" alt="plus">
+                                                <img src="static/img/plus.png" alt="plus">
                                             </button>
                                         </div>
                                     </div>
@@ -167,7 +167,7 @@
                                 </th>
                                 <td>
                                     <div class="container cc">
-                                        <select name="songTeam" id="tab" disabled>
+                                        <select name="songTeam" class="tab" disabled>
                                             <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
                                             <option value="0">銀河鉄道の夜</option>
                                             <option value="1">STAR★BURST★SHIP</option>
@@ -175,7 +175,7 @@
                                         <!-- イベント用プラスボタン -->
                                         <div class="btn-plus plusButtonTab">
                                             <button class="plus3" type="button" disabled>
-                                                <img src="../../img/plus.png" alt="plus">
+                                                <img src="static/img/plus.png" alt="plus">
                                             </button>
                                         </div>
                                     </div>
@@ -193,7 +193,7 @@
                                 </th>
                                 <td>
                                     <div class="cc">
-                                        <select name="songTeam" id="tab" disabled>
+                                        <select name="songTeam" class="tab" disabled>
                                             <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
                                             <option value="0">銀河鉄道の夜</option>
                                             <option value="1">STAR★BURST★SHIP</option>
@@ -217,7 +217,7 @@
                                 </th>
                                 <td>
                                     <div class="cc">
-                                        <select name="songTeam" id="tab" disabled>
+                                        <select name="songTeam" class="tab" disabled>
                                             <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
                                             <option value="0">銀河鉄道の夜</option>
                                             <option value="1">STAR★BURST★SHIP</option>
@@ -238,7 +238,7 @@
                                 </th>
                                 <td>
                                     <div class="cc">
-                                        <select name="songTeam" id="tab" disabled>
+                                        <select name="songTeam" class="tab" disabled>
                                             <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
                                             <option value="0">銀河鉄道の夜</option>
                                             <option value="1">STAR★BURST★SHIP</option>
@@ -259,7 +259,7 @@
                                 </th>
                                 <td>
                                     <div class="cc">
-                                        <select name="songTeam" id="tab" disabled>
+                                        <select name="songTeam" class="tab" disabled>
                                             <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
                                             <option value="0">銀河鉄道の夜</option>
                                             <option value="1">STAR★BURST★SHIP</option>
@@ -273,17 +273,17 @@
                 </div>
 
                 <div class="form-group ca">
-                    <label for="memo" class="memo-label">メモ：</label>
+                    <label class="memo-label">メモ：</label>
                     <textarea class="memo" name="memo" placeholder="メモを入力してください。"></textarea>
                 </div>
 
                 <div class="form-group">
                     <div class="btn">
                         <button id="fed_open" type="button" class="in">完了</button>
-                        <a class="kyan" href="../fave_detail/fave_detail.html">キャンセル</a>
+                        <a class="kyan" href="fave_detail">キャンセル</a>
                     </div>
                     <div class="f_dele">
-                        <button id="fe_dele"><img src="../../img/DELE.png" alt=""></button>
+                        <button id="fe_dele"><img src="static/img/DELE.png" alt=""></button>
                     </div>
                 </div>
             </form>
@@ -304,7 +304,7 @@
 
         <div class="modal-body">
             <button id="tabAdd" type="button" class="btn">追加</button>
-            <button id="cancel" type="button" class="btn close">キャンセル</button>
+            <button id="edcon_can" type="button" class="btn close">キャンセル</button>
         </div>
     </div>
 </div>
@@ -319,7 +319,7 @@
 
         <div class="modal-body">
             <button id="conAdd2" type="button" class="btn">追加</button>
-            <button id="cancel" type="button" class="btn close">キャンセル</button>
+            <button id="edcon_can2" type="button" class="btn close">キャンセル</button>
         </div>
     </div>
 </div>
@@ -345,7 +345,7 @@
                     <tr>
                         <th>画像：</th>
                         <td>
-                            <div class="mo-img"><img src="../../img/myu.jpg" alt="ミューズ"></div>
+                            <div class="mo-img"><img src="static/img/myu.jpg" alt="ミューズ"></div>
                             <p>myu.jpg</p>
                         </td>
                     </tr>
@@ -415,7 +415,7 @@
     </div>
 </div>
 
-<script src="fave_edit.js"></script>
+<script src="static/js/FaveFile/fave_edit.js"></script>
 <script src="static/js/all.js"></script>
 
 </body>
