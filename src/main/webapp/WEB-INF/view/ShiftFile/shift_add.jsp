@@ -1,4 +1,6 @@
-<%--
+<%@ page import="utils.Bean.workBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="utils.Bean.userBean" %><%--
   Created by IntelliJ IDEA.
   User: hrnea
   Date: 2024/11/22
@@ -6,6 +8,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    userBean user = (userBean) session.getAttribute("user");
+    String log_id = user.getLog_id();
+    ArrayList<workBean> worklist = (ArrayList<workBean>) session.getAttribute("worklist");
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -67,7 +74,7 @@
             <h3>RELATE</h3>
         </a></div>
         <hr>
-        <div class="shift"><a href="../../ShiftFile/shift/shift.html">
+        <div class="shift"><a href="shift">
             <h3>SHIFT</h3>
         </a></div>
         <hr>
@@ -83,16 +90,30 @@
 
     <div class="main scroll-box">
         <div class="scroll-content">
+            <h1><%=log_id%></h1>
             <p class="hissu p">※ ＊は必須項目です。</p>
-            <form action="#" method="post">
+            <form action="ShiftAddServlet" method="post" id="shift_add_form">
                 <table>
                     <tr>
                         <th><span>＊</span> バイト先 :</th>
-                        <td><select id="menu" name="menu">
-                            <option value="" disabled selected hidden>バイト先を選択してください</option>
-                            <option value="option1">まいにちマート</option>
-                            <option value="option2">茎わかめファクトリー</option>
-                        </select>
+                        <td>
+                            <select id="menu" name="menu">
+                                <option value="" disabled selected hidden>バイト先を選択してください</option>
+                                <c:choose>
+                                    <!-- worklistが空ではない場合 -->
+                                    <c:when test="${not empty worklist}">
+                                        <c:forEach var="work" items="${worklist}">
+                                            <option value="${work.work_id}" data-wage="${work.hourlywage}">${work.work}</option>
+                                        </c:forEach>
+                                    </c:when>
+                                    <!-- worklistが空の場合 -->
+                                    <c:otherwise>
+                                        <option value="-1" disabled>バイト先が未登録</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </select>
+
+
                         </td>
                         <td class="img">
                             <a href="../../WorkFile/work_add/work_add.html">
@@ -103,8 +124,7 @@
                     <tr>
                         <th><span>＊</span> 開始 :</th>
                         <td class="input-container">
-                            <input type="datetime-local" id="start-time" class="pl-input"
-                                   onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
+                            <input type="datetime-local" id="start-time" class="pl-input" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
                             <span class="pl-placeholder">開始時間を入力してください</span>
                         </td>
                     </tr>
@@ -113,8 +133,7 @@
                     <tr>
                         <th><span>＊</span> 終了 :</th>
                         <td class="input-container">
-                            <input type="datetime-local" id="start-time" class="pl-input"
-                                   onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
+                            <input type="datetime-local" id="end-time" class="pl-input" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
                             <span class="pl-placeholder">終了時間を入力してください</span>
                         </td>
                     </tr>
@@ -126,9 +145,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <th class="zikyu-color"> 時給(円) :</th>
+                    <tr>
+                        <th><span>＊</span> 時給(円) :</th>
                         <td>
-                            <input type="text" min="0" placeholder="バイト先項目でバイト先を選択してください。" readonly>
+                            <input type="text" id="wage" placeholder="バイト先項目でバイト先を選択してください。" readonly>
                         </td>
                         <td>
                             <button id="modalOpenzikyu" type="button" class="zikyu">時給を変更</button>
@@ -137,9 +157,10 @@
                 </table>
                 <div class="btn">
                     <button id="modalOpen" type="button" class="in">追加</button>
-                    <a class="kyan" href="../shift/shift.html">キャンセル</a>
+                    <a class="kyan" href="shift">キャンセル</a>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

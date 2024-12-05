@@ -98,7 +98,7 @@
 
     <div class="main scroll-box">
         <div class="head_btn">
-            <a href="../shift_add/shift_add.html" class="a"><img class="add" src="static/img/ADD.png" alt="add"></a>
+            <a href="shift_add" class="a"><img class="add" src="static/img/ADD.png" alt="add"></a>
 
             <!-- モーダルを開くためのボタン -->
             <div class="container_btn">
@@ -119,84 +119,15 @@
                         <span class="time">9:00</span>
                         <span class="time">15:00</span>
                     </div>
-                    <div class="img_icon"><a href="../shift_edit/shift_edit.html"><img
+                    <div class="img_icon"><a href="shift_edit"><img
                             src="static/img/EDIT2.png"></a></div>
                     <div class="img_icon" id="deleteButton"><a href="#"><img src="static/img/DELE2.png"></a></div>
                 </div>
             </div>
 
-            <br>
-
-            <div class="shift_roop">
-                <div class="container">
-                    <div class="vertical-line"></div>
-                    <span class="date">9/19(木)</span>
-                    <span class="work_name">まいにちマート</span>
-                    <div class="time-container">
-                        <span class="time">12:00</span>
-                        <span class="time">18:00</span>
-                    </div>
-                    <div class="img_icon"><a href="#"><img src="../../img/EDIT2.png"></a></div>
-                    <div class="img_icon"><a href="#"><img src="../../img/DELE2.png"></a></div>
-                </div>
-            </div>
-
-            <br>
-
-            <div class="shift_roop">
-                <div class="container">
-                    <div class="vertical-line"></div>
-                    <span class="date">9/22(日)</span>
-                    <span class="work_name">まいにちマート</span>
-                    <div class="time-container">
-                        <span class="time">10:00</span>
-                        <span class="time">18:00</span>
-                    </div>
-                    <div class="img_icon"><a href="#"><img src="../../img/EDIT2.png"></a></div>
-                    <div class="img_icon"><a href="#"><img src="../../img/DELE2.png"></a></div>
-                </div>
-            </div>
-
-            <br>
-
-            <div class="shift_roop">
-                <div class="container">
-                    <div class="vertical-line"></div>
-                    <span class="date">9/24(火)</span>
-                    <span class="work_name">まいにちマート</span>
-                    <div class="time-container">
-                        <span class="time">9:00</span>
-                        <span class="time">15:00</span>
-                    </div>
-                    <div class="img_icon"><a href="#"><img src="../../img/EDIT2.png"></a></div>
-                    <div class="img_icon"><a href="#"><img src="../../img/DELE2.png"></a></div>
-                </div>
-            </div>
-        </div>
-
-
 
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -313,6 +244,7 @@
 <script src="static/js/ShiftFile/shift.js"></script>
 <script src="static/js/all.js"></script>
 
+</div>
 </body>
 
 <footer>
