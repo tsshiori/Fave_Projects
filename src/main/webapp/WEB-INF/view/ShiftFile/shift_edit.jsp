@@ -66,7 +66,7 @@
             <h3>RELATE</h3>
         </a></div>
         <hr>
-        <div class="shift"><a href="../../ShiftFile/shift/shift.html">
+        <div class="shift"><a href="shift">
             <h3>SHIFT</h3>
         </a></div>
         <hr>
@@ -83,7 +83,7 @@
     <div class="main scroll-box">
         <div class="scroll-content">
             <p class="hissu p">※ ＊は必須項目です。</p>
-            <form action="#" method="post">
+            <form action="ShiftEditServlet" method="post" id="shift_edit_form">
                 <table>
                     <tr>
                         <th><span>＊</span> バイト先 :</th>
@@ -111,7 +111,7 @@
                     <tr>
                         <th><span>＊</span> 終了 :</th>
                         <td class="input-container">
-                            <input type="datetime-local" id="start-time" class="pl-input" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
+                            <input type="datetime-local" id="end-time" class="pl-input" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
                             <span class="pl-placeholder">終了時間を入力してください</span>
                         </td>
                     </tr>
@@ -134,7 +134,7 @@
                 </table>
                 <div class="btn">
                     <button id="modalOpen" type="button" class="in">完了</button>
-                    <a class="kyan" href="../shift/shift.html">キャンセル</a>
+                    <a class="kyan" href="shift">キャンセル</a>
                 </div>
             </form>
         </div>

@@ -29,12 +29,13 @@ function modalClose() {
 
 // モーダルの「登録」ボタンを押したときの処理
 buttonConfirmRe.addEventListener('click', confirmRe);
-function confirmRe() {
-    window.location.href = '../shift/shift.html'; // 遷移先
-}
+document.getElementById('confirmRe').addEventListener('click', function () {
+    document.getElementById('shift_edit_form').submit();
+});
+
 buttonConfirmRe2.addEventListener('click', confirmRe2); // 修正
 function confirmRe2() {
-    window.location.href = '../shift_add/shift_add.html'; // 遷移先
+    window.location.href = 'shift_edit'; // 遷移先
 }
 
 

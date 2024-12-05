@@ -27,14 +27,16 @@ function modalClose() {
     modal2.style.display = 'none'; // モーダル2を閉じる
 }
 
-// モーダルの「登録」ボタンを押したときの処理
 buttonConfirmRe.addEventListener('click', confirmRe);
-function confirmRe() {
-    window.location.href = '../shift/shift.html'; // 遷移先
-}
+
+document.getElementById('confirmRe').addEventListener('click', function () {
+    document.getElementById('shift_add_form').submit();
+});
+
+
 buttonConfirmRe2.addEventListener('click', confirmRe2); // 修正
 function confirmRe2() {
-    window.location.href = '../shift_add/shift_add.html'; // 遷移先
+    window.location.href = 'shift_add'; // 遷移先
 }
 
 
@@ -101,5 +103,22 @@ document.addEventListener('DOMContentLoaded', () => {
             input.focus();  // inputにフォーカス
             input.click();  // 日付ピッカーを開くためにクリックを追加
         });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const menu = document.getElementById('menu');
+    const wageInput = document.getElementById('wage');
+
+    // バイト先選択時に時給を更新
+    menu.addEventListener('change', (event) => {
+        const selectedOption = event.target.selectedOptions[0]; // 選択された<option>
+        const wage = selectedOption.getAttribute('data-wage'); // 時給を取得
+
+        if (wage) {
+            wageInput.value = `￥${wage}`; // 時給を表示
+        } else {
+            wageInput.value = ''; // 初期値に戻す
+        }
     });
 });
