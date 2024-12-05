@@ -12,8 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&family=Yuji+Syuku&display=swap"
           rel="stylesheet">
 
-    <link rel="stylesheet" href="../all.css">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="static/css/all.css">
+    <link rel="stylesheet" href="static/css/index.css">
 
     <link rel="shortcut icon" href="../img/Time for Fave.png">
     <title>HOME | Time of Fave.</title>
@@ -23,7 +23,7 @@
 <div class="container con">
     <!-- ロゴ -->
     <div class="logo">
-        <a href="../index/index.html"><img src="../img/Time for Fave.png" alt="logo"></a>
+        <a href="fave"><img src="static/img/TimeforFave.png" alt="logo"></a>
     </div>
 
     <!-- メーター -->
@@ -38,11 +38,11 @@
         </div>
         <div class="meterimg">
             <div class="temoti">
-                <img src="../img/temoti.png" alt="temoti">
+                <img src="static/img/temoti.png" alt="temoti">
                 <span class="temoti-value">所持金額: 31.1</span> <!-- valueを表示する要素 -->
             </div>
             <div class="kyuuryoubi">
-                <img src="../img/kyuuryoubi.png" alt="kyuuryoubi">
+                <img src="static/img/kyuuryoubi.png" alt="kyuuryoubi">
                 <span class="kyuuryoubi-value">給与予定額: 45.4</span> <!-- valueを表示する要素 -->
             </div>
         </div>
@@ -53,37 +53,37 @@
     <aside class="menu">
         <br>
         <div class="home">
-            <a href="../index/index.html">
+            <a href="fave">
                 <h3>HOME</h3>
             </a>
         </div>
         <hr>
         <div class="fave">
-            <a href="../FaveFile/fave/fave.html">
+            <a href="fave">
                 <h3>FAVE</h3>
             </a>
         </div>
         <hr>
         <div class="relate">
-            <a href="../FaveFile/relate/relate.html">
+            <a href="relate">
                 <h3>RELATE</h3>
             </a>
         </div>
         <hr>
         <div class="shift">
-            <a href="../ShiftFile/shift/shift.html">
+            <a href="shift">
                 <h3>SHIFT</h3>
             </a>
         </div>
         <hr>
         <div class="work">
-            <a href="../WorkFile/work/work.html">
+            <a href="work">
                 <h3>WORK</h3>
             </a>
         </div>
         <hr>
         <div class="mypage">
-            <a href="../MypageFile/mypage/mypage.html">
+            <a href="my_page">
                 <h3>MYPAGE</h3>
             </a>
         </div>
@@ -91,7 +91,7 @@
     </aside>
 
     <div class="main scroll-box">
-        <a href="../GoodsFile/goods_add/goods_add.html"><img class="add" src="../img/ADD.png" alt="add"></a>
+        <a href="goods"><img class="add" src="static/img/ADD.png" alt="add"></a>
 
         <div class="scroll-content ge-list">
             <!-- グッズ詳細表示 -->
@@ -101,7 +101,7 @@
                     <div class="container">
                         <div class="hi-img">
                             <p>~11/16</p>
-                            <img src="../img/Y_A.png" alt="A">
+                            <img src="static/img/Y_A.png" alt="A">
                         </div>
                         <div class="inf-meter">
                             <div class="container osi-na-pri">
@@ -271,8 +271,8 @@
     </div>
 </div>
 
-<script src="index.js"></script>
-<script src="../all.js"></script>
+<script src="static/js/index.js"></script>
+<script src="static/js/all.js"></script>
 
 </body>
 
