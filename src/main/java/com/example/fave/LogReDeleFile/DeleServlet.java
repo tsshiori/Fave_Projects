@@ -19,35 +19,35 @@ public class DeleServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        // セッションから現在のユーザーIDを取得
+        // セッションから現在のユーザーIDを取得
         HttpSession session = request.getSession();
         request.setCharacterEncoding("utf-8");
-        String log_id = session.getAttribute("log_id").toString();
-        userBean user = utils.DAO.userDAO.selectById(log_id);
-        // パスワードをリクエストから取得
+
+        // セッションからユーザーIDを取得
+        String log_id = (String) session.getAttribute("log_id");
+
+        // リクエストからパスワードを取得
         String password = request.getParameter("password");
-//
-//        try {
-//            // パスワードが一致するか確認
-//            if (userDAO.checkPassword(userId, password)) {
-//                // アカウント削除処理
-//                boolean isDeleted = userDAO.deleteUser(userId);
-//                if (isDeleted) {
-//                    // セッションを無効化し、ログアウト状態にする
-//                    request.getSession().invalidate();
-//                    // 削除後はログインページにリダイレクト
-//                    response.sendRedirect(request.getContextPath() + "/login.jsp");
-//                } else {
-//                    request.setAttribute("errorMessage", "アカウント削除に失敗しました。");
-//                    request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp").forward(request, response);
-//                }
-//            } else {
-//                request.setAttribute("errorMessage", "パスワードが一致しません。");
-//                request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp").forward(request, response);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "サーバーエラーが発生しました。");
-//        }
+
+        try {
+            // アカウント削除処理
+            userDAO.deleteUser(log_id, password);  // void型なので結果を受け取らない
+
+            // 削除処理が成功した場合、セッションを無効化
+            session.invalidate();
+            // ログインページにリダイレクト
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+
+        } catch (SQLException e) {
+            // エラー発生時の処理
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "サーバーエラーが発生しました。");
+            request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp").forward(request, response);
+        } catch (Exception e) {
+            // パスワードが一致しない、または削除に失敗した場合
+            e.printStackTrace();
+            request.setAttribute("errorMessage", e.getMessage());  // deleteUser()内で出力したメッセージを使う
+            request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp").forward(request, response);
+        }
     }
 }

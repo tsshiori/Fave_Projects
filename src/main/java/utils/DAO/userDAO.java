@@ -2,6 +2,7 @@ package utils.DAO;
 
 import java.lang.Class;
 
+import org.mindrot.jbcrypt.BCrypt;
 import utils.Bean.userBean;
 
 import java.sql.*;
@@ -81,26 +82,50 @@ public class userDAO {
     }
 
     // アカウント削除
-    public static void deleteUser(String log_id) throws SQLException {
-        String sql = "DELETE FROM account WHERE log_id = ?";
+    public static boolean deleteUser(String log_id, String password) throws SQLException {
+        // ログイン情報からパスワードを取得
+        String selectSql = "SELECT password FROM account WHERE log_id = ?";
 
         try (Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
+             PreparedStatement pstmt = con.prepareStatement(selectSql)) {
 
             pstmt.setString(1, log_id);
-            int rowsAffected = pstmt.executeUpdate();  // 実行
+            ResultSet rs = pstmt.executeQuery();
 
-            if (rowsAffected > 0) {
-                System.out.println("ユーザーが削除されました。");
-            } else {
-                System.out.println("指定されたlog_idに対応するデータが存在しません。");
+            // ユーザーが見つからない場合
+            if (!rs.next()) {
+                System.out.println("指定されたlog_idに対応するユーザーは存在しません。");
+                return false;
             }
 
+            String storedPassword = rs.getString("password");
+
+            // パスワードが一致するかチェック（BCryptを使用した例）
+            if (BCrypt.checkpw(password, storedPassword)) {
+                // パスワードが一致した場合、削除処理
+                String deleteSql = "DELETE FROM account WHERE log_id = ?";
+                try (PreparedStatement deleteStmt = con.prepareStatement(deleteSql)) {
+                    deleteStmt.setString(1, log_id);
+                    int rowsAffected = deleteStmt.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        System.out.println("ユーザーが削除されました。");
+                        return true;
+                    } else {
+                        System.out.println("削除に失敗しました。");
+                        return false;
+                    }
+                }
+            } else {
+                System.out.println("パスワードが一致しません。");
+                return false;
+            }
         } catch (SQLException e) {
-            e.printStackTrace();  // エラーの詳細を表示
-            throw e;  // エラーが発生したら呼び出し元に例外を投げる
+            e.printStackTrace();
+            throw e;  // エラーが発生した場合は例外を投げる
         }
     }
+
 
     public static void updateSaiosi(int saiosi, String log_id) {
         String sql = "UPDATE account SET saiosi = ? WHERE log_id = ?";

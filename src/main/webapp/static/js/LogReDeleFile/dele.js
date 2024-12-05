@@ -17,14 +17,20 @@ function modalClose() {
 }
 
 // 削除ボタンが押されたら、フォームを送信して削除処理を実行
-document.getElementById('confirmDelete').addEventListener('click', function() {
-    // フォームを送信
-    document.getElementById('deleteForm').submit();
+buttonConfirmDelete.addEventListener('click', function() {
+    const password = document.getElementById('password').value;
+    console.log(password); // パスワードの確認
+    if (password.trim() !== "") {
+        document.getElementById('deleteForm').submit();
+    } else {
+        alert("パスワードを入力してください");
+    }
 });
+
 
 // キャンセルボタンがクリックされた場合の処理（マイページに遷移）
 document.getElementById('cancelDeletePage').addEventListener('click', function() {
-    window.location.href = 'http://127.0.0.1:5500/TimeofFave/Time of WEB-INF/view/MypageFile/mypage.jsp'; // マイページへの遷移
+    window.location.href = 'dele'; // マイページへの遷移
 });
 
 // モーダルの外側をクリックした場合、モーダルを閉じる処理

@@ -28,11 +28,11 @@
         </div>
 
         <div class="text">
-            <input type="text" name="pass" placeholder="パスワード" class="last-input">
+            <input type="text" id="password" name="pass" placeholder="パスワード" class="last-input">
         </div>
 
         <!-- エラーメッセージの表示 -->
-        <p style="color: red; text-align: center; font-size: 7px">
+        <p style="color: red; text-align: center; font-size: 10px">
             <% if (request.getAttribute("errorMessage") != null) { %>
             <%= request.getAttribute("errorMessage") %>
             <% } %>
@@ -41,7 +41,7 @@
         <!-- モーダルを開くためのボタン -->
         <div class="container_btn">
             <button type="button" id="modalOpen" class="btn">削除</button>
-            <a id="cancelDeletePage" class="kyan" href="WEB-INF/view/MypageFile/mypage.jsp">キャンセル</a>
+            <a id="cancelDeletePage" class="kyan" href="my_page">キャンセル</a>
         </div>
 
 
