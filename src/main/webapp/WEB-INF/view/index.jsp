@@ -83,7 +83,7 @@
         </div>
         <hr>
         <div class="mypage">
-            <a href="../MypageFile/mypage/mypage.html">
+            <a href="my_page">
                 <h3>MYPAGE</h3>
             </a>
         </div>
