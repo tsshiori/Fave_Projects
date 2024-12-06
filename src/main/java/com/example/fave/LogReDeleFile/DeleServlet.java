@@ -23,7 +23,8 @@ public class DeleServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
 
         // セッションからユーザーIDを取得
-        String log_id = (String) session.getAttribute("log_id");
+        userBean user = (userBean) session.getAttribute("user");
+        String log_id = user.getLog_id();
 
         // リクエストからパスワードを取得
         String password = request.getParameter("pass");
@@ -37,11 +38,11 @@ public class DeleServlet extends HttpServlet {
 
         try {
             // アカウント削除処理
-            boolean isDeleted = userDAO.deleteUser(log_id, password);
+            boolean isDeleted = utils.DAO.userDAO.deleteUser(log_id, password);
 
             if (isDeleted) {
                 // パスワードが正しい場合、削除処理を実行し、結果ページにリダイレクト
-                response.sendRedirect("削除完了ページへのリダイレクトURL"); // 成功時のリダイレクト先を指定
+                response.sendRedirect("login"); // 成功時のリダイレクト先を指定
             } else {
                 // パスワードが間違っている場合
                 request.setAttribute("errorMessage", "パスワードが間違っています。再度入力してください。");

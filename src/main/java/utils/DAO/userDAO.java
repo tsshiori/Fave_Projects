@@ -83,45 +83,76 @@ public class userDAO {
 
     // アカウント削除処理
     public static boolean deleteUser(String log_id, String password) throws SQLException {
-        // ログイン情報からパスワードを取得
+        // 1. ログイン情報からパスワードを取得
         String selectSql = "SELECT password FROM account WHERE log_id = ?";
 
         try (Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement pstmt = con.prepareStatement(selectSql)) {
 
             pstmt.setString(1, log_id);
-            ResultSet rs = pstmt.executeQuery();
-
-            // ユーザーが見つからない場合
-            if (!rs.next()) {
-                System.out.println("指定されたlog_idに対応するユーザーは存在しません。");
-                return false;
-            }
-
-            String storedPassword = rs.getString("password");
-
-            // パスワードが一致するかチェック（BCryptを使用した例）
-            if (BCrypt.checkpw(password, storedPassword)) {
-                // パスワードが一致した場合、削除処理
-                String deleteSql = "DELETE FROM account WHERE log_id = ?";
-                try (PreparedStatement deleteStmt = con.prepareStatement(deleteSql)) {
-                    deleteStmt.setString(1, log_id);
-                    int rowsAffected = deleteStmt.executeUpdate();
-
-                    if (rowsAffected > 0) {
-                        System.out.println("ユーザーが削除されました。");
-                        return true;
-                    } else {
-                        System.out.println("削除に失敗しました。");
-                        return false;
-                    }
+            try (ResultSet rs = pstmt.executeQuery()) {
+                // ユーザーが見つからない場合
+                if (!rs.next()) {
+                    System.out.println("指定されたlog_idに対応するユーザーは存在しません。");
+                    return false;
                 }
-            } else {
-                // パスワードが一致しない場合
-                return false;
+
+                String storedPassword = rs.getString("password");
+
+                // パスワードが一致するかチェック（BCryptを使用した例）
+                if (BCrypt.checkpw(password, storedPassword)) {
+                    // 2. まず、関連するosikatuテーブルのデータを削除
+                    String deleteOsikatuSql = "DELETE FROM osikatu WHERE osi_id IN (SELECT osi_id FROM osi WHERE log_id = ?)";
+                    try (PreparedStatement deleteOsikatuStmt = con.prepareStatement(deleteOsikatuSql)) {
+                        deleteOsikatuStmt.setString(1, log_id);
+                        deleteOsikatuStmt.executeUpdate();
+                    }
+
+                    // 3. osiテーブルのデータを削除
+                    String deleteOsiSql = "DELETE FROM osi WHERE log_id = ?";
+                    try (PreparedStatement deleteOsiStmt = con.prepareStatement(deleteOsiSql)) {
+                        deleteOsiStmt.setString(1, log_id);
+                        deleteOsiStmt.executeUpdate();
+                    }
+
+                    // 4. workテーブルのデータを削除
+                    String deleteWorkSql = "DELETE FROM work WHERE log_id = ?";
+                    try (PreparedStatement deleteWorkStmt = con.prepareStatement(deleteWorkSql)) {
+                        deleteWorkStmt.setString(1, log_id);
+                        deleteWorkStmt.executeUpdate();
+                    }
+
+                    // 5. shiftテーブルのデータを削除
+                    String deleteShiftSql = "DELETE FROM shift WHERE work_id IN (SELECT work_id FROM work WHERE log_id = ?)";
+                    try (PreparedStatement deleteShiftStmt = con.prepareStatement(deleteShiftSql)) {
+                        deleteShiftStmt.setString(1, log_id);
+                        deleteShiftStmt.executeUpdate();
+                    }
+
+                    // 6. 最後にaccountテーブルのデータを削除
+                    String deleteAccountSql = "DELETE FROM account WHERE log_id = ?";
+                    try (PreparedStatement deleteAccountStmt = con.prepareStatement(deleteAccountSql)) {
+                        deleteAccountStmt.setString(1, log_id);
+                        int rowsAffected = deleteAccountStmt.executeUpdate();
+
+                        if (rowsAffected > 0) {
+                            System.out.println("ユーザーが削除されました。");
+                            return true;
+                        } else {
+                            System.out.println("削除に失敗しました。");
+                            return false;
+                        }
+                    }
+                } else {
+                    // パスワードが一致しない場合
+                    System.out.println("パスワードが一致しません。");
+                    return false;
+                }
             }
         }
     }
+
+
 
     public static void updateSaiosi(int saiosi, String log_id) {
         String sql = "UPDATE account SET saiosi = ? WHERE log_id = ?";
