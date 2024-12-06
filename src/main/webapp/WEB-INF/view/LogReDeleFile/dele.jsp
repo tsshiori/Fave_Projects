@@ -5,17 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&family=Yuji+Syuku&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="static/css/all.css">
     <link rel="stylesheet" href="static/css/LogReDeleFile/dele.css">
-
-    <link rel="shortcut icon" href="static/img/TimeforFave.png">
     <title>DELETE | Time of Fave.</title>
-
 </head>
 
 <body>
@@ -32,10 +24,8 @@
         </div>
 
         <!-- エラーメッセージの表示 -->
-        <p style="color: red; text-align: center; font-size: 10px">
-            <% if (request.getAttribute("errorMessage") != null) { %>
-            <%= request.getAttribute("errorMessage") %>
-            <% } %>
+        <p class="error-message" style="font-size: 15px; color: red">
+            <%= request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : "" %>
         </p>
 
         <!-- モーダルを開くためのボタン -->
@@ -43,7 +33,6 @@
             <button type="button" id="modalOpen" class="btn">削除</button>
             <a id="cancelDeletePage" class="kyan" href="my_page">キャンセル</a>
         </div>
-
 
     </form>
 
@@ -65,7 +54,7 @@
         </div>
     </div>
 </div>
-    <script src="static/js/LogReDeleFile/dele.js"></script>
+<script src="static/js/LogReDeleFile/dele.js"></script>
 
 </body>
 

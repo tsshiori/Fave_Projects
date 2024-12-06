@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/FaveFile/fave.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/FaveFile" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/GoodsFile/goods.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/GoodsFile" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/LogReDeleFile/dele.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/LogReDeleFile" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/LogReDeleFile/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/LogReDeleFile" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/LogReDeleFile/re.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/LogReDeleFile" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ShiftFile/shift_edit.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ShiftFile" />

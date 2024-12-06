@@ -81,7 +81,7 @@ public class userDAO {
         return result; // ユーザーが見つからなければnull
     }
 
-    // アカウント削除
+    // アカウント削除処理
     public static boolean deleteUser(String log_id, String password) throws SQLException {
         // ログイン情報からパスワードを取得
         String selectSql = "SELECT password FROM account WHERE log_id = ?";
@@ -117,15 +117,11 @@ public class userDAO {
                     }
                 }
             } else {
-                System.out.println("パスワードが一致しません。");
+                // パスワードが一致しない場合
                 return false;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;  // エラーが発生した場合は例外を投げる
         }
     }
-
 
     public static void updateSaiosi(int saiosi, String log_id) {
         String sql = "UPDATE account SET saiosi = ? WHERE log_id = ?";

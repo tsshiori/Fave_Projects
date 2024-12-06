@@ -19,7 +19,6 @@ public class DeleServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // セッションから現在のユーザーIDを取得
         HttpSession session = request.getSession();
         request.setCharacterEncoding("utf-8");
 
@@ -27,26 +26,31 @@ public class DeleServlet extends HttpServlet {
         String log_id = (String) session.getAttribute("log_id");
 
         // リクエストからパスワードを取得
-        String password = request.getParameter("password");
+        String password = request.getParameter("pass");
+
+        // パスワードが未入力の場合
+        if (password == null || password.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "パスワードを入力してください。");
+            request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp").forward(request, response);
+            return;
+        }
 
         try {
             // アカウント削除処理
-            userDAO.deleteUser(log_id, password);  // void型なので結果を受け取らない
+            boolean isDeleted = userDAO.deleteUser(log_id, password);
 
-            // 削除処理が成功した場合、セッションを無効化
-            session.invalidate();
-            // ログインページにリダイレクト
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
-
+            if (isDeleted) {
+                // パスワードが正しい場合、削除処理を実行し、結果ページにリダイレクト
+                response.sendRedirect("削除完了ページへのリダイレクトURL"); // 成功時のリダイレクト先を指定
+            } else {
+                // パスワードが間違っている場合
+                request.setAttribute("errorMessage", "パスワードが間違っています。再度入力してください。");
+                request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp").forward(request, response);
+            }
         } catch (SQLException e) {
-            // エラー発生時の処理
+            // サーバーエラー発生時の処理
             e.printStackTrace();
             request.setAttribute("errorMessage", "サーバーエラーが発生しました。");
-            request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp").forward(request, response);
-        } catch (Exception e) {
-            // パスワードが一致しない、または削除に失敗した場合
-            e.printStackTrace();
-            request.setAttribute("errorMessage", e.getMessage());  // deleteUser()内で出力したメッセージを使う
             request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/dele.jsp").forward(request, response);
         }
     }
