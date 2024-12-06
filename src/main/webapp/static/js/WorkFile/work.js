@@ -45,3 +45,4 @@ window.addEventListener('click', function(e) {
         modal2.style.display = 'none';
     }
 });
+
