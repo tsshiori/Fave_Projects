@@ -22,7 +22,7 @@ public class ShiftAddServlet extends HttpServlet {
 
         userBean user = (userBean) session.getAttribute("user");
         String log_id = user.getLog_id();
-        ArrayList<workBean> worklist = workDAO.selectAll(log_id);
+        ArrayList<workBean> worklist = workDAO.selectWorkAll(log_id);
         session.setAttribute("worklist",worklist);
 
         request.getRequestDispatcher("/WEB-INF/view/ShiftFile/shift_add.jsp").forward(request, response);
