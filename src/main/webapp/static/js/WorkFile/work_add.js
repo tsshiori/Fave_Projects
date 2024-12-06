@@ -16,21 +16,14 @@ function modalClose() {
     modal.style.display = 'none';
 }
 
-// 削除確定イベントリスナー
-buttonConfirmDelete.addEventListener('click', confirmDelete);
-function confirmDelete() {
-    // ページ遷移する
-    window.location.href = 'http://127.0.0.1:5500/Time%20of%20Fave/WorkFile/work/work.html';
-}
-
-// キャンセルボタンをクリックしたらマイページに遷移する処理
-document.getElementById('cancelDeletePage').addEventListener('click', function() {
-    window.location.href = 'http://127.0.0.1:5500/Time%20of%20Fave/MypageFile/mypage/mypage.html';
-});
-
 // モーダル外をクリックしたときにモーダルを閉じる
 document.addEventListener('click', function(e) {
     if (e.target === modal) {
         modalClose();
     }
+});
+
+// モーダル内の「追加」ボタンがクリックされたときの処理
+buttonConfirmDelete.addEventListener('click', function () {
+    document.getElementById('work_add_form').submit();
 });

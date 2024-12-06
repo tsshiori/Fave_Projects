@@ -1,4 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String errorMessage = (String) session.getAttribute("errorMessage");
+    if (errorMessage != null) {
+        session.removeAttribute("errorMessage"); // 使用後に削除
+    }
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -37,11 +43,11 @@
         </div>
         <div class="meterimg">
             <div class="temoti">
-                <img src="../../img/temoti.png" alt="temoti">
+                <img src="static/img/temoti.png" alt="temoti">
                 <span class="temoti-value">所持金額: 31.1</span> <!-- valueを表示する要素 -->
             </div>
             <div class="kyuuryoubi">
-                <img src="../../img/kyuuryoubi.png" alt="kyuuryoubi">
+                <img src="static/img/kyuuryoubi.png" alt="kyuuryoubi">
                 <span class="kyuuryoubi-value">給与予定額: 45.4</span> <!-- valueを表示する要素 -->
             </div>
         </div>
@@ -92,33 +98,35 @@
     <div class="main scroll-box">
         <div class="scroll-content">
             <p class="hissu p">※ ＊は必須項目です。</p>
-            <form action="../work/work.html" method="post">
+            <form action="WorkAddServlet" method="post" id="work_add_form">
                 <table>
+
                     <tr>
                         <th><span>＊</span> バイト先 :</th>
                         <td>
-                            <input type="text" min="0" placeholder="バイト先名を入力してください。">
+                            <input name="work" type="text" min="0" placeholder="バイト先名を入力してください。">
                         </td>
                     </tr>
                     <tr>
                         <th><span>＊</span> 時給(円) :</th>
                         <td>
-                            <input type="number" min="0" placeholder="時給(円)を入力してください。">
+                            <input name="hourlywage" type="number" min="0" placeholder="時給(円)を入力してください。">
                         </td>
                     </tr>
                     <tr>
                         <th>メイン設定 :</th>
                         <td>
-                            <input type="checkbox" min="0">
+                            <input name="mainwork" type="checkbox" value="1">
                             <span class="small-text">※ メインのバイト先にする場合はチェックを入れてください。</span>
                         </td>
                     </tr>
                 </table>
                 <div class="btn">
                     <button id="modalOpen" type="button" class="in">追加</button>
-                    <a class="kyan" href="../work/work.html">キャンセル</a>
+                    <a class="kyan" href="work">キャンセル</a>
                 </div>
             </form>
+            <%=errorMessage%>
         </div>
     </div>
 </div>
@@ -145,7 +153,7 @@
             <tr class="container moa">
                 <th class="modal_title">メイン設定 :</th>
                 <td class="modal-a">
-                    <input type="checkbox" min="0">
+                    <input type="checkbox" min="0" readonly>
                     <span class="small-text">※ メインのバイト先にする場合はチェックが入ります。</span>
                 </td>
             </tr>

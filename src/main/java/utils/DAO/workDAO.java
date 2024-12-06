@@ -29,39 +29,44 @@ public class workDAO {
             // プレースホルダーに値を設定
             pstmt.setString(1, log_id);
 
+            // デバッグ: SQL とプレースホルダーの確認
+            System.out.println("Executing SQL: " + sql);
+            System.out.println("With log_id: " + log_id);
+
             // クエリ実行
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     results.add(
                             new workBean(
-                                    rs.getInt("work_id"),         // カラム名を確認
-                                    rs.getInt("hourlywage"),
-                                    rs.getString("work"),
-                                    rs.getString("log_id")
+                                    rs.getInt("work_id"),         // work_id カラム
+                                    rs.getInt("hourlywage"),      // hourlywage カラム
+                                    rs.getString("work"),         // work カラム
+                                    rs.getString("log_id")        // log_id カラム
                             )
                     );
                 }
             }
         } catch (SQLException e) {
-            System.out.println("エラー: " + e.getMessage());
+            // エラー出力
+            System.err.println("SQL Exception: " + e.getMessage());
             e.printStackTrace();
         }
 
         return results;
     }
 
+
     public static void insertWork(int work_id,int hourlywage,String work,String log_id) {
-        String sql = "INSERT INTO work VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO work VALUES (NULL, ?, ?, ?)";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
             PreparedStatement pstmt = con.prepareStatement(sql);
 
-            pstmt.setInt(1, work_id);
-            pstmt.setInt(2, hourlywage);
-            pstmt.setString(3, work);
-            pstmt.setString(4, log_id);
+            pstmt.setInt(1, hourlywage);
+            pstmt.setString(2, work);
+            pstmt.setString(3, log_id);
 
 
             int rowsAffected = pstmt.executeUpdate();
@@ -73,6 +78,31 @@ public class workDAO {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();  // エラー詳細を表示
         }
+    }
+
+    public static int selectNameWork(String log_id, String work) {
+        if (work == null || log_id == null) {
+            System.out.println("work または log_id が null です");
+            return -2; // エラーを示す特別な値
+        }
+
+        String sql = "SELECT work_id FROM work WHERE work = ? AND log_id = ?";
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
+            pstmt.setString(1, work);
+            pstmt.setString(2, log_id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("work_id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -3; // データが見つからなかった場合
     }
 
 }

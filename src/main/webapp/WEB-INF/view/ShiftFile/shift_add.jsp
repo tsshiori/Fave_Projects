@@ -90,7 +90,6 @@
 
     <div class="main scroll-box">
         <div class="scroll-content">
-            <h1><%=log_id%></h1>
             <p class="hissu p">※ ＊は必須項目です。</p>
             <form action="ShiftAddServlet" method="post" id="shift_add_form">
                 <table>
@@ -99,19 +98,23 @@
                         <td>
                             <select id="menu" name="menu">
                                 <option value="" disabled selected hidden>バイト先を選択してください</option>
-                                <c:choose>
-                                    <!-- worklistが空ではない場合 -->
-                                    <c:when test="${not empty worklist}">
-                                        <c:forEach var="work" items="${worklist}">
-                                            <option value="${work.work_id}" data-wage="${work.hourlywage}">${work.work}</option>
-                                        </c:forEach>
-                                    </c:when>
-                                    <!-- worklistが空の場合 -->
-                                    <c:otherwise>
-                                        <option value="-1" disabled>バイト先が未登録</option>
-                                    </c:otherwise>
-                                </c:choose>
+                                <%
+                                    if (worklist != null && !worklist.isEmpty()) {
+                                        for (workBean work : worklist) {
+                                %>
+                                <option value="<%= work.getWork_id() %>" data-wage="<%= work.getHourlywage() %>">
+                                    <%= work.getWork() %>
+                                </option>
+                                <%
+                                    }
+                                } else {
+                                %>
+                                <option value="-1" disabled>バイト先が未登録</option>
+                                <%
+                                    }
+                                %>
                             </select>
+
 
 
                         </td>
