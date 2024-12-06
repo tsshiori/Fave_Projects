@@ -136,4 +136,32 @@
         <url-pattern>/shift_add</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>WorkServlet</servlet-name>
+        <servlet-class>com.example.fave.WorkFile.WorkServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WorkServlet</servlet-name>
+        <url-pattern>/work</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>WorkAddServlet</servlet-name>
+        <servlet-class>com.example.fave.WorkFile.WorkAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WorkAddServlet</servlet-name>
+        <url-pattern>/work_add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>WorkEditServlet</servlet-name>
+        <servlet-class>com.example.fave.WorkFile.WorkEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WorkEditServlet</servlet-name>
+        <url-pattern>/work_edit</url-pattern>
+    </servlet-mapping>
+
 </web-app>

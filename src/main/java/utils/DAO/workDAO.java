@@ -18,7 +18,7 @@ public class workDAO {
     private static final String JDBC_PASSWORD = "morijyobi";
 
     // SELECT 条件なし（全件）
-    public static ArrayList<workBean> selectAll(String log_id) {
+    public static ArrayList<workBean> selectWorkAll(String log_id) {
         String sql = "SELECT * FROM work WHERE log_id = ?";
         ArrayList<workBean> results = new ArrayList<>();
 
@@ -48,6 +48,31 @@ public class workDAO {
         }
 
         return results;
+    }
+
+    public static void insertWork(int work_id,int hourlywage,String work,String log_id) {
+        String sql = "INSERT INTO work VALUES (?, ?, ?, ?)";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+            PreparedStatement pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, work_id);
+            pstmt.setInt(2, hourlywage);
+            pstmt.setString(3, work);
+            pstmt.setString(4, log_id);
+
+
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);  // 挿入された行数を表示
+
+            if (rowsAffected == 0) {
+                System.out.println("データが挿入されませんでした。");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();  // エラー詳細を表示
+        }
     }
 
 }
