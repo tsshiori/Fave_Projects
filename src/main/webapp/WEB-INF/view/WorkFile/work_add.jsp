@@ -100,13 +100,23 @@
             <p class="hissu p">※ ＊は必須項目です。</p>
             <form action="WorkAddServlet" method="post" id="work_add_form">
                 <table>
-
                     <tr>
                         <th><span>＊</span> バイト先 :</th>
                         <td>
                             <input name="work" type="text" min="0" placeholder="バイト先名を入力してください。">
                         </td>
                     </tr>
+                    <% if (request.getAttribute("errorMessage") != null) { %>
+                    <tr>
+                        <th></th>
+                        <td style="padding: 0; padding-left: 3rem;">
+                            <p class="error-message" style="font-size: 15px; color: red">
+                                <%= request.getAttribute("errorMessage") %>
+                            </p>
+                        </td>
+                    </tr>
+                    <% } %>
+
                     <tr>
                         <th><span>＊</span> 時給(円) :</th>
                         <td>
@@ -126,7 +136,7 @@
                     <a class="kyan" href="work">キャンセル</a>
                 </div>
             </form>
-            <%=errorMessage%>
+
         </div>
     </div>
 </div>
