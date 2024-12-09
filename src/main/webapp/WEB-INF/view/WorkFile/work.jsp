@@ -1,4 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="utils.Bean.workBean" %> <!-- workBean クラスのパッケージに合わせて変更 -->
+<%
+    // worklistをJSPに渡す
+    ArrayList<workBean> worklist = (ArrayList<workBean>) session.getAttribute("worklist");
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -93,25 +99,35 @@
         <a href="work_add"><img class="add" src="static/img/ADD.png" alt="add"></a>
 
         <div class="scroll-content">
+            <%
+                // worklistが空でない場合、ループして表示
+                if (worklist != null && !worklist.isEmpty()) {
+                    for (workBean work : worklist) {
+            %>
             <div class="shift_roop">
                 <div class="container">
                     <div class="vertical-line"></div>
-                    <span class="work_name">まいにちマート</span>
-                    <div class="timemoney">¥ 900</div>
-                    <div class="img_icon"><a href="work_edit"><img src="static/img/EDIT2.png"></a></div>
-                    <div class="img_icon"><a href="#" id="showModal1" ><img src="static/img/DELE2.png"></a></div>
+                    <span class="work_name"><%= work.getWork() %></span> <!-- workの名前 -->
+                    <div class="timemoney">¥ <%= work.getHourlywage() %></div> <!-- 時給 -->
+                    <div class="img_icon">
+                        <a href="work_edit?work_id=<%= work.getWork_id() %>">
+                            <img src="static/img/EDIT2.png">
+                        </a>
+                    </div> <!-- 編集ボタン -->
+                    <div class="img_icon">
+                        <a href="#" id="showModal1" data-work-id="<%= work.getWork_id() %>">
+                            <img src="static/img/DELE2.png">
+                        </a>
+                    </div> <!-- 削除ボタン -->
                 </div>
             </div>
             <br>
-            <div class="shift_roop">
-                <div class="container">
-                    <div class="vertical-line"></div>
-                    <span class="work_name">茎わかめファクトリー</span>
-                    <div class="timemoney">¥ 930</div>
-                    <div class="img_icon"><a href="../work_edit/work_edit.html"><img src="../../img/EDIT2.png"></a></div>
-                    <div class="img_icon"><a href="#" id="showModal2" ><img src="../../img/DELE2.png"></a></div>
-                </div>
-            </div>
+            <%
+                    }
+                }
+            %>
+
+            <br>
         </div>
     </div>
 </div>
