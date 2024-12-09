@@ -55,10 +55,13 @@ public class WorkAddServlet extends HttpServlet {
                         request.getRequestDispatcher("/WEB-INF/view/WorkFile/work_add.jsp").forward(request, response);
                 }else {
                         utils.DAO.workDAO.insertWork(work_id, hourlywage, work, log_id);
+                        worklist = utils.DAO.workDAO.selectWorkAll(log_id);
                         if(mainwork == 1){
+                                work_id = utils.DAO.workDAO.selectNameWork(log_id,work);
                                 utils.DAO.userDAO.updateMainWork(work_id,log_id);
                         }
                 }
+
 
 
                 request.getRequestDispatcher("/WEB-INF/view/WorkFile/work.jsp").forward(request, response);
