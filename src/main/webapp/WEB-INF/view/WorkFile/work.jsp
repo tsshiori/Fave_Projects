@@ -109,16 +109,18 @@
                     <div class="vertical-line"></div>
                     <span class="work_name"><%= work.getWork() %></span> <!-- workの名前 -->
                     <div class="timemoney">¥ <%= work.getHourlywage() %></div> <!-- 時給 -->
-                    <div class="img_icon">
-                        <a href="work_edit?work_id=<%= work.getWork_id() %>">
-                            <img src="static/img/EDIT2.png">
-                        </a>
-                    </div> <!-- 編集ボタン -->
-                    <div class="img_icon">
-                        <a href="#" id="showModal1" data-work-id="<%= work.getWork_id() %>">
-                            <img src="static/img/DELE2.png">
-                        </a>
-                    </div> <!-- 削除ボタン -->
+                    <div class="img_icons">
+                        <div class="img_icon">
+                            <a href="work_edit?work_id=<%= work.getWork_id() %>">
+                                <img src="static/img/EDIT2.png">
+                            </a>
+                        </div> <!-- 編集ボタン -->
+                        <div class="img_icon">
+                            <a href="#" id="showModal1" data-work-id="<%= work.getWork_id() %>">
+                                <img src="static/img/DELE2.png">
+                            </a>
+                        </div> <!-- 削除ボタン -->
+                    </div>
                 </div>
             </div>
             <br>
