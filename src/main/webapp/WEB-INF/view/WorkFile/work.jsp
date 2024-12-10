@@ -1,9 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="utils.Bean.workBean" %> <!-- workBean クラスのパッケージに合わせて変更 -->
+<%@ page import="utils.Bean.workBean" %>
+<%@ page import="utils.Bean.userBean" %>
+<!-- workBean クラスのパッケージに合わせて変更 -->
 <%
     // worklistをJSPに渡す
     ArrayList<workBean> worklist = (ArrayList<workBean>) session.getAttribute("worklist");
+    userBean user = (userBean) session.getAttribute("user");
+    int mainwork = user.getMainwork();
 %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -109,17 +113,23 @@
                     <div class="vertical-line"></div>
                     <span class="work_name"><%= work.getWork() %></span> <!-- workの名前 -->
                     <div class="timemoney">¥ <%= work.getHourlywage() %></div> <!-- 時給 -->
-                    <div class="img_icons">
+                    <div class="img_icons container">
                         <div class="img_icon">
                             <a href="work_edit?work_id=<%= work.getWork_id() %>">
                                 <img src="static/img/EDIT2.png">
                             </a>
                         </div> <!-- 編集ボタン -->
                         <div class="img_icon">
-                            <a href="#" id="showModal1" data-work-id="<%= work.getWork_id() %>">
+                            <a href="#" class="deleteButton"
+                               data-work-id="<%= work.getWork_id() %>"
+                               data-mainwork="<%= work.getWork_id() == mainwork %>"
+                               data-work-name="<%= work.getWork() %>"
+                               data-hourlywage="<%= work.getHourlywage() %>">
                                 <img src="static/img/DELE2.png">
                             </a>
-                        </div> <!-- 削除ボタン -->
+                        </div>
+
+                        <!-- 削除ボタン -->
                     </div>
                 </div>
             </div>
@@ -155,11 +165,11 @@
             <div>
                 <div class="container kome">
                     <h4 class="ko">バイト先名：</h4>
-                    <h4 class="me">茎わかめファクトリー</h4>
+                    <h4 class="me"></h4> <!-- 動的に挿入されるバイト先名 -->
                 </div>
                 <div class="container kome">
                     <h4 class="ko">時給(円)：</h4>
-                    <h4 class="me">¥ 930</h4>
+                    <h4 class="me"></h4> <!-- 動的に挿入される時給 -->
                 </div>
             </div>
         </div>
@@ -169,6 +179,7 @@
         </div>
     </div>
 </div>
+
 
 <script src="static/js/WorkFile/work.js"></script>
 <script src="static/js/all.js"></script>
