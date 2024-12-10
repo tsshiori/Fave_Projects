@@ -50,6 +50,7 @@
     width:51rem;
     padding: 0.5rem;
     border-radius: 5px;
+    position: relative;
 }
 .date{
     margin: 1rem 1.5rem auto 2rem;
@@ -58,7 +59,9 @@
 }
 
 .work_name {
-    width: 35%;
+    font-size: 1.5rem;
+    font-weight: 600;
+    flex-grow: 1; /* 左寄せしつつ余白を伸ばす */
 }
 
 .work_name,.timemoney{
@@ -68,14 +71,41 @@
 }
 
 .timemoney {
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 120px;
+    margin-right: 120px;
+    width: 8rem; /* 固定幅 */
 }
 
+/* ボタンを親要素内で絶対配置 */
+.img_icons {
+    display: flex;
+    gap: 1rem;
+    position: absolute;
+    right: 1rem; /* 親要素内の右端に配置 */
+    top: 50%; /* 縦方向中央揃え */
+    transform: translateY(-50%);
+}
+
+/*.img_icon {*/
+/*    position: absolute; !* ボタンを絶対位置に変更 *!*/
+/*    top: 50%;*/
+/*    transform: translateY(-50%); !* ボタンを縦方向に中央揃え *!*/
+/*}*/
+
+/*!* 編集ボタン（最初のimg_icon） *!*/
+/*.img_icon:first-of-type {*/
+/*    margin-left: 70px;*/
+/*}*/
+
+/*.img_icon:last-of-type {*/
+/*    right: 10px; !* 削除ボタンの位置 *!*/
+/*}*/
+
 .img_icon img{
-    margin: 0.7rem 1.6rem auto 0;
     width: 3.5rem;
     border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
 }
 
 .img_icon a:hover {
