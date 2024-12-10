@@ -1,48 +1,48 @@
-// ボタンとモーダルの取得
-const showModal1 = document.getElementById('showModal1');
-const showModal2 = document.getElementById('showModal2');
-const modal1 = document.getElementById('modal1');
-const modal2 = document.getElementById('modal2');
-const buttonCancel1 = document.getElementById('cancelDelete1');
-const buttonCancel2 = document.getElementById('cancelDelete2');
-const buttonConfirmDelete1 = document.getElementById('confirmDelete1');
-const buttonConfirmDelete2 = document.getElementById('confirmDelete2');
+document.addEventListener("DOMContentLoaded", function () {
+    // 削除ボタンとモーダルの取得
+    const deleteButtons = document.querySelectorAll(".deleteButton");
+    const modal1 = document.getElementById("modal1");
+    const modal2 = document.getElementById("modal2");
+    const cancelButtons = document.querySelectorAll("#cancelDelete1, #cancelDelete2");
 
-// モーダルを開くイベントリスナー
-showModal1.addEventListener('click', function() {
-    modal1.style.display = 'block';
+    // 削除ボタンをクリックしたときの処理
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            // ボタンの属性からデータを取得
+            const isMainWork = this.getAttribute("data-mainwork") === "true";
+            const workName = this.getAttribute("data-work-name");
+            const hourlyWage = this.getAttribute("data-hourlywage");
+
+            // モーダルに情報を表示
+            if (isMainWork) {
+                modal1.style.display = "block";
+            } else {
+                // モーダル2の内容を更新
+                const meElements = modal2.querySelectorAll(".me");
+                meElements[0].textContent = workName; // バイト先名
+                meElements[1].textContent = `¥ ${hourlyWage}`; // 時給
+                modal2.style.display = "block";
+            }
+        });
+    });
+
+    // キャンセルボタンをクリックしたときの処理
+    cancelButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            modal1.style.display = "none";
+            modal2.style.display = "none";
+        });
+    });
+
+    // モーダル外をクリックしたときの処理
+    window.addEventListener("click", function (event) {
+        if (event.target === modal1) {
+            modal1.style.display = "none";
+        }
+        if (event.target === modal2) {
+            modal2.style.display = "none";
+        }
+    });
 });
-
-showModal2.addEventListener('click', function() {
-    modal2.style.display = 'block';
-});
-
-// モーダルを閉じるイベントリスナー
-buttonCancel1.addEventListener('click', function() {
-    modal1.style.display = 'none';
-});
-
-buttonCancel2.addEventListener('click', function() {
-    modal2.style.display = 'none';
-});
-
-// 削除確定イベントリスナー
-// buttonConfirmDelete1.addEventListener('click', function() {
-//     window.location.href = '../login/login.html';
-// });
-
-buttonConfirmDelete1.addEventListener('click',ConfirmDelete1);
-function ConfirmDelete1() {
-    modal2.style.display = 'none';
-}
-
-// モーダル外をクリックしたときにモーダルを閉じる
-window.addEventListener('click', function(e) {
-    if (e.target === modal1) {
-        modal1.style.display = 'none';
-    }
-    if (e.target === modal2) {
-        modal2.style.display = 'none';
-    }
-});
-
