@@ -59,10 +59,15 @@ public class WorkAddServlet extends HttpServlet {
                         if(mainwork == 1){
                                 work_id = utils.DAO.workDAO.selectNameWork(log_id,work);
                                 utils.DAO.userDAO.updateMainWork(work_id,log_id);
+                                user = utils.DAO.userDAO.selectById(log_id);
+                                session.setAttribute("user", user);
                         }
                 }
 
 
+
+                worklist = utils.DAO.workDAO.selectWorkAll(log_id);
+                session.setAttribute("worklist",worklist);
 
                 request.getRequestDispatcher("/WEB-INF/view/WorkFile/work.jsp").forward(request, response);
         }

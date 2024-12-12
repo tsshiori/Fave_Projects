@@ -154,20 +154,18 @@
         <table class="moA">
             <tr class="container moa">
                 <th class="modal_title">バイト先 :</th>
-                <td class="modal-a">にゃんカフェ</td>
+                <td id="modal-work-name" class="modal-a"></td>
             </tr>
             <tr class="container moa">
-                <th class="modal_title">時給(円) ：</th>
-                <td class="modal-a">¥1,050</td>
+                <th class="modal_title">時給(円) :</th>
+                <td id="modal-hourlywage" class="modal-a"></td>
             </tr>
             <tr class="container moa">
                 <th class="modal_title">メイン設定 :</th>
-                <td class="modal-a">
-                    <input type="checkbox" min="0" readonly>
-                    <span class="small-text">※ メインのバイト先にする場合はチェックが入ります。</span>
-                </td>
+                <td id="modal-mainwork" class="modal-a"></td>
             </tr>
         </table>
+
 
         <div class="modal-body">
             <!-- モーダル内の削除を確定するボタン -->
