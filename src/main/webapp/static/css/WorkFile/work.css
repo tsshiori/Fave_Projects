@@ -74,8 +74,9 @@
 }
 
 .timemoney {
+    color: #221D7E;
     margin-left: 120px;
-    margin-right: 120px;
+    margin-right: 250px;
     width: 8rem; /* 固定幅 */
 }
 

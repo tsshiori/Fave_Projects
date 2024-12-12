@@ -163,5 +163,13 @@
         <servlet-name>WorkEditServlet</servlet-name>
         <url-pattern>/work_edit</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>GoodsAddSservlet</servlet-name>
+        <servlet-class>com.example.fave.GoodsFile.GoodsAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoodsAddSservlet</servlet-name>
+        <url-pattern>goods_add</url-pattern>
+    </servlet-mapping>
 
 </web-app>

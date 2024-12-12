@@ -91,7 +91,7 @@
     </aside>
 
     <div class="main scroll-box">
-        <a href="goods"><img class="add" src="static/img/ADD.png" alt="add"></a>
+        <a href="goods_add"><img class="add" src="static/img/ADD.png" alt="add"></a>
 
         <div class="scroll-content ge-list">
             <!-- グッズ詳細表示 -->

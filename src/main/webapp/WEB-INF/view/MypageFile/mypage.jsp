@@ -29,7 +29,7 @@
 <div class="container con">
     <!-- ロゴ -->
     <div class="logo">
-        <a href="WEB-INF/view/index.jsp"><img src="static/img/TimeforFave.png" alt="logo"></a>
+        <a href="fave"><img src="static/img/TimeforFave.png" alt="logo"></a>
     </div>
 
     <!-- メーター -->
@@ -53,37 +53,37 @@
     <aside class="menu">
         <br>
         <div class="home">
-            <a href="WEB-INF/view/index.jsp">
+            <a href="fave">
                 <h3>HOME</h3>
             </a>
         </div>
         <hr>
         <div class="fave">
-            <a href="WEB-INF/view/FaveFile/fave.jsp">
+            <a href="fave_list">
                 <h3>FAVE</h3>
             </a>
         </div>
         <hr>
         <div class="relate">
-            <a href="../../FaveFile/relate/relate.html">
+            <a href="relate">
                 <h3>RELATE</h3>
             </a>
         </div>
         <hr>
         <div class="shift">
-            <a href="../../ShiftFile/shift/shift.html">
+            <a href="shift">
                 <h3>SHIFT</h3>
             </a>
         </div>
         <hr>
         <div class="work">
-            <a href="../../WorkFile/work/work.html">
+            <a href="work">
                 <h3>WORK</h3>
             </a>
         </div>
         <hr>
         <div class="mypage">
-            <a href="../../MypageFile/mypage/mypage.html">
+            <a href="my_page">
                 <h3>MYPAGE</h3>
             </a>
         </div>
