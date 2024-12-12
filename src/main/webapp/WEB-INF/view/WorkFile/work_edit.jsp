@@ -1,6 +1,20 @@
+<%@ page import="utils.Bean.workBean" %>
+<%@ page import="utils.Bean.userBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ja">
+<%
+    // リクエストパラメータから `work_id` を取得
+    int work_id = Integer.parseInt(request.getParameter("work_id"));
+    workBean worklist = utils.DAO.workDAO.selectWork(work_id);
+
+    // workBean から値を取得
+    String work = worklist != null ? worklist.getWork() : "";
+    int hourlywage = worklist != null ? worklist.getHourlywage() : 0;
+
+    userBean user = (userBean) session.getAttribute("user");
+    int mainwork = user.getMainwork();
+%>
 
 <head>
     <meta charset="UTF-8">
@@ -18,7 +32,7 @@
     <title>WORK_Edit | Time of Fave.</title>
 </head>
 
-<body  class="WORK">
+<body class="WORK">
 <div class="container con">
     <!-- ロゴ -->
     <div class="logo">
@@ -92,30 +106,33 @@
     <div class="main scroll-box">
         <div class="scroll-content">
             <p class="hissu p">※ ＊は必須項目です。</p>
-            <form action="WorkEditServlet" method="post">
+            <form action="WorkEditServlet" method="post" id="work_edit_form">
+                <input type="hidden" name="work_id" value="<%= work_id %>"> <!-- work_id を送信 -->
                 <table>
                     <tr>
                         <th><span>＊</span> バイト先 :</th>
                         <td>
-                            <input type="text" min="0" value="まいにちマート" placeholder="バイト先名を入力してください。">
+                            <!-- プレースホルダーを設定 -->
+                            <input type="text" name="work" value="" placeholder="<%= work %>" id="work_input">
                         </td>
                     </tr>
                     <tr>
                         <th><span>＊</span> 時給(円) :</th>
                         <td>
-                            <input type="number" min="0" value="900" placeholder="時給(円)を入力してください。">
+                            <!-- プレースホルダーを設定 -->
+                            <input type="number" name="hourlywage" value="" placeholder="<%= hourlywage %>" id="hourlywage_input">
                         </td>
                     </tr>
                     <tr>
                         <th>メイン設定 :</th>
                         <td>
-                            <input type="checkbox" min="0" checked>
+                            <input type="checkbox" name="main" <%= (mainwork == work_id) ? "checked" : "" %>>
                             <span class="small-text">※ メインのバイト先にする場合はチェックを入れてください。</span>
                         </td>
                     </tr>
                 </table>
                 <div class="btn">
-                    <button id="modalOpen" type="button" class="in">完了</button>
+                    <button type="submit" class="in">完了</button>
                     <a class="kyan" href="work">キャンセル</a>
                 </div>
             </form>
@@ -123,33 +140,27 @@
     </div>
 </div>
 
-
-
-
-
 <!-- モーダルウィンドウ -->
 <div id="easyModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>以下の内容で追加しますか？</h3>
+            <h3>以下の内容で編集しますか？</h3>
         </div>
         <table class="moA">
             <tr class="container moa">
                 <th class="modal_title">バイト先 :</th>
-                <td class="modal-a">にゃんカフェ</td>
+                <td id="modal-work-name" class="modal-a"></td>
             </tr>
             <tr class="container moa">
-                <th class="modal_title">時給(円) ：</th>
-                <td class="modal-a">¥1,050</td>
+                <th class="modal_title">時給(円) :</th>
+                <td id="modal-hourlywage" class="modal-a"></td>
             </tr>
             <tr class="container moa">
                 <th class="modal_title">メイン設定 :</th>
-                <td class="modal-a">
-                    <input type="checkbox" min="0">
-                    <span class="small-text">※ メインのバイト先にする場合はチェックが入ります。</span>
-                </td>
+                <td id="modal-mainwork" class="modal-a"></td>
             </tr>
         </table>
+
 
         <div class="modal-body">
             <!-- モーダル内の削除を確定するボタン -->

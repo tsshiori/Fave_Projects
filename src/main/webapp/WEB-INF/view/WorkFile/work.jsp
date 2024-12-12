@@ -104,9 +104,44 @@
 
         <div class="scroll-content">
             <%
-                // worklistが空でない場合、ループして表示
+                // worklistが空でない場合のみ処理を実行
                 if (worklist != null && !worklist.isEmpty()) {
+                    // mainwork のアイテムを先に描画
                     for (workBean work : worklist) {
+                        if (work.getWork_id() == mainwork) {
+            %>
+            <div class="shift_roop mainwork">
+                <div class="container mainwork">
+                    <div class="vertical-line"></div>
+                    <span class="work_name"><%= work.getWork() %></span> <!-- workの名前 -->
+                    <div class="timemoney">¥ <%= work.getHourlywage() %></div> <!-- 時給 -->
+                    <div class="img_icons container">
+                        <div class="img_icon">
+                            <a href="work_edit?work_id=<%= work.getWork_id() %>">
+                                <img src="static/img/EDIT2.png">
+                            </a>
+                        </div> <!-- 編集ボタン -->
+                        <div class="img_icon">
+                            <a href="#" class="deleteButton"
+                               data-work-id="<%= work.getWork_id() %>"
+                               data-mainwork="true"
+                               data-work-name="<%= work.getWork() %>"
+                               data-hourlywage="<%= work.getHourlywage() %>">
+                                <img src="static/img/DELE2.png">
+                            </a>
+                        </div>
+                        <!-- 削除ボタン -->
+                    </div>
+                </div>
+            </div>
+            <br>
+            <%
+                    }
+                }
+
+                // 残りのアイテムを描画
+                for (workBean work : worklist) {
+                    if (work.getWork_id() != mainwork) {
             %>
             <div class="shift_roop">
                 <div class="container">
@@ -122,25 +157,24 @@
                         <div class="img_icon">
                             <a href="#" class="deleteButton"
                                data-work-id="<%= work.getWork_id() %>"
-                               data-mainwork="<%= work.getWork_id() == mainwork %>"
+                               data-mainwork="false"
                                data-work-name="<%= work.getWork() %>"
                                data-hourlywage="<%= work.getHourlywage() %>">
                                 <img src="static/img/DELE2.png">
                             </a>
                         </div>
-
                         <!-- 削除ボタン -->
                     </div>
                 </div>
             </div>
             <br>
             <%
+                        }
                     }
                 }
             %>
-
-            <br>
         </div>
+
     </div>
 </div>
 
@@ -174,6 +208,10 @@
             </div>
         </div>
         <div class="modal-body">
+            <form id="deleteForm" action="WorkDeleteServlet" method="POST" style="display:none;">
+                <input type="hidden" id="workIdInput" name="work_id">
+            </form>
+
             <button id="confirmDelete1" type="button" class="btn">削除</button>
             <button id="cancelDelete2" type="button" class="btn">キャンセル</button>
         </div>
