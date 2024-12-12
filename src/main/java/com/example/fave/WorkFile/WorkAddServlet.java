@@ -23,55 +23,55 @@ public class WorkAddServlet extends HttpServlet {
                 response.setContentType("text/UTF-8");
                 HttpSession session = request.getSession();
 
-                int work_id = -1;
+                // 入力データ取得
+                int work_id = -1; // 新規の場合は -1
                 int hourlywage = Integer.parseInt(request.getParameter("hourlywage"));
                 String work = request.getParameter("work");
                 String mainworkParam = request.getParameter("mainwork");
                 int mainwork = (mainworkParam != null) ? 1 : 0;
+
+                // ログイン情報を取得
                 userBean user = (userBean) session.getAttribute("user");
+                if (user == null) {
+                        response.sendRedirect("login"); // ログイン情報がない場合はログイン画面にリダイレクト
+                        return;
+                }
                 String log_id = user.getLog_id();
 
+                // 現在のワークリストを取得
                 ArrayList<workBean> worklist = utils.DAO.workDAO.selectWorkAll(log_id);
-                // work の一致を確認するフラグ
-                boolean isDuplicate = false;
-
                 if (worklist == null) {
                         session.setAttribute("errorMessage", "データベースから情報を取得できませんでした。管理者にお問い合わせください。");
-                        request.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request, response);
+                        response.sendRedirect("error"); // エラーページにリダイレクト
                         return;
                 }
 
-
-                // ループで一致確認
-                for (workBean wb : worklist) {
-                        if (wb.getWork().equals(work)) { // work が一致しているか確認
-                                isDuplicate = true;
-                                break; // 一致が見つかった時点で終了
-                        }
-                }
-
-                if(isDuplicate){
+                // 重複確認
+                boolean isDuplicate = worklist.stream().anyMatch(wb -> wb.getWork().equals(work));
+                if (isDuplicate) {
                         request.setAttribute("errorMessage", "既に存在するバイト名です。");
                         request.getRequestDispatcher("/WEB-INF/view/WorkFile/work_add.jsp").forward(request, response);
-                }else {
-                        utils.DAO.workDAO.insertWork(work_id, hourlywage, work, log_id);
-                        worklist = utils.DAO.workDAO.selectWorkAll(log_id);
-                        if(mainwork == 1){
-                                work_id = utils.DAO.workDAO.selectNameWork(log_id,work);
-                                utils.DAO.userDAO.updateMainWork(work_id,log_id);
-                                user = utils.DAO.userDAO.selectById(log_id);
-                                session.setAttribute("user", user);
-                        }
+                        return;
                 }
 
+                // 新しいバイト先を追加
+                utils.DAO.workDAO.insertWork(work_id, hourlywage, work, log_id);
 
+                // メインバイト設定の更新
+                if (mainwork == 1) {
+                        work_id = utils.DAO.workDAO.selectNameWork(log_id, work);
+                        utils.DAO.userDAO.updateMainWork(work_id, log_id);
 
+                        // 更新したユーザーデータを再取得してセッションに保存
+                        user = utils.DAO.userDAO.selectById(log_id);
+                        session.setAttribute("user", user);
+                }
+
+                // ワークリストを再取得してセッションに保存
                 worklist = utils.DAO.workDAO.selectWorkAll(log_id);
-                session.setAttribute("worklist",worklist);
+                session.setAttribute("worklist", worklist);
 
-                request.getRequestDispatcher("/WEB-INF/view/WorkFile/work.jsp").forward(request, response);
+                // 完了後、doGetにリダイレクト
+                response.sendRedirect("WorkServlet");
         }
 }
-
-
-

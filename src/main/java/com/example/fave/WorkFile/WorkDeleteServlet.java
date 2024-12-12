@@ -29,7 +29,7 @@ public class WorkDeleteServlet extends HttpServlet {
         ArrayList<workBean> worklist = workDAO.selectWorkAll(log_id);
         session.setAttribute("worklist",worklist);
 
-        request.getRequestDispatcher("/WEB-INF/view/WorkFile/work.jsp").forward(request, response);
+        response.sendRedirect("WorkServlet");
     }
 }
 
