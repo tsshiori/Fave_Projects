@@ -332,8 +332,8 @@ select {
 
 /*　シフトループ　*/
 .scroll-content{
-    margin: 0;
-    margin-left: 5rem;
+    margin: 0 0 10px 5rem;
+    padding-bottom: 10px;
     height: auto;
 }
 .vertical-line {
@@ -350,16 +350,17 @@ select {
     width:51rem;
     padding: 0.5rem;
     border-radius: 5px;
+    margin-bottom: 15px;
 }
 .date{
-    margin: 1rem 1.5rem auto 2rem;
-    font-size: 1.8rem;
+    margin: 1.2rem 0.6rem 0.6rem;
+    font-size: 1.3rem;
     font-weight: 600;
 }
 .work_name{
     font-weight: 600;
-    margin: 1.3rem 0 auto 4rem;
-    font-size: 1.5rem;
+    margin: 1.2rem 0.6rem 0.6rem;
+    font-size: 1.3rem;
 }
 .time-container{
     margin: 0.5rem 4rem auto 7rem;
@@ -374,7 +375,7 @@ select {
     width: 3rem;
 }
 .img_icon img{
-    margin: 0.7rem 1.6rem auto 0;
+    margin: 0.7rem 1.2rem auto 0;
     width: 3.5rem;
     border-radius: 5px;
 }
