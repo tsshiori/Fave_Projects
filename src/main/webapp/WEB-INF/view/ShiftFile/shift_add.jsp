@@ -62,29 +62,41 @@
 <div class="maincontents container">
     <aside class="menu">
         <br>
-        <div class="home"><a href="../../index/index.html">
-            <h3>HOME</h3>
-        </a></div>
+        <div class="home">
+            <a href="fave">
+                <h3>HOME</h3>
+            </a>
+        </div>
         <hr>
-        <div class="fave"><a href="../../FaveFile/fave/fave.html">
-            <h3>FAVE</h3>
-        </a></div>
+        <div class="fave">
+            <a href="fave_list">
+                <h3>FAVE</h3>
+            </a>
+        </div>
         <hr>
-        <div class="relate"><a href="../../FaveFile/relate/relate.html">
-            <h3>RELATE</h3>
-        </a></div>
+        <div class="relate">
+            <a href="relate">
+                <h3>RELATE</h3>
+            </a>
+        </div>
         <hr>
-        <div class="shift"><a href="shift">
-            <h3>SHIFT</h3>
-        </a></div>
+        <div class="shift">
+            <a href="shift">
+                <h3>SHIFT</h3>
+            </a>
+        </div>
         <hr>
-        <div class="work"><a href="../../WorkFile/work/work.html">
-            <h3>WORK</h3>
-        </a></div>
+        <div class="work">
+            <a href="work">
+                <h3>WORK</h3>
+            </a>
+        </div>
         <hr>
-        <div class="mypage"><a href="../../MypageFile/mypage/mypage.html">
-            <h3>MYPAGE</h3>
-        </a></div>
+        <div class="mypage">
+            <a href="my_page">
+                <h3>MYPAGE</h3>
+            </a>
+        </div>
         <br><br>
     </aside>
 
