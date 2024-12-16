@@ -104,23 +104,23 @@
 <%--        <div id="goods" class="scroll-content group content-item active">--%>
 <%--            <form id="goods_add" action="goods_add" method="post">--%>
 <%--                <div class="form-group input-container">--%>
-<%--                    <label for="goods-date"><span class="req">＊</span> 日付：</label>--%>
+<%--                    <label><span class="req">＊</span> 日付：</label>--%>
 <%--                    <input type="date" id="goods-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">--%>
 <%--                    <span class="date-text">日付を入力してください。</span>--%>
 <%--                </div>--%>
 
 <%--                <div class="form-group">--%>
-<%--                    <label for="goods_name"><span class="req">＊</span> グッズ名：</label>--%>
+<%--                    <label><span class="req">＊</span> グッズ名：</label>--%>
 <%--                    <input type="text" class="goods_name" name="goods_name" placeholder="グッズの名前を入力してください。" required>--%>
 <%--                </div>--%>
 
 <%--                <div class="form-group">--%>
-<%--                    <label for="goods-amount"><span class="req">＊</span> 金額(円)：</label>--%>
+<%--                    <label><span class="req">＊</span> 金額(円)：</label>--%>
 <%--                    <input type="text" id="goods-amount" class="amount_cost" name="amount_cost" placeholder="グッズの金額を入力してください。" required>--%>
 <%--                </div>--%>
 
 <%--                <div class="form-group">--%>
-<%--                    <label class="favo" for="goods-menu"><span class="req">＊</span> 推し：</label>--%>
+<%--                    <label class="favo"><span class="req">＊</span> 推し：</label>--%>
 <%--                    <select id="goods-menu" name="menu">--%>
 <%--                        <option value="" disabled selected hidden>推しを選択してください。</option>--%>
 <%--                        <option value="option1">カンパネルラ</option>--%>
@@ -161,13 +161,13 @@
 
 <%--                <!-- メモ -->--%>
 <%--                <div class="form-group">--%>
-<%--                    <label for="goods-memo" class="memo-label">メモ：</label>--%>
+<%--                    <label class="memo-label">メモ：</label>--%>
 <%--                    <textarea id="goods-memo" class="memo" name="memo" placeholder="メモを入力してください。"></textarea>--%>
 <%--                </div>--%>
 
 <%--                <!-- 購入済 -->--%>
 <%--                <div class="form-group">--%>
-<%--                    <label for="goods-check">購入済：</label>--%>
+<%--                    <label>購入済：</label>--%>
 <%--                    <input type="checkbox" id="goods-check" class="purchased" name="purchased">--%>
 <%--                    <span class="small-text">※購入済みの場合はチェックを入れてください。</span>--%>
 <%--                </div>--%>
@@ -185,23 +185,23 @@
 <%--        <div id="events" class="group content-item">--%>
 <%--            <form action="../goods/goods.html">--%>
 <%--                <div class="form-group input-container">--%>
-<%--                    <label for="event-date"><span class="req">＊</span> 日付：</label>--%>
+<%--                    <label><span class="req">＊</span> 日付：</label>--%>
 <%--                    <input type="date" id="event-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">--%>
 <%--                    <span class="date-text">日付を入力してください。</span>--%>
 <%--                </div>--%>
 
 <%--                <div class="form-group">--%>
-<%--                    <label for="event-name"><span class="req">＊</span> イベント名：</label>--%>
+<%--                    <label><span class="req">＊</span> イベント名：</label>--%>
 <%--                    <input type="text" id="event-name" class="goods_name" name="goods_name" placeholder="イベントの名前を入力してください。" required>--%>
 <%--                </div>--%>
 
 <%--                <div class="form-group">--%>
-<%--                    <label for="event-amount"><span class="req">＊</span> 金額(円)：</label>--%>
+<%--                    <label><span class="req">＊</span> 金額(円)：</label>--%>
 <%--                    <input type="text" id="event-amount" class="amount_cost" name="amount_cost" placeholder="イベントの金額を入力してください。" required>--%>
 <%--                </div>--%>
 
 <%--                <div class="form-group">--%>
-<%--                    <label class="favo" for="event-menu"><span class="req">＊</span> 推し：</label>--%>
+<%--                    <label class="favo"><span class="req">＊</span> 推し：</label>--%>
 <%--                    <select id="event-menu" name="menu">--%>
 <%--                        <option value="" disabled selected hidden>推しを選択してください。</option>--%>
 <%--                        <option value="option1">カンパネルラ</option>--%>
@@ -318,7 +318,7 @@
 <%--        </div>--%>
 <%--        <form id="plusForm">--%>
 <%--            <div class="modal-group">--%>
-<%--                <label for="modalosi" class="osi">推しの名前：</label>--%>
+<%--                <label class="osi">推しの名前：</label>--%>
 <%--                <input type="text" class="modalosi" name="modalosi" placeholder="推しを入力してください。">--%>
 <%--            </div>--%>
 <%--            <div class="modealbtn">--%>
@@ -338,7 +338,7 @@
 <%--        </div>--%>
 <%--        <form id="plusFormEvents">--%>
 <%--            <div class="modal-group">--%>
-<%--                <label for="modalosi" class="osi">推しの名前：</label>--%>
+<%--                <label class="osi">推しの名前：</label>--%>
 <%--                <input type="text" class="modalosi" name="modalosi" placeholder="推しを入力してください。">--%>
 <%--            </div>--%>
 <%--            <div class="modealbtn">--%>
