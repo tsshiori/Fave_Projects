@@ -364,6 +364,8 @@ select {
     margin-bottom: 15px;
     position: relative;
 
+    justify-content: space-between; /* 要素間に均等なスペース */
+
     justify-content: space-between;
 }
 .date{
@@ -372,32 +374,34 @@ select {
     font-weight: 600;
 }
 .work_name{
-    font-weight: 600;
-    margin: 1.2rem 0.6rem 0.6rem;
+    flex: 1; /* 残りの幅を埋める */
+    text-align: left; /* 左揃え */
     font-size: 1.3rem;
+    font-weight: 600;
+    margin-left: 4rem;
+    margin-top: 1.3rem;
 
 
     /* 表示桁数の制限 */
     white-space: nowrap; /* 折り返しを防止 */
     overflow: hidden;    /* はみ出た部分を隠す */
     text-overflow: ellipsis; /* はみ出た部分を「...」にする */
-    max-width: 12ch; /* 最大表示桁数を12に設定 */
+    max-width: 20ch; /* 最大表示桁数を12に設定 */
 }
 .time-container{
-    /*margin: 0.5rem 4rem auto 16rem;*/
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-right: 1.5rem;
-    width: 5rem;
-    flex-shrink: 0; /* 幅を固定したまま縮小を防ぐ */
+    flex-direction: column; /* 時間を縦に並べる */
+    align-items: flex-end; /* 右揃え */
+    justify-content: center; /* 縦方向の中央揃え */
+    flex-shrink: 0; /* 幅を固定 */
+    width: 7rem; /* 必要に応じて調整 */
+    margin-left: 1rem;
 }
 .time{
-    display: block;
-    gap: 5px;
     font-size: 1.3rem;
+    font-weight: 600;
     text-align: right;
-    width: 3rem;
+
 }
 
 
