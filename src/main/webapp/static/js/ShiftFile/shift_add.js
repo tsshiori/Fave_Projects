@@ -110,15 +110,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const menu = document.getElementById('menu');
     const wageInput = document.getElementById('wage');
 
-    // バイト先選択時に時給を更新
     menu.addEventListener('change', (event) => {
         const selectedOption = event.target.selectedOptions[0]; // 選択された<option>
         const wage = selectedOption.getAttribute('data-wage'); // 時給を取得
 
         if (wage) {
-            wageInput.value = `￥${wage}`; // 時給を表示
+            wageInput.value = wage; // 数値のみをセット
         } else {
             wageInput.value = ''; // 初期値に戻す
         }
     });
+
 });

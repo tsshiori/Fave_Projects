@@ -4,13 +4,14 @@ import utils.Bean.shiftBean;
 import utils.Bean.workBean;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class shiftDAO {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/fave_db?useSSL=false&serverTimezone=UTC";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "morijyobi";
-    public static ArrayList<shiftBean> selectShiftAll(String log_id) {
+    public static ArrayList<shiftBean> selectShiftAll(String log_id) throws SQLException {
         // worklists を取得
         ArrayList<workBean> worklists = workDAO.selectWorkAll(log_id);
 
@@ -83,5 +84,22 @@ public class shiftDAO {
         return results;
     }
 
+    public static void insertShift(int shift_id, LocalDateTime startdatetime, LocalDateTime enddatetime, int work_id, int breaktime, int wage) {
+        String sql = "INSERT INTO shift VALUES (?, ?, ?, ?, ?, ?)";
 
+        try (Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, shift_id);
+            pstmt.setTimestamp(2, Timestamp.valueOf(startdatetime)); // LocalDateTime → Timestamp
+            pstmt.setTimestamp(3, Timestamp.valueOf(enddatetime));
+            pstmt.setInt(4, work_id);
+            pstmt.setInt(5, breaktime);
+            pstmt.setInt(6, wage);
+
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

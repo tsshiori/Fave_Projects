@@ -108,7 +108,7 @@
                     <tr>
                         <th><span>＊</span> バイト先 :</th>
                         <td>
-                            <select id="menu" name="menu">
+                            <select id="menu" name="work_id">
                                 <option value="" disabled selected hidden>バイト先を選択してください</option>
                                 <%
                                     if (worklist != null && !worklist.isEmpty()) {
@@ -131,7 +131,7 @@
 
                         </td>
                         <td class="img">
-                            <a href="../../WorkFile/work_add/work_add.html">
+                            <a href="work_add">
                                 <img class="plus" src="static/img/plus.png">
                             </a>
                         </td>
@@ -139,7 +139,7 @@
                     <tr>
                         <th><span>＊</span> 開始 :</th>
                         <td class="input-container">
-                            <input type="datetime-local" id="start-time" class="pl-input" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
+                            <input type="datetime-local" id="start-time" class="pl-input" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)" name="startdatetime" required>
                             <span class="pl-placeholder">開始時間を入力してください</span>
                         </td>
                     </tr>
@@ -148,7 +148,7 @@
                     <tr>
                         <th><span>＊</span> 終了 :</th>
                         <td class="input-container">
-                            <input type="datetime-local" id="end-time" class="pl-input" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
+                            <input type="datetime-local" id="end-time" class="pl-input" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)" name="enddatetime" required>
                             <span class="pl-placeholder">終了時間を入力してください</span>
                         </td>
                     </tr>
@@ -156,14 +156,14 @@
                     <tr>
                         <th><span>＊</span> 休憩 :</th>
                         <td>
-                            <input type="number" min="0" placeholder="休憩時間(分)を入力してください。">
+                            <input type="number" min="0" required placeholder="休憩時間(分)を入力してください。" name="breaktime">
                         </td>
                     </tr>
                     <tr>
                     <tr>
                         <th><span>＊</span> 時給(円) :</th>
                         <td>
-                            <input type="text" id="wage" placeholder="バイト先項目でバイト先を選択してください。" readonly>
+                            <input type="text" id="wage" name="wage" placeholder="バイト先項目でバイト先を選択してください。" readonly>
                         </td>
                         <td>
                             <button id="modalOpenzikyu" type="button" class="zikyu">時給を変更</button>
