@@ -21,3 +21,11 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+document.getElementById('plus-link').addEventListener('click', function(event) {
+    // 現在のページのURLをlocalStorageに保存
+    const currentUrl = window.location.href;
+    localStorage.setItem('previousPage', currentUrl);
+
+    // 通常のリンク遷移を許可する
+});
