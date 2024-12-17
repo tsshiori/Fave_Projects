@@ -62,3 +62,40 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+document.querySelector('.back-button').addEventListener('click', function () {
+    // 保存したURLを取得
+    const previousPage = localStorage.getItem('previousPage');
+
+    if (previousPage) {
+        // 保存したURLに戻る
+        window.location.href = previousPage;
+    } else {
+        alert('前のページが見つかりません');
+    }
+});
+
+document.getElementById('confirmReGoods').addEventListener('click', function () {
+    // フォームを取得
+    const form = document.querySelector('.goods_add_form');
+
+    if (form) {
+        // フォーム送信
+        form.submit();
+    } else {
+        console.error('フォームが見つかりません');
+    }
+});
+
+document.getElementById('confirmReEvents').addEventListener('click', function () {
+    // フォームを取得
+    const form = document.querySelector('.events_add_form'); // classのフォームを取得
+
+    if (form) {
+        // フォーム送信
+        form.submit();
+    } else {
+        console.error('フォームが見つかりません');
+    }
+});
+

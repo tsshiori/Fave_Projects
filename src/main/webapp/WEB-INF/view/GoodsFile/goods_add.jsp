@@ -17,7 +17,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&family=Yuji+Syuku&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="static/css/all.css">
-    <link rel="stylesheet" href="static/css/MypageFile/mypage.css">
+    <link rel="stylesheet" href="static/css/GoodsFile/goods_add.css">
+
 
     <link rel="shortcut icon" href="static/img/TimeforFave.png">
     <title>FAVE_Add | Time of Fave.</title>
@@ -102,7 +103,9 @@
         </div>
         <br><br>
         <div id="goods" class="scroll-content group content-item active">
-            <form id="goods_add" action="goods_add" method="post">
+
+            <form id="goods_add" action="GoodsAdd" method="post" class="goods_add_form">
+
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input type="date" id="goods-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
@@ -127,7 +130,9 @@
                         <option value="option2">ミューズ</option>
                     </select>
                     <div id="plusButtonGoods" class="btn-plus">
-                        <button class="plus" type="button">
+
+                        <button class="plus" type="button" >
+
                             <img src="static/img/plus.png" alt="plus">
                         </button>
                     </div>
@@ -175,7 +180,9 @@
                 <div class="form-group">
                     <div class="btn">
                         <button id="modalOpenGoods" type="button" class="in">追加</button>
-                        <a class="kyan" href="../goods/goods.html">キャンセル</a>
+
+                        <a class="kyan back-button" href="#">キャンセル</a>
+
                     </div>
                 </div>
             </form>
@@ -183,7 +190,9 @@
 
         <!-- イベントフォーム -->
         <div id="events" class="group content-item">
-            <form action="../goods/goods.html">
+
+            <form action="/GoodsAdd" method="post" class="events_add_form">
+
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input type="date" id="event-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
@@ -303,7 +312,9 @@
 
             </table>
             <button id="confirmReEvents" type="button" class="btn2">追加</button>
-            <button id="cancelReEvents" type="button" class="btn2">キャンセル</button>
+
+            <button id="cancelReEvents" type="button" class="btn2 back-button">キャンセル</button>
+
         </div>
     </div>
 </div>
@@ -352,7 +363,10 @@
 
 
 </body>
-<script src="goods_add.js"></script>
+
+<script src="static/js/all.js"></script>
+<script src="static/js/GoodsFile/goods_add.js"></script>
+
 <footer>
     <p>© 2024 Time of Fave Inc. All Rights Reserved.</p>
 </footer>
