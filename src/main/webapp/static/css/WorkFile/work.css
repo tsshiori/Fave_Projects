@@ -65,6 +65,12 @@
     font-size: 1.5rem;
     font-weight: 600;
     flex-grow: 1; /* 左寄せしつつ余白を伸ばす */
+
+    /* 表示桁数の制限 */
+    white-space: nowrap; /* 折り返しを防止 */
+    overflow: hidden;    /* はみ出た部分を隠す */
+    text-overflow: ellipsis; /* はみ出た部分を「...」にする */
+    max-width: 20ch; /* 最大表示桁数を12に設定 */
 }
 
 .work_name,.timemoney{
