@@ -330,6 +330,17 @@ select {
     margin-top: 10px;
 }
 
+
+.img_icons {
+    display: flex;
+    gap: 1rem; /* ボタン間のスペースを調整 */
+    position: absolute; /* 必要に応じて絶対配置 */
+    right: 1rem; /* 親要素の右端から配置 */
+    top: 50%; /* 縦方向で中央寄せ */
+    transform: translateY(-50%); /* 中央寄せの補正 */
+}
+
+
 /*　シフトループ　*/
 .scroll-content{
     margin: 0 0 10px 5rem;
@@ -351,6 +362,9 @@ select {
     padding: 0.5rem;
     border-radius: 5px;
     margin-bottom: 15px;
+    position: relative;
+
+    justify-content: space-between;
 }
 .date{
     margin: 1.2rem 0.6rem 0.6rem;
@@ -361,11 +375,22 @@ select {
     font-weight: 600;
     margin: 1.2rem 0.6rem 0.6rem;
     font-size: 1.3rem;
+
+
+    /* 表示桁数の制限 */
+    white-space: nowrap; /* 折り返しを防止 */
+    overflow: hidden;    /* はみ出た部分を隠す */
+    text-overflow: ellipsis; /* はみ出た部分を「...」にする */
+    max-width: 12ch; /* 最大表示桁数を12に設定 */
 }
 .time-container{
-    margin: 0.5rem 4rem auto 7rem;
+    /*margin: 0.5rem 4rem auto 16rem;*/
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
+    margin-right: 1.5rem;
+    width: 5rem;
+    flex-shrink: 0; /* 幅を固定したまま縮小を防ぐ */
 }
 .time{
     display: block;
@@ -374,11 +399,16 @@ select {
     text-align: right;
     width: 3rem;
 }
+
+
 .img_icon img{
-    margin: 0.7rem 1.2rem auto 0;
     width: 3.5rem;
     border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
 }
+
+
 .img_icon img:hover{
     opacity: 0.7;
 }
