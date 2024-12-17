@@ -1,4 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="utils.Bean.faveBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="utils.Bean.categoryBean" %>
+
+<%
+    ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
+    Map<Integer, Integer> osiPriceMap = (Map<Integer, Integer>) session.getAttribute("osiout");
+    ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
+    Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -70,13 +82,13 @@
         </div>
         <hr>
         <div class="shift">
-            <a href="../../ShiftFile/shift/shift.html">
+            <a href="shift">
                 <h3>SHIFT</h3>
             </a>
         </div>
         <hr>
         <div class="work">
-            <a href="../../WorkFile/work/work.html">
+            <a href="work">
                 <h3>WORK</h3>
             </a>
         </div>
@@ -114,23 +126,25 @@
                         </div>
                     </a>
 
-                    <a href="fave_detail">
-                        <div class="card__item">
-                            <div class="card_img">
-                                <img src="static/img/com.jpg" alt="カンパネルラ">
-                            </div>
-                            <p>カンパネルラ</p>
-                        </div>
-                    </a>
+                    <%
+                        // favelistが空でない場合、ループして表示
+                        if (favelist != null && !favelist.isEmpty()) {
+                            for (faveBean fave : favelist) {
+                    %>
 
                     <a href="fave_detail">
                         <div class="card__item">
                             <div class="card_img">
-                                <img src="static/img/myu.jpg" alt="ミューズ">
+                                <img src="static/faveImg/<%= fave.getImg() %>" alt="<%=fave.getName() %>">
                             </div>
-                            <p>ミューズ</p>
+                            <p><%=fave.getName() %></p>
                         </div>
                     </a>
+                    <%
+                            }
+                        }
+                    %>
+
                 </div>
             </div>
 
@@ -139,28 +153,54 @@
                     <a href="fave_add"><img src="static/img/ADD.png" alt="Add"></a>
                 </div>
 
-                <a href="fave_detail">
-                    <div class="list_card container">
-                        <div class="card_img">
-                            <img src="static/img/com.jpg" alt="カンパネルラ">
-                        </div>
-                        <h3 class="name">カンパネルラ</h3>
-                        <h4 class="rela">/ 銀河鉄道の夜　2号車組</h4>
-                        <h2 class="price">¥21,600</h2>
-                    </div>
-                </a>
+                <%
+                    // favelistが空でない場合、ループして表示
+                    if (favelist != null && !favelist.isEmpty()) {
+                        for (faveBean fave : favelist) {
+                            int osiId = fave.getOsi_id(); // 現在のfaveのosi_id
+                            int totalPrice = osiPriceMap != null && osiPriceMap.containsKey(osiId)
+                                    ? osiPriceMap.get(osiId) : 0; // 合計価格（データがなければ0）
+
+                            // osi_idに対応するカテゴリとタグを取得
+                            String category = null;
+                            String tag = null;
+
+                            if (categorylist != null) {
+                                for (categoryBean categoryItem : categorylist) {
+                                    if (categoryItem.getCate_id() == fave.getCate_id()) {
+                                        category = categoryItem.getCategory();
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (ositaglist != null && ositaglist.containsKey(osiId)) {
+                                tag = ositaglist.get(osiId);
+                            }
+                %>
 
                 <a href="fave_detail">
                     <div class="list_card container">
                         <div class="card_img">
-                            <img src="static/img/myu.jpg" alt="ミューズ">
+                            <img src="static/faveImg/<%= fave.getImg() %>" alt="<%= fave.getName() %>">
                         </div>
-                        <h3 class="name">ミューズ</h3>
-                        <h4 class="rela">/ STAR★BURST★SHIP　流星のキセキ</h4>
-                        <h2 class="price">¥13,500</h2>
+                        <h3 class="name"><%= fave.getName() %></h3>
+                        <h4 class="rela">/ <%= category != null ? category : "カテゴリ未設定" %>　<%= tag != null ? tag : "タグ未設定" %></h4>
+                        <%
+                            DecimalFormat formatter = new DecimalFormat("#,###");
+                            String formattedPrice = formatter.format(totalPrice);
+                        %>
+                        <h1 class="price">¥<%= formattedPrice %></h1>
                     </div>
                 </a>
+
+                <%
+                        }
+                    }
+                %>
+
             </div>
+
 
         </div>
     </div>
