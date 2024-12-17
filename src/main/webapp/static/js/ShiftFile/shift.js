@@ -56,3 +56,10 @@ document.querySelectorAll('.cancelDeleteButton').forEach(button => {
     });
 });
 
+document.querySelectorAll('.confirmDeleteButton').forEach(button => {
+    button.addEventListener('click', function() {
+        const shiftId = this.getAttribute('data-shift-id');
+        document.getElementById('shiftIdInput').value = shiftId;
+        document.getElementById('deleteForm').submit(); // 削除フォームを送信
+    });
+});

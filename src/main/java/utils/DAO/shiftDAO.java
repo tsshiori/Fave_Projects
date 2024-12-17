@@ -102,4 +102,24 @@ public class shiftDAO {
             e.printStackTrace();
         }
     }
+
+    public static void deleteShift(int shift_id){
+        // SQL文
+        String sql = "DELETE FROM shift WHERE shift_id = ?";
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
+            // 3.プレースホルダに値をセット
+            pstmt.setInt(1, shift_id);
+
+            // 4.SQLの実行＆コミット
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+    }
 }

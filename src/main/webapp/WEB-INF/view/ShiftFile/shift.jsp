@@ -157,6 +157,10 @@
                                     <td>終了 : </td>
                                     <td class="value"><%= shift.getEnddatetime().format(dateFormatter) %> <%= shift.getEnddatetime().format(timeFormatter) %></td>                                </tr>
                             </table>
+                            <form id="deleteForm" action="ShiftDeleteServlet" method="POST" style="display:none;">
+                                <input type="hidden" id="shiftIdInput" name="shift_id">
+                            </form>
+
                             <button class="confirmDeleteButton" data-shift-id="<%= shift.getShift_id() %>">削除</button>
                             <button class="cancelDeleteButton" data-shift-id="<%= shift.getShift_id() %>">キャンセル</button>
                         </div>

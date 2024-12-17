@@ -66,6 +66,14 @@ public class ShiftAddServlet extends HttpServlet {
                 enddatetime = LocalDateTime.parse(endDateParam, formatter);
             }
 
+            // startdatetime が enddatetime より後かチェック
+            if (startdatetime != null && enddatetime != null && enddatetime.isBefore(startdatetime)) {
+                // エラー処理: 終了時刻が開始時刻より前の場合
+                request.setAttribute("errorMessage", "終了時刻は開始時刻より前にはできません。");
+                request.getRequestDispatcher("/WEB-INF/view/ShiftFile/shift_add.jsp").forward(request, response);
+                return;  // 処理を中止
+            }
+
             // breaktime のチェック
             String breaktimeParam = request.getParameter("breaktime");
             if (breaktimeParam != null && !breaktimeParam.isEmpty()) {
@@ -81,11 +89,9 @@ public class ShiftAddServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+        // 正常な場合のみシフトをデータベースに挿入
         shiftDAO.insertShift(shift_id, startdatetime, enddatetime, work_id, breaktime, wage);
         response.sendRedirect("ShiftServlet");
-
     }
-
 }
-
 

@@ -119,6 +119,16 @@
                         </td>
                     </tr>
 
+                    <% if (request.getAttribute("errorMessage") != null) { %>
+                    <tr>
+                        <th></th>
+                        <td style="padding: 0; padding-left: 3rem;">
+                            <p class="error-message" style="font-size: 15px; color: red">
+                                <%= request.getAttribute("errorMessage") %>
+                            </p>
+                        </td>
+                    </tr>
+                    <% } %>
 
                     <tr>
                         <th><span>＊</span> 終了 :</th>
