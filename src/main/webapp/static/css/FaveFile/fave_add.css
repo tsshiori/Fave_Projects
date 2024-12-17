@@ -408,7 +408,7 @@ h4 {
     justify-self: end;
 }
 
-#concan, concan2 {
+#concan, #concan2 {
     font-family: "Noto Serif JP", serif;
     font-size: 19px;
     font-weight: bolder;
@@ -423,7 +423,7 @@ h4 {
 
 }
 
-#concan:hover, concan2:hover {
+#concan:hover, #concan2:hover {
     background-color: #ececec;
 }
 

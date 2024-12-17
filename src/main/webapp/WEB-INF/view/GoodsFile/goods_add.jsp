@@ -36,12 +36,20 @@
         <br>
         <h2>≪METER≫</h2>
         <div class="meter-container">
-            <meter class="background-meter" value="31.1" min="0" max="100"></meter>
-            <meter class="foreground-meter" value="9.7" min="0" max="100"></meter>
+            <!-- 背面のメーター -->
+            <meter class="background-meter" value="30920" min="0" max="99740"></meter>
+            <!-- 前面のメーター -->
+            <meter class="foreground-meter" value="9860" min="0" max="99740"></meter>
         </div>
         <div class="meterimg">
-            <div class="temoti"><img src="static/img/temoti.png" alt="temoti"></div>
-            <div class="kyuuryoubi"><img src="static/img/kyuuryoubi.png" alt="kyuuryoubi"></div>
+            <div class="temoti">
+                <img src="static/img/temoti.png" alt="temoti">
+                <span class="temoti-value">所持金額: 31.1</span> <!-- valueを表示する要素 -->
+            </div>
+            <div class="kyuuryoubi">
+                <img src="static/img/kyuuryoubi.png" alt="kyuuryoubi">
+                <span class="kyuuryoubi-value">給与予定額: 45.4</span> <!-- valueを表示する要素 -->
+            </div>
         </div>
     </div>
 </div>
