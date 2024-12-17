@@ -1,0 +1,238 @@
+@charset "utf-8";
+
+.main {
+    width: 85%;
+
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.main .add {
+    width: 7%;
+    margin-left: 10%;
+}
+
+.main .add:hover {
+    opacity: 0.7;
+}
+
+.scroll-content {
+    width: 90%;
+    height: 600px;
+    margin: 0 7%;
+}
+
+.toggle-container {
+    flex-wrap: nowrap;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 10;
+
+}
+
+.switch_label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 5%;
+}
+
+.switch {
+    position: relative;
+    margin-right: 10px;
+}
+
+.toggle-container input[type='checkbox'] {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.toggle-container {
+    justify-content: right;
+}
+
+.base {
+    width: 80px;
+    height: 40px;
+    border-radius: 13px;
+    background: #FFFFF3;
+    position: relative;
+}
+
+
+.circle {
+    width: 80px;
+    height: 40px;
+    border-radius: 13px;
+}
+
+.circle .gallery img,
+.circle .list img {
+    width: 30px;
+    height: 30px;
+    margin-top: 4px;
+}
+
+.circle .gallery,
+.circle .list {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    align-content: center;
+}
+
+.circle .list {
+    border-radius: 0 13px 13px 0;
+}
+
+.circle .gallery {
+    border-radius: 13px 0 0 13px;
+}
+
+input:checked~.base {
+    background: #FFFFF3;
+}
+
+.base .circle .gallery {
+    background: #31D1C1;
+}
+
+input:checked~.base .circle .list {
+    background: #31D1C1;
+}
+
+input:checked~.base .circle .gallery {
+    background: #FFFFF3;
+}
+
+
+.toggle-container .note {
+    color: rgba(255, 18, 18, 1);
+    font-size: 17px;
+    text-align: right;
+    margin: 0;
+    white-space: nowrap;
+    flex-shrink: 0;
+    z-index: 10;
+    margin-right: 5%;
+}
+
+#gallery {
+    margin-top: 2%;
+}
+
+#gallery .container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.add0 {
+    border: #221D7E dotted 1px;
+    width: 80px;
+    height: 100px;
+    text-align: center;
+    border-radius: 8px;
+    margin-top: 30%;
+}
+
+.a00 {
+    text-decoration: none;
+}
+
+.a00:hover {
+    opacity: 0.7;
+}
+
+.add0 img {
+    width: 80%;
+    margin-top: 13px;
+}
+
+
+#gallery a {
+    margin-left: 3%;
+}
+
+.card__item {
+    width: 80px;
+    height: 100px;
+    background-color: #FFFFF3;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 30%;
+}
+
+.card_img {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+}
+
+#gallery .card_img img {
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
+    object-fit: contain;
+}
+
+.card__item p {
+    font-size: 11px;
+    font-weight: 600;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+.add1 img{
+    width: 7%;
+}
+
+.add1 img:hover {
+    opacity: 0.7;
+}
+
+.list_card {
+    background-color: #FFFFF3;
+    margin-top: 13px;
+    height: 80px;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.list_card .card_img {
+    width: 10%;
+}
+
+.list_card .card_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.list_card .name {
+    width: 30%;
+}
+
+.list_card .price {
+    width: 10%;
+    text-align: right;
+    margin-right: 3%;
+}
+
+#gallery a, #list a {
+    text-decoration: none;
+    color: #221D7E;
+}
+
+#gallery a:hover, #list a:hover {
+    opacity: 0.7;
+}
+
+.list_card .rela {
+    width: 40%;
+    text-align: left;
+    color: #524DAE;
+}

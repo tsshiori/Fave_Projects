@@ -1,0 +1,240 @@
+@charset "utf-8";
+
+.main {
+    width: 85%;
+}
+
+.scroll-content {
+    width: 86%;
+    height: 500px;
+    margin: 0 7%;
+}
+
+.f_img {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+}
+
+.f_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    margin-top: 25px;
+}
+
+.l_img {
+    background-color: #FFFFF3;
+    width: 300px;
+    height: 300px;
+    border-radius: 8px;
+}
+
+.left {
+    width: 35%;
+}
+
+.fd_memo {
+    background-color: #fffff38f;
+    border: #221D7E 1px solid;
+    border-radius: 8px;
+    min-width: 125%;
+    max-width: 125%;
+    min-height: 150px;
+    margin-top: 5%;
+    padding: 8px 20px;
+}
+
+.fd_memo p {
+    margin-top: 3%;
+}
+
+.right {
+    width: 65%;
+    margin-left: 30px;
+}
+
+.name h1 .na0 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.name h1 .na1 {
+    margin-left: 15%;
+}
+
+.name h1 {
+    width: 70%;
+    border-bottom: #221D7E 2px solid;
+    margin: 0 auto;
+}
+
+.name {
+    align-items: center;
+}
+
+.name a {
+    width: 15%;
+    justify-content: right;
+}
+
+.name a:hover {
+    opacity: 0.7;
+}
+
+.name img {
+    width: 100%;
+}
+
+.right table {
+    border-spacing: 10px 10px;
+    margin-left: 10%;
+}
+
+.right table th {
+    text-align: left;
+}
+
+.categori0 {
+    align-items: center;
+    justify-content: right;
+    text-align: right;
+}
+
+.categori1 {
+    text-align: right;
+}
+
+.fd_money {
+    margin-top: 5%;
+    text-align: center;
+    margin-left: 15%;
+}
+
+.fd_money button {
+    width: 120px;
+    height: 30px;
+    font-size: 16px;
+    background-color: #FFFFF3;
+    color: #DB5F5F;
+    border: 2.5px solid #DB5F5F;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: "Noto Serif JP", serif;
+    margin-left: 25%;
+}
+
+.fd_money button:hover {
+    opacity: 0.7;
+}
+
+
+.modal {
+    display: none;
+    /* 初期状態では表示しない */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 背景の半透明黒 */
+}
+
+/* モーダル全体の中央揃え */
+.modal-content {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55%;
+    height: 65%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 20px;
+    min-width: 500px;
+    text-align: center;
+    /* モーダル全体のテキストを中央寄せ */
+    padding-bottom: 30px;
+}
+
+.ikkatu{
+    height: 350px;
+    overflow-y: auto;
+}
+
+.ikkatu::-webkit-scrollbar {
+    background-color: #DADCFB;
+    width:10px;
+}
+
+.ikkatu::-webkit-scrollbar-thumb{
+    background-color: #AAAAAA;
+    border-radius: 20px;
+    width:10px;
+}
+
+.ikkatu::-webkit-scrollbar-thumb:hover {
+    background-color: #776378;
+}
+
+.goods_money {
+    background-color: #FFFFF3;
+    border-radius: 5px;
+    align-items: center;
+    padding: 9px;
+    margin-top: 3%;
+}
+
+.event_money {
+    background-color: #FFFFD1;
+    border-radius: 5px;
+    align-items: center;
+    padding: 9px;
+    margin-top: 3%;
+}
+
+.goods_money h4 {
+    width: 60%;
+    text-align: center;
+}
+
+.goods_money h3 {
+    width: 30%;
+    text-align: right;
+}
+
+.event_money h4 {
+    width: 60%;
+    text-align: center;
+}
+
+.event_money h3 {
+    width: 30%;
+    text-align: right;
+}
+
+#mo_de_close {
+    color: #221D7E;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 auto;
+    background-color: #FFFFF3;
+    padding: 5px 20px;
+    border-radius: 5px;
+    padding-top: 5px;
+    border: 0.5px solid #221D7E;
+    font-family: "Noto Serif JP", serif;
+    margin-top: 2%;
+}
+
+#mo_de_close:hover,
+#mo_de_close:focus {
+    color: #221D7E;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #ececec;
+}

@@ -1,0 +1,563 @@
+@charset "utf-8";
+
+.main {
+    width: 85%;
+}
+
+.main .add {
+    width: 30% !important;
+    margin-left: 50%;
+}
+
+.main .add:hover {
+    opacity: 0.7;
+}
+
+.scroll-content {
+    width: 80% !important;
+    margin: 0;
+    margin-left: 5rem;
+    height: auto;
+}
+
+
+.a {
+    display: inline-block;
+    width: 26%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.head_btn {
+    display: flex;
+    justify-content: left;
+}
+
+
+/* モーダルの初期状態を非表示にする */
+.modal {
+    display: none;
+    /* 初期状態では表示しない */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 背景の半透明黒 */
+}
+
+/* モーダル全体の中央揃え */
+.modal-content {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 53%;
+    height: 70%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 20px;
+    min-width: 500px;
+    text-align: center;
+    /* モーダル全体のテキストを中央寄せ */
+    padding-bottom: 30px;
+}
+
+/* モーダルヘッダーのスタイル調整 */
+.modal-header {
+    text-align: center;
+    padding-top: 40px;
+    margin: 0 auto;
+}
+
+.modal-header h4 {
+    font-size: 1.3rem;
+    margin: 20px 0;
+    text-align: center;
+}
+.modal-header span{
+    margin-left: 7px;
+    color: #221D7E;
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+#easyModal2 input[type="number"] {
+    text-align: right;
+    font-size: 18px;
+    font-weight: 900;
+    color: #221D7E;
+    font-family: "Noto Serif JP", serif;
+    height: 40px;
+    width: 16rem !important;
+    padding: 8px;
+    margin-right: 8px;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFF3;
+    margin-bottom: 20px;
+}
+#easyModal2 input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #221D7E; /* ボーダー色 */
+    border-radius: 50%; /* 丸にする */
+    background-color: #FFFFF3;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+}
+
+
+input[type="radio"]:checked {
+    background-color: #FFFFF3; /* チェック時の背景色 */
+}
+
+input[type="radio"]::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #221D7E; /* 内側の色 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s ease;
+}
+
+input[type="radio"]:checked::before {
+    transform: translate(-50%, -50%) scale(1); /* チェック時に表示 */
+}
+
+
+input[type="radio"] {
+    margin: 0; /* デフォルトのマージンをリセット */
+    vertical-align: middle; /* ボタンをテキストの中央に揃える */
+}
+
+#easyModal2 label{
+    text-align: left;
+}
+
+/* ボタン配置の調整 */
+.modal-body {
+    justify-content: center;
+    /* ボタンを中央に揃える */
+    gap: 15px;
+    /* ボタンの間隔 */
+    padding-top: 20px;
+}
+
+.radio {
+    display: flex;
+    flex-direction: column; /* 縦方向に配置 */
+    align-items: center; /* コンテナ内の要素を中央に配置 */
+    gap: 15px; /* 各ラジオボタンの間隔 */
+    margin: auto;
+    margin-left: 40px;
+}
+
+.radio-con {
+    font-weight: 700;
+    display: flex;
+    justify-content: center; /* 中央寄せ */
+    align-items: center; /* ラベルの中央に配置 */
+    gap: 10px; /* ボタンとラベルの間隔 */
+    width:40%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#confirmRe {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #63ACF6;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 3%;
+}
+
+#confirmRe:hover {
+    background-color: #98c5f3;
+}
+
+/* キャンセルボタン */
+#cancelRe {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+}
+
+#cancelRe:hover {
+    background-color: #ececec;
+}
+
+#confirmRe2 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #C3F8B9;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 3%;
+}
+
+#confirmRe2:hover {
+    background-color: #ddfbd7;
+}
+
+/* キャンセルボタン */
+#cancelRe2 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+}
+
+#cancelRe2:hover {
+    background-color: #ececec;
+}
+
+#container_btn .modalOpen {
+    display: inline-block;
+    margin: 30px;
+    margin-right: 40px;
+}
+
+/* プルダウンメニューのスタイル */
+form {
+    margin: auto;
+    margin: 20px;
+    font-family: "Noto Serif JP", serif;
+    align-items: center;
+}
+
+.modal_title {
+    margin-right: 10px;
+    font-family: "Noto Serif JP", serif;
+    color: #221D7E;
+    font-size: 19px;
+    font-weight: 900;
+}
+
+/* datetime-localフィールドのデフォルトスタイルをリセット */
+input[type="datetime-local"] {
+    -webkit-appearance: none; /* SafariなどのWebkitブラウザ用 */
+    -moz-appearance: textfield; /* Firefox用 */
+    appearance: none; /* 他のブラウザ */
+    background-color: transparent; /* 背景を透明に */
+    border: none; /* デフォルトの枠線を消す */
+    padding: 0;
+    margin: 0;
+    font-family: "Noto Serif JP", serif;
+}
+
+/* カスタムスタイルの設定 */
+input[type="datetime-local"] {
+    background-color: #FFFFF3; /* 背景色 */
+    border: 1px solid #221D7E; /* 枠線の色 */
+    border-radius: 5px; /* 角の丸み */
+    padding: 10px 12px; /* 内側の余白 */
+    font-size: 16px; /* 文字サイズ */
+    width: 100%; /* 幅を100%にする */
+}
+
+
+input[type="text"] {
+    font-size: 18px;
+    color: #221D7E;
+    font-family: "Noto Serif JP", serif;
+    height: 40px;
+    width: 25rem;
+    padding: 8px;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFF3;
+}
+
+input[type="text"]::placeholder {
+    color: #A9A8C2;
+    /* プレースホルダの色 */
+    opacity: 1;
+    /* プレースホルダの透明度（デフォルトで薄く表示されるため） */
+}
+
+input[type="number"] {
+    font-size: 18px;
+    color: #221D7E;
+    font-family: "Noto Serif JP", serif;
+    height: 40px;
+    width: 25rem;
+    padding: 8px;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFF3;
+}
+
+input[type="number"]::placeholder {
+    color: #A9A8C2;
+    /* プレースホルダの色 */
+    opacity: 1;
+    /* プレースホルダの透明度（デフォルトで薄く表示されるため） */
+}
+
+option {
+    font-family: "Noto Serif JP", serif;
+}
+
+select {
+    color: #221D7E;
+    border-radius: 5px;
+    appearance: none;
+    width: 25rem;
+    height: 40px;
+    font-family: "Noto Serif JP", serif;
+    padding: 5px;
+    padding-left: 8px;
+    font-size: 18px;
+    border: #221D7E 0.5px solid;
+    border-radius: 5px;
+    background-image: url('../../img/DOWN.png');
+    /* カスタム矢印の画像 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    /* 矢印の位置 */
+    background-size: 15px;
+    /* 矢印のサイズ */
+
+    background-color: #FFFFF3;
+}
+
+#menu:has(option:checked[value=""]) {
+    color: #A9A8C2;
+}
+
+.aaa {
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+/* formのtable */
+form h4 {
+    font-size: 1.3rem;
+    text-align: right;
+    color: #FF1212;
+}
+
+span {
+    color: #FF1212;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.hissu {
+    text-align: right;
+    color: #FF1212;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+table {
+    writing-mode: horizontal-tb;
+    /* 横書きに設定 */
+    text-orientation: mixed;
+    /* 文字の方向も標準に */
+    margin-top: 2rem;
+    margin-left: 1rem;
+}
+
+th {
+    text-align: right;
+    font-size: 20px;
+    width: auto
+}
+
+td {
+    padding: 1rem;
+    padding-left: 3rem;
+}
+
+/* カスタムプレースホルダーのスタイル */
+.input-container {
+    position: relative;
+    display: inline-block;
+    width: 86%;
+}
+
+.pl-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #FFFFF3;
+    border: 1px solid #221D7E;
+    border-radius: 5px;
+    padding: 10px 12px;
+    font-size: 18px;
+    color: #221D7E;
+    width: 86%;
+    box-sizing: border-box;
+    width: 8rem;
+    height: 40px;
+}
+
+.pl-placeholder {
+    position: absolute;
+    top: 31%;
+    margin-left: 8px;
+    color: #A9A8C2;
+    background-color: #FFFFF3;
+    font-size: 18px;
+    font-weight: 100;
+}
+
+/* フォーカス時と入力済みの場合はプレースホルダーを非表示に */
+.pl-input:focus + .pl-placeholder,
+.pl-input:not(:placeholder-shown) + .pl-placeholder {
+    display: none;
+}
+
+
+
+
+
+.zikyu-color {
+    color: #5A56A4;
+}
+
+.zikyu {
+    font-family: "Noto Serif JP", serif;
+    font-weight: bold;
+    writing-mode: horizontal-tb;
+    /* 横書きに設定 */
+    text-orientation: mixed;
+    /* 文字の方向も標準に */
+    width: 7.5rem;
+    padding: 0 10px;
+    /* ボタンの幅を調整 */
+    height: 40px;
+    /* ボタンの高さを調整 */
+    font-size: 19px;
+    /* フォントサイズを調整 */
+    display: inline-block;
+    /* ブロック要素にしてサイズを指定 */
+    border: 1px solid #221D7E;
+    background-color: #C3F8B9;
+    /* 背景色 */
+    color: #221D7E;
+    /* 文字色 */
+    border-radius: 5px;
+    /* 角を丸くする */
+}
+
+.zikyu:hover {
+    background-color: #ddfbd7;
+}
+
+.btn {
+    text-align: center;
+    gap: 20px;
+}
+
+.in {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #63ACF6;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 3%;
+}
+
+.in:hover {
+    background-color: #98c5f3;
+}
+
+.kyan {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    margin-top: 20px;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+
+}
+
+.kyan:hover {
+    background-color: #ececec;
+}
+
+.modal-body .value {
+    text-align: left !important; /* !importantで優先順位を上げる */
+}
+
+.modal-body table{
+    margin: 0 auto;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 900;
+}
+.modal-body td{
+    margin: 0;
+    padding: 8px;
+    text-align: right;
+}
+.modal-body .value td{
+    margin: 0;
+    text-align: left !important;
+}
+
+
+.img{
+    padding: 0;
+}
+td.img {
+    display: flex;
+    padding-top: 12px;
+}
+img{
+
+    margin: auto;
+    width: 2.75rem;
+}
+
+.temoti{
+    color: #221D7E;
+}
+.kyuuryoubi{
+    color: #221D7E;
+}

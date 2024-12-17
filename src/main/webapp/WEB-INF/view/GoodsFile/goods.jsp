@@ -43,37 +43,37 @@
     <aside class="menu">
         <br>
         <div class="home">
-            <a href="/view/index.jsp">
+            <a href="fave">
                 <h3>HOME</h3>
             </a>
         </div>
         <hr>
         <div class="fave">
-            <a href="/FaveFile/fave.jsp">
+            <a href="fave">
                 <h3>FAVE</h3>
             </a>
         </div>
         <hr>
         <div class="relate">
-            <a href="/FaveFile/relate.jsp">
+            <a href="relate">
                 <h3>RELATE</h3>
             </a>
         </div>
         <hr>
         <div class="shift">
-            <a href="/ShiftFile/shift.jsp">
+            <a href="shift">
                 <h3>SHIFT</h3>
             </a>
         </div>
         <hr>
         <div class="work">
-            <a href="/WorkFile/work.jsp">
+            <a href="work">
                 <h3>WORK</h3>
             </a>
         </div>
         <hr>
         <div class="mypage">
-            <a href="/MypageFile/mypage.jsp">
+            <a href="my_page">
                 <h3>MYPAGE</h3>
             </a>
         </div>
@@ -96,7 +96,7 @@
                                     <div class="arrow">▼</div> <!-- 下向き矢印を直接追加 -->
                                 </span>
                         </div>
-                        <a href="/GoodsFile/goods_add.jsp">
+                        <a href="goods_add" id="plus-link">
                             <img src="static/img/ADD.png" alt="ADD" class="add-icon">
                         </a>
                     </div>

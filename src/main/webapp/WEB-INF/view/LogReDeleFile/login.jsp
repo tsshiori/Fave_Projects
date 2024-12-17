@@ -23,7 +23,7 @@
 
 <body>
 <div class="login_form">
-    <form action="fave" method="post">
+    <form action="login" method="post">
 
         <div class="logo"><img src="static/img/TimeforFave.png" alt="logo"></div>
         <div class="text">

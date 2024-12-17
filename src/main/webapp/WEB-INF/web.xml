@@ -5,6 +5,16 @@
 
     <!-- LoginServlet 設定 -->
     <servlet>
+        <servlet-name>IndexServlet</servlet-name>
+        <servlet-class>com.example.fave.IndexServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IndexServlet</servlet-name>
+        <url-pattern>/fave</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.example.fave.LogReDeleFile.LoginServlet</servlet-class>
     </servlet>
@@ -43,4 +53,123 @@
         <servlet-name>GoodsServlet</servlet-name>
         <url-pattern>/goods</url-pattern>
     </servlet-mapping>
+
+<!-- ↓　Faveファイルマッピング -->
+    <servlet>
+        <servlet-name>Fave</servlet-name>
+        <servlet-class>com.example.fave.FaveFile.Fave</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Fave</servlet-name>
+        <url-pattern>/fave_list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FaveAdd</servlet-name>
+        <servlet-class>com.example.fave.FaveFile.FaveAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FaveAdd</servlet-name>
+        <url-pattern>/fave_add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FaveDetail</servlet-name>
+        <servlet-class>com.example.fave.FaveFile.FaveDetailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FaveDetail</servlet-name>
+        <url-pattern>/fave_detail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FaveEdit</servlet-name>
+        <servlet-class>com.example.fave.FaveFile.FaveEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FaveEdit</servlet-name>
+        <url-pattern>/fave_edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Relate</servlet-name>
+        <servlet-class>com.example.fave.FaveFile.RelateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Relate</servlet-name>
+        <url-pattern>/relate</url-pattern>
+    </servlet-mapping>
+  
+    <servlet>
+        <servlet-name>MypageServlet</servlet-name>
+        <servlet-class>com.example.fave.MypageFile.MypageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MypageServlet</servlet-name>
+        <url-pattern>/my_page</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShiftServlet</servlet-name>
+        <servlet-class>com.example.fave.ShiftFile.ShiftServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShiftServlet</servlet-name>
+        <url-pattern>/shift</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShiftEditServlet</servlet-name>
+        <servlet-class>com.example.fave.ShiftFile.ShiftEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    <servlet-name>ShiftEditServlet</servlet-name>
+    <url-pattern>/shift_edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShiftAddServlet</servlet-name>
+        <servlet-class>com.example.fave.ShiftFile.ShiftAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShiftAddServlet</servlet-name>
+        <url-pattern>/shift_add</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>WorkServlet</servlet-name>
+        <servlet-class>com.example.fave.WorkFile.WorkServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WorkServlet</servlet-name>
+        <url-pattern>/work</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>WorkAddServlet</servlet-name>
+        <servlet-class>com.example.fave.WorkFile.WorkAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WorkAddServlet</servlet-name>
+        <url-pattern>/work_add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>WorkEditServlet</servlet-name>
+        <servlet-class>com.example.fave.WorkFile.WorkEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WorkEditServlet</servlet-name>
+        <url-pattern>/work_edit</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GoodsAddServlet</servlet-name>
+        <servlet-class>com.example.fave.GoodsFile.GoodsAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoodsAddServlet</servlet-name>
+        <url-pattern>/goods_add</url-pattern>
+    </servlet-mapping>
+
 </web-app>

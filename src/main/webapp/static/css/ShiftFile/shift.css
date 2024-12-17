@@ -1,0 +1,427 @@
+@charset "utf-8";
+
+.main {
+    width: 85%;
+}
+
+.main .add {
+    width: 30% !important;
+    margin-left: 50%;
+}
+
+.main .add:hover {
+    opacity: 0.7;
+}
+
+
+.a {
+    display: inline-block;
+    /* インライン要素でも幅を指定できるようにする */
+    width: 26%;
+    /* 必要に応じて幅を調整（例：100px） */
+    height: auto;
+    /* 画像の縦横比を維持するためにautoを指定 */
+    padding: 0;
+    /* 余計なパディングがないか確認 */
+    margin: 0;
+    /* 必要に応じてマージンを調整 */
+}
+
+.head_btn {
+    display: flex;
+    justify-content: left;
+}
+
+.btn {
+    margin-top: 12px;
+    font-family: "Noto Serif JP", serif;
+    padding: 10px 20px;
+    font-weight: 900;
+    font-size: 17px;
+    color: #CB5B00;
+    background-color: #FFFFF3;
+    border: #CB5B00 3px solid;
+    border-radius: 7px;
+}
+
+.btn:hover {
+    opacity: 0.7;
+}
+
+/* モーダルの初期状態を非表示にする */
+.modal {
+    display: none;
+    /* 初期状態では表示しない */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 背景の半透明黒 */
+}
+
+/* モーダル全体の中央揃え */
+.modal-content {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 53%;
+    height: 75%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 20px;
+    min-width: 500px;
+    text-align: center;
+    /* モーダル全体のテキストを中央寄せ */
+    padding-bottom: 30px;
+}
+
+.modal-content1 {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 53%;
+    height: 55%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 20px;
+    min-width: 500px;
+    text-align: center;
+    /* モーダル全体のテキストを中央寄せ */
+    padding-bottom: 30px;
+}
+
+/* モーダルヘッダーのスタイル調整 */
+.modal-header {
+    text-align: center;
+    /* テキストを中央揃え */
+    padding-top: 40px;
+    margin: 0 auto;
+    /* margin-bottom: 20px; */
+
+}
+
+/* モーダルのh3スタイル調整 */
+.modal-header h3 {
+    font-size: 28px;
+    color: #221D7E;
+    margin-bottom: 10px;
+    font-weight: 800;
+    text-align: center;
+    /* h3も中央寄せ */
+}
+
+.modal-h4 {
+    display: inline-block;
+    text-align: left;
+    margin: 0 auto;
+}
+
+.modal-header h4 {
+    color: #FE3939;
+    margin-left: 0;
+    /* 左マージンをリセット */
+    margin-right: 0;
+    /* 右マージンもリセット */
+    padding-left: 0;
+    /* 左の余白もリセット */
+    width: 100%;
+    /* 幅を100%に設定して、同じ幅に揃える */
+    display: block;
+    /* ブロック要素にして幅を確保 */
+    text-align: left;
+}
+
+/* ボタン配置の調整 */
+.modal-body {
+    justify-content: center;
+    /* ボタンを中央に揃える */
+    gap: 15px;
+    /* ボタンの間隔 */
+    padding-top: 20px;
+}
+
+
+/* 削除確認ボタン */
+#confirmDelete {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #63ACF6;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 3%;
+}
+
+#confirmDelete:hover {
+    background-color: #98c5f3;
+}
+
+#confirmDelete3 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #63ACF6;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 3%;
+}
+
+#confirmDelete3:hover {
+    background-color: #98c5f3;
+}
+
+#confirmDelete2 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #FF6666;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 3%;
+}
+
+#confirmDelete2:hover {
+    background-color: #ff8787;
+}
+
+/* キャンセルボタン */
+#cancelDelete {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+}
+
+#cancelDelete:hover {
+    background-color: #ececec;
+}
+
+#cancelDelete3 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+}
+
+#cancelDelete3:hover {
+    background-color: #ececec;
+}
+
+#cancelDelete2 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+}
+
+#cancelDelete2:hover {
+    background-color: #ececec;
+}
+
+#container_btn .modalOpen {
+    display: inline-block;
+    margin: 30px;
+}
+
+/* プルダウンメニューのスタイル */
+form {
+    margin: auto;
+    margin: 20px;
+    font-family: "Noto Serif JP", serif;
+    align-items: center;
+}
+
+.modal_title {
+    margin-right: 10px;
+    font-family: "Noto Serif JP", serif;
+    color: #221D7E;
+    font-size: 19px;
+    font-weight: 900;
+}
+
+/* 既存のスタイル無効化 */
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-select {
+    width: 20.5rem;
+    color: #A9A8C2;
+    margin-left: 6px;
+    text-align: left;
+    border-radius: 5px;
+    appearance: none;
+    padding: 5px 0 5px 5px;
+    font-size: 16px;
+    border: #221D7E 0.5px solid;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    background-image: url('../../img/UPLOAD.png');
+    /* カスタム矢印の画像 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    /* 矢印の位置 */
+    background-size: 15px;
+    /* 矢印のサイズ */
+}
+
+option {
+    font-family: "Noto Serif JP", serif;
+}
+
+select {
+    border-radius: 5px;
+    appearance: none;
+    width: 21rem;
+    font-family: "Noto Serif JP", serif;
+    padding: 5px;
+    font-size: 16px;
+    border: #221D7E 0.5px solid;
+    border-radius: 5px;
+    background-image: url('../../img/DOWN.png');
+    /* カスタム矢印の画像 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    /* 矢印の位置 */
+    background-size: 15px;
+    /* 矢印のサイズ */
+    color: #221D7E;
+}
+
+#menu:has(option:checked[value=""]) {
+    color: #A9A8C2;
+}
+
+.aaa {
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+/*　シフトループ　*/
+.scroll-content{
+    margin: 0 0 10px 5rem;
+    padding-bottom: 10px;
+    height: auto;
+}
+.vertical-line {
+    width: 0.5rem; /* 縦棒の幅 */
+    height: 3.6rem; /* 縦棒の高さ */
+    border-radius: 5px;
+    background-color: #A76CE6; /* 縦棒の色 */
+    margin: 10px; /* 余白（オプション） */
+}
+.shift_roop{
+    color: #24063A;
+    margin:0;
+    background-color: #FFFFF3;
+    width:51rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.date{
+    margin: 1.2rem 0.6rem 0.6rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.work_name{
+    font-weight: 600;
+    margin: 1.2rem 0.6rem 0.6rem;
+    font-size: 1.3rem;
+}
+.time-container{
+    margin: 0.5rem 4rem auto 7rem;
+    display: flex;
+    flex-direction: column;
+}
+.time{
+    display: block;
+    gap: 5px;
+    font-size: 1.3rem;
+    text-align: right;
+    width: 3rem;
+}
+.img_icon img{
+    margin: 0.7rem 1.2rem auto 0;
+    width: 3.5rem;
+    border-radius: 5px;
+}
+.img_icon img:hover{
+    opacity: 0.7;
+}
+
+.modal-body table{
+    margin: 0 auto;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 900;
+}
+.modal-body td{
+    margin: 0;
+    padding: 8px;
+    text-align: right;
+}
+.modal-body .value td{
+    margin: 0;
+    text-align: left !important;
+}
+
+.modal-body p{
+    padding-left: 8rem;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.ikkatu{
+    height: 250px;
+    overflow-y: auto;
+}
+
+.ikkatu::-webkit-scrollbar {
+    background: #E6E7F5;
+    width:10px;
+}
+
+.ikkatu::-webkit-scrollbar-thumb{
+    background-color: #AAAAAA;
+    border-radius: 20px;
+    width:10px;
+}
+
+.ikkatu::-webkit-scrollbar-thumb:hover {
+    background-color: #776378;
+}

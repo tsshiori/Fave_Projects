@@ -5,22 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&family=Yuji+Syuku&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="static/css/all.css">
     <link rel="stylesheet" href="static/css/LogReDeleFile/dele.css">
-
-    <link rel="shortcut icon" href="static/img/TimeforFave.png">
     <title>DELETE | Time of Fave.</title>
-
 </head>
 
 <body>
 <div class="dele_form">
-    <form action="DeleServlet" method="post">
+    <form id="deleteForm" action="DeleServlet" method="post">
 
         <div class="logo"><img src="static/img/TimeforFave.png" alt="logo"></div>
         <div class="dele_t">
@@ -28,14 +20,19 @@
         </div>
 
         <div class="text">
-            <input type="text" name="pass" placeholder="パスワード" class="last-input">
+            <input type="text" id="password" name="pass" placeholder="パスワード" class="last-input">
         </div>
+
+        <!-- エラーメッセージの表示 -->
+        <p class="error-message" style="font-size: 15px; color: red">
+            <%= request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : "" %>
+        </p>
+
         <!-- モーダルを開くためのボタン -->
         <div class="container_btn">
             <button type="button" id="modalOpen" class="btn">削除</button>
-            <a id="cancelDeletePage" class="kyan" href="WEB-INF/view/MypageFile/mypage.html">キャンセル</a>
+            <a id="cancelDeletePage" class="kyan" href="my_page">キャンセル</a>
         </div>
-
 
     </form>
 
@@ -57,7 +54,7 @@
         </div>
     </div>
 </div>
-    <script src="static/js/LogReDeleFile/dele.js"></script>
+<script src="static/js/LogReDeleFile/dele.js"></script>
 
 </body>
 
