@@ -223,5 +223,15 @@ function moveToRightSide(event, itemId) {
     targetElement.remove();
 }
 
+document.querySelector('.back-button').addEventListener('click', function () {
+    // 保存したURLを取得
+    const previousPage = localStorage.getItem('previousPage');
 
+    if (previousPage) {
+        // 保存したURLに戻る
+        window.location.href = previousPage;
+    } else {
+        alert('前のページが見つかりません');
+    }
+});
 
