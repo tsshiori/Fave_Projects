@@ -104,7 +104,7 @@
                     <div class="left_t">
                         <div class="left">
                             <div class="f_img">
-                                <img src="static/img/def.png" alt="defo" id="preview">
+                                <img src="static/faveImg/def.png" alt="defo" id="preview">
                             </div>
                         </div>
 
@@ -316,7 +316,7 @@
 
         <div class="modal-body">
             <button id="tabAdd" type="button" class="btn">追加</button>
-            <button id="concan" type="button" class="btn close">キャンセル</button>
+            <button id="tabcan" type="button" class="btn close">キャンセル</button>
         </div>
     </div>
 </div>

@@ -132,26 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
-// モーダルに関連する要素
-const modalGoods = document.getElementById('fave_add_modal');
-const buttonConfirmAdd = document.getElementById('fadd');
-const buttonCancelAdd = document.getElementById('fadd_can');
-
-// モーダルの表示/非表示
-document.getElementById('fadd_open').addEventListener('click', () => {
-    modalGoods.style.display = 'block';
-});
-buttonCancelAdd.addEventListener('click', () => modalGoods.style.display = 'none');
-
-buttonConfirmAdd.addEventListener('click', () => {
-        document.getElementById('fadd_form').submit();
-});
-
-window.addEventListener('click', (e) => {
-    if (e.target === modalGoods) modalGoods.style.display = 'none';
-});
-
 // モーダルを非表示にする関数
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = "none";
