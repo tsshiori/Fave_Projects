@@ -92,7 +92,7 @@
 
     <div class="main scroll-box">
         <div class="top-link">
-            <div class="list-link"><a href="WEB-INF/view/GoodsFile/goods.jsp">グッズリスト ＞</a></div>
+            <div class="list-link"><a href="goods">グッズリスト ＞</a></div>
             <div class="out-link">
                 <form action="LogoutServlet" method="POST">
                     <a href="#" onclick="logout()">LOGOUT</a>

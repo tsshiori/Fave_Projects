@@ -13,4 +13,12 @@ public class GoodsAddServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/GoodsFile/goods_add.jsp");
         dispatcher.forward(request, response);
     }
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/UTF-8");
+        HttpSession session = request.getSession();
+
+        response.sendRedirect("WorkServlet");
+    }
 }
