@@ -1,4 +1,11 @@
+<%@ page import="utils.Bean.userBean" %>
+<%@ page import="utils.Bean.categoryBean" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
+
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -70,13 +77,13 @@
         </div>
         <hr>
         <div class="shift">
-            <a href="../../ShiftFile/shift/shift.html">
+            <a href="shift">
                 <h3>SHIFT</h3>
             </a>
         </div>
         <hr>
         <div class="work">
-            <a href="../../WorkFile/work/work.html">
+            <a href="work">
                 <h3>WORK</h3>
             </a>
         </div>
@@ -92,12 +99,12 @@
     <div class="main scroll-box">
         <p class="hissu p">※ ＊は必須項目です。</p>
         <div class="scroll-content">
-            <form action="#">
+            <form id="fadd_form" action="FaveAdd" method="post">
                 <div class="container">
                     <div class="left_t">
                         <div class="left">
                             <div class="f_img">
-                                <img src="static/img/def.png" alt="カンパネルラ" id="preview">
+                                <img src="static/img/def.png" alt="defo" id="preview">
                             </div>
                         </div>
 
@@ -108,7 +115,7 @@
                                 </label>
                             </div>
                             <!-- 非表示のファイル選択フィールド -->
-                            <input type="file" id="fileInput" onchange="updateFileName()" accept="image/*">
+                            <input type="file" name="img" id="fileInput" onchange="updateFileName()" accept="image/*">
                         </div>
                     </div>
 
@@ -116,7 +123,9 @@
                         <table>
                             <tr>
                                 <th><span class="hissu">＊</span>名前：</th>
-                                <td><input type="text" name="name" placeholder="名前を入力してください。"></td>
+                                <td><input type="text" name="name" placeholder="名前を入力してください。"><br>
+                                <%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %>
+                                </td>
                             </tr>
                             <tr>
                                 <th>誕生日：</th>
@@ -140,11 +149,18 @@
                                 </th>
                                 <td>
                                     <div class="container cc">
-                                        <select name="relatedProject" id="cont">
-                                            <option value="" disabled selected>所属/関連プロジェクトを選択してください。</option>
-                                            <option value="0">銀河鉄道の夜</option>
-                                            <option value="1">STAR★BURST★SHIP</option>
-                                        </select>
+                                        <form action="categoryServlet" method="post">
+                                            <select name="cate_id" id="categorySelect" onchange="sendCategoryId()">
+                                                <option value="" disabled selected>所属/関連プロジェクトを選択してください。</option>
+                                                <% if (categorylist != null) { %>
+                                                <% for (categoryBean category : categorylist) { %>
+                                                <option value="<%= category.getCate_id() %>"><%= category.getCategory() %></option>
+                                                <% } %>
+                                                <% } else { %>
+                                                <option value="-1" disabled>カテゴリ未登録</option>
+                                                <% } %>
+                                            </select>
+                                        </form>
                                         <!-- イベント用プラスボタン -->
                                         <div id="plusButtonCon" class="btn-plus">
                                             <button class="plus2" type="button">
@@ -167,10 +183,10 @@
                                 </th>
                                 <td>
                                     <div class="container cc">
-                                        <select name="songTeam" class="tab" disabled>
-                                            <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="0">銀河鉄道の夜</option>
-                                            <option value="1">STAR★BURST★SHIP</option>
+                                        <select class="tab" name="tab1" disabled>
+                                            <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
+
+                                            <option value="3">STAR★BURST★SHIP</option>
                                         </select>
                                         <!-- イベント用プラスボタン -->
                                         <div class="btn-plus plusButtonTab">
@@ -193,10 +209,10 @@
                                 </th>
                                 <td>
                                     <div class="cc">
-                                        <select name="songTeam" class="tab" disabled>
-                                            <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="0">銀河鉄道の夜</option>
-                                            <option value="1">STAR★BURST★SHIP</option>
+                                        <select class="tab" name="tab2" disabled>
+                                            <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
+                                            <option value="2">銀河鉄道の夜</option>
+                                            <option value="3">STAR★BURST★SHIP</option>
                                         </select>
 
                                     </div>
@@ -217,10 +233,10 @@
                                 </th>
                                 <td>
                                     <div class="cc">
-                                        <select name="songTeam" class="tab" disabled>
-                                            <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="0">銀河鉄道の夜</option>
-                                            <option value="1">STAR★BURST★SHIP</option>
+                                        <select class="tab" name="tab3" disabled>
+                                            <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
+                                            <option value="2">銀河鉄道の夜</option>
+                                            <option value="3">STAR★BURST★SHIP</option>
                                         </select>
 
                                     </div>
@@ -238,10 +254,10 @@
                                 </th>
                                 <td>
                                     <div class="cc">
-                                        <select name="songTeam" class="tab" disabled>
-                                            <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="0">銀河鉄道の夜</option>
-                                            <option value="1">STAR★BURST★SHIP</option>
+                                        <select class="tab" name="tab4" disabled>
+                                            <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
+                                            <option value="2">銀河鉄道の夜</option>
+                                            <option value="3">STAR★BURST★SHIP</option>
                                         </select>
 
                                     </div>
@@ -259,10 +275,10 @@
                                 </th>
                                 <td>
                                     <div class="cc">
-                                        <select name="songTeam" class="tab" disabled>
-                                            <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="0">銀河鉄道の夜</option>
-                                            <option value="1">STAR★BURST★SHIP</option>
+                                        <select class="tab" name="tab5" disabled>
+                                            <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
+                                            <option value="2">銀河鉄道の夜</option>
+                                            <option value="3">STAR★BURST★SHIP</option>
                                         </select>
 
                                     </div>

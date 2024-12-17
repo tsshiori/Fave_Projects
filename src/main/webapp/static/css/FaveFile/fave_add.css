@@ -176,7 +176,7 @@ input[type="text"]::placeholder {
     text-align: right;
 }
 
-#cont,
+#categorySelect,
 .tab {
     font-size: 16px;
     color: #221D7E;
@@ -201,8 +201,8 @@ input[type="text"]::placeholder {
     appearance: none;
 }
 
-#cont:has(option:checked[value=""]),
-.tab:has(option:checked[value=""]) {
+#categorySelect:has(option:checked[value=""]),
+.tab:has(option:checked[value="1"]) {
     color: #A9A8C2;
 }
 

@@ -112,14 +112,13 @@ window.addEventListener("click", (event) => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const relatedProject = document.getElementById("cont"); // プロジェクト選択の <select>
-    const songTeamElements = document.querySelectorAll('select[name="songTeam"]'); // 各 <select> のリスト
-
+    const relatedProject = document.getElementById("categorySelect"); // プロジェクト選択の <select>
+    const selectElements = document.querySelectorAll('select[name^="tab"]'); // 'tab'で始まるname属性を持つselect要素を取得
     // relatedProject が変更されたときの処理
     relatedProject.addEventListener("change", () => {
         if (relatedProject.value !== "") {
             // すべての songTeam の <select> を有効化
-            songTeamElements.forEach((selectElement) => {
+            selectElements.forEach((selectElement) => {
                 selectElement.disabled = false; // 無効化解除
             });
 
@@ -146,19 +145,12 @@ document.getElementById('fadd_open').addEventListener('click', () => {
 buttonCancelAdd.addEventListener('click', () => modalGoods.style.display = 'none');
 
 buttonConfirmAdd.addEventListener('click', () => {
-    window.location.href = '../fave/fave.html';
+        document.getElementById('fadd_form').submit();
 });
 
 window.addEventListener('click', (e) => {
-    if (e.target == modalGoods) modalGoods.style.display = 'none';
+    if (e.target === modalGoods) modalGoods.style.display = 'none';
 });
-
-
-
-// モーダルを表示する関数
-function showModal(modalId) {
-    document.getElementById(modalId).style.display = "block";
-}
 
 // モーダルを非表示にする関数
 function closeModal(modalId) {
@@ -172,3 +164,33 @@ window.onclick = function(event) {
         closeModal("modalEvents");
     }
 };
+
+// category.js
+
+document.addEventListener('DOMContentLoaded', function() {
+    // カテゴリ選択時にタグ選択肢を変更
+    const categorySelect = document.getElementById('categorySelect');
+    const tagSelect = document.getElementById('tagSelect');
+
+    categorySelect.addEventListener('change', function() {
+        const selectedCategoryId = categorySelect.value;
+
+        // AJAXでカテゴリIDをサーブレットに送信
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `GetTagsForCategory?categoryId=${selectedCategoryId}`, true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // サーブレットから受け取ったタグデータを選択肢に反映
+                const tags = JSON.parse(xhr.responseText);
+                tagSelect.innerHTML = ''; // 現在の選択肢をクリア
+                tags.forEach(function(tag) {
+                    const option = document.createElement('option');
+                    option.value = tag.id;
+                    option.textContent = tag.name;
+                    tagSelect.appendChild(option);
+                });
+            }
+        };
+        xhr.send();
+    });
+});

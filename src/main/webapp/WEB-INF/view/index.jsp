@@ -59,7 +59,7 @@
         </div>
         <hr>
         <div class="fave">
-            <a href="fave">
+            <a href="fave_list">
                 <h3>FAVE</h3>
             </a>
         </div>

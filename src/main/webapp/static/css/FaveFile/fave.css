@@ -122,7 +122,12 @@ input:checked~.base .circle .gallery {
 }
 
 #gallery {
-    margin-top: 5%;
+    margin-top: 2%;
+}
+
+#gallery .container {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .add0 {
@@ -131,6 +136,7 @@ input:checked~.base .circle .gallery {
     height: 100px;
     text-align: center;
     border-radius: 8px;
+    margin-top: 30%;
 }
 
 .a00 {
@@ -146,10 +152,10 @@ input:checked~.base .circle .gallery {
     margin-top: 13px;
 }
 
+
 #gallery a {
     margin-left: 3%;
 }
-
 
 .card__item {
     width: 80px;
@@ -157,6 +163,7 @@ input:checked~.base .circle .gallery {
     background-color: #FFFFF3;
     border-radius: 8px;
     text-align: center;
+    margin-top: 30%;
 }
 
 .card_img {
