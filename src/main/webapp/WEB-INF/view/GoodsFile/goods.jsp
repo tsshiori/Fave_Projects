@@ -128,10 +128,9 @@
 
 
                     <div class="event">
-                        <div class="container" id="item2">
+                        <div class="container">
                             <div class="hi-img">
-                                <p>~11/27</p>
-                                <img src="static/img/Y_B.png" alt="B" onclick="moveToPurchased(event, 'item2')">
+                                <img src="static/img/Y_B.png" alt="B">
                             </div>
                             <div class="inf-meter">
                                 <div class="name-container">
@@ -151,15 +150,15 @@
 
 
                     <div class="guzzu">
-                        <div class="container" id="item3">
+                        <div class="container">
                             <div class="hi-img">
                                 <p>~11/16</p>
-                                <img src="static/img/Y_C.png" alt="C" onclick="moveToPurchased(event, 'item3')">
+                                <img src="static/img/Y_C.png" alt="C">
                             </div>
                             <div class="inf-meter">
                                 <div class="name-container">
                                     <div class="name-divider">
-                                        <p class="osi">ミューズ</p>
+                                        <p class="osi">カンパネルラ</p>
                                         <hr class="divider">
                                         <p class="name">ころころぬい ランダム</p>
                                     </div>
@@ -173,10 +172,10 @@
                     </div>
 
                     <div class="guzzu">
-                        <div class="container" id="item4">
+                        <div class="container">
                             <div class="hi-img">
                                 <p>~11/16</p>
-                                <img src="static/img/Y_D.png" alt="D" onclick="moveToPurchased(event, 'item4')">
+                                <img src="static/img/Y_D.png" alt="D">
                             </div>
                             <div class="inf-meter">
                                 <div class="name-container">
@@ -261,10 +260,9 @@
                             </div>
                         </div>
 
-                        <div class="guzzu-right" id="item5">
+                        <div class="guzzu-right" id="item2">
                             <div class="container">
                                 <div class="hi-img-right">
-                                    <p>~11/16</p>
                                     <!-- アイコンをクリックして左側に移動する -->
                                     <img src="static/img/購入済.png" alt="I">
                                 </div>
