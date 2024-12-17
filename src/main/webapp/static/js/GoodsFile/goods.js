@@ -133,6 +133,12 @@ function moveToLeft(event, itemId) {
     }
 }
 
+document.getElementById('plus-link').addEventListener('click', function(event) {
+    // 現在のページのURLをlocalStorageに保存
+    const currentUrl = window.location.href;
+    localStorage.setItem('previousPage', currentUrl);
+    // 通常のリンク遷移を許可する
+});
 
 
 // アイコン画像をクリックして左側に移動させる関数
