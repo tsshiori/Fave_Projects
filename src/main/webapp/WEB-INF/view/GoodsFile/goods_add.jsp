@@ -115,10 +115,12 @@
             <form id="goods_add" action="GoodsAdd" method="post" class="goods_add_form">
 
                 <div class="form-group input-container">
-                    <label><span class="req">＊</span> 日付：</label>
+                    <label for="goods-date"><span class="req">＊</span> 日付：</label>
                     <input type="date" id="goods-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
                     <span class="date-text">日付を入力してください。</span>
                 </div>
+
+
 
                 <div class="form-group">
                     <label><span class="req">＊</span> グッズ名：</label>
@@ -132,7 +134,7 @@
 
                 <div class="form-group">
                     <label class="favo"><span class="req">＊</span> 推し：</label>
-                    <select id="goods-menu" name="menu">
+                    <select id="goods-menu" name="goods-menu">
                         <option value="" disabled selected hidden>推しを選択してください。</option>
                         <option value="option1">カンパネルラ</option>
                         <option value="option2">ミューズ</option>
@@ -228,6 +230,54 @@
                         <button class="plus" type="button">
                             <img src="static/img/plus.png" alt="plus">
                         </button>
+                    </div>
+                </div>
+
+                <!-- アイコンセクション -->
+                <div class="form-group">
+                    <div class="icon container">
+                        <label>
+                            <input type="radio" name="icon" value="0" checked>
+                            <img src="static/img/Y_A.png" alt="a">
+                        </label>
+                        <label>
+                            <input type="radio" name="icon" value="1">
+                            <img src="static/img/Y_B.png" alt="b">
+                        </label>
+                        <label>
+                            <input type="radio" name="icon" value="2">
+                            <img src="static/img/Y_C.png" alt="c">
+                        </label>
+                        <label>
+                            <input type="radio" name="icon" value="3">
+                            <img src="static/img/Y_D.png" alt="d">
+                        </label>
+                        <label>
+                            <input type="radio" name="icon" value="4">
+                            <img src="static/img/Y_E.png" alt="e">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- メモ -->
+                <div class="form-group">
+                    <label class="memo-label">メモ：</label>
+                    <textarea id="event-memo" class="memo" name="memo" placeholder="メモを入力してください。"></textarea>
+                </div>
+
+                <!-- 購入済 -->
+                <div class="form-group">
+                    <label>購入済：</label>
+                    <input type="checkbox" id="event-check" class="purchased" name="purchased">
+                    <span class="small-text">※購入済みの場合はチェックを入れてください。</span>
+                </div>
+
+                <div class="form-group">
+                    <div class="btn">
+                        <button id="modalOpenEvents" type="button" class="in">追加</button>
+
+                        <a class="kyan back-button" href="#">キャンセル</a>
+
                     </div>
                 </div>
             </form>
@@ -329,7 +379,7 @@
 
 
 <!-- プラスボタンのモーダル -->
-<div id="modal" class="modalbody">
+<div id="modalGoods" class="modalbody">
     <span class="close" id="closeModal">&times;</span>
     <div class="modal-content2">
         <div class="modal-header">

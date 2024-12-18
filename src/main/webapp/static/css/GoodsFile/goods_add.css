@@ -349,7 +349,10 @@ select {
     background-size: 15px;
 }
 
-#menu:has(option:checked[value=""]) {
+#goods-menu:has(option:checked[value=""]) {
+    color: #A9A8C2;
+}
+#event-menu:has(option:checked[value=""]){
     color: #A9A8C2;
 }
 
@@ -359,31 +362,61 @@ select {
 
 .pl {
     font-family: "Noto Serif JP", serif;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: #FFFFF3;
-    border: 1px solid #221D7E;
-    border-radius: 5px;
+    color: #A9A8C2;  /* 初期状態の色 */
     font-size: 20px;
+    border-radius: 5px;
+    padding: 8px;
+    border: 0.5px solid #221D7E;
+    background-color: #FFFFF3;
+    width: 400px;
+    height: 40px;
+    /*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
+    /*appearance: none;*/
+    /*background-color: #FFFFF3;*/
+    /*border: 1px solid #221D7E;*/
+    /*border-radius: 5px;*/
+    /*font-size: 20px;*/
+    /*color: #A9A8C2;*/
+    /*width: 25rem;*/
+    /*height: 40px;*/
+}
+input[type="date"] {
     color: #A9A8C2;
-    width: 20.5rem;
 }
 
+
+
+/* プレースホルダー用のスタイル */
 .date-text {
     font-family: "Noto Serif JP", serif;
     position: absolute;
     margin-left: 50px;
-    color: #A9A8C2;
+    color: #A9A8C2;  /* 初期状態での薄い色 */
     background-color: #FFFFF3;
     font-size: 20px;
     font-weight: 400;
     cursor: pointer;
+    /*font-family: "Noto Serif JP", serif;*/
+    /*position: absolute;*/
+    /*margin-left: 50px;*/
+    /*color: #A9A8C2;*/
+    /*background-color: #FFFFF3;*/
+    /*font-size: 20px;*/
+    /*font-weight: 400;*/
+    /*cursor: pointer;*/
+    /*transition: color 0.3s ease; !* 色の変化 *!*/
 }
 
-/* プレースホルダーを非表示にする */
-.pl:focus+.date-text {
-    display: none;
+/* フォーカス時、入力時の色変更 */
+.pl:focus {
+    /*outline: none; !* フォーカス枠を非表示 *!*/
+    color: #221D7E; /* フォーカス時の色 */
+}
+
+.pl:focus + .date-text,
+.pl:not(:placeholder-shown) + .date-text {
+    display: none; /* 入力中やフォーカス時は非表示 */
 }
 
 .hidden {
