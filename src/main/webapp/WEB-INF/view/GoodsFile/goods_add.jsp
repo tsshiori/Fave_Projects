@@ -140,9 +140,7 @@
                         <option value="option2">ミューズ</option>
                     </select>
                     <div id="plusButtonGoods" class="btn-plus">
-
                         <button class="plus" type="button" >
-
                             <img src="static/img/plus.png" alt="plus">
                         </button>
                     </div>
@@ -380,7 +378,7 @@
 
 <!-- プラスボタンのモーダル -->
 <div id="modalGoods" class="modalbody">
-    <span class="close" id="closeModal">&times;</span>
+    <span class="close" id="closeModalGoods">&times;</span>
     <div class="modal-content2">
         <div class="modal-header">
             <h1>推しの追加</h1>

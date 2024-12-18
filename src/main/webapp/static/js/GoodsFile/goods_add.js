@@ -135,12 +135,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("plusButtonGoods").addEventListener("click", function() {
-        showModal("modal"); // 一般モーダルを表示
+        showModal("modalGoods"); // 一般モーダルを表示
     });
 
 // 閉じるボタンにイベントリスナーを追加
-    document.getElementById("closeModal").addEventListener("click", function() {
-        closeModal("modal");
+    document.getElementById("closeModalGoodsv").addEventListener("click", function() {
+        closeModal("modalGoods");
     });
 
     document.getElementById("closeModalEvents").addEventListener("click", function() {
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // ウィンドウの外をクリックしたらモーダルを閉じる
     window.onclick = function(event) {
         if (event.target.className === "modal") {
-            closeModal("modal");
+            closeModal("modalGoods");
             closeModal("modalEvents");
         }
     };
