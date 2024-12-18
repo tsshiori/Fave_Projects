@@ -10,31 +10,18 @@
     // シフトデータをセッションから取得
     ArrayList<shiftBean> shiftList = (ArrayList<shiftBean>) session.getAttribute("shiftList");
 
-    LocalDate now = LocalDate.now();  // 現在の日付を取得
+    // 現在の日付と時刻を取得
+    LocalDate now = LocalDate.now();
     LocalDateTime startOfDay = now.atStartOfDay();  // 日付から00:00:00のLocalDateTimeを取得
 
-
-// シフトを分類
-    List<shiftBean> pastShifts = shiftList.stream()
-            .filter(shift -> shift.getStartdatetime().isBefore(now.atStartOfDay())) // 昨日以前
-            .sorted((a, b) -> b.getStartdatetime().compareTo(a.getStartdatetime())) // 降順
-            .collect(Collectors.toList());
-
-// 今日の日付で始まるシフト
-    List<shiftBean> todayShifts = shiftList.stream()
-            .filter(shift -> shift.getStartdatetime().isEqual(now.atStartOfDay())) // 今日
-            .sorted((a, b) -> a.getStartdatetime().compareTo(b.getStartdatetime())) // 昇順
-            .collect(Collectors.toList());
-
-
-// 明日以降のシフト
-    List<shiftBean> futureShifts = shiftList.stream()
-            .filter(shift -> shift.getStartdatetime().isAfter(startOfDay)) // 明日以降
-            .sorted((a, b) -> a.getStartdatetime().compareTo(b.getStartdatetime())) // 昇順
+    // すべてのシフトを昇順でソート
+    List<shiftBean> allShifts = shiftList.stream()
+            .sorted((a, b) -> a.getStartdatetime().compareTo(b.getStartdatetime()))  // 昇順にソート
             .collect(Collectors.toList());
 
 
 %>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -129,19 +116,19 @@
             <div class="head_btn">
                 <a href="shift_add" class="a"><img class="add" src="static/img/ADD.png" alt="add"></a>
 
-                <!-- モーダルを開くためのボタン -->
-                <div class="container_btn">
-                    <button type="button" id="modalOpen" class="btn">一括追加はこちら</button>
-                </div>
+<%--                <!-- モーダルを開くためのボタン -->--%>
+<%--                <div class="container_btn">--%>
+<%--                    <button type="button" id="modalOpen" class="btn">一括追加はこちら</button>--%>
+<%--                </div>--%>
 
             </div>
             <div class="scroll-content">
-                <!-- 過去のシフトを表示 -->
                 <%
+                    // ソートされたシフトリストを表示
                     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd (E)");
                     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-                    for (shiftBean shift : pastShifts) {
+                    for (shiftBean shift : allShifts) {
                         String startDate = shift.getStartdatetime().format(dateFormatter);
                         String startTime = shift.getStartdatetime().format(timeFormatter);
                         String endTime = shift.getEnddatetime().format(timeFormatter);
@@ -169,141 +156,27 @@
                                 <tr>
                                     <td>終了 : </td>
                                     <td class="value"><%= shift.getEnddatetime().format(dateFormatter) %> <%= shift.getEnddatetime().format(timeFormatter) %></td>                                </tr>
+                                <tr>
+                                    <td>休憩時間 : </td>
+                                    <td class="value"><%= shift.getBreaktime() %></td>
+                                </tr>
+                                <tr>
+                                    <td>時給 : </td>
+                                    <td class="value"><%= shift.getWage()%></td>
+                                </tr>
+
                             </table>
+                            <form id="deleteForm" action="ShiftDeleteServlet" method="POST" style="display:none;">
+                                <input type="hidden" id="shiftIdInput" name="shift_id">
+                            </form>
+
                             <button class="confirmDeleteButton" data-shift-id="<%= shift.getShift_id() %>">削除</button>
                             <button class="cancelDeleteButton" data-shift-id="<%= shift.getShift_id() %>">キャンセル</button>
                         </div>
                     </div>
                 </div>
-
-
-                <div class="shift_roop past">
-                    <div class="container">
-                        <div class="vertical-line"></div>
-                        <span class="date"><%= startDate %></span>
-                        <span class="work_name"><%= shift.getWork_name() %></span>
-                        <div class="time-container">
-                            <span class="time"><%= startTime %></span><span class="time"><%= endTime %></span>
-                        </div>
-                        <div class="img_icons container">
-                            <div class="img_icon">
-                                <a href="shift_edit?shift_id=<%= shift.getShift_id() %>">
-                                    <img src="static/img/EDIT2.png">
-                                </a>
-                            </div>
-                            <div class="img_icon">
-                                <a href="#" class="deleteButton" data-shift-id="<%= shift.getShift_id() %>">
-                                    <img src="static/img/DELE2.png">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <%
-                    }
-                %>
-
-                <!-- 今日のシフトを表示 -->
-                <%
-                    for (shiftBean shift : todayShifts) {
-                        String startDate = shift.getStartdatetime().format(dateFormatter);
-                        String startTime = shift.getStartdatetime().format(timeFormatter);
-                        String endTime = shift.getEnddatetime().format(timeFormatter);
-                %>
-                <!-- 削除モーダル -->
-                <div id="easyModal_<%= shift.getShift_id() %>" class="modal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>本当に削除しますか？</h3>
-                            <div class="modal-h4">
-                                <h4>※消した後は二度と元に戻せません。</h4>
-                            </div>
-                        </div>
-
-                        <div class="modal-body">
-                            <table>
-                                <tr>
-                                    <td>バイト先 : </td>
-                                    <td class="value"><%= shift.getWork_name() %></td>
-                                </tr>
-                                <tr>
-                                    <td>開始 : </td>
-                                    <td class="value"><%= shift.getStartdatetime().format(dateFormatter) %> <%= shift.getStartdatetime().format(timeFormatter) %></td>
-                                </tr>
-                                <tr>
-                                    <td>終了 : </td>
-                                    <td class="value"><%= shift.getEnddatetime().format(dateFormatter) %> <%= shift.getEnddatetime().format(timeFormatter) %></td>                                </tr>
-                            </table>
-                            <button class="confirmDeleteButton" data-shift-id="<%= shift.getShift_id() %>">削除</button>
-                            <button class="cancelDeleteButton" data-shift-id="<%= shift.getShift_id() %>">キャンセル</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shift_roop today">
-                    <div class="container">
-                        <div class="vertical-line"></div>
-                        <span class="date"><%= startDate %></span>
-                        <span class="work_name"><%= shift.getWork_name() %></span>
-                        <div class="time-container">
-                            <span class="time"><%= startTime %></span><span class="time"><%= endTime %></span>
-                        </div>
-                        <div class="img_icons container">
-                            <div class="img_icon">
-                                <a href="shift_edit?shift_id=<%= shift.getShift_id() %>">
-                                    <img src="static/img/EDIT2.png">
-                                </a>
-                            </div>
-                            <div class="img_icon">
-                                <a href="#" class="deleteButton" data-shift-id="<%= shift.getShift_id() %>">
-                                    <img src="static/img/DELE2.png">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <% } %>
-
-                <!-- 今日以降のシフトを表示 -->
-                <%
-                    for (shiftBean shift : futureShifts) {
-                        String startDate = shift.getStartdatetime().format(dateFormatter);
-                        String startTime = shift.getStartdatetime().format(timeFormatter);
-                        String endTime = shift.getEnddatetime().format(timeFormatter);
-                %>
-                <!-- 削除モーダル -->
-                <div id="easyModal_<%= shift.getShift_id() %>" class="modal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>本当に削除しますか？</h3>
-                            <div class="modal-h4">
-                                <h4>※消した後は二度と元に戻せません。</h4>
-                            </div>
-                        </div>
-
-                        <div class="modal-body">
-                            <table>
-                                <tr>
-                                    <td>バイト先 : </td>
-                                    <td class="value"><%= shift.getWork_name() %></td>
-                                </tr>
-                                <tr>
-                                    <td>開始 : </td>
-                                    <td class="value"><%= shift.getStartdatetime().format(dateFormatter) %> <%= shift.getStartdatetime().format(timeFormatter) %></td>
-                                </tr>
-                                <tr>
-                                    <td>終了 : </td>
-                                    <td class="value"><%= shift.getEnddatetime().format(dateFormatter) %> <%= shift.getEnddatetime().format(timeFormatter) %></td>
-                                </tr>
-                            </table>
-                            <button class="confirmDeleteButton" data-shift-id="<%= shift.getShift_id() %>">削除</button>
-                            <button class="cancelDeleteButton" data-shift-id="<%= shift.getShift_id() %>">キャンセル</button>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="shift_roop future">
+                <!-- シフト表示 -->
+                <div class="shift_roop">
                     <div class="container">
                         <div class="vertical-line"></div>
                         <span class="date"><%= startDate %></span>
@@ -329,8 +202,10 @@
                     }
                 %>
             </div>
-        </div>
-    </div>
+
+
+
+
 
 
 
@@ -375,30 +250,30 @@
     </div>
 </div>
 
-<div id="easyModal3" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>以下の内容で追加しますか？</h3>
-        </div>
+<%--<div id="easyModal3" class="modal">--%>
+<%--    <div class="modal-content">--%>
+<%--        <div class="modal-header">--%>
+<%--            <h3>以下の内容で追加しますか？</h3>--%>
+<%--        </div>--%>
 
-        <div class="modal-body">
-            <div class="ikkatu">
-                <p>2024/9/25 (水) 9:00,2024/9/25 (水) 14:00,0</p>
-                <p>2024/9/27 (金) 9:00,2024/9/27 (金) 15:00,45</p>
-                <p>2024/9/30 (月) 12:00,2024/9/25 (月) 18:00,45</p>
-                <p>2024/10/1 (火) 9:00,2024/10/1 (火) 14:00,0</p>
-                <p>2024/10/2 (水) 9:00,2024/10/2 (水) 14:00,0</p>
-                <p>2024/10/5 (土) 17:00,2024/10/5 (土) 22:00,0</p>
-                <p>2024/10/7 (月) 22:00,2024/10/8 (火) 5:00,45</p>
-                <p>2024/10/9 (水) 17:00,2024/10/9 (水) 22:00,0</p>
-                <p>2024/10/10 (木) 9:00,2024/10/10 (火) 14:00,0</p>
-            </div>
-            <!-- モーダル内の削除を確定するボタン -->
-            <button id="confirmDelete3" type="button" class="btn">登録</button>
-            <button id="cancelDelete3" type="button" class="btn">キャンセル</button>
-        </div>
-    </div>
-</div>
+<%--        <div class="modal-body">--%>
+<%--            <div class="ikkatu">--%>
+<%--                <p>2024/9/25 (水) 9:00,2024/9/25 (水) 14:00,0</p>--%>
+<%--                <p>2024/9/27 (金) 9:00,2024/9/27 (金) 15:00,45</p>--%>
+<%--                <p>2024/9/30 (月) 12:00,2024/9/25 (月) 18:00,45</p>--%>
+<%--                <p>2024/10/1 (火) 9:00,2024/10/1 (火) 14:00,0</p>--%>
+<%--                <p>2024/10/2 (水) 9:00,2024/10/2 (水) 14:00,0</p>--%>
+<%--                <p>2024/10/5 (土) 17:00,2024/10/5 (土) 22:00,0</p>--%>
+<%--                <p>2024/10/7 (月) 22:00,2024/10/8 (火) 5:00,45</p>--%>
+<%--                <p>2024/10/9 (水) 17:00,2024/10/9 (水) 22:00,0</p>--%>
+<%--                <p>2024/10/10 (木) 9:00,2024/10/10 (火) 14:00,0</p>--%>
+<%--            </div>--%>
+<%--            <!-- モーダル内の削除を確定するボタン -->--%>
+<%--            <button id="confirmDelete3" type="button" class="btn">登録</button>--%>
+<%--            <button id="cancelDelete3" type="button" class="btn">キャンセル</button>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
 
 
@@ -410,6 +285,9 @@
 <script src="static/js/all.js"></script>
 
 </div>
+</div> <!-- ここで閉じる -->
+</div> <!-- main scroll-boxを閉じる -->
+
 </body>
 
 <footer>

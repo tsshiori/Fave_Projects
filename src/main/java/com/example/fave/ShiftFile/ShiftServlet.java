@@ -1,6 +1,7 @@
 package com.example.fave.ShiftFile;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import jakarta.servlet.ServletException;
@@ -23,7 +24,12 @@ public class ShiftServlet extends HttpServlet {
         }
 
         // シフトデータを取得
-        ArrayList<shiftBean> shiftList = shiftDAO.selectShiftAll(log_id);
+        ArrayList<shiftBean> shiftList = null;
+        try {
+            shiftList = shiftDAO.selectShiftAll(log_id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         // シフトデータをリクエスト属性にセット
         session.setAttribute("shiftList", shiftList);

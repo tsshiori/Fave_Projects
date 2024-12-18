@@ -15,26 +15,26 @@ function closeModal(modal) {
     modal.style.display = 'none';
 }
 
-// 「一括追加」ボタンをクリックした時の処理
-bulkAddButton.addEventListener('click', function() {
-    openModal(bulkAddModal);
-});
+// // 「一括追加」ボタンをクリックした時の処理
+// bulkAddButton.addEventListener('click', function() {
+//     openModal(bulkAddModal);
+// });
 
-// 「登録」ボタンがクリックされたら「一括追加」モーダルを閉じ、確認モーダル（easyModal3）を開く
-document.getElementById('confirmDelete').addEventListener('click', function() {
-    closeModal(bulkAddModal);  // 現在のモーダルを閉じる
-    openModal(confirmAddModal); // 確認モーダル（easyModal3）を開く
-});
+// // 「登録」ボタンがクリックされたら「一括追加」モーダルを閉じ、確認モーダル（easyModal3）を開く
+// document.getElementById('confirmDelete').addEventListener('click', function() {
+//     closeModal(bulkAddModal);  // 現在のモーダルを閉じる
+//     openModal(confirmAddModal); // 確認モーダル（easyModal3）を開く
+// });
 
-// 「キャンセル」ボタンがクリックされたら「一括追加」モーダルを閉じる
-document.getElementById('cancelDelete').addEventListener('click', function() {
-    closeModal(bulkAddModal);
-});
+// // 「キャンセル」ボタンがクリックされたら「一括追加」モーダルを閉じる
+// document.getElementById('cancelDelete').addEventListener('click', function() {
+//     closeModal(bulkAddModal);
+// });
 
-// easyModal3の「キャンセル」ボタンがクリックされたらモーダルを閉じる
-document.getElementById('cancelDelete3').addEventListener('click', function() {
-    closeModal(confirmAddModal);
-});
+// // easyModal3の「キャンセル」ボタンがクリックされたらモーダルを閉じる
+// document.getElementById('cancelDelete3').addEventListener('click', function() {
+//     closeModal(confirmAddModal);
+// });
 
 document.querySelectorAll('.deleteButton').forEach(button => {
     button.addEventListener('click', function() {
@@ -56,3 +56,10 @@ document.querySelectorAll('.cancelDeleteButton').forEach(button => {
     });
 });
 
+document.querySelectorAll('.confirmDeleteButton').forEach(button => {
+    button.addEventListener('click', function() {
+        const shiftId = this.getAttribute('data-shift-id');
+        document.getElementById('shiftIdInput').value = shiftId;
+        document.getElementById('deleteForm').submit(); // 削除フォームを送信
+    });
+});

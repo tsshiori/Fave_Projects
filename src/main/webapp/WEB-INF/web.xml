@@ -136,6 +136,16 @@
         <url-pattern>/shift_add</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ShiftDeleteServlet</servlet-name>
+        <servlet-class>com.example.fave.ShiftFile.ShiftDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShiftDeleteServlet</servlet-name>
+        <url-pattern>/shift_delete</url-pattern>
+    </servlet-mapping>
+
+
 
     <servlet>
         <servlet-name>WorkServlet</servlet-name>

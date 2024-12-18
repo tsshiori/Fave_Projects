@@ -195,7 +195,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h3>本当に削除しますか？</h3>
-            <h4 class="modal-h4">※消した後は二度と元に戻れません。</h4>
+            <h4 class="modal-h4">※消した後は二度と元に戻せません。</h4>
             <div>
                 <div class="container kome">
                     <h4 class="ko">バイト先名：</h4>

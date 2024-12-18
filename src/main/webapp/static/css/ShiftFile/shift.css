@@ -151,6 +151,23 @@
 
 
 /* 削除確認ボタン */
+.confirmDeleteButton {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #63ACF6;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 3%;
+}
+
+.confirmDeleteButton:hover {
+    background-color: #98c5f3;
+}
+
 #confirmDelete {
     font-family: "Noto Serif JP", serif;
     font-size: 19px;
@@ -203,7 +220,7 @@
 }
 
 /* キャンセルボタン */
-#cancelDelete {
+.cancelDeleteButton {
     font-family: "Noto Serif JP", serif;
     font-size: 19px;
     font-weight: bolder;
@@ -215,7 +232,7 @@
     text-decoration: none;
 }
 
-#cancelDelete:hover {
+.cancelDeleteButton:hover {
     background-color: #ececec;
 }
 
@@ -232,6 +249,22 @@
 }
 
 #cancelDelete3:hover {
+    background-color: #ececec;
+}
+
+#cancelDelete {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+}
+
+#cancelDelete:hover {
     background-color: #ececec;
 }
 
