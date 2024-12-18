@@ -39,12 +39,16 @@ public class ShiftAddServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
 
+        userBean user = (userBean) session.getAttribute("user");
+        String log_id = user.getLog_id();
+
         int work_id = 0;
         int shift_id = 0;
         LocalDateTime startdatetime = null;
         LocalDateTime enddatetime = null;
         int breaktime = 0;
         int wage = 0;
+        int zikyuchange = 0;
 
         try {
             // work_id のチェック
@@ -85,12 +89,16 @@ public class ShiftAddServlet extends HttpServlet {
             if (wageParam != null && !wageParam.isEmpty()) {
                 wage = Integer.parseInt(wageParam);
             }
+
+            // zikyuchange のチェック
+            zikyuchange = Integer.parseInt(request.getParameter("zikyu-change"));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // 正常な場合のみシフトをデータベースに挿入
-        shiftDAO.insertShift(shift_id, startdatetime, enddatetime, work_id, breaktime, wage);
+        shiftDAO.insertShift(shift_id, startdatetime, enddatetime, work_id, breaktime, wage, zikyuchange, log_id);
         response.sendRedirect("ShiftServlet");
     }
 }

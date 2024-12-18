@@ -179,6 +179,7 @@
                         </td>
                     </tr>
                 </table>
+                <input type="hidden" name="zikyu-change" value="-1">
                 <div class="btn">
                     <button id="modalOpen" type="button" class="in">追加</button>
                     <a class="kyan" href="shift">キャンセル</a>
@@ -198,23 +199,23 @@
             <table>
                 <tr>
                     <td>バイト先 : </td>
-                    <td class="value">まいにちマート</td>
+                    <td class="value">未選択</td>
                 </tr>
                 <tr>
                     <td>開始 : </td>
-                    <td class="value">2024/9/25 (水) 9:00</td>
+                    <td class="value">未入力</td>
                 </tr>
                 <tr>
                     <td>終了 : </td>
-                    <td class="value">2024/9/25 (水) 14:00</td>
+                    <td class="value">未入力</td>
                 </tr>
                 <tr>
                     <td>休憩 : </td>
-                    <td class="value">なし</td>
+                    <td class="value">未入力</td>
                 </tr>
                 <tr>
                     <td>時給(円) : </td>
-                    <td class="value">￥900</td>
+                    <td class="value">未入力</td>
                 </tr>
             </table>
             <button id="confirmRe" type="button" class="btn2">追加</button>
@@ -223,24 +224,28 @@
     </div>
 </div>
 
+
 <div id="easyModal2" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h1>時給の変更</h1>
-            <h4>バイト先 : まいにちマート</h4>
-            <input type="number" class="modal-input" value="900" readonly><span>円</span><br>
+            <form action="ZikyuEditServlet" method="post" id="zikyu-edit">
+                <h1>時給の変更</h1>
+                <br>
+                <!-- 時給を変更可能にする -->
+                <input type="number" class="modal-input" name="newWage" value="900" required><span>円</span><br>
 
-            <div class="radio">
-                <div class="radio-con">
-                    <input type="radio" id="zikyu-change-1" name="zikyu-change" value="1">
-                    <label for="zikyu-change-1">今回のシフトだけ変更</label>
+                <!-- ラジオボタン -->
+                <div class="radio">
+                    <div class="radio-con">
+                        <input type="radio" id="zikyu-change-1" name="zikyu-change" value="1" required>
+                        <label for="zikyu-change-1">今回のシフトだけ変更</label>
+                    </div>
+                    <div class="radio-con">
+                        <input type="radio" id="zikyu-change-2" name="zikyu-change" value="2">
+                        <label for="zikyu-change-2">今回以降の日付のシフトと、<br>バイト先情報の時給も変更</label>
+                    </div>
                 </div>
-                <div class="radio-con">
-                    <input type="radio" id="zikyu-change-2" name="zikyu-change" value="2">
-                    <label for="zikyu-change-2">今日以降の日付のシフトと、<br>バイト先情報の時給も変更</label>
-                </div>
-            </div>
-
+            </form>
         </div>
         <div class="modal-body">
             <button id="confirmRe2" type="button" class="btn2">完了</button>
@@ -248,6 +253,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 <script src="static/js/ShiftFile/shift_add.js"></script>
 <script src="static/js/all.js"></script>

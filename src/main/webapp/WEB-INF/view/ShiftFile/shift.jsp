@@ -116,10 +116,10 @@
             <div class="head_btn">
                 <a href="shift_add" class="a"><img class="add" src="static/img/ADD.png" alt="add"></a>
 
-                <!-- モーダルを開くためのボタン -->
-                <div class="container_btn">
-                    <button type="button" id="modalOpen" class="btn">一括追加はこちら</button>
-                </div>
+<%--                <!-- モーダルを開くためのボタン -->--%>
+<%--                <div class="container_btn">--%>
+<%--                    <button type="button" id="modalOpen" class="btn">一括追加はこちら</button>--%>
+<%--                </div>--%>
 
             </div>
             <div class="scroll-content">
@@ -156,6 +156,15 @@
                                 <tr>
                                     <td>終了 : </td>
                                     <td class="value"><%= shift.getEnddatetime().format(dateFormatter) %> <%= shift.getEnddatetime().format(timeFormatter) %></td>                                </tr>
+                                <tr>
+                                    <td>休憩時間 : </td>
+                                    <td class="value"><%= shift.getBreaktime() %></td>
+                                </tr>
+                                <tr>
+                                    <td>時給 : </td>
+                                    <td class="value"><%= shift.getWage()%></td>
+                                </tr>
+
                             </table>
                             <form id="deleteForm" action="ShiftDeleteServlet" method="POST" style="display:none;">
                                 <input type="hidden" id="shiftIdInput" name="shift_id">
@@ -241,30 +250,30 @@
     </div>
 </div>
 
-<div id="easyModal3" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>以下の内容で追加しますか？</h3>
-        </div>
+<%--<div id="easyModal3" class="modal">--%>
+<%--    <div class="modal-content">--%>
+<%--        <div class="modal-header">--%>
+<%--            <h3>以下の内容で追加しますか？</h3>--%>
+<%--        </div>--%>
 
-        <div class="modal-body">
-            <div class="ikkatu">
-                <p>2024/9/25 (水) 9:00,2024/9/25 (水) 14:00,0</p>
-                <p>2024/9/27 (金) 9:00,2024/9/27 (金) 15:00,45</p>
-                <p>2024/9/30 (月) 12:00,2024/9/25 (月) 18:00,45</p>
-                <p>2024/10/1 (火) 9:00,2024/10/1 (火) 14:00,0</p>
-                <p>2024/10/2 (水) 9:00,2024/10/2 (水) 14:00,0</p>
-                <p>2024/10/5 (土) 17:00,2024/10/5 (土) 22:00,0</p>
-                <p>2024/10/7 (月) 22:00,2024/10/8 (火) 5:00,45</p>
-                <p>2024/10/9 (水) 17:00,2024/10/9 (水) 22:00,0</p>
-                <p>2024/10/10 (木) 9:00,2024/10/10 (火) 14:00,0</p>
-            </div>
-            <!-- モーダル内の削除を確定するボタン -->
-            <button id="confirmDelete3" type="button" class="btn">登録</button>
-            <button id="cancelDelete3" type="button" class="btn">キャンセル</button>
-        </div>
-    </div>
-</div>
+<%--        <div class="modal-body">--%>
+<%--            <div class="ikkatu">--%>
+<%--                <p>2024/9/25 (水) 9:00,2024/9/25 (水) 14:00,0</p>--%>
+<%--                <p>2024/9/27 (金) 9:00,2024/9/27 (金) 15:00,45</p>--%>
+<%--                <p>2024/9/30 (月) 12:00,2024/9/25 (月) 18:00,45</p>--%>
+<%--                <p>2024/10/1 (火) 9:00,2024/10/1 (火) 14:00,0</p>--%>
+<%--                <p>2024/10/2 (水) 9:00,2024/10/2 (水) 14:00,0</p>--%>
+<%--                <p>2024/10/5 (土) 17:00,2024/10/5 (土) 22:00,0</p>--%>
+<%--                <p>2024/10/7 (月) 22:00,2024/10/8 (火) 5:00,45</p>--%>
+<%--                <p>2024/10/9 (水) 17:00,2024/10/9 (水) 22:00,0</p>--%>
+<%--                <p>2024/10/10 (木) 9:00,2024/10/10 (火) 14:00,0</p>--%>
+<%--            </div>--%>
+<%--            <!-- モーダル内の削除を確定するボタン -->--%>
+<%--            <button id="confirmDelete3" type="button" class="btn">登録</button>--%>
+<%--            <button id="cancelDelete3" type="button" class="btn">キャンセル</button>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
 
 

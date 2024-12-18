@@ -157,6 +157,27 @@ public class workDAO {
         }
     }
 
+    public static void editWorkHourlyWage(int work_id, int hourlywage) {
+        // SQL文: 指定された work_id のレコードを更新
+        String sql = "UPDATE work SET hourlywage = ? WHERE work_id = ?";
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
+            // プレースホルダーに値を設定
+            pstmt.setInt(1, hourlywage);
+            pstmt.setInt(2, work_id);
+
+            // SQLの実行
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println("Rows updated: " + rowsAffected);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void deleteWork(int work_id){
         // SQL文

@@ -7,13 +7,15 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import static utils.DAO.workDAO.selectWorkAll;
+
 public class shiftDAO {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/fave_db?useSSL=false&serverTimezone=UTC";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "morijyobi";
     public static ArrayList<shiftBean> selectShiftAll(String log_id) throws SQLException {
         // worklists を取得
-        ArrayList<workBean> worklists = workDAO.selectWorkAll(log_id);
+        ArrayList<workBean> worklists = selectWorkAll(log_id);
 
         // work_id をリスト化
         ArrayList<Integer> workIds = new ArrayList<>();
@@ -84,7 +86,50 @@ public class shiftDAO {
         return results;
     }
 
-    public static void insertShift(int shift_id, LocalDateTime startdatetime, LocalDateTime enddatetime, int work_id, int breaktime, int wage) {
+    public static ArrayList<shiftBean> selectShiftWorkId(int work_id) throws SQLException {
+        String sql = "SELECT * FROM shift WHERE work_id = ?";
+        ArrayList<shiftBean> results = new ArrayList<>();
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
+            // パラメータ設定
+            pstmt.setInt(1, work_id);
+
+            // クエリ実行
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    // Timestampのnullチェック
+                    Timestamp startTimestamp = rs.getTimestamp("startdatetime");
+                    Timestamp endTimestamp = rs.getTimestamp("enddatetime");
+
+                    LocalDateTime startDateTime = (startTimestamp != null) ? startTimestamp.toLocalDateTime() : null;
+                    LocalDateTime endDateTime = (endTimestamp != null) ? endTimestamp.toLocalDateTime() : null;
+
+                    // shiftBeanのインスタンスを作成
+                    shiftBean shift = new shiftBean(
+                            rs.getInt("shift_id"),
+                            startDateTime,
+                            endDateTime,
+                            rs.getInt("work_id"),
+                            rs.getInt("breaktime"),
+                            rs.getInt("wage")
+                    );
+                    results.add(shift);
+                }
+            }
+        } catch (SQLException e) {
+            // エラー出力
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return results;
+    }
+
+
+    public static void insertShift(int shift_id, LocalDateTime startdatetime, LocalDateTime enddatetime, int work_id, int breaktime, int wage, int zikyuchange, String log_id) {
         String sql = "INSERT INTO shift VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
@@ -97,11 +142,26 @@ public class shiftDAO {
             pstmt.setInt(5, breaktime);
             pstmt.setInt(6, wage);
 
+            if (zikyuchange == 2) {
+                workDAO.editWorkHourlyWage(work_id, wage);
+                ArrayList<shiftBean> shiftlists = shiftDAO.selectShiftWorkId(work_id);
+
+                // shiftlists に対する繰り返し処理
+                for (shiftBean shift : shiftlists) {
+                    if (Timestamp.valueOf(shift.getStartdatetime()).compareTo(Timestamp.valueOf(startdatetime)) >= 0) {
+                        int shift_id_roop = shift.getShift_id();
+                        shiftDAO.editShiftWage(shift_id_roop,wage);
+                    }
+                }
+                
+            }
+
             pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     public static void deleteShift(int shift_id){
         // SQL文
@@ -121,5 +181,26 @@ public class shiftDAO {
             System.out.println(e);
         }
 
+    }
+
+    public static void editShiftWage(int shift_id, int wage) {
+        // SQL文: 指定された work_id のレコードを更新
+        String sql = "UPDATE shift SET wage = ? WHERE shift_id = ?";
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
+            // プレースホルダーに値を設定
+            pstmt.setInt(1, wage);
+            pstmt.setInt(2, shift_id);
+
+            // SQLの実行
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println("Rows updated: " + rowsAffected);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
