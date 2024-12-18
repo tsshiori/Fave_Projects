@@ -1,11 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: hrnea
-  Date: 2024/11/22
-  Time: 10:23
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="utils.Bean.workBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="utils.Bean.userBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    userBean user = (userBean) session.getAttribute("user");
+    String log_id = user.getLog_id();
+    ArrayList<workBean> worklist = (ArrayList<workBean>) session.getAttribute("worklist");
+
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -18,7 +21,7 @@
     <link rel="stylesheet" href="static/css/all.css">
     <link rel="stylesheet" href="static/css/ShiftFile/shift_add.css">
     <link rel="shortcut icon" href="static/img/TimeforFave.png">
-    <title>SHIFT_Add | Time of Fave.</title>
+    <title>SHIFT_Edit | Time of Fave.</title>
 </head>
 
 <body class="SHIFT">
@@ -99,14 +102,28 @@
                 <table>
                     <tr>
                         <th><span>＊</span> バイト先 :</th>
-                        <td><select id="menu" name="menu">
-                            <option value="" disabled selected hidden>バイト先を選択してください</option>
-                            <option value="option1">まいにちマート</option>
-                            <option value="option2">茎わかめファクトリー</option>
-                        </select>
+                        <td>
+                            <select id="menu" name="work_id">
+                                <option value="" disabled selected hidden>バイト先を選択してください</option>
+                                <%
+                                    if (worklist != null && !worklist.isEmpty()) {
+                                        for (workBean work : worklist) {
+                                %>
+                                <option value="<%= work.getWork_id() %>" data-wage="<%= work.getHourlywage() %>">
+                                    <%= work.getWork() %>
+                                </option>
+                                <%
+                                    }
+                                } else {
+                                %>
+                                <option value="-1" disabled>バイト先が未登録</option>
+                                <%
+                                    }
+                                %>
+                            </select>
                         </td>
                         <td class="img">
-                            <a href="../../WorkFile/work_add/work_add.html">
+                            <a href="work_add">
                                 <img class="plus" src="static/img/plus.png">
                             </a>
                         </td>
@@ -114,7 +131,7 @@
                     <tr>
                         <th><span>＊</span> 開始 :</th>
                         <td class="input-container">
-                            <input type="datetime-local" id="start-time" class="pl-input" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
+                            <input type="datetime-local" id="start-time" class="pl-input" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)" name="startdatetime" required>
                             <span class="pl-placeholder">開始時間を入力してください</span>
                         </td>
                     </tr>
@@ -133,7 +150,7 @@
                     <tr>
                         <th><span>＊</span> 終了 :</th>
                         <td class="input-container">
-                            <input type="datetime-local" id="end-time" class="pl-input" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
+                            <input type="datetime-local" id="end-time" class="pl-input" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)" name="enddatetime" required>
                             <span class="pl-placeholder">終了時間を入力してください</span>
                         </td>
                     </tr>
@@ -141,13 +158,13 @@
                     <tr>
                         <th><span>＊</span> 休憩 :</th>
                         <td>
-                            <input type="number" min="0" placeholder="休憩時間(分)を入力してください。">
+                            <input type="number" min="0" required placeholder="休憩時間(分)を入力してください。" name="breaktime">
                         </td>
                     </tr>
                     <tr>
-                        <th class="zikyu-color"> 時給(円) :</th>
+                        <th><span>＊</span> 時給(円) :</th>
                         <td>
-                            <input type="text" min="0" placeholder="バイト先項目でバイト先を選択してください。" readonly>
+                            <input type="text" id="wage" name="wage" placeholder="バイト先項目でバイト先を選択してください。" readonly>
                         </td>
                         <td>
                             <button id="modalOpenzikyu" type="button" class="zikyu">時給を変更</button>
@@ -172,23 +189,23 @@
             <table>
                 <tr>
                     <td>バイト先 : </td>
-                    <td class="value">まいにちマート</td>
+                    <td class="value">未選択</td>
                 </tr>
                 <tr>
                     <td>開始 : </td>
-                    <td class="value">2024/9/25 (水) 9:00</td>
+                    <td class="value">未入力</td>
                 </tr>
                 <tr>
                     <td>終了 : </td>
-                    <td class="value">2024/9/25 (水) 14:00</td>
+                    <td class="value">未入力</td>
                 </tr>
                 <tr>
                     <td>休憩 : </td>
-                    <td class="value">なし</td>
+                    <td class="value">未入力</td>
                 </tr>
                 <tr>
                     <td>時給(円) : </td>
-                    <td class="value">￥900</td>
+                    <td class="value">未入力</td>
                 </tr>
             </table>
             <button id="confirmRe" type="button" class="btn2">完了</button>
@@ -201,20 +218,19 @@
     <div class="modal-content">
         <div class="modal-header">
             <h1>時給の変更</h1>
-            <h4>バイト先 : まいにちマート</h4>
-            <input type="number" class="modal-input" value="900" readonly><span>円</span><br>
+            <br>
+            <input type="number" class="modal-input" name="newWage" value="900" required><span>円</span><br>
 
             <div class="radio">
                 <div class="radio-con">
-                    <input type="radio" id="zikyu-change-1" name="zikyu-change" value="1">
+                    <input type="radio" id="zikyu-change-1" name="zikyu-change" value="1" required>
                     <label for="zikyu-change-1">今回のシフトだけ変更</label>
                 </div>
                 <div class="radio-con">
                     <input type="radio" id="zikyu-change-2" name="zikyu-change" value="2">
-                    <label for="zikyu-change-2">今日以降の日付のシフトと、<br>バイト先情報の時給も変更</label>
+                    <label for="zikyu-change-2">今回以降の日付のシフトと、<br>バイト先情報の時給も変更</label>
                 </div>
             </div>
-
         </div>
         <div class="modal-body">
             <button id="confirmRe2" type="button" class="btn2">完了</button>
@@ -229,7 +245,7 @@
 </body>
 
 <footer>
-    <p>© 2024 Time of Fave Inc. All Rights Reserved.</p>
+    <p>Copyright (c) 2024 Time For Fave. All Rights Reserved.</p>
 </footer>
 
 </html>

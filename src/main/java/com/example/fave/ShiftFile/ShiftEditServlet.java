@@ -1,14 +1,26 @@
 package com.example.fave.ShiftFile;
 
 import java.io.*;
+import java.util.ArrayList;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import utils.Bean.userBean;
+import utils.Bean.workBean;
 
 @WebServlet("/ShiftEditServlet")
 public class ShiftEditServlet extends HttpServlet {
         public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+                response.setContentType("text/html; charset=UTF-8");
+                request.setCharacterEncoding("UTF-8");
+                HttpSession session = request.getSession();
+
+                userBean user = (userBean) session.getAttribute("user");
+                String log_id = user.getLog_id();
+                ArrayList<workBean> worklist = utils.DAO.workDAO.selectWorkAll(log_id);
+                session.setAttribute("worklist", worklist);
+
                 request.getRequestDispatcher("/WEB-INF/view/ShiftFile/shift_edit.jsp").forward(request, response);
         }
 
