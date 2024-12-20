@@ -201,9 +201,13 @@ input[type="text"]::placeholder {
     appearance: none;
 }
 
-#categorySelect:has(option:checked[value=""]),
+#categorySelect:has(option:checked[value="1"]),
 .tab:has(option:checked[value="1"]) {
     color: #A9A8C2;
+}
+
+select option.default-option {
+    color: #A9A8C2; /* デフォルトオプションの色 */
 }
 
 .btn-plus {
@@ -408,7 +412,7 @@ h4 {
     justify-self: end;
 }
 
-#concan, #concan2 {
+#concan, #tabcan {
     font-family: "Noto Serif JP", serif;
     font-size: 19px;
     font-weight: bolder;
@@ -423,7 +427,7 @@ h4 {
 
 }
 
-#concan:hover, #concan2:hover {
+#tabcan:hover, #concan:hover {
     background-color: #ececec;
 }
 

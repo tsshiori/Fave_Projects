@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class faveDAO {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/fave_db?useSSL=false&serverTimezone=UTC";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/fave_db?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8";
 
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "morijyobi";
@@ -177,7 +177,7 @@ public class faveDAO {
         ArrayList<String> results = new ArrayList<>();
 
         try (
-                Connection con = DriverManager.getConnection(DB_URL);
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
                 PreparedStatement pstmt = con.prepareStatement(sql);
         ) {
             pstmt.setString(1, log_id); // log_id をセット

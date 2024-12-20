@@ -5,6 +5,7 @@ import utils.Bean.tagBean;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class tagDAO {
@@ -32,5 +33,27 @@ public class tagDAO {
         }
         return tag; // タグを返す（見つからない場合はnull）
     }
+
+        // カテゴリIDに基づいてタグリストを取得するメソッド
+        public static List<String> selectTagsByCategory(int cate_id) {
+            String sql = "SELECT tag FROM tag WHERE cate_id = ?";
+            List<String> tags = new ArrayList<>();
+
+            try (
+                    Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                    PreparedStatement pstmt = con.prepareStatement(sql);
+            ) {
+                pstmt.setInt(1, cate_id);
+
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        tags.add(rs.getString("tag"));
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return tags; // タグのリストを返す
+        }
 
 }

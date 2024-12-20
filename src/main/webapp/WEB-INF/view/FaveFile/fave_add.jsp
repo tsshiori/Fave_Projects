@@ -99,7 +99,7 @@
     <div class="main scroll-box">
         <p class="hissu p">※ ＊は必須項目です。</p>
         <div class="scroll-content">
-            <form id="fadd_form" action="FaveAdd" method="post">
+            <form id="fadd_form" action="FaveAdd" method="post" enctype="multipart/form-data">
                 <div class="container">
                     <div class="left_t">
                         <div class="left">
@@ -150,8 +150,8 @@
                                 <td>
                                     <div class="container cc">
                                         <form action="categoryServlet" method="post">
-                                            <select name="cate_id" id="categorySelect" onchange="sendCategoryId()">
-                                                <option value="" disabled selected>所属/関連プロジェクトを選択してください。</option>
+                                            <select name="cate_id" id="categorySelect"  onchange="fetchTagsByCategory(this.value)">
+                                                <option value="-1" disabled selected>所属/関連プロジェクトを選択してください。</option>
                                                 <% if (categorylist != null) { %>
                                                 <% for (categoryBean category : categorylist) { %>
                                                 <option value="<%= category.getCate_id() %>"><%= category.getCategory() %></option>
@@ -185,8 +185,6 @@
                                     <div class="container cc">
                                         <select class="tab" name="tab1" disabled>
                                             <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
-
-                                            <option value="3">STAR★BURST★SHIP</option>
                                         </select>
                                         <!-- イベント用プラスボタン -->
                                         <div class="btn-plus plusButtonTab">
@@ -211,8 +209,6 @@
                                     <div class="cc">
                                         <select class="tab" name="tab2" disabled>
                                             <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="2">銀河鉄道の夜</option>
-                                            <option value="3">STAR★BURST★SHIP</option>
                                         </select>
 
                                     </div>
@@ -235,8 +231,6 @@
                                     <div class="cc">
                                         <select class="tab" name="tab3" disabled>
                                             <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="2">銀河鉄道の夜</option>
-                                            <option value="3">STAR★BURST★SHIP</option>
                                         </select>
 
                                     </div>
@@ -256,8 +250,6 @@
                                     <div class="cc">
                                         <select class="tab" name="tab4" disabled>
                                             <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="2">銀河鉄道の夜</option>
-                                            <option value="3">STAR★BURST★SHIP</option>
                                         </select>
 
                                     </div>
@@ -277,8 +269,6 @@
                                     <div class="cc">
                                         <select class="tab" name="tab5" disabled>
                                             <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="2">銀河鉄道の夜</option>
-                                            <option value="3">STAR★BURST★SHIP</option>
                                         </select>
 
                                     </div>
@@ -331,7 +321,7 @@
 
         <div class="modal-body">
             <button id="conAdd2" type="button" class="btn">追加</button>
-            <button id="concan2" type="button" class="btn close">キャンセル</button>
+            <button id="concan" type="button" class="btn close">キャンセル</button>
         </div>
     </div>
 </div>
