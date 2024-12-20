@@ -3,19 +3,25 @@ package utils.DAO;
 import java.lang.Class;
 
 import org.mindrot.jbcrypt.BCrypt;
+import utils.Bean.shiftBean;
 import utils.Bean.userBean;
+import utils.Bean.workBean;
 
 import java.sql.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import static utils.DAO.workDAO.selectWorkAll;
 
 public class userDAO {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/fave_db?useSSL=false&serverTimezone=UTC";
     //private static final String DB_URL = "jdbc:mysql://localhost:3306/fave_db";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "morijyobi";
+
     // データの追加(INSERT)
     public static void insertAccount(String log_id, String password, String nick, int regimg, int amounthand, int living, int saiosi, Integer mainwork) {
         String sql = "INSERT INTO account VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
