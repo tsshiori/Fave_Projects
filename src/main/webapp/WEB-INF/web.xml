@@ -110,6 +110,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>MypageEditServlet</servlet-name>
+        <servlet-class>com.example.fave.MypageFile.MypageEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MypageEditServlet</servlet-name>
+        <url-pattern>/my_page_edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ShiftServlet</servlet-name>
         <servlet-class>com.example.fave.ShiftFile.ShiftServlet</servlet-class>
     </servlet>

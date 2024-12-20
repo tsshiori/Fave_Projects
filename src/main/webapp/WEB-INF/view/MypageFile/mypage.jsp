@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: hrnea
-  Date: 2024/11/22
-  Time: 10:22
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -109,7 +102,7 @@
                     <h1>ルイ・ルロイ</h1>
                 </div>
                 <div class="edit">
-                    <a href="../mypage_edit/mypage_edit.html"><img src="static/img/EDIT.png" alt="mypageedit"></a>
+                    <a href="my_page_edit"><img src="static/img/EDIT.png" alt="mypage-edit"></a>
                 </div>
             </div>
 

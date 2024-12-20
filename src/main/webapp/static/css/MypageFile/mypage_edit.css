@@ -1,0 +1,286 @@
+@charset "utf-8";
+
+.main {
+    width: 90%;
+}
+
+.main .add {
+    width: 7%;
+    margin-left: 10%;
+}
+
+.main .add:hover {
+    opacity: 0.7;
+}
+
+.scroll-content {
+    width: 60%;
+    height: 600px;
+    margin: 0 20%;
+}
+
+.itemcenter {
+    align-items: center;
+}
+
+.myform {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.myform p {
+    width: 30%;
+    text-align: right;
+    font-size: 19px;
+    font-weight: bold;
+    margin-right: 2%;
+}
+
+.hissu {
+    color: #FF1212;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.p {
+    text-align: right;
+    font-weight: bold;
+    margin-right: 10%;
+}
+
+
+input[type="text"] {
+    font-size: 20px;
+    color: #221D7E;
+    font-family: "Noto Serif JP", serif;
+    height: 40px;
+    width: 70%;
+    padding: 8px;
+    display: block;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFF3;
+    margin: 1% auto;
+    display: inline;
+}
+
+.saiosi {
+    width: 25%;
+    height: 25%;
+    margin: 2% auto;
+    background-color: #FFFFF3;
+    padding: 2%;
+    border-radius: 5px;
+}
+
+.saiosi img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.icon {
+    width: 120%;
+    margin: 5% auto;
+}
+
+.icon img {
+    width: 100%;
+    border-radius: 100px;
+    display: block;
+}
+
+.icon img:hover {
+    opacity: 0.7;
+}
+
+.icon label {
+    margin: 2%;
+}
+
+input[type=radio]:checked+img {
+    border: 2px solid #221D7E;
+    box-sizing: border-box;
+}
+
+input[type=radio] {
+    display: none;
+}
+
+
+option {
+    font-family: "Noto Serif JP", serif;
+}
+
+select {
+    background-color: #FFFFF3;
+    border-radius: 5px;
+    appearance: none;
+    height: 40px;
+    width: 70%;
+    font-family: "Noto Serif JP", serif;
+    padding: 5px;
+    font-size: 20px;
+    border: #221D7E 0.5px solid;
+    border-radius: 5px;
+    background-image: url('../../img/DOWN.png');
+    /* カスタム矢印の画像 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    /* 矢印の位置 */
+    background-size: 15px;
+    /* 矢印のサイズ */
+    color: #221D7E;
+}
+
+#amo-range,
+#exp-range {
+    width: 90%;
+    margin-right: 3%;
+}
+
+.bu {
+    height: 35px;
+    width: 35px;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 3px;
+    color: #221D7E;
+    border: 0.5px solid #221D7E;
+    border-radius: 3px;
+}
+
+.mai {
+    background-color: #E26A6C;
+}
+
+.mai:hover {
+    background-color: #e69698;
+}
+
+.pul {
+    background-color: #72ABF5;
+    font-size: 23px;
+}
+
+.pul:hover {
+    background-color: #a5c1e5;
+}
+
+.expe {
+    appearance: none;
+    width: 100%;
+    height: 12px;
+    border: 0.5px solid #221d7e;
+    border-radius: 9999px;
+    background: #fffff3;
+    cursor: pointer;
+}
+
+/* ツマミ：Chrome, Safari, Edge用 */
+.expe::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 7px;
+    height: 25px;
+    border: 0.5px solid #221d7e;
+    border-radius: 10px;
+    background: #7dee62;
+    box-shadow: none;
+}
+
+/* ツマミ：Firefox用 */
+.expe::-moz-range-thumb {
+    width: 7px;
+    height: 25px;
+    border: 0.5px solid #221d7e;
+    border-radius: 10px;
+    background: #7dee62;
+    box-shadow: none;
+}
+
+.amo {
+    appearance: none;
+    width: 100%;
+    height: 12px;
+    border: 0.5px solid #221d7e;
+    border-radius: 9999px;
+    background: #fffff3;
+    cursor: pointer;
+}
+
+/* ツマミ：Chrome, Safari, Edge用 */
+.amo::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 7px;
+    height: 25px;
+    border: 0.5px solid #221d7e;
+    border-radius: 10px;
+    background: #ecaf61;
+    box-shadow: none;
+}
+
+/* ツマミ：Firefox用 */
+.amo::-moz-range-thumb {
+    width: 7px;
+    height: 25px;
+    border: 0.5px solid #221d7e;
+    border-radius: 10px;
+    background: #ecaf61;
+    box-shadow: none;
+}
+
+.ma {
+    margin-bottom: 5%;
+}
+
+.aw p {
+    text-align: left;
+}
+
+.me {
+    margin-right: 80%;
+    margin-left: 80%;
+}
+
+.btn {
+    text-align: center;
+    margin-top: 10%;
+}
+
+.in {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    color: #221D7E;
+    background-color: #C3F8B9;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 3%;
+}
+
+.in:hover {
+    background-color: #dcf5d7;
+}
+
+.kyan {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    margin-top: 20px;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+
+}
+
+.kyan:hover {
+    background-color: #ececec;
+}
