@@ -21,7 +21,7 @@
     String saioshiImg = "static/faveImg/def.png"; // 初期画像（最推し未選択）
 
     // 最推しが選択されている場合、画像を更新
-    String selectedSaioshi = String.valueOf(saiosi);
+    String selectedSaioshi = saiosi > 0 ? String.valueOf(saiosi) : null;
     if (selectedSaioshi != null && !selectedSaioshi.equals("0")) {
         // 選ばれた最推しに対応する画像を設定
         for (faveBean fave : favelist) {
@@ -135,7 +135,7 @@
     <div class="main scroll-box">
         <p class="hissu p">※ ＊は必須項目です。</p>
         <div class="scroll-content">
-            <form class="myform" action="MypageEditServlet" method="post">
+            <form class="myform" action="my_page_edit" method="post" id="my_edit_form">
                 <div class="itemcenter container">
                     <p><span class="hissu">＊</span>ニックネーム：</p>
                     <input type="text" name="nick" placeholder="ニックネームを入力してください。" value=<%=nick%>>
@@ -234,7 +234,7 @@
                             <button class="mai bu" type="button" onclick="adjustAmount(-100, 'exp-range', 'expense-range')">－</button>
                             <button class="pul bu" type="button" onclick="adjustAmount(100, 'exp-range', 'expense-range')">+</button>
                         </div>
-                        <input type="range" name="expense" value="<%=living%>" min="0" max="999999" id="expense-range"
+                        <input type="range" name="living" value="<%=living%>" min="0" max="999999" id="expense-range"
                                class="expe" oninput="syncInput('exp-range', 'expense-range')" />
                         <div class="aw container">
                             <p>0</p>
@@ -246,7 +246,7 @@
 
 
                 <div class="btn">
-                    <button type="submit" class="in">完了</button>
+                    <button type="submit" class="in" id="confirm">完了</button>
                     <a class="kyan" href="my_page">キャンセル</a>
                 </div>
             </form>

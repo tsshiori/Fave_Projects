@@ -42,3 +42,10 @@ function syncInput(inputId, rangeId) {
         input.value = value;
     }
 }
+
+// モーダルの「登録」ボタンを押したときの処理
+const buttonConfirmRe = document.getElementById('confirm');
+const form = document.getElementById('my_edit_form');
+buttonConfirmRe.addEventListener('click', () => {
+    form.submit(); // フォーム送信
+});
