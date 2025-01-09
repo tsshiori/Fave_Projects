@@ -52,22 +52,11 @@ public class MypageEditServlet extends HttpServlet {
         String livingParam = request.getParameter("living");
         int living = (livingParam != null && !livingParam.isEmpty()) ? Integer.parseInt(livingParam) : user.getLiving();
 
-// デバッグログ（必要に応じて確認用）
-        System.out.println("Updated nick: " + nick);
-        System.out.println("Updated saiosi: " + saiosi);
-        System.out.println("Updated regimg: " + regimg);
-        System.out.println("Updated amounthand: " + amounthand);
-        System.out.println("Updated living: " + living);
 
 // 更新処理
         utils.DAO.userDAO.updateAll(log_id, nick, saiosi, regimg, amounthand, living);
 
-// セッションの更新
-        user.setNick(nick);
-        user.setSaiosi(saiosi);
-        user.setRegimg(regimg);
-        user.setAmounthand(amounthand);
-        user.setLiving(living);
+        user = utils.DAO.userDAO.selectById(log_id);
         session.setAttribute("user", user);
 
 // リダイレクト

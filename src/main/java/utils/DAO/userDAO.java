@@ -171,6 +171,7 @@ public class userDAO {
             pstmt.setInt(3,regimg);
             pstmt.setInt(4, amounthand);
             pstmt.setInt(5, living);
+            pstmt.setString(6, log_id);
 
             // SQLを実行
             int rowsAffected = pstmt.executeUpdate();
