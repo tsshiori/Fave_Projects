@@ -21,12 +21,12 @@
     String saioshiImg = "static/faveImg/def.png"; // 初期画像（最推し未選択）
 
     // 最推しが選択されている場合、画像を更新
-    String selectedSaioshi = request.getParameter("saiosi");
+    String selectedSaioshi = String.valueOf(saiosi);
     if (selectedSaioshi != null && !selectedSaioshi.equals("0")) {
         // 選ばれた最推しに対応する画像を設定
         for (faveBean fave : favelist) {
             if (String.valueOf(fave.getOsi_id()).equals(selectedSaioshi)) {
-//                saioshiImg = "static/faveImg/" + fave.getImageFileName(); // 例えばファイル名はfave.getImageFileName()から取得
+                saioshiImg = "static/faveImg/" + fave.getImg(); // 例えばファイル名はfave.getImageFileName()から取得
                 break;
             }
         }

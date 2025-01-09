@@ -1,4 +1,84 @@
+<%@ page import="utils.Bean.userBean" %>
+<%@ page import="utils.Bean.faveBean" %>
+<%@ page import="utils.Bean.userBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="utils.Bean.categoryBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
+    Map<Integer, Integer> osiPriceMap = (Map<Integer, Integer>) session.getAttribute("osiout");
+    ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
+    Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
+%>
+<%
+        userBean user = (userBean) session.getAttribute("user");
+        String log_id = user.getLog_id();
+
+        int living = user.getLiving();
+        int amounthand = user.getAmounthand();
+
+        String saiosiName = null;
+        String saioshiImg = "static/faveImg/def.png";
+        int saiosi = user.getSaiosi();
+        int icon = user.getRegimg();
+        faveBean saiosifave = null;
+    // osi_idに対応するカテゴリとタグを取得
+    String category = null;
+    String tag = null;
+
+    // セッションからfavelistを取得
+    if (session.getAttribute("favelist") != null) {
+        favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
+    }
+
+    for (faveBean fave : favelist) {
+        if (fave.getOsi_id() == saiosi) {
+            if (categorylist != null) {
+                for (categoryBean categoryItem : categorylist) {
+                    if (categoryItem.getCate_id() == fave.getCate_id()) {
+                        category = categoryItem.getCategory();
+                        break;
+                    }
+                }
+            }
+
+            if (ositaglist != null && ositaglist.containsKey(fave.getOsi_id())) {
+                tag = ositaglist.get(fave.getOsi_id());
+            }
+
+            saiosiName = fave.getName();
+            saioshiImg = "static/faveImg/" + fave.getImg(); // 例えばファイル名はfave.getImageFileName()から取得
+        }
+    }
+
+
+    // アイコン画像のファイル名を設定
+    String iconImg = "static/img/I_N.png"; // デフォルトのアイコン画像
+    switch(icon) {
+        case 0:
+            iconImg = "static/img/I_N.png";
+            break;
+        case 1:
+            iconImg = "static/img/I_B.png"; // Blueアイコン
+            break;
+        case 2:
+            iconImg = "static/img/I_G.png"; // Greenアイコン
+            break;
+        case 3:
+            iconImg = "static/img/I_R.png"; // Redアイコン
+            break;
+        case 4:
+            iconImg = "static/img/I_V.png"; // Violetアイコン
+            break;
+        case 5:
+            iconImg = "static/img/I_Y.png"; // Yellowアイコン
+            break;
+        default:
+            iconImg = "static/img/I_N.png"; // デフォルトのアイコン
+    }
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -96,10 +176,10 @@
         <div class="scroll-content mycontents">
             <div class="container">
                 <div class="icon">
-                    <img src="static/img/I_N.png" alt="Nomal">
+                    <img src="<%=iconImg%>" alt="Nomal">
                 </div>
                 <div class="nick">
-                    <h1>ルイ・ルロイ</h1>
+                    <h1><%=user.getNick()%></h1>
                 </div>
                 <div class="edit">
                     <a href="my_page_edit"><img src="static/img/EDIT.png" alt="mypage-edit"></a>
@@ -113,26 +193,51 @@
                         <p>　Fave</p>
                     </div>
                     <div class="moimg">
-                        <img src="static/img/com.jpg" alt="">
+                        <img src="<%=saioshiImg%>" alt="">
                     </div>
                     <div class="favename">
-                        <h2>カンパネルラ</h2>
+                        <h2><%=saiosiName%></h2>
                     </div>
                 </div>
 
                 <div class="cate">
-                    <h3><span>/</span>銀河鉄道の夜　2号車組</h3>
+                    <h3><span>/</span><%= category != null ? category : "カテゴリ未設定" %>　<%= tag != null ? tag : "タグ未設定" %></h3>
                 </div>
             </div>
 
             <div class="container lm">
                 <div class="life">
                     <h2>生活費：</h2>
-                    <h1><span>¥</span>118,000</h1>
+                    <%
+                    if (living == 0){
+                    %>
+                    <h1><span>¥</span>0</h1>
+                    <%
+                        }else{
+
+                        DecimalFormat formatter = new DecimalFormat("#,###");
+                        String formattedLiving = formatter.format(living);
+                    %>
+                    <h1><span>¥</span><%=formattedLiving%></h1>
+                    <%
+                        }
+                    %>
                 </div>
                 <div class="money">
                     <h2>達成金額：</h2>
-                    <h1><span>¥</span>9,680</h1>
+                    <%
+                        if (amounthand == 0){
+                    %>
+                    <h1><span>¥</span>0</h1>
+                    <%
+                        }else{
+                            DecimalFormat formatter = new DecimalFormat("#,###");
+                            String formattedA = formatter.format(amounthand);
+                    %>
+                    <h1><span>¥</span><%=formattedA%></h1>
+                    <%
+                        }
+                    %>
                 </div>
             </div>
 
