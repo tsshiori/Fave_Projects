@@ -158,7 +158,32 @@ public class userDAO {
         }
     }
 
+    public static void updateAll(String log_id,String nick,int saiosi,int regimg,int amounthand,int living) {
+        String sql = "UPDATE account SET nick = ?,saiosi =?, regimg = ?,amounthand = ?, living = ? WHERE log_id = ?";
 
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
+            // プレースホルダに値をセット
+            pstmt.setString(1, nick);
+            pstmt.setInt(2, saiosi);
+            pstmt.setInt(3,regimg);
+            pstmt.setInt(4, amounthand);
+            pstmt.setInt(5, living);
+            pstmt.setString(6, log_id);
+
+            // SQLを実行
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("指定されたlog_idに対応するデータが存在しません。");
+            } else {
+                System.out.println("正常に更新されました。");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  // エラーの詳細を表示
+        }
+    }
 
     public static void updateSaiosi(int saiosi, String log_id) {
         String sql = "UPDATE account SET saiosi = ? WHERE log_id = ?";

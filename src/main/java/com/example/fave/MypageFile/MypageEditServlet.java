@@ -37,14 +37,31 @@ public class MypageEditServlet extends HttpServlet {
         userBean user = (userBean) session.getAttribute("user");
         String log_id = user.getLog_id();
 
-        String nick = request.getParameter("nick");
-        int saiosi = Integer.parseInt(request.getParameter("saiosi"));
-        int regimg = Integer.parseInt(request.getParameter("regimg"));
-        int amounthand = Integer.parseInt(request.getParameter("amount"));
-        int living = Integer.parseInt(request.getParameter("living"));
+// パラメータ取得
+        String nick = request.getParameter("nick") != null ? request.getParameter("nick") : user.getNick();
+
+        String saiosiParam = request.getParameter("saiosi");
+        int saiosi = (saiosiParam != null && !saiosiParam.isEmpty()) ? Integer.parseInt(saiosiParam) : user.getSaiosi();
+
+        String regimgParam = request.getParameter("regimg");
+        int regimg = (regimgParam != null && !regimgParam.isEmpty()) ? Integer.parseInt(regimgParam) : user.getRegimg();
+
+        String amounthandParam = request.getParameter("amount");
+        int amounthand = (amounthandParam != null && !amounthandParam.isEmpty()) ? Integer.parseInt(amounthandParam) : user.getAmounthand();
+
+        String livingParam = request.getParameter("living");
+        int living = (livingParam != null && !livingParam.isEmpty()) ? Integer.parseInt(livingParam) : user.getLiving();
 
 
+// 更新処理
+        utils.DAO.userDAO.updateAll(log_id, nick, saiosi, regimg, amounthand, living);
+
+        user = utils.DAO.userDAO.selectById(log_id);
+        session.setAttribute("user", user);
+
+// リダイレクト
         response.sendRedirect("MypageServlet");
+
     }
 }
 
