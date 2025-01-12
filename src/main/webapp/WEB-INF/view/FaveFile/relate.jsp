@@ -177,8 +177,7 @@
                     } // if終了
                 %>
             </div>
-
-                    </div>
+        </div>
                 </div>
 
             </div>
@@ -228,8 +227,10 @@
         </div>
         <h3>編集内容を入力してください</h3>
         <form method="post" action="TagEditServlet" id="tag_edit_form">
-            <input type="text" id="editInput2" placeholder="<%= tagName %>"> <!-- タグ名をプレースホルダに設定 -->
-            <input type="hidden" id="cateIdInput" name="cate_id"> <!-- cate_idの隠しフィールド -->
+            <input type="text" id="editInput2" placeholder="<%= tagName %>" name="tag"> <!-- タグ名をプレースホルダに設定 -->
+            <input type="hidden" id="cateIdInput" name="cate_id">
+            <input type="hidden" value="<%= tagName %>" name="tag_before">
+            <!-- cate_idの隠しフィールド -->
 
             <div class="modal-body">
                 <button id="confirmEdit2" type="button" class="btn">完了</button>
@@ -286,7 +287,9 @@
         </div>
 
         <form method="post" action="TagDeleteServlet" id="tag_delete_form">
-            <input type="text" id="deleteInput2" placeholder="<%= tagName %>" readonly> <!-- タグ名をプレースホルダに設定 -->
+            <input type="text" id="deleteInput2" placeholder="<%= tagName %>" readonly name="tag"> <!-- タグ名をプレースホルダに設定 -->
+
+
             <input type="hidden" id="cateIdInput2" name="cate_id"> <!-- cate_idの隠しフィールド -->
 
             <div class="modal-body">
@@ -305,8 +308,8 @@
         </div>
         <h3>追加内容を入力してください</h3>
         <form method="post" action="TagAddServlet" id="tag_add_form">
-            <input type="text" placeholder="曲/チーム/組名等を入力してください。">
-            <input type="hidden" id="categoryIdInput3" name="categoryId" value="">
+            <input type="text" placeholder="曲/チーム/組名等を入力してください。" name="tag">
+            <input type="hidden" id="categoryIdInput3" name="cate_id" value="">
             <div class="modal-body">
                 <button id="confirmAdd" type="button" class="btn">追加</button>
                 <button id="re_tab_can" type="button" class="btn close">キャンセル</button>

@@ -13,6 +13,68 @@ public class tagDAO {
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "morijyobi";
 
+    public static void insertTag(int cate_id, String tag) {
+        // オートインクリメントされるカラム（id）を除外して挿入
+        String sql = "INSERT INTO tag (tag, cate_id) VALUES (?, ?)";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            //Connection con = DriverManager.getConnection(DB_URL);
+            Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+            PreparedStatement pstmt = con.prepareStatement(sql);
+
+            pstmt.setString(1, tag);
+            pstmt.setInt(2, cate_id);
+
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);  // 挿入された行数を表示
+
+            if (rowsAffected == 0) {
+                System.out.println("データが挿入されませんでした。");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();  // エラー詳細を表示
+        }
+    }
+
+    public static void editTag(int tag_id, String tag) {
+        String sql = "UPDATE tag SET tag = ? WHERE tag_id = ?";
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
+            pstmt.setString(1, tag.trim());
+            pstmt.setInt(2, tag_id);
+
+            System.out.println("DEBUG: Executing SQL: " + sql + " with tag_id = " + tag_id + ", new tag = " + tag.trim());
+
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println("DEBUG: Rows updated = " + rowsAffected);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void deleteTag(int tag_id) {
+        // SQL文
+        String sql1 = "DELETE FROM tag WHERE tag_id = ?";
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt1 = con.prepareStatement(sql1);
+
+        ) {
+
+            // 2. category テーブルのレコードを削除
+            pstmt1.setInt(1, tag_id);
+            pstmt1.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public static String selectTag(int osi_id) {
         String sql = "SELECT tag.tag FROM tag INNER JOIN ositag ON tag.tag_id = ositag.tag_id WHERE ositag.osi_id = ?";
         String tag = null;
@@ -34,8 +96,35 @@ public class tagDAO {
         return tag; // タグを返す（見つからない場合はnull）
     }
 
-        // カテゴリIDに基づいてタグリストを取得するメソッド
-        public static List<String> selectTagsByCategory(int cate_id) {
+    public static int selectTagByCategory(int cate_id, String tag) {
+        String sql = "SELECT tag_id FROM tag WHERE cate_id = ? AND tag = ?";
+        int tag_id = -1;
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql);
+        ) {
+            pstmt.setInt(1, cate_id);
+            pstmt.setString(2, tag.trim()); // 空白を削除
+
+            System.out.println("DEBUG: Executing SQL: " + sql + " with cate_id = " + cate_id + ", tag = " + tag.trim());
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    tag_id = rs.getInt("tag_id");
+                    System.out.println("DEBUG: Found tag_id = " + tag_id);
+                } else {
+                    System.out.println("DEBUG: No matching tag_id found.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tag_id;
+    }
+
+    // カテゴリIDに基づいてタグリストを取得するメソッド
+    public static List<String> selectTagsByCategory(int cate_id) {
             String sql = "SELECT tag FROM tag WHERE cate_id = ?";
             List<String> tags = new ArrayList<>();
 

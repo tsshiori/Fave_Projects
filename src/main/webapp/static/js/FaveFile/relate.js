@@ -240,18 +240,7 @@ deleteButtons2.forEach(button => {
 
 
 
-// 追加ボタンがクリックされたらaddModalを表示
-addButtons.forEach(button => {
-    button.onclick = () => {
-        addModal.style.display = "block";
-    };
-});
 
-addButtons2.forEach(button => {
-    button.onclick = () => {
-        addModal2.style.display = "block";
-    };
-});
 
 // 閉じるボタンまたは背景がクリックされたらモーダルを閉じる
 closeButtons.forEach(button => {
@@ -268,20 +257,71 @@ window.onclick = (event) => {
 
 
 
-document.getElementById("confirmAdd").onclick = () => {
-    // 1. カテゴリ情報を取得
-    const accordionItem = button.closest('.accordion-item'); // 親の accordion-item を取得
-    const accordionButton = accordionItem.querySelector('.accordion-button'); // カテゴリ情報が入ったボタンを取得
-    const categoryId = accordionButton.getAttribute('data-cate-id'); // cate_id を取得
-    const categoryName = accordionButton.getAttribute('data-category'); // category を取得
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("addModal");
+    const confirmAddButton = document.getElementById("confirmAdd");
+    const cancelButton = document.getElementById("re_tab_can");
 
-    const cateIdInput2 = document.getElementById("cateIdInput3");
-    cateIdInput2.value = categoryId;
+    // 追加ボタン（Addcon）がクリックされたとき
+    const addButtons = document.querySelectorAll('.Addcon');
+    addButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            // 親のアコーディオンアイテムを取得
+            const accordionItem = event.target.closest('.accordion-item');
+            if (!accordionItem) {
+                console.error("Accordion item not found.");
+                return;
+            }
 
-    // フォームを送信
-    const form = document.getElementById("tag_add_form");
-    form.submit(); // フォームを送信
-};
+            // 親のアコーディオンボタンを取得
+            const accordionButton = accordionItem.querySelector('.accordion-button');
+            if (!accordionButton) {
+                console.error("Accordion button not found.");
+                return;
+            }
+
+            // カテゴリIDとカテゴリ名を取得
+            const categoryId = accordionButton.getAttribute('data-cate-id');
+            const categoryName = accordionButton.getAttribute('data-category');
+
+            console.log("追加するカテゴリID:", categoryId);
+            console.log("追加するカテゴリ名:", categoryName);
+
+            // モーダルにカテゴリIDをセットする
+            const cateIdInput = document.getElementById("categoryIdInput3");
+            if (cateIdInput) {
+                cateIdInput.value = categoryId;
+            }
+
+            // モーダルを表示する
+            modal.style.display = 'block';
+        });
+    });
+
+    // confirmAdd ボタンがクリックされたときの動作
+    confirmAddButton.onclick = (event) => {
+        const categoryId = document.getElementById("categoryIdInput3").value;
+        console.log("モーダルで選択されたカテゴリID:", categoryId);
+
+        // ここでフォーム送信処理
+        const form = document.getElementById("tag_add_form");
+        if (form) {
+            form.submit(); // フォームを送信
+        }
+    };
+
+    // キャンセルボタンでモーダルを閉じる
+    cancelButton.onclick = () => {
+        modal.style.display = 'none'; // モーダルを非表示にする
+    };
+});
+
+
+
+
+
+
+
 
 document.getElementById("confirmAdd2").onclick = () => {
     // フォームを送信
@@ -289,19 +329,18 @@ document.getElementById("confirmAdd2").onclick = () => {
     form.submit(); // フォームを送信
 };
 
-// document.getElementById("confirmEdit").onclick = () => {
-//     location.href = "relate"; // 編集後の処理を追加
-// };
-//
-// document.getElementById("confirmEdit2").onclick = () => {
-//     location.href = "relate"; // 編集後の処理を追加
-// };
-//
-// document.getElementById("confirmDELE").onclick = () => {
-//     location.href = "relate"; // 削除後の処理を追加
-// };
-//
-// document.getElementById("confirmDELE2").onclick = () => {
-//     location.href = "relate"; // 削除後の処理を追加
-// };
+
+// 追加ボタンがクリックされたらaddModalを表示
+addButtons.forEach(button => {
+    button.onclick = () => {
+        addModal.style.display = "block";
+
+    };
+});
+
+addButtons2.forEach(button => {
+    button.onclick = () => {
+        addModal2.style.display = "block";
+    };
+});
 
