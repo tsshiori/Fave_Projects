@@ -1,12 +1,12 @@
-package com.example.fave.FaveFile;
+package com.example.fave.FaveFile.CateTag;
 
 import java.io.*;
 
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet("/CategoryAddServlet")
-public class CategoryAddServlet extends HttpServlet {
+@WebServlet("/CategoryDeleteServlet")
+public class CategoryDeleteServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     }
