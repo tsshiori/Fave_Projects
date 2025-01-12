@@ -127,6 +127,10 @@ document.querySelectorAll(".EDIT2").forEach(button => {
         const modalInput = editModal2.querySelector('#editInput2');
         modalInput.value = tagName; // 取得したタグ名を設定
 
+        // cate_idを隠しフィールドに設定
+        const cateIdInput = document.getElementById("cateIdInput");
+        cateIdInput.value = categoryId;
+
         // デバッグ用ログ
         console.log('カテゴリID:', categoryId);
         console.log('カテゴリ名:', categoryName);
@@ -138,11 +142,13 @@ document.querySelectorAll(".EDIT2").forEach(button => {
             console.log('編集後のカテゴリ名:', categoryName);
             console.log('編集後のタグ名:', modalInput.value);
 
-            // 編集処理後のリダイレクトやリクエスト送信
-            location.href = "relate"; // 必要に応じて処理を追加
+            // フォームを送信
+            const form = document.getElementById("tag_edit_form");
+            form.submit(); // フォームを送信
         };
     };
 });
+
 
 
 
@@ -166,19 +172,28 @@ deleteButtons.forEach(button => {
         console.log('対応するカテゴリ名:', categoryName);
 
         // モーダル表示処理
+        const deleteModal = document.getElementById("deleteModal");
         deleteModal.style.display = "block";
+
+        // モーダル内の入力フィールドにカテゴリ名を設定
         const deleteInput = deleteModal.querySelector('#deleteInput1');
         deleteInput.value = categoryName;
+
+        // 隠しフィールドにカテゴリIDを設定
+        const hiddenInput = deleteModal.querySelector('#categoryIdInput2');
+        hiddenInput.value = categoryId;
 
         // 確認ボタンのクリックイベント
         document.getElementById("confirmDELE").onclick = () => {
             console.log('削除が確定されたカテゴリID:', categoryId);
-            // カテゴリ削除処理を追加
+            console.log('削除対象のカテゴリ名:', categoryName);
 
-            location.href = "relate"; // 必要に応じて処理を追加
+            // フォームを送信
+            document.getElementById("cate_delete_form").submit();
         };
     };
 });
+
 
 
 // 削除ボタン 2のクリックイベント（タグ削除）
@@ -202,6 +217,10 @@ deleteButtons2.forEach(button => {
         const deleteInput = deleteModal2.querySelector('#deleteInput2');
         deleteInput.value = tagName;
 
+        // cate_idを隠しフィールドに設定
+        const cateIdInput2 = document.getElementById("cateIdInput2");
+        cateIdInput2.value = categoryId;
+
         // デバッグ用ログ
         console.log('カテゴリID:', categoryId);
         console.log('カテゴリ名:', categoryName);
@@ -212,11 +231,13 @@ deleteButtons2.forEach(button => {
             console.log('削除が確定されたカテゴリID:', categoryId);
             console.log('削除対象のタグ名:', tagName);
 
-            // 削除処理後のリダイレクトやリクエスト送信
-            location.href = "relate"; // 必要に応じて処理を追加
+            // フォームを送信
+            const form = document.getElementById("tag_delete_form");
+            form.submit(); // フォームを送信
         };
     };
 });
+
 
 
 // 追加ボタンがクリックされたらaddModalを表示
@@ -245,27 +266,42 @@ window.onclick = (event) => {
     }
 };
 
-document.getElementById("confirmEdit").onclick = () => {
-    location.href = "relate"; // 編集後の処理を追加
-};
 
-document.getElementById("confirmEdit2").onclick = () => {
-    location.href = "relate"; // 編集後の処理を追加
-};
 
 document.getElementById("confirmAdd").onclick = () => {
-    location.href = "relate"; // 追加後の処理を追加
+    // 1. カテゴリ情報を取得
+    const accordionItem = button.closest('.accordion-item'); // 親の accordion-item を取得
+    const accordionButton = accordionItem.querySelector('.accordion-button'); // カテゴリ情報が入ったボタンを取得
+    const categoryId = accordionButton.getAttribute('data-cate-id'); // cate_id を取得
+    const categoryName = accordionButton.getAttribute('data-category'); // category を取得
+
+    const cateIdInput2 = document.getElementById("cateIdInput3");
+    cateIdInput2.value = categoryId;
+
+    // フォームを送信
+    const form = document.getElementById("tag_add_form");
+    form.submit(); // フォームを送信
 };
 
 document.getElementById("confirmAdd2").onclick = () => {
-    location.href = "relate"; // 追加後の処理を追加
+    // フォームを送信
+    const form = document.getElementById("cate_add_form");
+    form.submit(); // フォームを送信
 };
 
-document.getElementById("confirmDELE").onclick = () => {
-    location.href = "relate"; // 削除後の処理を追加
-};
-
-document.getElementById("confirmDELE2").onclick = () => {
-    location.href = "relate"; // 削除後の処理を追加
-};
+// document.getElementById("confirmEdit").onclick = () => {
+//     location.href = "relate"; // 編集後の処理を追加
+// };
+//
+// document.getElementById("confirmEdit2").onclick = () => {
+//     location.href = "relate"; // 編集後の処理を追加
+// };
+//
+// document.getElementById("confirmDELE").onclick = () => {
+//     location.href = "relate"; // 削除後の処理を追加
+// };
+//
+// document.getElementById("confirmDELE2").onclick = () => {
+//     location.href = "relate"; // 削除後の処理を追加
+// };
 

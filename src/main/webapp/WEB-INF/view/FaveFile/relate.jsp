@@ -190,6 +190,7 @@
         </div>
     </div>
 
+
 </div>
 
 
@@ -208,9 +209,9 @@
         <h3>編集内容を入力してください</h3>
 
         <form method="post" action="CategoryEditServlet" id="cate_edit_form">
-            <input type="text" id="editInput1" value="<%= categoryName %>" placeholder="カテゴリ名を入力してください">
+            <input type="text" id="editInput1" value="<%= categoryName %>" placeholder="カテゴリ名を入力してください" name="category">
             <!-- 隠しフィールドを追加 -->
-            <input type="hidden" id="categoryIdInput" name="categoryId" value="">
+            <input type="hidden" id="categoryIdInput" name="cate_id" value="">
             <div class="modal-body">
                 <button id="confirmEdit" type="button" class="btn">完了</button>
                 <button id="re_edcon_can" type="button" class="btn close">キャンセル</button>
@@ -226,12 +227,16 @@
             <h4>曲/チーム/組名等</h4>
         </div>
         <h3>編集内容を入力してください</h3>
-        <input type="text" id="editInput2" placeholder="<%= tagName %>"> <!-- タグ名をプレースホルダに設定 -->
+        <form method="post" action="TagEditServlet" id="tag_edit_form">
+            <input type="text" id="editInput2" placeholder="<%= tagName %>"> <!-- タグ名をプレースホルダに設定 -->
+            <input type="hidden" id="cateIdInput" name="cate_id"> <!-- cate_idの隠しフィールド -->
 
-        <div class="modal-body">
-            <button id="confirmEdit2" type="button" class="btn">完了</button>
-            <button id="re_edtab_can" type="button" class="btn close">キャンセル</button>
-        </div>
+            <div class="modal-body">
+                <button id="confirmEdit2" type="button" class="btn">完了</button>
+                <button id="re_edtab_can" type="button" class="btn close">キャンセル</button>
+            </div>
+        </form>
+
     </div>
 </div>
 
@@ -253,12 +258,16 @@
             </div>
         </div>
 
-        <input type="text" id="deleteInput1" placeholder="あああ" readonly> <!-- カテゴリ名をプレースホルダに設定 -->
+        <form method="post" action="CategoryDeleteServlet" id="cate_delete_form">
+            <input type="text" id="deleteInput1" placeholder="" readonly> <!-- カテゴリ名をプレースホルダに設定 -->
+            <!-- 隠しフィールドを追加 -->
+            <input type="hidden" id="categoryIdInput2" name="cate_id" value="">
+            <div class="modal-body">
+                <button id="confirmDELE" type="button" class="btn">削除</button>
+                <button id="re_deletab_can" type="button" class="btn close">キャンセル</button>
+            </div>
+        </form>
 
-        <div class="modal-body">
-            <button id="confirmDELE" type="button" class="btn">削除</button>
-            <button id="re_deletab_can" type="button" class="btn close">キャンセル</button>
-        </div>
     </div>
 </div>
 
@@ -276,12 +285,16 @@
             </div>
         </div>
 
-        <input type="text" id="deleteInput2" placeholder="<%= tagName %>" readonly> <!-- タグ名をプレースホルダに設定 -->
+        <form method="post" action="TagDeleteServlet" id="tag_delete_form">
+            <input type="text" id="deleteInput2" placeholder="<%= tagName %>" readonly> <!-- タグ名をプレースホルダに設定 -->
+            <input type="hidden" id="cateIdInput2" name="cate_id"> <!-- cate_idの隠しフィールド -->
 
-        <div class="modal-body">
-            <button id="confirmDELE2" type="button" class="btn">削除</button>
-            <button id="re_decon_can" type="button" class="btn close">キャンセル</button>
-        </div>
+            <div class="modal-body">
+                <button id="confirmDELE2" type="button" class="btn">削除</button>
+                <button id="re_decon_can" type="button" class="btn close">キャンセル</button>
+            </div>
+        </form>
+
     </div>
 </div>
 
@@ -291,12 +304,14 @@
             <h4>曲/チーム/組名等</h4>
         </div>
         <h3>追加内容を入力してください</h3>
-        <input type="text" placeholder="曲/チーム/組名等を入力してください。">
-
-        <div class="modal-body">
-            <button id="confirmAdd" type="button" class="btn">追加</button>
-            <button id="re_tab_can" type="button" class="btn close">キャンセル</button>
-        </div>
+        <form method="post" action="TagAddServlet" id="tag_add_form">
+            <input type="text" placeholder="曲/チーム/組名等を入力してください。">
+            <input type="hidden" id="categoryIdInput3" name="categoryId" value="">
+            <div class="modal-body">
+                <button id="confirmAdd" type="button" class="btn">追加</button>
+                <button id="re_tab_can" type="button" class="btn close">キャンセル</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -306,25 +321,26 @@
             <h4>所属/ 関連プロジェクト等</h4>
         </div>
         <h3>追加内容を入力してください</h3>
-        <input type="text" placeholder="所属/関連プロジェクト等を入力してください。">
 
-        <div class="modal-body">
-            <button id="confirmAdd2" type="button" class="btn">追加</button>
-            <button id="re_con_can" type="button" class="btn close">キャンセル</button>
-        </div>
+        <form method="post" action="CategoryAddServlet" id="cate_add_form">
+            <input type="text" placeholder="所属/関連プロジェクト等を入力してください。" name="category">
+
+            <div class="modal-body">
+                <button id="confirmAdd2" type="button" class="btn">追加</button>
+                <button id="re_con_can" type="button" class="btn close">キャンセル</button>
+            </div>
+        </form>
     </div>
 </div>
 
 
-
 <script src="static/js/FaveFile/relate.js"></script>
 <script src="static/js/all.js"></script>
-</body>
 
+</body>
 
 
 <footer>
     <p>© 2024 Time of Fave Inc. All Rights Reserved.</p>
 </footer>
-
 </html>
