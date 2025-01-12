@@ -1,4 +1,16 @@
+<%@ page import="java.util.Map" %>
+<%@ page import="utils.Bean.categoryBean" %>
+<%@ page import="utils.Bean.faveBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
+    Map<Integer, Integer> osiPriceMap = (Map<Integer, Integer>) session.getAttribute("osiout");
+    ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
+    Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
+    Map<Integer, List<String>> categoryTagMap = (Map<Integer, List<String>>) session.getAttribute("categoryTagMap");
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -70,13 +82,13 @@
         </div>
         <hr>
         <div class="shift">
-            <a href="../../ShiftFile/shift/shift.html">
+            <a href="shift">
                 <h3>SHIFT</h3>
             </a>
         </div>
         <hr>
         <div class="work">
-            <a href="../../WorkFile/work/work.html">
+            <a href="work">
                 <h3>WORK</h3>
             </a>
         </div>
@@ -93,16 +105,23 @@
         <br>
         <div class="scroll-content">
             <div class="accordion">
+                <%
+                    if (categorylist != null) {
+                        for (categoryBean category : categorylist) {
+                            int cate_id = category.getCate_id();
+                            List<String> tags = categoryTagMap.get(cate_id);
+                %>
                 <div class="accordion-item">
                     <div class="container">
                         <button type="button"> <img class="EDIT" src="static/img/EDIT.png"></button>
-
-                        <button class="accordion-button">
+                        <button class="accordion-button" data-cate-id="<%= cate_id %>" data-category="<%= category.getCategory() %>">
                             <div class="container">
-                                銀河鉄道の夜
+                                <%= category.getCategory() %>
                                 <img class="DOWN" src="static/img/DOWN.png">
                             </div>
                         </button>
+
+
                         <button class="DELEbtn" type="button"><img class="DELE" src="static/img/DELE.png"></button>
                     </div>
                     <div class="accordion-content">
@@ -112,58 +131,56 @@
                                     <img class="ADD" src="static/img/ADD.png">
                                 </button>
                             </div>
-                            <ul>
-                                <li>
-                                    <div class="container licon">
-                                        <div class="container li">
-                                            <div class="vertical-line"></div>2号車組
-                                        </div>
-                                        <div class="container libtn">
-                                            <button type="button"><img class="btnimg EDIT2"
-                                                                       src="static/img/EDIT2.png"></button>
-                                            <button type="button"><img class="btnimg DELE2"
-                                                                       src="static/img/DELE2.png"></button>
-                                        </div>
+                        <ul>
+                            <% if (tags != null && !tags.isEmpty()) { %>
+                            <% for (String tag : tags) { %>
+                            <li>
+                                <div class="container licon">
+                                    <div class="container li">
+                                        <div class="vertical-line"></div><%= tag %>
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="container licon">
-                                        <div class="container li">
-                                            <div class="vertical-line"></div>先頭車両組
-                                        </div>
-                                        <div class="container libtn">
-                                            <button type="button"><img class="btnimg EDIT2"
-                                                                       src="static/img/EDIT2.png"></button>
-                                            <button type="button"><img class="btnimg DELE2"
-                                                                       src="static/img/DELE2.png"></button>
-                                        </div>
+                                    <div class="container libtn">
+                                        <button type="button"><img class="btnimg EDIT2" src="static/img/EDIT2.png"></button>
+                                        <button type="button"><img class="btnimg DELE2" src="static/img/DELE2.png"></button>
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="container licon">
-                                        <div class="container li">
-                                            <div class="vertical-line"></div>乗客組
-                                        </div>
-                                        <div class="container libtn">
-                                            <button type="button"><img class="btnimg EDIT2"
-                                                                       src="static/img/EDIT2.png"></button>
-                                            <button type="button"><img class="btnimg DELE2"
-                                                                       src="static/img/DELE2.png"></button>
-                                        </div>
+                                </div>
+                            </li>
+                            <% } %>
+                            <% } else { %>
+                            <li >
+                                <div class="container licon">
+                                    <div class="container li" style="margin: 5.6px;">
+                                        <div class="vertical-line"></div>登録されているチーム/曲/組名はありません。
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="container close">
-                                        閉じる
-                                        <button type="button">
-                                            <img class="DOWN" src="static/img/DOWN2.png">
-                                        </button>
+                                    <div class="container libtn">
                                     </div>
-                                </li>
-                            </ul>
-                        </div>
+                                </div>
+                            </li>
+                            <% } %>
+                            <li>
+                                <div class="container close">
+                                    閉じる
+                                    <button type="button">
+                                        <img class="DOWN" src="static/img/DOWN2.png">
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+                <%
+                    } // for終了
+                } else {
+                %>
+                <p>カテゴリリストが空です。</p>
+                <%
+                    } // if終了
+                %>
+            </div>
+
+                    </div>
+                </div>
+
             </div>
 
 
@@ -176,29 +193,40 @@
 </div>
 
 
-<!-- モーダルのHTML -->
+<%
+    String categoryName = "カテゴリ名サンプル"; // 正しい値が設定されているか確認
+    String tagName = "タグ名サンプル"; // 必要に応じて値を設定
+
+%>
+
+<!-- 編集モーダル -->
 <div id="editModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h4>所属/ 関連プロジェクト等</h4>
         </div>
         <h3>編集内容を入力してください</h3>
-        <input type="text" placeholder="銀河鉄道の夜">
 
-        <div class="modal-body">
-            <button id="confirmEdit" type="button" class="btn">完了</button>
-            <button id="re_edcon_can" type="button" class="btn close">キャンセル</button>
-        </div>
+        <form method="post" action="CategoryEditServlet" id="cate_edit_form">
+            <input type="text" id="editInput1" value="<%= categoryName %>" placeholder="カテゴリ名を入力してください">
+            <!-- 隠しフィールドを追加 -->
+            <input type="hidden" id="categoryIdInput" name="categoryId" value="">
+            <div class="modal-body">
+                <button id="confirmEdit" type="button" class="btn">完了</button>
+                <button id="re_edcon_can" type="button" class="btn close">キャンセル</button>
+            </div>
+        </form>
     </div>
 </div>
 
+<!-- 編集モーダル 2 -->
 <div id="editModal2" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h4>曲/チーム/組名等</h4>
         </div>
         <h3>編集内容を入力してください</h3>
-        <input type="text" placeholder="2号車組">
+        <input type="text" id="editInput2" placeholder="<%= tagName %>"> <!-- タグ名をプレースホルダに設定 -->
 
         <div class="modal-body">
             <button id="confirmEdit2" type="button" class="btn">完了</button>
@@ -207,6 +235,7 @@
     </div>
 </div>
 
+<!-- 削除モーダル -->
 <div id="deleteModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -224,7 +253,7 @@
             </div>
         </div>
 
-        <input type="text" placeholder="銀河鉄道の夜" readonly>
+        <input type="text" id="deleteInput1" placeholder="あああ" readonly> <!-- カテゴリ名をプレースホルダに設定 -->
 
         <div class="modal-body">
             <button id="confirmDELE" type="button" class="btn">削除</button>
@@ -233,10 +262,11 @@
     </div>
 </div>
 
+<!-- 削除モーダル 2 -->
 <div id="deleteModal2" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h4>所属/ 関連プロジェクト等</h4>
+            <h4>チーム/曲/組名等</h4>
         </div>
         <h3>本当に削除しますか？</h3>
         <div class="deleword">
@@ -246,7 +276,7 @@
             </div>
         </div>
 
-        <input type="text" placeholder="銀河鉄道の夜" readonly>
+        <input type="text" id="deleteInput2" placeholder="<%= tagName %>" readonly> <!-- タグ名をプレースホルダに設定 -->
 
         <div class="modal-body">
             <button id="confirmDELE2" type="button" class="btn">削除</button>
