@@ -39,6 +39,10 @@ public class tagDAO {
 
     public static void editTag(int tag_id, String tag) {
         String sql = "UPDATE tag SET tag = ? WHERE tag_id = ?";
+
+        // デバッグログ: SQLと入力パラメータを表示
+        System.out.println("DEBUG: Executing SQL: " + sql + " with tag_id = " + tag_id + ", new tag = '" + tag.trim() + "'");
+
         try (
                 Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
                 PreparedStatement pstmt = con.prepareStatement(sql)
@@ -46,14 +50,24 @@ public class tagDAO {
             pstmt.setString(1, tag.trim());
             pstmt.setInt(2, tag_id);
 
-            System.out.println("DEBUG: Executing SQL: " + sql + " with tag_id = " + tag_id + ", new tag = " + tag.trim());
+            // SQL実行の前にパラメータをログ出力
+            System.out.println("DEBUG: PreparedStatement parameters set successfully.");
 
             int rowsAffected = pstmt.executeUpdate();
-            System.out.println("DEBUG: Rows updated = " + rowsAffected);
+
+            // SQLの実行結果を確認
+            if (rowsAffected > 0) {
+                System.out.println("DEBUG: Tag updated successfully. Rows affected: " + rowsAffected);
+            } else {
+                System.out.println("DEBUG: No rows were updated. The tag might not exist or the new value is the same as the old one.");
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            // エラーメッセージにSQLの内容も含めて表示
+            System.err.println("ERROR: Failed to execute update. SQL: " + sql);
+            e.printStackTrace();  // スタックトレースを表示してエラーの詳細を確認
         }
     }
+
 
 
     public static void deleteTag(int tag_id) {

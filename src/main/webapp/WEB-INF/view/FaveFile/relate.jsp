@@ -229,15 +229,13 @@
         <form method="post" action="TagEditServlet" id="tag_edit_form">
             <input type="text" id="editInput2" placeholder="<%= tagName %>" name="tag"> <!-- タグ名をプレースホルダに設定 -->
             <input type="hidden" id="cateIdInput" name="cate_id">
-            <input type="hidden" value="<%= tagName %>" name="tag_before">
-            <!-- cate_idの隠しフィールド -->
+            <input type="hidden" value="<%= tagName %>" name="tag_before"> <!-- tag_before にタグ名を設定 -->
 
             <div class="modal-body">
                 <button id="confirmEdit2" type="button" class="btn">完了</button>
                 <button id="re_edtab_can" type="button" class="btn close">キャンセル</button>
             </div>
         </form>
-
     </div>
 </div>
 

@@ -106,47 +106,87 @@ document.querySelectorAll(".EDIT").forEach(button => {
 
 // 編集ボタン 2のクリックイベント（タグ編集）
 document.querySelectorAll(".EDIT2").forEach(button => {
-    button.onclick = () => {
-        // EDIT2 ボタンの親要素をたどって必要な情報を取得
+    button.addEventListener('click', (event) => {
+        // 親のアコーディオンアイテムを取得
+        const accordionItem = event.target.closest('.accordion-item');
+        if (!accordionItem) {
+            console.error("Accordion item not found.");
+            return;
+        }
 
-        // 1. カテゴリ情報を取得
-        const accordionItem = button.closest('.accordion-item'); // 親の accordion-item を取得
-        const accordionButton = accordionItem.querySelector('.accordion-button'); // カテゴリ情報が入ったボタンを取得
-        const categoryId = accordionButton.getAttribute('data-cate-id'); // cate_id を取得
-        const categoryName = accordionButton.getAttribute('data-category'); // category を取得
+        // 親のアコーディオンボタンを取得
+        const accordionButton = accordionItem.querySelector('.accordion-button');
+        if (!accordionButton) {
+            console.error("Accordion button not found.");
+            return;
+        }
+
+        // カテゴリIDとカテゴリ名を取得
+        const categoryId = accordionButton.getAttribute('data-cate-id');
+        const categoryName = accordionButton.getAttribute('data-category');
+
+        console.log("編集するカテゴリID:", categoryId);
+        console.log("編集するカテゴリ名:", categoryName);
 
         // 2. タグ名を取得
         const listItem = button.closest('li'); // ボタンが属する li を取得
-        const tagName = listItem.querySelector('.li').innerText.trim(); // li 内のタグ名を取得
+        const tagName = listItem.querySelector('.li') ? listItem.querySelector('.li').innerText.trim() : ''; // li 内のタグ名を取得
+        if (!tagName) {
+            console.error("タグ名が見つかりません");
+            return;
+        }
 
         // 編集モーダル 2 を表示
         const editModal2 = document.getElementById("editModal2");
+        if (!editModal2) {
+            console.error("モーダルが見つかりません");
+            return;
+        }
         editModal2.style.display = "block";
 
         // モーダル内の入力フィールドにタグ名を設定
         const modalInput = editModal2.querySelector('#editInput2');
-        modalInput.value = tagName; // 取得したタグ名を設定
+        if (modalInput) {
+            modalInput.value = tagName; // 取得したタグ名を設定
+        } else {
+            console.error("タグ名入力フィールドが見つかりません");
+        }
+
+        // tag_before にもタグ名を設定
+        const tagBeforeInput = editModal2.querySelector('input[name="tag_before"]');
+        if (tagBeforeInput) {
+            tagBeforeInput.value = tagName; // tag_before にタグ名を設定
+        }
 
         // cate_idを隠しフィールドに設定
         const cateIdInput = document.getElementById("cateIdInput");
-        cateIdInput.value = categoryId;
+        if (cateIdInput) {
+            cateIdInput.value = categoryId;
+        }
 
         // デバッグ用ログ
         console.log('カテゴリID:', categoryId);
         console.log('カテゴリ名:', categoryName);
         console.log('タグ名:', tagName);
 
-        // 完了ボタンの処理
-        document.getElementById("confirmEdit2").onclick = () => {
-            console.log('編集後のカテゴリID:', categoryId);
-            console.log('編集後のカテゴリ名:', categoryName);
-            console.log('編集後のタグ名:', modalInput.value);
+        // 完了ボタンのクリックイベントを追加
+        const confirmEditButton = editModal2.querySelector("#confirmEdit2");
+        if (confirmEditButton) {
+            confirmEditButton.addEventListener('click', () => {
+                console.log('編集後のカテゴリID:', categoryId);
+                console.log('編集後のカテゴリ名:', categoryName);
+                console.log('編集後のタグ名:', modalInput.value);
 
-            // フォームを送信
-            const form = document.getElementById("tag_edit_form");
-            form.submit(); // フォームを送信
-        };
-    };
+                // フォームを送信
+                const form = document.getElementById("tag_edit_form");
+                if (form) {
+                    form.submit(); // フォームを送信
+                } else {
+                    console.error("フォームが見つかりません");
+                }
+            });
+        }
+    });
 });
 
 
@@ -195,7 +235,6 @@ deleteButtons.forEach(button => {
 });
 
 
-
 // 削除ボタン 2のクリックイベント（タグ削除）
 deleteButtons2.forEach(button => {
     button.onclick = () => {
@@ -237,8 +276,6 @@ deleteButtons2.forEach(button => {
         };
     };
 });
-
-
 
 
 
@@ -315,11 +352,6 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = 'none'; // モーダルを非表示にする
     };
 });
-
-
-
-
-
 
 
 
