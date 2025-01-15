@@ -3,7 +3,7 @@ package utils.Bean;
 import java.sql.Date;
 
 public class goodsBean {
-    private int osikatuId;
+    private int osikatu_id;
     private java.sql.Date day;
     private int price;
     private String item;
@@ -13,8 +13,8 @@ public class goodsBean {
     private String memo;
     private int itemtype;
 
-    public goodsBean(int osikatuId, Date day, int price, String item, int purchase, int osi_id, int priority, String memo, int itemtype) {
-        this.osikatuId = osikatuId;
+    public goodsBean(int osikatu_id, Date day, int price, String item, int purchase, int osi_id, int priority, String memo, int itemtype) {
+        this.osikatu_id = osikatu_id;
         this.day = day;
         this.price = price;
         this.item = item;
@@ -25,12 +25,12 @@ public class goodsBean {
         this.itemtype = itemtype;
     }
 
-    public int getOsikatuId() {
-        return osikatuId;
+    public int getOsikatu_id() {
+        return osikatu_id;
     }
 
-    public void setOsikatuId(int osikatuId) {
-        this.osikatuId = osikatuId;
+    public void setOsikatu_id(int osikatuId) {
+        this.osikatu_id = osikatuId;
     }
 
     public Date getDay() {
