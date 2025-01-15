@@ -1,77 +1,20 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//     // フォームの表示切り替え(トグル)
-//     const checkbox = document.getElementById('switch');
-//     const title = document.querySelector('.title');
-//     const goodsForm = document.getElementById('goods');
-//     const eventsForm = document.getElementById('events');
-//
-//     checkbox.addEventListener('click', () => {
-//         if (checkbox.checked) {
-//             title.textContent = 'イベント';
-//             goodsForm.style.display = 'none';
-//             eventsForm.style.display = 'block';
-//         } else {
-//             title.textContent = 'グッズ';
-//             goodsForm.style.display = 'block';
-//             eventsForm.style.display = 'none';
-//         }
-//     });
-//
-//     // 初期状態でイベントフォームを非表示
-//     eventsForm.style.display = 'none';
-//
-//     // モーダル関連要素
-//     const modalGoods = document.getElementById('easyModalGoods');
-//     const modalEvents = document.getElementById('easyModalEvents');
-//     const addGoodsButton = document.getElementById('AddGoods');
-//     const cancelGoodsButton = document.getElementById('ReGoods');
-//     const addEventsButton = document.getElementById('AddEvents');
-//     const cancelEventsButton = document.getElementById('ReEvents');
-//
-//     // グッズモーダルの表示/非表示
-//     document.getElementById('modalOpenGoods').addEventListener('click', () => {
-//         modalGoods.style.display = 'block';
-//     });
-//     cancelGoodsButton.addEventListener('click', () => {
-//         modalGoods.style.display = 'none'; // キャンセルボタンでグッズモーダルを非表示
-//     });
-//     addGoodsButton.addEventListener('click', () => {
-//         const goodsName = document.getElementById('goodsInput').value;
-//         console.log('追加するグッズ:', goodsName);
-//         modalGoods.style.display = 'none';
-//     });
-//
-//     // イベントモーダルの表示/非表示
-//     document.getElementById('modalOpenEvents').addEventListener('click', () => {
-//         modalEvents.style.display = 'block';
-//     });
-//     cancelEventsButton.addEventListener('click', () => {
-//         modalEvents.style.display = 'none';
-//     });
-//     addEventsButton.addEventListener('click', () => {
-//         const eventName = document.getElementById('eventsInput').value;
-//         console.log('追加するイベント:', eventName);
-//         modalEvents.style.display = 'none';
-//     });
-//
-//     // ウィンドウ外クリックでモーダルを閉じる
-//     window.addEventListener('click', (event) => {
-//         // モーダルの外側がクリックされた場合に閉じる
-//         if (event.target === modalGoods || event.target === modalEvents) {
-//             modalGoods.style.display = 'none';
-//             modalEvents.style.display = 'none';
-//         }
-//     });
-// });
-
-
 document.addEventListener("DOMContentLoaded", () => {
-    // フォームの表示切替
+    // モーダルの要素
     const checkbox = document.getElementById('switch');
     const title = document.querySelector('.title');
     const goodsForm = document.getElementById('goods');
     const eventsForm = document.getElementById('events');
+    const easyModalGoods = document.getElementById('modalGoods');
+    const easyModalEvents = document.getElementById('modalEvents');
+    const buttonCancelGoods = document.getElementById('ReGoods');
+    const buttonConfirmGoods = document.getElementById('AddGoods');
+    const buttonCancelEvents = document.getElementById('ReEvents');
+    const buttonConfirmEvents = document.getElementById('AddEvents');
 
+    // 初期状態でイベントフォームを非表示
+    eventsForm.style.display = 'none';
+
+    // フォームの表示切替
     checkbox.addEventListener('click', () => {
         if (checkbox.checked) {
             title.textContent = 'イベント';
@@ -84,76 +27,48 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 初期状態でイベントフォームを非表示
-    eventsForm.style.display = 'none';
+    // モーダルの表示/非表示(グッズ、イベント)
+    document.getElementById('plusButtonGoods').addEventListener('click', () => showModal(easyModalGoods));
+    document.getElementById('plusButtonEvents').addEventListener('click', () => showModal(easyModalEvents));
 
-    // モーダルに関連する要素
-    const modalGoods = document.getElementById('easyModalGoods');
-    const easyModalEvents = document.getElementById('easyModalEvents'); // 変数名を変更
-    const buttonCancelGoods = document.getElementById('cancelReGoods');
-    const buttonConfirmGoods = document.getElementById('confirmReGoods');
-    const buttonCancelEvents = document.getElementById('cancelReEvents');
-    const buttonConfirmEvents = document.getElementById('confirmReEvents');
+    // キャンセルボタン処理
+    buttonCancelGoods.addEventListener('click', () => closeModal(easyModalGoods));
+    buttonCancelEvents.addEventListener('click', () => closeModal(easyModalEvents));
 
-    // モーダルの表示/非表示
-    document.getElementById('modalOpenGoods').addEventListener('click', () => {
-        modalGoods.style.display = 'block';
-    });
-    document.getElementById('modalOpenEvents').addEventListener('click', () => {
-        easyModalEvents.style.display = 'block'; // 変数名を変更
-    });
-    buttonCancelGoods.addEventListener('click', () => modalGoods.style.display = 'none');
-    buttonCancelEvents.addEventListener('click', () => easyModalEvents.style.display = 'none'); // 変数名を変更
-
+    // 完了ボタン処理 (グッズ)
     buttonConfirmGoods.addEventListener('click', () => {
-        window.location.href = '../goods/goods.html';
+        const inputName = document.querySelector("#plusForm input[name='modalosi']").value;
+        console.log("追加する推しの名前:", inputName);
+        closeModal(easyModalGoods); // 確認後、グッズモーダルを閉じる
     });
+
+    // 完了ボタン処理 (イベント)
     buttonConfirmEvents.addEventListener('click', () => {
-        window.location.href = '../goods/goods.html';
+        const inputName = document.querySelector("#plusFormEvents input[name='modalosi']").value;
+        console.log("追加する推しの名前:", inputName);
+        closeModal(easyModalEvents); // 確認後、イベントモーダルを閉じる
     });
 
-    window.addEventListener('click', (e) => {
-        if (e.target == modalGoods) modalGoods.style.display = 'none';
-        if (e.target == easyModalEvents) easyModalEvents.style.display = 'none'; // 変数名を変更
-    });
-
-
-
-// モーダルを表示する関数
-    function showModal(modalId) {
-        document.getElementById(modalId).style.display = "block";
+    // モーダルを非表示にする関数
+    function closeModal(modalElement) {
+        modalElement.style.display = 'none';
     }
 
-// モーダルを非表示にする関数
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = "none";
+    // モーダルを表示する関数
+    function showModal(modalElement) {
+        modalElement.style.display = 'block';
     }
 
-// ボタンのクリックイベントリスナーを追加
-    document.getElementById("plusButtonEvents").addEventListener("click", function() {
-        showModal("modalEvents"); // イベントモーダルを表示
+    // モーダル外側をクリックした場合にモーダルを閉じる
+    window.addEventListener("click", (event) => {
+        if (event.target === easyModalGoods) closeModal(easyModalGoods);
+        if (event.target === easyModalEvents) closeModal(easyModalEvents);
     });
 
-    document.getElementById("plusButtonGoods").addEventListener("click", function() {
-        showModal("modalGoods"); // 一般モーダルを表示
-    });
-
-// 閉じるボタンにイベントリスナーを追加
-    document.getElementById("closeModalGoodsv").addEventListener("click", function() {
-        closeModal("modalGoods");
-    });
-
-    document.getElementById("closeModalEvents").addEventListener("click", function() {
-        closeModal("modalEvents");
-    });
-
-// ウィンドウの外をクリックしたらモーダルを閉じる
-    window.onclick = function(event) {
-        if (event.target.className === "modal") {
-            closeModal("modalGoods");
-            closeModal("modalEvents");
-        }
-    };
+    // モーダルの「閉じる」ボタンにイベントリスナーを追加
+    document.getElementById("closeModalGoods").addEventListener("click", () => closeModal(easyModalGoods));
+    document.getElementById("closeModalEvents").addEventListener("click", () => closeModal(easyModalEvents));
+});
 
 
 document.querySelector('.back-button').addEventListener('click', function () {
@@ -180,101 +95,6 @@ document.getElementById('confirmReGoods').addEventListener('click', function () 
     }
 });
 
-
-function hidePlaceholder(input) {
-    const placeholder = input.nextElementSibling;
-    if (placeholder) placeholder.style.display = 'none';
-}
-
-function showPlaceholder(input) {
-    const placeholder = input.nextElementSibling;
-    if (!input.value && placeholder) {
-        placeholder.style.display = 'block';
-    }
-}
-
-
-
-
-// モーダルの完了ボタンとキャンセルボタンの処理(プラスボタン)
-const addButtonGoods = document.getElementById("AddGoods");
-const cancelButtonGoods = document.getElementById("ReGoods");
-const addButtonEvents = document.getElementById("AddEvents");
-const cancelButtonEvents = document.getElementById("ReEvents");
-
-// 完了ボタンをクリックしたときの処理 (グッズ)
-addButtonGoods.addEventListener("click", () => {
-    const inputName = document.querySelector("#plusForm input[name='modalosi']").value;
-    console.log("追加する推しの名前:", inputName);
-    closeModal("modalGoods");
-});
-
-// キャンセルボタンをクリックしたときの処理 (グッズ)
-cancelButtonGoods.addEventListener("click", () => {
-    closeModal("modalGoods");
-});
-
-// 完了ボタンをクリックしたときの処理 (イベント)
-addButtonEvents.addEventListener("click", () => {
-    const inputName = document.querySelector("#plusFormEvents input[name='modalosi']").value;
-    console.log("追加する推しの名前:", inputName);
-    closeModal("modalEvents");
-});
-
-// キャンセルボタンをクリックしたときの処理 (イベント)
-cancelButtonEvents.addEventListener("click", () => {
-    closeModal("modalEvents");
-});
-window.addEventListener("click", function(event) {
-    const modals = document.querySelectorAll(".modalbody");
-    modals.forEach(modal => {
-        if (event.target === modal) {
-            closeModal(modal.id);
-        }
-    });
-});
-});
-
-
-
-function hidePlaceholder(input) {
-    const placeholder = input.nextElementSibling;
-    if (placeholder) placeholder.style.display = 'none';
-}
-
-function showPlaceholder(input) {
-    const placeholder = input.nextElementSibling;
-    if (!input.value && placeholder) {
-        placeholder.style.display = 'block';
-    }
-}
-document.addEventListener('DOMContentLoaded', () => {
-    const dateInputs = document.querySelectorAll('input[type="date"]');
-
-    dateInputs.forEach(input => {
-        const placeholder = input.nextElementSibling;
-
-        // 初期表示の設定: inputが空ならプレースホルダーを表示
-        if (!input.value) {
-            placeholder.style.display = 'block';
-        }
-
-        // inputにフォーカスがあるときプレースホルダーを非表示
-        input.addEventListener('focus', () => hidePlaceholder(input));
-
-        // inputからフォーカスが外れたとき、入力がない場合にプレースホルダーを表示
-        input.addEventListener('blur', () => showPlaceholder(input));
-
-        // プレースホルダーをクリックするとinputにフォーカス
-        placeholder.addEventListener('click', () => input.focus());
-    });
-});
-
-
-
-
-
-
 document.getElementById('confirmReEvents').addEventListener('click', function () {
     // フォームを取得
     const form = document.querySelector('.events_add_form'); // classのフォームを取得
@@ -288,35 +108,63 @@ document.getElementById('confirmReEvents').addEventListener('click', function ()
 });
 
 
-//日付
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.input-container').forEach(container => {
-        const input = container.querySelector('.pl');  // input要素
-        const placeholder = container.querySelector('.date-text');  // プレースホルダー
 
-        // 初期状態でプレースホルダーに「日付を入力してください。」を表示
-        placeholder.style.display = 'block';  // 初期状態では表示
-        input.style.color = "#A9A8C2";  // 初期色（薄い色）
 
-        // フォーカス時に「年/月/日」のプレースホルダーに変更
-        input.addEventListener('focus', () => {
-            placeholder.style.display = 'none';  // プレースホルダーを非表示
-            input.style.color = "#221D7E";  // フォーカス時に色を濃く
-        });
+document.getElementById('modalOpenGoods').addEventListener('click', function() {
+    // グッズフォームからデータを取得
+    const goodsDate = document.getElementById('goods-date').value;
+    const goodsName = document.querySelector('.goods_name').value;
+    const goodsAmount = document.getElementById('goods-amount').value;
+    const goodsFavorite = document.getElementById('goods-menu').value;
+    const goodsMemo = document.getElementById('goods-memo').value;
+    const goodsPurchased = document.getElementById('goods-check').checked;
 
-        // フォーカスが外れたとき（blur）にプレースホルダーを再表示
-        input.addEventListener('blur', () => {
-            if (!input.value) {
-                placeholder.style.display = 'block';  // 入力がなければプレースホルダーを表示
-                input.style.color = "#A9A8C2";  // 色を元に戻す
-            }
-        });
+    // モーダルにデータを表示
+    document.getElementById('modal-goods-date').textContent = goodsDate;
+    document.getElementById('modal-goods-name').textContent = goodsName;
+    document.getElementById('modal-goods-amount').textContent = goodsAmount;
+    document.getElementById('modal-goods-favorite').textContent = goodsFavorite;
+    document.getElementById('modal-goods-memo').textContent = goodsMemo;
+    document.getElementById('modal-goods-purchased').checked = goodsPurchased;
 
-        // プレースホルダーをクリックしたら入力にフォーカス
-        placeholder.addEventListener('click', () => {
-            input.focus();  // プレースホルダーをクリックで入力フィールドにフォーカス
-        });
-    });
+    // モーダルを表示
+    document.getElementById('easyModalGoods').style.display = 'block';
 });
 
+document.getElementById('modalOpenEvents').addEventListener('click', function() {
+    // イベントフォームからデータを取得
+    const eventDate = document.getElementById('event-date').value;
+    const eventName = document.getElementById('event-name').value;
+    const eventAmount = document.getElementById('event-amount').value;
+    const eventFavorite = document.getElementById('event-menu').value;
+    const eventMemo = document.getElementById('event-memo').value;
+    const eventPurchased = document.getElementById('event-check').checked;
+
+    // モーダルにデータを表示
+    document.getElementById('modal-events-date').textContent = eventDate;
+    document.getElementById('modal-events-name').textContent = eventName;
+    document.getElementById('modal-events-amount').textContent = eventAmount;
+    document.getElementById('modal-events-favorite').textContent = eventFavorite;
+    document.getElementById('modal-events-memo').textContent = eventMemo;
+    document.getElementById('modal-events-purchased').checked = eventPurchased;
+
+    // モーダルを表示
+    document.getElementById('easyModalEvents').style.display = 'block';
+});
+document.getElementById('cancelReGoods').addEventListener('click', function() {
+    document.getElementById('easyModalGoods').style.display = 'none';
+});
+
+document.getElementById('cancelReEvents').addEventListener('click', function() {
+    document.getElementById('easyModalEvents').style.display = 'none';
+});
+document.getElementById('confirmReGoods').addEventListener('click', function() {
+    document.getElementById('goods_add').submit(); // フォーム送信
+    document.getElementById('easyModalGoods').style.display = 'none'; // モーダル閉じる
+});
+
+document.getElementById('confirmReEvents').addEventListener('click', function() {
+    document.getElementById('events_add').submit(); // フォーム送信
+    document.getElementById('easyModalEvents').style.display = 'none'; // モーダル閉じる
+});
 
