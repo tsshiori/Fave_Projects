@@ -5,14 +5,49 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.Bean.shiftBean;
 import utils.Bean.userBean;
 import utils.DAO.GenerateHash;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class LoginServlet extends HttpServlet {
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+                HttpSession session = request.getSession();
+                request.setCharacterEncoding("utf-8");
+                response.setContentType("text/UTF-8");
+
+                // フォームデータの取得
+                String log_id = request.getParameter("log_id");
+                userBean user = utils.DAO.userDAO.selectById(log_id);
+
+                ArrayList<shiftBean> shiftFuture = null;
+                int futureWage = 0;
+
+                try {
+                        shiftFuture = utils.DAO.shiftDAO.selectShiftAllFuture(log_id);
+
+
+                        for (shiftBean shift : shiftFuture) {
+                                LocalDateTime startdatetime = shift.getStartdatetime();
+                                LocalDateTime enddatetime = shift.getEnddatetime();
+                                int work_id = shift.getWork_id();
+                                int breaktime = shift.getBreaktime();
+                                int wage = shift.getWage();
+
+                                int addWage = utils.DAO.amounthandDAO.futureWage(startdatetime,enddatetime,work_id,breaktime,wage,log_id);
+                                futureWage += addWage;
+                        }
+
+                } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                }
+                session.setAttribute("futureWage",futureWage);
+
                 request.setAttribute("errorMessage", "ログインIDまたはパスワードが入力されていません。");
                 request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/login.jsp").forward(request, response);
         }
@@ -28,6 +63,7 @@ public class LoginServlet extends HttpServlet {
                 String log_id = request.getParameter("log_id");
                 String password = request.getParameter("password");
 
+
                 // 入力値の検証
                 if (log_id == null || log_id.isEmpty() || password == null || password.isEmpty()) {
                         request.setAttribute("errorMessage", "ログインIDまたはパスワードが入力されていません。");
@@ -37,6 +73,35 @@ public class LoginServlet extends HttpServlet {
 
                 // ユーザー情報の取得
                 utils.Bean.userBean user = utils.DAO.userDAO.selectById(log_id);
+                ArrayList<shiftBean> shiftFuture = null;
+                int futureWage = 0;
+
+                try {
+                        shiftFuture = utils.DAO.shiftDAO.selectShiftAllFuture(log_id);
+
+
+                        for (shiftBean shift : shiftFuture) {
+                                LocalDateTime startdatetime = shift.getStartdatetime();
+                                LocalDateTime enddatetime = shift.getEnddatetime();
+                                int work_id = shift.getWork_id();
+                                int breaktime = shift.getBreaktime();
+                                int wage = shift.getWage();
+
+                                int addWage = utils.DAO.amounthandDAO.futureWage(startdatetime,enddatetime,work_id,breaktime,wage,log_id);
+                                futureWage += addWage;
+                        }
+
+                } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                }
+                session.setAttribute("futureWage",futureWage);
+                int almosthand = user.getAmounthand();
+                session.setAttribute("almosthand",almosthand);
+
+
+
+
+
 
                 if (user == null) {
                         // ユーザーが存在しない場合
