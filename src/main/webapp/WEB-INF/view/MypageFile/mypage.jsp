@@ -79,6 +79,17 @@
             iconImg = "static/img/I_N.png"; // デフォルトのアイコン
     }
 %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="utils.Bean.faveBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="utils.Bean.categoryBean" %>
+
+<%
+    int futureWage = (int) session.getAttribute("futureWage");
+    int almosthand = (int) session.getAttribute("almosthand");
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -111,13 +122,19 @@
         <h2>≪METER≫</h2>
         <div class="meter-container">
             <!-- 背面のメーター -->
-            <meter class="background-meter" value="31.1" min="0" max="100"></meter>
+            <meter class="background-meter" value="<%=futureWage%>" min="0" max="10000"></meter>
             <!-- 前面のメーター -->
-            <meter class="foreground-meter" value="9.7" min="0" max="100"></meter>
+            <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="10000"></meter>
         </div>
         <div class="meterimg">
-            <div class="temoti"><img src="static/img/temoti.png" alt="temoti"></div>
-            <div class="kyuuryoubi"><img src="static/img/kyuuryoubi.png" alt="kyuuryoubi"></div>
+            <div class="temoti">
+                <img src="static/img/temoti.png" alt="temoti">
+                <span class="temoti-value">所持金額: <%=futureWage%></span> <!-- valueを表示する要素 -->
+            </div>
+            <div class="kyuuryoubi">
+                <img src="static/img/kyuuryoubi.png" alt="kyuuryoubi">
+                <span class="kyuuryoubi-value">給与予定額: <%=almosthand%></span> <!-- valueを表示する要素 -->
+            </div>
         </div>
     </div>
 </div>
@@ -259,6 +276,7 @@
         form.submit();
     }
 </script>
+<script src="static/js/all.js"></script>
 <footer>
     <p>© 2024 Time of Fave Inc. All Rights Reserved.</p>
 </footer>

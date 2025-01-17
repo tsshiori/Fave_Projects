@@ -1,6 +1,8 @@
 package com.example.fave.FaveFile;
 
 import java.io.*;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +13,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import utils.Bean.categoryBean;
 import utils.Bean.faveBean;
+import utils.Bean.shiftBean;
 import utils.Bean.userBean;
 
 @WebServlet("/Relate")
@@ -63,6 +66,33 @@ public class RelateServlet extends HttpServlet {
 // Mapをセッションに保存
         session.setAttribute("categoryTagMap", categoryTagMap);
 
+        ArrayList<shiftBean> shiftFuture = null;
+        int futureWage = 0;
+
+        try {
+            shiftFuture = utils.DAO.shiftDAO.selectShiftAllFuture(log_id);
+
+
+            for (shiftBean shift : shiftFuture) {
+                LocalDateTime startdatetime = shift.getStartdatetime();
+                LocalDateTime enddatetime = shift.getEnddatetime();
+                int work_id = shift.getWork_id();
+                int breaktime = shift.getBreaktime();
+                int wage = shift.getWage();
+
+                int addWage = utils.DAO.amounthandDAO.futureWage(startdatetime,enddatetime,work_id,breaktime,wage,log_id);
+                futureWage += addWage;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        int almosthand = user.getAmounthand();
+        int totalhand = almosthand + futureWage;
+        session.setAttribute("futureWage",totalhand);
+        session.setAttribute("almosthand",almosthand);
 
         request.getRequestDispatcher("/WEB-INF/view/FaveFile/relate.jsp").forward(request, response);
     }

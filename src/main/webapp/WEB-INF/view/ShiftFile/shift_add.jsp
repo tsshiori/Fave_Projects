@@ -13,6 +13,21 @@
     String log_id = user.getLog_id();
     ArrayList<workBean> worklist = (ArrayList<workBean>) session.getAttribute("worklist");
 %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="utils.Bean.faveBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="utils.Bean.categoryBean" %>
+
+<%
+    ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
+    Map<Integer, Integer> osiPriceMap = (Map<Integer, Integer>) session.getAttribute("osiout");
+    ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
+    Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
+    int futureWage = (int) session.getAttribute("futureWage");
+    int almosthand = (int) session.getAttribute("almosthand");
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -42,18 +57,18 @@
         <h2>≪METER≫</h2>
         <div class="meter-container">
             <!-- 背面のメーター -->
-            <meter class="background-meter" value="30920" min="0" max="99740"></meter>
+            <meter class="background-meter" value="<%=futureWage%>" min="0" max="10000"></meter>
             <!-- 前面のメーター -->
-            <meter class="foreground-meter" value="9860" min="0" max="99740"></meter>
+            <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="10000"></meter>
         </div>
         <div class="meterimg">
             <div class="temoti">
                 <img src="static/img/temoti.png" alt="temoti">
-                <span class="temoti-value">所持金額: 31.1</span> <!-- valueを表示する要素 -->
+                <span class="temoti-value">所持金額: <%=futureWage%></span> <!-- valueを表示する要素 -->
             </div>
             <div class="kyuuryoubi">
                 <img src="static/img/kyuuryoubi.png" alt="kyuuryoubi">
-                <span class="kyuuryoubi-value">給与予定額: 45.4</span> <!-- valueを表示する要素 -->
+                <span class="kyuuryoubi-value">給与予定額: <%=almosthand%></span> <!-- valueを表示する要素 -->
             </div>
         </div>
     </div>
