@@ -91,6 +91,9 @@ public class amounthandDAO {
             // 時間と分に基づいて給与計算
             delwage = finalHours * wage + (finalMinutes / 60) * wage;
             amounthand -= delwage;
+            if (amounthand <= 0){
+                amounthand = 0;
+            }
 
             // 給与計算の結果を更新
             pstmt.setInt(1, amounthand);  // 計算した給与額をセット

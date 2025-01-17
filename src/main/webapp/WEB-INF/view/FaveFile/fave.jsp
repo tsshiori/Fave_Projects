@@ -45,9 +45,9 @@
         <h2>≪METER≫</h2>
         <div class="meter-container">
             <!-- 背面のメーター -->
-            <meter class="background-meter" value="<%=futureWage%>" min="0" max="99740"></meter>
+            <meter class="background-meter" value="<%=futureWage%>" min="0" max="10000"></meter>
             <!-- 前面のメーター -->
-            <meter class="foreground-meter" value="<%=futureWage + almosthand%>" min="0" max="99740"></meter>
+            <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="10000"></meter>
         </div>
         <div class="meterimg">
             <div class="temoti">
@@ -56,7 +56,7 @@
             </div>
             <div class="kyuuryoubi">
                 <img src="static/img/kyuuryoubi.png" alt="kyuuryoubi">
-                <span class="kyuuryoubi-value">給与予定額: <%=futureWage + almosthand%></span> <!-- valueを表示する要素 -->
+                <span class="kyuuryoubi-value">給与予定額: <%=almosthand%></span> <!-- valueを表示する要素 -->
             </div>
         </div>
     </div>

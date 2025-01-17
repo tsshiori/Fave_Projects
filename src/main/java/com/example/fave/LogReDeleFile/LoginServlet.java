@@ -94,8 +94,11 @@ public class LoginServlet extends HttpServlet {
                 } catch (SQLException e) {
                         throw new RuntimeException(e);
                 }
-                session.setAttribute("futureWage",futureWage);
+
+
                 int almosthand = user.getAmounthand();
+                int totalhand = almosthand + futureWage;
+                session.setAttribute("futureWage",totalhand);
                 session.setAttribute("almosthand",almosthand);
 
 
