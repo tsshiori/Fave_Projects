@@ -1,52 +1,98 @@
 package com.example.fave.GoodsFile;
 
 import java.io.*;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import utils.Bean.faveBean;
+import utils.Bean.userBean;
 import utils.DAO.goodsDAO;
 
 @WebServlet("/GoodsAdd")
 public class GoodsAddServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
+
+        userBean user = (userBean) session.getAttribute("user");
+        String log_id = user.getLog_id();
+
+        ArrayList<faveBean> favelist = utils.DAO.faveDAO.selectFaveAll(log_id);
+        session.setAttribute("favelist", favelist);
+
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/GoodsFile/goods_add.jsp");
         dispatcher.forward(request, response);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
 
+        // セッションからユーザー情報を取得
+        userBean user = (userBean) session.getAttribute("user");
+        String log_id = user.getLog_id();
+
         // リクエストパラメータを取得
-        String goodsDate = request.getParameter("goods_date");
-        String goodsName = request.getParameter("goods_name");
-        String goodsAmount = request.getParameter("amount_cost");
-        String goodsFavorite = request.getParameter("goods_favorite");
-        String goodsMemo = request.getParameter("goods_memo");
-
+        LocalDate day = null;
         try {
-            // DAOを使用してデータベースに登録
-            goodsDAO dao = new goodsDAO();
-            dao.addGoods(goodsDate, goodsName, goodsAmount, goodsFavorite, goodsMemo);
-
-            // 処理後、リダイレクトまたは結果ページへ
-            response.sendRedirect("WorkServlet");
+            // 日付のパースエラー処理
+            day = LocalDate.parse(request.getParameter("day"));
         } catch (Exception e) {
-            e.printStackTrace();
-            // エラーページに遷移する場合
-            request.setAttribute("errorMessage", "登録処理中にエラーが発生しました。");
+            // 日付が正しくない場合、エラーメッセージを表示して処理を中断
+            request.setAttribute("errorMessage", "日付の形式が正しくありません。");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/error.jsp");
             dispatcher.forward(request, response);
+            return; // 処理を中断
         }
+
+        // 価格と商品名を取得
+        int price = Integer.parseInt(request.getParameter("price"));
+        String item = request.getParameter("item");
+
+        // purchaseパラメータの取得
+        String pur_before = request.getParameter("purchase");
+
+        // null または空文字の場合は 0 を設定
+        int purchase = 0;
+        if (pur_before != null && !pur_before.trim().isEmpty()) {
+            try {
+                purchase = Integer.parseInt(pur_before);
+            } catch (NumberFormatException e) {
+                // 購入金額のパースエラーが発生した場合、エラーメッセージを設定
+                request.setAttribute("errorMessage", "購入金額の形式が正しくありません。");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/error.jsp");
+                dispatcher.forward(request, response);
+                return; // 処理を中断
+            }
+        }
+
+        // その他のパラメータを取得
+        int osiId = Integer.parseInt(request.getParameter("osi_id"));
+        int priority = Integer.parseInt(request.getParameter("priority"));
+        String memo = request.getParameter("memo");
+
+        // 購入済チェックボックスの判定
+        int itemType = request.getParameter("itemtype") != null ? 1 : 0;
+
+
+            // goodsDAOを使用してデータベースに登録
+            goodsDAO dao = new goodsDAO();
+            dao.insertGoods(day, price, item, purchase, osiId, priority, memo, itemType);
+
+            // 処理後、リダイレクト先を設定
+            response.sendRedirect("goods_add"); // リダイレクト先を設定
+            return; // リダイレクト後のコードは実行されない
+
     }
+
 }
-//    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        request.setCharacterEncoding("UTF-8");
-//        response.setContentType("text/UTF-8");
-//        HttpSession session = request.getSession();
-//
-//        response.sendRedirect("WorkServlet");
-//    }
-//}
