@@ -13,7 +13,7 @@ function updateImagePosition() {
 
     // `value` をメーターの横幅に変換（割合で位置を決定）
     const foregroundPosition = Math.min((foregroundMeter.value / foregroundMeter.max) * containerWidth, containerWidth);
-    const backgroundPosition = Math.min((backgroundMeter.value / backgroundMeter.max) * containerWidth, containerWidth);
+    const backgroundPosition = Math.min((backgroundMeter.value  / backgroundMeter.max) * containerWidth, containerWidth);
 
 
     // 画像の位置を更新
@@ -37,7 +37,8 @@ const backgroundMeter0 = document.querySelector('.background-meter');
 
 // 初期状態でvalueを設定
 temotiValue.textContent = `所持金額: ¥${foregroundMeter0.value}`;
-kyuuryoubiValue.textContent = `給与予定額: ¥${backgroundMeter0.value}`;
+const back0 = backgroundMeter0.value - foregroundMeter0.value;
+kyuuryoubiValue.textContent = `給与予定額: ¥${back0}`;
 
 // 金額にカンマ区切りを追加する関数
 function formatAmount(amount) {
@@ -50,9 +51,11 @@ foregroundMeter0.addEventListener('input', () => {
 });
 
 backgroundMeter0.addEventListener('input', () => {
-    kyuuryoubiValue.textContent = `給与予定額: ¥${formatAmount(backgroundMeter0.value)}`;
+    kyuuryoubiValue.textContent = `給与予定額: ¥${formatAmount(back0)}`;
 });
 
 // 初期状態で金額をフォーマットして表示
 temotiValue.textContent = `所持金額: ¥${formatAmount(foregroundMeter0.value)}`;
-kyuuryoubiValue.textContent = `給与予定額: ¥${formatAmount(backgroundMeter0.value)}`;
+kyuuryoubiValue.textContent = `給与予定額: ¥${formatAmount(back0)}`;
+
+

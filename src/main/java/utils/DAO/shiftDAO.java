@@ -279,4 +279,83 @@ public class shiftDAO {
             e.printStackTrace();
         }
     }
+
+    public static ArrayList<shiftBean> selectShiftAllFuture(String log_id) throws SQLException {
+        // worklists を取得
+        ArrayList<workBean> worklists = selectWorkAll(log_id);
+
+        // work_id をリスト化
+        ArrayList<Integer> workIds = new ArrayList<>();
+        for (workBean work : worklists) {
+            workIds.add(work.getWork_id());
+        }
+
+        // work_id リストが空の場合、空の結果を返す
+        if (workIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        // SQL クエリを動的に作成 (IN 句)
+        StringBuilder sql = new StringBuilder("SELECT * FROM shift WHERE work_id IN (");
+        for (int i = 0; i < workIds.size(); i++) {
+            sql.append("?");
+            if (i < workIds.size() - 1) {
+                sql.append(", ");
+            }
+        }
+        sql.append(") AND startdatetime >= ?"); // 今日以降のシフトのみ
+
+        ArrayList<shiftBean> results = new ArrayList<>();
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql.toString())
+        ) {
+            // プレースホルダーに値を設定
+            for (int i = 0; i < workIds.size(); i++) {
+                pstmt.setInt(i + 1, workIds.get(i));
+            }
+
+            // 今日の日付（現在の日時）を設定
+            pstmt.setTimestamp(workIds.size() + 1, Timestamp.valueOf(LocalDateTime.now()));
+
+            // デバッグ: SQL とパラメータの確認
+            System.out.println("Executing SQL: " + sql);
+            System.out.println("With work_ids: " + workIds);
+            System.out.println("With current timestamp: " + LocalDateTime.now());
+
+            // クエリ実行
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    // shiftBeanのインスタンスを作成
+                    shiftBean shift = new shiftBean(
+                            rs.getInt("shift_id"),
+                            rs.getTimestamp("startdatetime").toLocalDateTime(),
+                            rs.getTimestamp("enddatetime").toLocalDateTime(),
+                            rs.getInt("work_id"),
+                            rs.getInt("breaktime"),
+                            rs.getInt("wage")
+                    );
+
+                    // work_idに基づいて勤務先（work_name）を取得
+                    for (workBean work : worklists) {
+                        if (work.getWork_id() == shift.getWork_id()) {
+                            shift.setWork_name(work.getWork()); // 勤務先名を設定
+                            break;
+                        }
+                    }
+
+                    // 結果リストに追加
+                    results.add(shift);
+                }
+            }
+        } catch (SQLException e) {
+            // エラー出力
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return results;
+    }
+
 }

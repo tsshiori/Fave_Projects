@@ -58,6 +58,9 @@ public class MypageEditServlet extends HttpServlet {
 
         user = utils.DAO.userDAO.selectById(log_id);
         session.setAttribute("user", user);
+        int almosthand = user.getAmounthand();
+        session.setAttribute("almosthand",almosthand);
+
 
 // リダイレクト
         response.sendRedirect("MypageServlet");
