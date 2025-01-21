@@ -106,8 +106,8 @@
         </div>
         <br><br>
         <div id="goods" class="scroll-content group content-item active">
-            <form id="goods_add" action="GoodsAdd" method="post" class="goods_add_form">
-                <input type="hidden" value="" name="url">
+            <form id="goods_add" action="goods_add" method="post" class="goods_add_form">
+
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input name="day" type="date" id="goods-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
@@ -152,23 +152,23 @@
                     <div class="icon container">
                         <label>
                             <input type="radio" id="icon-0" name="icon" value="0" checked>
-                            <img src="static/img/Y_A.png" alt="a">
+                            <img src="static/img/Y_0.png" alt="a">
                         </label>
                         <label>
                             <input type="radio" id="icon-1" name="icon" value="1">
-                            <img src="static/img/Y_B.png" alt="b">
+                            <img src="static/img/Y_1.png" alt="b">
                         </label>
                         <label>
                             <input type="radio" id="icon-2" name="icon" value="2" checked>
-                            <img src="static/img/Y_C.png" alt="c">
+                            <img src="static/img/Y_2.png" alt="c">
                         </label>
                         <label>
                             <input type="radio" id="icon-3" name="icon" value="3">
-                            <img src="static/img/Y_D.png" alt="d">
+                            <img src="static/img/Y_3.png" alt="d">
                         </label>
                         <label>
                             <input type="radio" id="icon-4" name="icon" value="4">
-                            <img src="static/img/Y_E.png" alt="e">
+                            <img src="static/img/Y_4.png" alt="e">
                         </label>
                     </div>
                 </div>
@@ -181,7 +181,7 @@
                 <!-- 購入済 -->
                 <div class="form-group">
                     <label>購入済：</label>
-                    <input type="checkbox" id="goods-check" class="purchased" name="purchase">
+                    <input type="checkbox" id="goods-check" class="purchased" name="purchase" value="1">
                     <span class="small-text">※購入済みの場合はチェックを入れてください。</span>
                 </div>
                 <div class="form-group">
@@ -194,7 +194,7 @@
         </div>
         <!-- イベントフォーム -->
         <div id="events" class="group content-item">
-            <form action="GoodsAdd" method="post" class="events_add_form">
+            <form action="goods_add" method="post" class="events_add_form">
                 <input type="hidden" value="" name="url">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
@@ -211,10 +211,23 @@
                 </div>
                 <div class="form-group">
                     <label class="favo"><span class="req">＊</span> 推し：</label>
-                    <select id="event-menu" name="purchase">
+                    <select name="osi_id">
                         <option value="" disabled selected hidden>推しを選択してください。</option>
-                        <option value="option1">カンパネルラ</option>
-                        <option value="option2">ミューズ</option>
+                        <%
+                            if (favelist != null && !favelist.isEmpty()) {
+                                for (faveBean fave : favelist) {
+                        %>
+                        <option value="<%= fave.getOsi_id() %>" data-name="<%= fave.getName() %>">
+                            <%= fave.getName() %>
+                        </option>
+                        <%
+                            }
+                        } else {
+                        %>
+                        <option value="-1" disabled>推しが未登録です</option>
+                        <%
+                            }
+                        %>
                     </select>
                     <div id="plusButtonEvents" class="btn-plus">
                         <button class="plus" type="button">
@@ -226,24 +239,24 @@
                 <div class="form-group">
                     <div class="icon container">
                         <label>
-                            <input type="radio" name="icon" value="0" checked>
-                            <img src="static/img/Y_A.png" alt="a">
+                            <input type="radio" id="icon-0-event" name="icon" value="0" checked>
+                            <img src="static/img/Y_0.png" alt="a">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="1">
-                            <img src="static/img/Y_B.png" alt="b">
+                            <input type="radio" id="icon-1-event" name="icon" value="1">
+                            <img src="static/img/Y_1.png" alt="b">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="2">
-                            <img src="static/img/Y_C.png" alt="c">
+                            <input type="radio" id="icon-2-event" name="icon" value="2" checked>
+                            <img src="static/img/Y_2.png" alt="c">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="3">
-                            <img src="static/img/Y_D.png" alt="d">
+                            <input type="radio" id="icon-3-event" name="icon" value="3">
+                            <img src="static/img/Y_3.png" alt="d">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="4">
-                            <img src="static/img/Y_E.png" alt="e">
+                            <input type="radio" id="icon-4-event" name="icon" value="4">
+                            <img src="static/img/Y_4.png" alt="e">
                         </label>
                     </div>
                 </div>
@@ -255,7 +268,7 @@
                 <!-- 購入済 -->
                 <div class="form-group">
                     <label>購入済：</label>
-                    <input type="checkbox" id="event-check" class="purchased" name="purchase">
+                    <input type="checkbox" id="event-check" class="purchased" name="purchase" value="1">
                     <span class="small-text">※購入済みの場合はチェックを入れてください。</span>
                 </div>
                 <div class="form-group">
@@ -273,6 +286,7 @@
                 <h1>以下の内容でよろしいですか？</h1>
             </div>
             <div class="modal-body">
+
                 <table>
                     <tr>
                         <th>日付：</th>
@@ -300,7 +314,7 @@
                     </tr>
                     <tr>
                         <th>購入済：</th>
-                        <td><input type="checkbox" id="modal-goods-purchased"></td>
+                        <td  id="modal-goods-purchased"></td>
                     </tr>
                 </table>
                 <button id="confirmReGoods" type="button" class="btn2">追加</button>
@@ -342,7 +356,7 @@
                 </tr>
                 <tr>
                     <th>購入済：</th>
-                    <td><input type="checkbox" id="modal-events-purchased"></td>
+                    <td  id="modal-events-purchased"></td>
                 </tr>
             </table>
             <button id="confirmReEvents" type="button" class="btn2">追加</button>

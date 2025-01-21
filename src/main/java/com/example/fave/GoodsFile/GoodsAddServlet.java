@@ -1,11 +1,9 @@
 package com.example.fave.GoodsFile;
 
 import java.io.*;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -28,7 +26,6 @@ public class GoodsAddServlet extends HttpServlet {
         ArrayList<faveBean> favelist = utils.DAO.faveDAO.selectFaveAll(log_id);
         session.setAttribute("favelist", favelist);
 
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/GoodsFile/goods_add.jsp");
         dispatcher.forward(request, response);
     }
@@ -38,61 +35,102 @@ public class GoodsAddServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
 
-        // セッションからユーザー情報を取得
         userBean user = (userBean) session.getAttribute("user");
         String log_id = user.getLog_id();
 
-        // リクエストパラメータを取得
+        List<String> errors = new ArrayList<>();
+
+        // 日付のバリデーション
         LocalDate day = null;
         try {
-            // 日付のパースエラー処理
             day = LocalDate.parse(request.getParameter("day"));
         } catch (Exception e) {
-            // 日付が正しくない場合、エラーメッセージを表示して処理を中断
-            request.setAttribute("errorMessage", "日付の形式が正しくありません。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/error.jsp");
-            dispatcher.forward(request, response);
-            return; // 処理を中断
+            errors.add("日付の形式が正しくありません。");
         }
 
-        // 価格と商品名を取得
-        int price = Integer.parseInt(request.getParameter("price"));
-        String item = request.getParameter("item");
-
-        // purchaseパラメータの取得
-        String pur_before = request.getParameter("purchase");
-
-        // null または空文字の場合は 0 を設定
-        int purchase = 0;
-        if (pur_before != null && !pur_before.trim().isEmpty()) {
+        // 価格のバリデーション
+        int price = 0;
+        String priceString = request.getParameter("price");
+        if (priceString != null && !priceString.trim().isEmpty()) {
             try {
-                purchase = Integer.parseInt(pur_before);
+                price = Integer.parseInt(priceString);
             } catch (NumberFormatException e) {
-                // 購入金額のパースエラーが発生した場合、エラーメッセージを設定
-                request.setAttribute("errorMessage", "購入金額の形式が正しくありません。");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/error.jsp");
-                dispatcher.forward(request, response);
-                return; // 処理を中断
+                errors.add("金額の形式が正しくありません。");
             }
+        } else {
+            errors.add("金額を入力してください。");
+        }
+
+        // 商品名のバリデーション
+        String item = request.getParameter("item");
+        if (item == null || item.trim().isEmpty()) {
+            errors.add("商品名を入力してください。");
+        }
+
+        // purchaseパラメータのバリデーション
+        int purchase = 0;
+        String purBefore = request.getParameter("purchase");
+        if (purBefore != null && !purBefore.trim().isEmpty()) {
+            try {
+                purchase = Integer.parseInt(purBefore);
+            } catch (NumberFormatException e) {
+                errors.add("購入金額の形式が正しくありません。");
+            }
+        } else {
+            purchase = 0; // purchaseがnullまたは空の場合、0に設定
+        }
+
+        // memoのnullチェック（memoはString型なので空文字やnullを許容）
+        String memo = request.getParameter("memo");
+        if (memo == null) {
+            memo = ""; // nullの場合は空文字にする
+        }
+
+        // エラーがある場合は元のページに戻る
+        if (!errors.isEmpty()) {
+            request.setAttribute("errors", errors);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/GoodsFile/goods_add.jsp");
+            dispatcher.forward(request, response);
+            return;
         }
 
         // その他のパラメータを取得
-        int osiId = Integer.parseInt(request.getParameter("osi_id"));
-        int priority = Integer.parseInt(request.getParameter("priority"));
-        String memo = request.getParameter("memo");
+        int osiId = 0;
+        String osiIdString = request.getParameter("osi_id");
+        if (osiIdString != null && !osiIdString.trim().isEmpty()) {
+            try {
+                osiId = Integer.parseInt(osiIdString);
+            } catch (NumberFormatException e) {
+                errors.add("OSI IDの形式が正しくありません。");
+            }
+        }
 
-        // 購入済チェックボックスの判定
+        int priority = 0;
+        String priorityString = request.getParameter("priority");
+        if (priorityString != null && !priorityString.trim().isEmpty()) {
+            try {
+                priority = Integer.parseInt(priorityString);
+            } catch (NumberFormatException e) {
+                errors.add("優先度の形式が正しくありません。");
+            }
+        }
+
+        // itemtype（0:グッズ, 1:イベント）を取得
         int itemType = request.getParameter("itemtype") != null ? 1 : 0;
 
+        // エラーがある場合は元のページに戻る
+        if (!errors.isEmpty()) {
+            request.setAttribute("errors", errors);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/GoodsFile/goods_add.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
 
-            // goodsDAOを使用してデータベースに登録
-            goodsDAO dao = new goodsDAO();
-            dao.insertGoods(day, price, item, purchase, osiId, priority, memo, itemType);
+        // データベースに登録
+        goodsDAO dao = new goodsDAO();
+        dao.insertGoods(day, price, item, purchase, osiId, priority, memo, itemType);
 
-            // 処理後、リダイレクト先を設定
-            response.sendRedirect("goods_add"); // リダイレクト先を設定
-            return; // リダイレクト後のコードは実行されない
-
+        // 処理後のリダイレクト
+        response.sendRedirect("fave");
     }
-
 }
