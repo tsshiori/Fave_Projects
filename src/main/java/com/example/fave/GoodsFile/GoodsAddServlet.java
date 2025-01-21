@@ -1,6 +1,7 @@
 package com.example.fave.GoodsFile;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import utils.DAO.goodsDAO;
 
 @WebServlet("/GoodsAdd")
 public class GoodsAddServlet extends HttpServlet {
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -34,7 +36,6 @@ public class GoodsAddServlet extends HttpServlet {
         try {
             shiftFuture = utils.DAO.shiftDAO.selectShiftAllFuture(log_id);
 
-
             for (shiftBean shift : shiftFuture) {
                 LocalDateTime startdatetime = shift.getStartdatetime();
                 LocalDateTime enddatetime = shift.getEnddatetime();
@@ -42,7 +43,7 @@ public class GoodsAddServlet extends HttpServlet {
                 int breaktime = shift.getBreaktime();
                 int wage = shift.getWage();
 
-                int addWage = utils.DAO.amounthandDAO.futureWage(startdatetime,enddatetime,work_id,breaktime,wage,log_id);
+                int addWage = utils.DAO.amounthandDAO.futureWage(startdatetime, enddatetime, work_id, breaktime, wage, log_id);
                 futureWage += addWage;
             }
 
@@ -50,12 +51,10 @@ public class GoodsAddServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-
         int almosthand = user.getAmounthand();
         int totalhand = almosthand + futureWage;
-        session.setAttribute("futureWage",totalhand);
-        session.setAttribute("almosthand",almosthand);
-
+        session.setAttribute("futureWage", totalhand);
+        session.setAttribute("almosthand", almosthand);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/GoodsFile/goods_add.jsp");
         dispatcher.forward(request, response);
@@ -117,6 +116,20 @@ public class GoodsAddServlet extends HttpServlet {
             memo = ""; // nullの場合は空文字にする
         }
 
+        // itemtype（0:グッズ, 1:イベント）の取得
+        int itemType = 0; // デフォルトはグッズ
+        String itemTypeString = request.getParameter("itemtype");
+        if (itemTypeString != null) {
+            try {
+                itemType = Integer.parseInt(itemTypeString);
+                if (itemType != 0 && itemType != 1) {
+                    errors.add("itemtypeは0または1でなければなりません。");
+                }
+            } catch (NumberFormatException e) {
+                errors.add("itemtypeの形式が正しくありません。");
+            }
+        }
+
         // エラーがある場合は元のページに戻る
         if (!errors.isEmpty()) {
             request.setAttribute("errors", errors);
@@ -145,9 +158,6 @@ public class GoodsAddServlet extends HttpServlet {
                 errors.add("優先度の形式が正しくありません。");
             }
         }
-
-        // itemtype（0:グッズ, 1:イベント）を取得
-        int itemType = request.getParameter("itemtype") != null ? 1 : 0;
 
         // エラーがある場合は元のページに戻る
         if (!errors.isEmpty()) {
