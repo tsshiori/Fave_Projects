@@ -99,6 +99,45 @@ public class ShiftAddServlet extends HttpServlet {
 
         // 正常な場合のみシフトをデータベースに挿入
         shiftDAO.insertShift(shift_id, startdatetime, enddatetime, work_id, breaktime, wage, zikyuchange, log_id);
+
+        // startdatetimeが今日より前かどうかを調べる
+        // 今日の日付
+        LocalDateTime today = LocalDateTime.now();
+        if (startdatetime.isBefore(today)) {
+            //startdatetimeが昨日以前ならamounthandに追加
+            int amounthand = user.getAmounthand();
+            utils.DAO.amounthandDAO.insertADayWage(startdatetime, enddatetime, work_id, breaktime, wage, log_id, amounthand);
+            user = utils.DAO.userDAO.selectById(log_id);
+            session.setAttribute("user",user);
+        }
+
+
+        ArrayList<shiftBean> shiftFuture = null;
+        int futureWage = 0;
+
+        try {
+            shiftFuture = utils.DAO.shiftDAO.selectShiftAllFuture(log_id);
+
+
+            for (shiftBean shift : shiftFuture) {
+                LocalDateTime startdatetime2 = shift.getStartdatetime();
+                LocalDateTime enddatetime2 = shift.getEnddatetime();
+                int work_id2 = shift.getWork_id();
+                int breaktime2 = shift.getBreaktime();
+                int wage2 = shift.getWage();
+
+                int addWage = utils.DAO.amounthandDAO.futureWage(startdatetime2,enddatetime2,work_id2,breaktime2,wage2,log_id);
+                futureWage += addWage;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        session.setAttribute("futureWage",futureWage);
+
+
+
+
         response.sendRedirect("ShiftServlet");
     }
 }

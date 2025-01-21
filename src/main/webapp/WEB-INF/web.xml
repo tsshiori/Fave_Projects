@@ -199,4 +199,13 @@
         <url-pattern>/goods_osi_add</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>GoodsEditServlet</servlet-name>
+        <servlet-class>com.example.fave.GoodsFile.GoodsAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoodsEditServlet</servlet-name>
+        <url-pattern>/goods_edit</url-pattern>
+    </servlet-mapping>
+
 </web-app>
