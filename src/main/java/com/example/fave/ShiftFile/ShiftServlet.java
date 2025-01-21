@@ -2,6 +2,7 @@ package com.example.fave.ShiftFile;
 
 import java.io.*;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import jakarta.servlet.ServletException;
@@ -33,6 +34,34 @@ public class ShiftServlet extends HttpServlet {
 
         // シフトデータをリクエスト属性にセット
         session.setAttribute("shiftList", shiftList);
+
+        ArrayList<shiftBean> shiftFuture = null;
+        int futureWage = 0;
+
+        try {
+            shiftFuture = utils.DAO.shiftDAO.selectShiftAllFuture(log_id);
+
+
+            for (shiftBean shift : shiftFuture) {
+                LocalDateTime startdatetime = shift.getStartdatetime();
+                LocalDateTime enddatetime = shift.getEnddatetime();
+                int work_id = shift.getWork_id();
+                int breaktime = shift.getBreaktime();
+                int wage = shift.getWage();
+
+                int addWage = utils.DAO.amounthandDAO.futureWage(startdatetime,enddatetime,work_id,breaktime,wage,log_id);
+                futureWage += addWage;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        int almosthand = user.getAmounthand();
+        int totalhand = almosthand + futureWage;
+        session.setAttribute("futureWage",totalhand);
+        session.setAttribute("almosthand",almosthand);
 
         // JSP にフォワード
         request.getRequestDispatcher("/WEB-INF/view/ShiftFile/shift.jsp").forward(request, response);
