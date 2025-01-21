@@ -1,3 +1,4 @@
+// モーダルを開くための関数
 function toggleModal(modalId, displayStyle) {
     const modal = document.getElementById(modalId);
     if (modal) {
@@ -5,20 +6,13 @@ function toggleModal(modalId, displayStyle) {
     }
 }
 
-// モーダルを開く関数
-function toggleModal(modalId, displayStyle) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = displayStyle; // 指定された表示スタイルを適用
-    }
-}
 
-// モーダルを開く関数
+// 左側のモーダルを開く関数
 function openModal() {
     toggleModal('openModal', 'flex'); // モーダルを表示
 }
 
-// モーダルを閉じる関数
+// 左側のモーダルを閉じる関数
 function closeModal() {
     toggleModal('openModal', 'none'); // モーダルを非表示
 }
@@ -33,29 +27,19 @@ function closeDeleteModal() {
     toggleModal('deleteModal', 'none'); // 削除モーダルを非表示
 }
 
-function confirmDelete() {
-    // ここに削除処理を追加する場合は記述
-    // 例: アイテムの削除処理を行う
-
-    // goods.htmlをリロード
-    window.location.href = 'goods.html';
-}
+// 削除ボタンを押すときに使うやつ
+// function confirmDelete() {
+//     // ここに削除処理を追加する場合は記述
+//     // 例: アイテムの削除処理を行う
+//
+//     window.location.href = 'fave.jsp';
+// }
 
 // 閉じるボタンにイベントリスナーを設定
 document.getElementById("mClose").addEventListener("click", closeModal);
 
-// モーダルの外側をクリックした場合も閉じる
-window.onclick = function(event) {
-    const openModal = document.getElementById("openModal");
-    const deleteModal = document.getElementById("deleteModal");
-    if (event.target === openModal) {
-        closeModal();
-    } else if (event.target === deleteModal) {
-        closeDeleteModal();
-    }
-};
 
-// 左から右に移動
+// アイコンを押すと左から右に移動
 function moveToPurchased(event, itemId) {
     event.stopPropagation();
 
@@ -93,6 +77,7 @@ function moveToPurchased(event, itemId) {
     targetElement.classList.add('purchased-item');
     rightSide.appendChild(targetElement);
 }
+
 
 
 
@@ -229,15 +214,86 @@ function moveToRightSide(event, itemId) {
     targetElement.remove();
 }
 
-document.querySelector('.back-button').addEventListener('click', function () {
-    // 保存したURLを取得
-    const previousPage = localStorage.getItem('previousPage');
 
-    if (previousPage) {
-        // 保存したURLに戻る
-        window.location.href = previousPage;
-    } else {
-        alert('前のページが見つかりません');
+// 右側のモーダルを開くための関数
+function toggleRightModal(modalId, displayStyle) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = displayStyle; // 指定された表示スタイルを適用
     }
-});
+}
 
+
+// 右側のモーダルを開く関数
+function openRightModal(itemId) {
+    const modal = document.getElementById('modalOpenMain');  // 右側モーダル要素
+    const content = document.getElementById('modal-content-right');  // モーダル内のコンテンツ部分
+
+    // アイテム情報を取得してモーダルに設定
+    const itemElement = document.getElementById(itemId);
+    const itemName = itemElement.querySelector('.name').textContent;
+    const itemPrice = itemElement.querySelector('.price').textContent;
+    const itemOshi = itemElement.querySelector('.osi').textContent;
+
+    // モーダルに情報をセット
+    document.getElementById('item-name').textContent = itemName;
+    document.getElementById('item-price').textContent = itemPrice;
+    document.getElementById('item-oshi').textContent = itemOshi;
+    document.getElementById('item-date').textContent = '2024/11/16';
+
+    // 右側モーダルを表示
+    toggleRightModal('modalOpenMain', 'flex');
+}
+
+// 右側のモーダルを閉じる関数
+function closeRightModal() {
+    toggleRightModal('modalOpenMain', 'none'); // 右側モーダルを非表示にする
+}
+
+// 削除モーダルを開く
+function openRightDeleteModal(itemId) {
+    const deleteButton = document.getElementById('confirmDeleteButton');
+    if (deleteButton) {
+        deleteButton.setAttribute('data-item-id', itemId); // 削除対象のアイテムIDを設定
+    }
+    toggleRightModal('modalOpenDelete', 'flex'); // 削除モーダルを表示
+}
+
+// 削除モーダルを閉じる
+function closeRightDeleteModal() {
+    toggleRightModal('modalOpenDelete', 'none'); // モーダルを非表示
+}
+
+// 削除処理
+function confirmDelete() {
+    const deleteButton = document.getElementById('mDelete');
+    if (deleteButton) {
+        const itemId = deleteButton.getAttribute('data-item-id'); // アイテムIDを取得
+        const itemElement = document.getElementById(itemId); // 対象要素を取得
+
+        if (itemElement) {
+            itemElement.remove(); // アイテムを削除
+        } else {
+            console.error("削除対象のアイテムが見つかりません");
+        }
+    }
+    document.getElementById("goods_del_modal").submit();
+}
+
+// 各アイテムの削除ボタンを設定
+function setupDeleteButtons() {
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const itemId = button.closest('.purchased-right-item').id; // アイテムIDを取得
+            openRightDeleteModal(itemId); // 削除モーダルを開く
+            event.stopPropagation(); // 他のクリックイベントを防止
+        });
+    });
+}
+
+// ページ読み込み時に削除ボタンのイベントを設定
+document.addEventListener('DOMContentLoaded', () => {
+    setupDeleteButtons();
+    document.getElementById('mDelete').addEventListener('click', confirmDelete);
+});

@@ -103,20 +103,21 @@
 }
 
 .event-right {
-    background-color: #FFFFD1;
-    border: 1px solid;
+    background-color: rgba(255, 255, 180, 0.2); /* 半透明の背景色 */
+    border: 2px solid;
     border-color: #FFFFF3;
-    opacity: 0.2;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 3%;
-    max-width: 400px; /* 箱の幅を小さく設定 */
+    max-width: 400px;
     margin-right: auto;
     margin-left: auto;
+    top: -11px;
+    overflow: visible;
     position: relative;
-    top: -11px; /* これを調整して配置 */
-    overflow: visible; /* コンテンツがはみ出すようにする */
 }
+
+
 
 .purchase-icon {
     position: relative;
@@ -415,8 +416,12 @@
     background-color: rgba(0, 0, 0, 0.5); /* 背景の半透明 */
 }
 
-/* モーダルのコンテンツ */
-.modal-content {
+.modal-right {
+
+}
+
+/* 左右の最初開くときのモーダル */
+.modal-content, .modal-content-center, .modal-content-right {
     background-color: #DADCFB;
     border: 3px solid #221D7E;
     border-radius: 3.5px;
@@ -425,7 +430,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 42%;
-    height: 72%;
+    height: 72%; /* 統一した高さ */
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
     padding: 26px;
     min-width: 600px;
@@ -433,6 +438,25 @@
     font-size: 25px;
     font-weight: 700;
 }
+
+#deleteModal .modal-content-center {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 42%;
+    height: 80%; /* 統一した高さ */
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 26px;
+    min-width: 600px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+
 
 #mClose {
     font-family: "Noto Serif JP", serif;
@@ -509,18 +533,32 @@ table{
     top: 60px;
 }
 
+.memo-label-right {
+    color: #221D7E;
+    text-align: left; /* 左寄せ */
+    position: relative;
+    right: 140px;
+    top: 60px;
+}
+
+.memo-value-right {
+    color: #221D7E;
+    font-size: 17px;
+    position: relative;
+    right: 230px;
+    top: 100px;
+    margin-left: 10px; /* 左側にスペースを追加 */
+}
+
 .memo-value {
     color: #221D7E;
     font-size: 17px;
     position: relative;
     right: 246px;
     top: 90px;
-}
-
-/* 必要に応じてマージンやパディングを調整 */
-.memo-value {
     margin-left: 10px; /* 左側にスペースを追加 */
 }
+
 
 .arrow {
     text-align: center;
@@ -569,6 +607,20 @@ table{
     outline: none; /* フォーカス時のアウトラインも消す */
 }
 
+#mDeleteRightUnique {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 700;
+    padding: 5px 40px;
+    background-color: #FF6666;
+    border-radius: 3px;
+    margin-right: 9%;
+    height: 9%;
+    color: #221D7E;
+    border: none;  /* ボーダーを消す */
+    outline: none; /* フォーカス時のアウトラインも消す */
+}
+
 #mDelete:hover {
     background-color: #ff8787;
 }
@@ -588,11 +640,25 @@ table{
     border: none;
 }
 
+#mCancelRightUnique {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 700;
+    margin-top: 6%;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border-radius: 3px;
+    padding: 5px 20px;
+    text-decoration: none;
+    height: 9%;
+    border: none;
+}
+
 #mCancel:hover {
     background-color: #ececec;
 }
 
-/* 詳細情報のスタイル */
+/* 右側の詳細情報のスタイル */
 .delete-details {
     font-size: 19px;
     color: #221D7E;
@@ -631,25 +697,6 @@ table{
     height: 85px;
     border-radius: 50%; /* 丸い形にする */
 
-}
-
-
-.modal-content-center {
-    background-color: #DADCFB;
-    border: 3px solid #221D7E;
-    border-radius: 3.5px;
-    position: fixed;
-    top: 51%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 42%;
-    height: 83%;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
-    padding: 26px;
-    min-width: 600px;
-    text-align: center;
-    font-size: 25px;
-    font-weight: 700;
 }
 
 .modal-body table td {
@@ -707,7 +754,6 @@ img {
 
 
 .purchased-left-item {
-    background-color: #FFFFF3 !important; /* 背景色を強制適用 */
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 3%;
@@ -724,15 +770,139 @@ img {
     background-color: #FFFFF3;
 }
 
-body .purchased-left-item {
-    background-color: #FFFFF3; /* 背景色を再指定 */
-}
-
 
 .purchased-left-item img {
     border-radius: 50%; /* アイコンを丸くする */
     width: 60px;
 }
+
+/* 右側モーダルのスタイル */
+#deleteModalRight {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 300px;
+    background-color: #DDECFF;
+    border: 5px solid #2F5597;
+    border-radius: 10px;
+    z-index: 9999;
+    display: none; /* デフォルトで非表示 */
+}
+
+#deleteDetailsRight .modal-content-center {
+    padding: 20px;
+}
+
+#deleteModalRight h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#deleteModalRight .delete-h4,
+#deleteModalRight .delete-details {
+    margin-bottom: 20px;
+}
+
+#deleteModalRight .delete-btn,
+#deleteModalRight .cancel-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+
+/* 最初のモーダル用スタイル */
+#modalOpenMain .modal-content {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 42%;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2), 0 7px 20px rgba(0, 0, 0, 0.17);
+    padding: 26px;
+    min-width: 600px;
+    text-align: center;
+}
+
+#modalOpenMain .modal-image-right {
+    width: 100px; /* 必要に応じてサイズを調整 */
+    height: 100px; /* 必要に応じてサイズを調整 */
+    border-radius: 50%; /* 丸い形にする */
+    border: solid 1px #221D7E;
+    float: left; /* 左寄せにする */
+    margin-right: -30px; /* 画像とテキストの間にスペースを追加 */
+    position: relative; /* 今の位置を基準 */
+    top: 30px; /* 上から30px */
+    left: 20px;
+}
+
+/* 最初に開くモーダルのdeleteとeditボタンの配置 */
+.container .btn-right {
+    display: flex;
+    gap: 20px; /* アイコン同士の間隔を調整 */
+    justify-content: right;
+    align-items: center;
+    position: relative; /* 今の位置を基準 */
+    top: 140px; /* 上から153px */
+    right: 10px;
+}
+
+#rCloseMain {
+    font-family: "Noto Serif JP", serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border-radius: 3px;
+    padding: 10px 27px;
+    text-decoration: none;
+    border: none;
+    margin-top: 100px; /* ボタンを上に10px移動 */
+}
+
+#rCloseMain:hover {
+    background-color: #ececec;
+}
+
+
+/*右側の詳細情報*/
+.delete-details-right {
+    font-size: 25px;
+    color: #221D7E;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    width: 60%; /* テーブル全体の幅を調整 */
+    margin-left: 25%;
+    margin-right: 15%;
+    justify-content: center;
+}
+
+.delete-details-right table {
+    width: 100%;
+    margin: 0 auto; /* テーブル全体を中央に配置 */
+    border-collapse: collapse;
+}
+
+.delete-details-right th, .delete-details-right td {
+    padding: 4px;
+    text-align: right; /* 各セル内の内容を中央揃え */
+    vertical-align: middle;
+}
+
+.delete-details-right td {
+    text-align: left !important;
+}
+
+.delete-details-right th {
+    width: 120px;
+    font-weight: 700;
+}
+
 
 
 

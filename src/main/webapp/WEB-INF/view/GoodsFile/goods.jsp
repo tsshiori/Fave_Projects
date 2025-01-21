@@ -29,14 +29,24 @@
         <br>
         <h2>≪METER≫</h2>
         <div class="meter-container">
-            <meter class="background-meter" value="75" min="0" max="100"></meter>
-            <meter class="foreground-meter" value="60" min="0" max="100"></meter>
+            <!-- 背面のメーター -->
+            <meter class="background-meter" value="30920" min="0" max="99740"></meter>
+            <!-- 前面のメーター -->
+            <meter class="foreground-meter" value="9860" min="0" max="99740"></meter>
         </div>
         <div class="meterimg">
-            <div class="temoti"><img src="static/img/temoti.png" alt="temoti"></div>
-            <div class="kyuuryoubi"><img src="static/img/kyuuryoubi.png" alt="kyuuryoubi"></div>
+            <div class="temoti">
+                <img src="static/img/temoti.png" alt="temoti">
+                <span class="temoti-value">所持金額: 31.1</span> <!-- valueを表示する要素 -->
+            </div>
+            <div class="kyuuryoubi">
+                <img src="static/img/kyuuryoubi.png" alt="kyuuryoubi">
+                <span class="kyuuryoubi-value">給与予定額: 45.4</span> <!-- valueを表示する要素 -->
+            </div>
         </div>
     </div>
+
+
 </div>
 <br>
 <div class="maincontents container">
@@ -236,13 +246,13 @@
 
 
                     <!-- guzuu や event を右側に配置 -->
+                    <!-- アイテムの右側の内容 -->
                     <div class="right-side-one">
                         <div class="guzzu-right">
-                            <div class="container">
+                            <div class="container" id="right-item1" onclick="openRightModal('right-item1'); event.stopPropagation();">
                                 <div class="hi-img-right">
                                     <p>~11/16</p>
-                                    <img src="static/img/購入済.png" alt="J" class="purchase-icon"
-                                         onclick="moveToLeftSide(event, 'item1')">
+                                    <img src="static/img/購入済.png" alt="J" class="purchase-icon" onclick="moveToLeftSide(event, 'right-item1'); event.stopPropagation();">
                                 </div>
                                 <div class="inf-meter">
                                     <div class="name-container">
@@ -259,8 +269,54 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="guzzu-right" id="item2">
+                    <!-- 右側最初のモーダル -->
+                    <div id="modalOpenMain" class="modal">
+                        <div class="modal-content-right">
+                            <img src="static/img/購入済.png" alt="購入済" class="modal-image-right">
+
+                            <div class="delete-details-right">
+                            <table>
+                                <tr>
+                                    <th>グッズ：</th>
+                                    <td id="item-name">アクリルパネル</td>
+                                </tr>
+                                <tr>
+                                    <th>金額(円)：</th>
+                                    <td id="item-price">¥2,600</td>
+                                </tr>
+                                <tr>
+                                    <th>推し：</th>
+                                    <td id="item-oshi">カンパネルラ</td>
+                                </tr>
+                                <tr>
+                                    <th>日付：</th>
+                                    <td id="item-date">2024/11/16</td>
+                                </tr>
+                                <tr>
+                                    <td class="memo-label-right">メモ：</td>
+                                    <td class="value memo-value-right">ビジュがよき</td>
+                                </tr>
+                            </table>
+                            </div>
+
+                            <div class="container btn-right">
+                                <div class="img_icon">
+                                    <a href="goods_edit"><img src="static/img/EDIT2.png"></a>
+                                </div>
+                                <div class="img_icon">
+                                    <a href="#" onclick="openDeleteModal()"><img src="static/img/DELE2.png"></a>
+                                </div>
+                            </div>
+
+                            <button id="rCloseMain" type="button" class="btn" onclick="closeRightModal()">閉じる</button>
+                        </div>
+                    </div>
+
+
+
+                    <div class="guzzu-right" id="item2">
                             <div class="container">
                                 <div class="hi-img-right">
                                     <!-- アイコンをクリックして左側に移動する -->
@@ -400,7 +456,6 @@
 </div>
 
 <!-- モーダルウィンドウ -->
-<!-- 共通のモーダル -->
 <div id="openModal" class="modal">
     <div class="modal-content">
         <img src="static/img/Y_A.png" alt="Y_A" class="modal-image">
@@ -430,7 +485,7 @@
             </table>
             <div class="container btn">
                 <div class="img_icon">
-                    <a href="static/goods_edit/goods_edit.jsp"><img src="static/img/EDIT2.png"></a>
+                    <a href="goods_edit"><img src="static/img/EDIT2.png"></a>
                 </div>
                 <div class="img_icon">
                     <a href="#" onclick="openDeleteModal()"><img src="static/img/DELE2.png"></a>
@@ -441,8 +496,8 @@
     </div>
 </div>
 
-<!-- 削除用モーダル -->
-<div id="deleteModal" class="modal">
+<!-- 削除用モーダル 左 -->
+<div id="deleteModal" class="modal modal-left">
     <div class="modal-content-center">
         <h3>本当に削除しますか？</h3>
         <div class="delete-h4">
@@ -450,6 +505,7 @@
         </div>
 
         <div class="delete-details">
+            <form id="goods_del_modal" action="GoodsDelServlet" method="post">
             <table>
                 <tr>
                     <th>日付：</th>
@@ -477,26 +533,66 @@
                 </tr>
                 <tr>
                     <th>購入済：</th>
-                    <td><input type="checkbox" class="text">
+                    <td>
+                        <input type="checkbox" class="text">
                         <span class="text">※購入済みの場合はチェックを入れてください。</span>
                     </td>
                 </tr>
             </table>
+                <input name="goods_id" type="hidden" value="">
+            </form>
         </div>
 
-
-        <button id="mDelete" type="button" class="btn delete-btn" onclick="confirmDelete()">削除</button>
+        <button id="mDelete" type="button" class="btn delete-btn">削除</button>
         <button id="mCancel" type="button" class="btn cancel-btn" onclick="closeDeleteModal()">キャンセル</button>
     </div>
 </div>
 
 
+<!-- 削除用モーダル 右 -->
+<div id="deleteModalRight" class="modal modal-right">
+    <div class="modal-content-center">
+        <h3>右モーダルの内容</h3>
+        <div class="delete-h4">
+            <h6>こちらは右側に表示されるモーダルです。</h6>
+        </div>
+
+        <div class="delete-details">
+            <form id="goods_del_modal_right" action="GoodsDelServlet" method="post">
+                <table>
+                    <tr>
+                        <th>画像：</th>
+                        <td><img src="static/img/購入済.png" alt="サンプル画像" class="right-image"></td>
+                    </tr>
+                    <tr>
+                        <th>商品名：</th>
+                        <td>右モーダルの商品</td>
+                    </tr>
+                    <tr>
+                        <th>金額(円)：</th>
+                        <td>¥ 3,500</td>
+                    </tr>
+                </table>
+                <input name="goods_id" type="hidden" value="right-modal-id">
+            </form>
+        </div>
+
+        <button id="mDeleteRight" type="button" class="btn delete-btn">削除</button>
+        <button id="mCancelRight" type="button" class="btn cancel-btn" onclick="closeRightModal()">キャンセル</button>
+    </div>
+</div>
+
+
+
+<script src="static/js/all.js"></script>
 <script src="static/js/GoodsFile/goods.js"></script>
+
 
 
 <footer class="footer">
     <p>©️ 2024 Time for Fave. All rights reserved.</p>
 </footer>
+</div>
 </body>
 
 </html>
