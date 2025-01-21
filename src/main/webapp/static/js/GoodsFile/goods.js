@@ -103,7 +103,7 @@ function moveToLeft(event, itemId) {
     // アイコン変更
     const imgElement = targetElement.querySelector('img');
     if (imgElement) {
-        imgElement.src = 'static/img/Y_A.png';
+        imgElement.src = 'static/img/Y_0.png';
         imgElement.onclick = (e) => moveToPurchased(e, itemId); // 右に移動するイベントを設定
     }
 
@@ -153,7 +153,7 @@ function moveToLeftSide(event, itemId) {
     // アイコンの画像を変更する
     const imgElement = itemClone.querySelector('img');
     if (imgElement) {
-        imgElement.src = 'static/img/Y_A.png'; // 左側用の画像に変更
+        imgElement.src = 'static/img/Y_0.png'; // 左側用の画像に変更
         imgElement.onclick = (e) => moveToRightSide(e, itemId); // 右に戻すイベントを設定
     } else {
         console.error("画像が見つかりませんでした。");
