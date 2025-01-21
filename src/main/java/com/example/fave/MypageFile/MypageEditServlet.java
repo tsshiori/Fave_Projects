@@ -1,6 +1,8 @@
 package com.example.fave.MypageFile;
 
 import java.io.*;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import jakarta.servlet.RequestDispatcher;
@@ -8,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import utils.Bean.faveBean;
+import utils.Bean.shiftBean;
 import utils.Bean.userBean;
 import utils.DAO.faveDAO;
 
@@ -22,6 +25,34 @@ public class MypageEditServlet extends HttpServlet {
         String log_id = user.getLog_id();
         ArrayList<faveBean> favelist = faveDAO.selectFaveAll(log_id);
         session.setAttribute("favelist",favelist);
+
+        ArrayList<shiftBean> shiftFuture = null;
+        int futureWage = 0;
+
+        try {
+            shiftFuture = utils.DAO.shiftDAO.selectShiftAllFuture(log_id);
+
+
+            for (shiftBean shift : shiftFuture) {
+                LocalDateTime startdatetime = shift.getStartdatetime();
+                LocalDateTime enddatetime = shift.getEnddatetime();
+                int work_id = shift.getWork_id();
+                int breaktime = shift.getBreaktime();
+                int wage = shift.getWage();
+
+                int addWage = utils.DAO.amounthandDAO.futureWage(startdatetime,enddatetime,work_id,breaktime,wage,log_id);
+                futureWage += addWage;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        int almosthand = user.getAmounthand();
+        int totalhand = almosthand + futureWage;
+        session.setAttribute("futureWage",totalhand);
+        session.setAttribute("almosthand",almosthand);
 
 
         String path = "/WEB-INF/view/MypageFile/mypage_edit.jsp";
@@ -58,6 +89,9 @@ public class MypageEditServlet extends HttpServlet {
 
         user = utils.DAO.userDAO.selectById(log_id);
         session.setAttribute("user", user);
+        int almosthand = user.getAmounthand();
+        session.setAttribute("almosthand",almosthand);
+
 
 // リダイレクト
         response.sendRedirect("MypageServlet");

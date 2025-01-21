@@ -1,11 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: hrnea
-  Date: 2024/11/22
-  Time: 10:10
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="utils.Bean.faveBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="utils.Bean.categoryBean" %>
+
+<%
+    ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
+    Map<Integer, Integer> osiPriceMap = (Map<Integer, Integer>) session.getAttribute("osiout");
+    ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
+    Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
+    int futureWage = (int) session.getAttribute("futureWage");
+    int almosthand = (int) session.getAttribute("almosthand");
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -38,18 +47,18 @@
         <h2>≪METER≫</h2>
         <div class="meter-container">
             <!-- 背面のメーター -->
-            <meter class="background-meter" value="30920" min="0" max="99740"></meter>
+            <meter class="background-meter" value="<%=futureWage%>" min="0" max="10000"></meter>
             <!-- 前面のメーター -->
-            <meter class="foreground-meter" value="9860" min="0" max="99740"></meter>
+            <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="10000"></meter>
         </div>
         <div class="meterimg">
             <div class="temoti">
                 <img src="static/img/temoti.png" alt="temoti">
-                <span class="temoti-value">所持金額: 31.1</span> <!-- valueを表示する要素 -->
+                <span class="temoti-value">所持金額: <%=futureWage%></span> <!-- valueを表示する要素 -->
             </div>
             <div class="kyuuryoubi">
                 <img src="static/img/kyuuryoubi.png" alt="kyuuryoubi">
-                <span class="kyuuryoubi-value">給与予定額: 45.4</span> <!-- valueを表示する要素 -->
+                <span class="kyuuryoubi-value">給与予定額: <%=almosthand%></span> <!-- valueを表示する要素 -->
             </div>
         </div>
     </div>
@@ -113,24 +122,24 @@
         <div id="goods" class="scroll-content group content-item active">
             <form action="../goods/goods.html">
                 <div class="form-group input-container">
-                    <label for="date"><span class="req">＊</span> 日付：</label>
+                    <label><span class="req">＊</span> 日付：</label>
                     <input type="date" id="date" class="pl" onfocus="hidePlaceholder(this)"
                            onblur="showPlaceholder(this)">
                     <span class="date-text">日付を入力してください。</span>
                 </div>
 
                 <div class="form-group">
-                    <label for="goods_name"><span class="req">＊</span> グッズ名：</label>
+                    <label ><span class="req">＊</span> グッズ名：</label>
                     <input type="text" class="goods_name" name="goods_name" placeholder="グッズの名前を入力してください。" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="amount"><span class="req">＊</span> 金額(円)：</label>
+                    <label><span class="req">＊</span> 金額(円)：</label>
                     <input type="text" class="amount" name="amount" placeholder="グッズの金額を入力してください。" required>
                 </div>
 
                 <div class="form-group">
-                    <label class="favo" for="favorite"><span class="req">＊</span> 推し：</label>
+                    <label class="favo"><span class="req">＊</span> 推し：</label>
                     <select id="menu" name="menu">
                         <option value="" disabled selected hidden>推しを選択してください。</option>
                         <option value="option1">カンパネルラ</option>
@@ -170,12 +179,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="memo" class="memo-label">メモ：</label>
+                    <label class="memo-label">メモ：</label>
                     <textarea class="memo" name="memo" placeholder="メモを入力してください。"></textarea>
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="check">購入済：</label>
+                    <label >購入済：</label>
                     <input type="checkbox" class="purchased" name="purchased"><span
                         class="small-text">※購入済みの場合はチェックを入れてください。</span>
                 </div>
@@ -191,25 +200,25 @@
         <div id="events" class="group content-item">
             <form action="../goods/goods.html">
                 <div class="form-group input-container">
-                    <label for="event-date"><span class="req">＊</span> 日付：</label>
+                    <label><span class="req">＊</span> 日付：</label>
                     <input type="date" id="event-date" class="pl" onfocus="hidePlaceholder(this)"
                            onblur="showPlaceholder(this)">
                     <span class="date-text">日付を入力してください。</span>
                 </div>
 
                 <div class="form-group">
-                    <label for="goods_name"><span class="req">＊</span> イベント名：</label>
+                    <label><span class="req">＊</span> イベント名：</label>
                     <input type="text" class="goods_name" name="goods_name" placeholder="イベントの名前を入力してください。"
                            required>
                 </div>
 
                 <div class="form-group">
-                    <label for="amount"><span class="req">＊</span> 金額(円)：</label>
+                    <label><span class="req">＊</span> 金額(円)：</label>
                     <input type="text" class="amount" name="amount" placeholder="イベントの金額を入力してください。" required>
                 </div>
 
                 <div class="form-group">
-                    <label class="favo" for="favorite"><span class="req">＊</span> 推し：</label>
+                    <label class="favo" ><span class="req">＊</span> 推し：</label>
                     <select id="menu" name="menu">
                         <option value="" disabled selected hidden>推しを選択してください。</option>
                         <option value="option1">カンパネルラ</option>
@@ -250,12 +259,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="memo" class="memo-label">メモ：</label>
+                    <label class="memo-label">メモ：</label>
                     <textarea class="memo" name="memo" placeholder="メモを入力してください。"></textarea>
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="check">購入済：</label>
+                    <label>購入済：</label>
                     <input type="checkbox" class="purchased" name="purchased"><span
                         class="small-text">※参加済みの場合はチェックを入れてください。</span>
                 </div>
@@ -370,7 +379,7 @@
         </div>
         <form id="plusForm">
             <div class="modal-group">
-                <label for="modalosi" class="osi">推しの名前：</label>
+                <label class="osi">推しの名前：</label>
                 <input type="text" class="modalosi" name="modalosi" placeholder="推しを入力してください。">
             </div>
             <div class="modealbtn">
@@ -390,7 +399,7 @@
         </div>
         <form id="plusFormEvents">
             <div class="modal-group">
-                <label for="modalosi" class="osi">推しの名前：</label>
+                <label class="osi">推しの名前：</label>
                 <input type="text" class="modalosi" name="modalosi" placeholder="推しを入力してください。">
             </div>
             <div class="modealbtn">

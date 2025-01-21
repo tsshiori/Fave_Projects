@@ -6,10 +6,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.Bean.shiftBean;
 import utils.Bean.userBean;
 import utils.Bean.workBean;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @WebServlet("/WorkEditServlet")
@@ -35,8 +38,9 @@ public class WorkEditServlet extends HttpServlet {
                 int work_id = Integer.parseInt(workIdParam);
 
                 ArrayList<workBean> worklist = utils.DAO.workDAO.selectWorkAll(log_id);
+                int finalWork_id = work_id;
                 workBean targetWork = worklist.stream()
-                        .filter(work -> work.getWork_id() == work_id)
+                        .filter(work -> work.getWork_id() == finalWork_id)
                         .findFirst()
                         .orElse(null);
 
@@ -45,6 +49,34 @@ public class WorkEditServlet extends HttpServlet {
                         response.sendRedirect("WorkServlet");
                         return;
                 }
+
+                ArrayList<shiftBean> shiftFuture = null;
+                int futureWage = 0;
+
+                try {
+                        shiftFuture = utils.DAO.shiftDAO.selectShiftAllFuture(log_id);
+
+
+                        for (shiftBean shift : shiftFuture) {
+                                LocalDateTime startdatetime = shift.getStartdatetime();
+                                LocalDateTime enddatetime = shift.getEnddatetime();
+                                work_id = shift.getWork_id();
+                                int breaktime = shift.getBreaktime();
+                                int wage = shift.getWage();
+
+                                int addWage = utils.DAO.amounthandDAO.futureWage(startdatetime,enddatetime,work_id,breaktime,wage,log_id);
+                                futureWage += addWage;
+                        }
+
+                } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                }
+
+
+                int almosthand = user.getAmounthand();
+                int totalhand = almosthand + futureWage;
+                session.setAttribute("futureWage",totalhand);
+                session.setAttribute("almosthand",almosthand);
 
                 request.setAttribute("targetWork", targetWork);
                 request.getRequestDispatcher("/WEB-INF/view/WorkFile/work_edit.jsp").forward(request, response);

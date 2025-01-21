@@ -124,6 +124,34 @@ public class ShiftEditServlet extends HttpServlet {
                 } catch (SQLException e) {
                         throw new RuntimeException(e);
                 }
+
+
+
+                ArrayList<shiftBean> shiftFuture = null;
+                int futureWage = 0;
+
+                try {
+                        shiftFuture = utils.DAO.shiftDAO.selectShiftAllFuture(log_id);
+
+
+                        for (shiftBean shift : shiftFuture) {
+                                LocalDateTime startdatetime2 = shift.getStartdatetime();
+                                LocalDateTime enddatetime2 = shift.getEnddatetime();
+                                int work_id2 = shift.getWork_id();
+                                int breaktime2 = shift.getBreaktime();
+                                int wage2 = shift.getWage();
+
+                                int addWage = utils.DAO.amounthandDAO.futureWage(startdatetime2,enddatetime2,work_id2,breaktime2,wage2,log_id);
+                                futureWage += addWage;
+                        }
+
+                } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                }
+                session.setAttribute("futureWage",futureWage);
+
+
+
                 response.sendRedirect("ShiftServlet");
         }
 }

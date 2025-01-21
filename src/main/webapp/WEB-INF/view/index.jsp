@@ -1,7 +1,31 @@
-<%@ page import="utils.Bean.userBean" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="utils.Bean.userBean" %>
+<%@ page import="utils.Bean.goodsBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="utils.Bean.faveBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="utils.Bean.categoryBean" %>
+
+<%
+    ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
+    Map<Integer, Integer> osiPriceMap = (Map<Integer, Integer>) session.getAttribute("osiout");
+    ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
+    Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
+    int futureWage = (int) session.getAttribute("futureWage");
+    int almosthand = (int) session.getAttribute("almosthand");
+%>
+
 <!DOCTYPE html>
 <html lang="ja">
+<%
+    ArrayList<goodsBean> goodslist = (ArrayList<goodsBean>) session.getAttribute("goodslist");
+    // セッションからユーザー情報を取得
+    userBean user = (userBean) session.getAttribute("user");
+    // int mainwork = user.getMainwork(); // 必要であればこちらを有効化
+%>
+
 
 <head>
     <meta charset="UTF-8">
@@ -32,18 +56,18 @@
         <h2>≪METER≫</h2>
         <div class="meter-container">
             <!-- 背面のメーター -->
-            <meter class="background-meter" value="30920" min="0" max="99740"></meter>
+            <meter class="background-meter" value="<%=futureWage%>" min="0" max="10000"></meter>
             <!-- 前面のメーター -->
-            <meter class="foreground-meter" value="9860" min="0" max="99740"></meter>
+            <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="10000"></meter>
         </div>
         <div class="meterimg">
             <div class="temoti">
                 <img src="static/img/temoti.png" alt="temoti">
-                <span class="temoti-value">所持金額: 31.1</span> <!-- valueを表示する要素 -->
+                <span class="temoti-value">所持金額: <%=futureWage%></span> <!-- valueを表示する要素 -->
             </div>
             <div class="kyuuryoubi">
                 <img src="static/img/kyuuryoubi.png" alt="kyuuryoubi">
-                <span class="kyuuryoubi-value">給与予定額: 45.4</span> <!-- valueを表示する要素 -->
+                <span class="kyuuryoubi-value">給与予定額: <%=almosthand%></span> <!-- valueを表示する要素 -->
             </div>
         </div>
     </div>
@@ -91,140 +115,49 @@
     </aside>
 
     <div class="main scroll-box">
-        <a href="goods_add" id="plus-link"><img class="add" src="static/img/ADD.png" alt="add"></a>
+        <a href="goods_add" id="plus-link">
+            <img class="add" src="static/img/ADD.png" alt="add">
+        </a>
 
         <div class="scroll-content ge-list">
             <!-- グッズ詳細表示 -->
+            <% if (goodslist != null && !goodslist.isEmpty()) { %>
+            <% for (goodsBean goods : goodslist) { %>
             <a class="goods_detail_open" href="#">
-
                 <div class="guzzu">
                     <div class="container">
                         <div class="hi-img">
-                            <p>~11/16</p>
-                            <img src="static/img/Y_A.png" alt="A">
+                            <p>~<%= goods.getDay() %></p>
+                            <img src="static/img/<%= goods.getItemtype() %>.png" alt="<%= goods.getItem() %>">
                         </div>
                         <div class="inf-meter">
                             <div class="container osi-na-pri">
-                                <p class="osi">カンパネルラ</p>
-                                <p class="name">アクリルスタンド</p>
-                                <p class="price">¥1,980</p>
+                                <p class="osi"><%= goods.getOsi_id() %></p>
+                                <p class="name"><%= goods.getItem() %></p>
+                                <p class="price">&yen;<%= String.format("%,d", goods.getPrice()) %></p>
                             </div>
                             <div class="meter-app container">
                                 <div class="meter-container in-meter">
                                     <!-- メーター表示 -->
                                     <meter class="background-meter" value="100" min="0" max="100"></meter>
-                                    <meter class="foreground-meter" value="100" min="0" max="100"></meter>
+                                    <meter class="foreground-meter" value="<%= goods.getPurchase() %>" min="0" max="100"></meter>
                                 </div>
-                                <p class="app">Complete！</p>
+                                <p class="app">
+                                    <% if (goods.getPurchase() >= 100) { %>
+                                    Complete！
+                                    <% } else { %>
+                                    あと<span><%= goods.getPriority() %></span>回…
+                                    <% } %>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </a>
-
-
-
-
-            <div class="event">
-                <div class="container">
-                    <div class="hi-img">
-                        <p>~11/27</p>
-                        <img src="../img/Y_B.png" alt="B">
-                    </div>
-                    <div class="inf-meter">
-                        <div class="container osi-na-pri">
-                            <p class="osi">ミューズ</p>
-                            <p class="name">STARMINE　ver.4.0 </p>
-                            <p class="price">¥12,500</p>
-                        </div>
-                        <div class="meter-app container">
-                            <div class="meter-container in-meter">
-                                <!-- 背面のメーター -->
-                                <meter class="background-meter" value="100" min="0" max="100"></meter>
-                                <!-- 前面のメーター -->
-                                <meter class="foreground-meter" value="77.4" min="0" max="100"></meter>
-                            </div>
-                            <p class="app">Expected…</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="guzzu">
-                <div class="container">
-                    <div class="hi-img">
-                        <p>~12/6</p>
-                        <img src="../img/Y_C.png" alt="C">
-                    </div>
-                    <div class="inf-meter">
-                        <div class="container osi-na-pri">
-                            <p class="osi">ミューズ</p>
-                            <p class="name">ころころぬい ランダム</p>
-                            <p class="price">¥1,960</p>
-                        </div>
-                        <div class="meter-app container">
-                            <div class="meter-container in-meter">
-                                <!-- 背面のメーター -->
-                                <meter class="background-meter" value="100" min="0" max="100"></meter>
-                                <!-- 前面のメーター -->
-                                <meter class="foreground-meter" value="100" min="0" max="100"></meter>
-                            </div>
-                            <p class="app">Complete！</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="guzzu">
-                <div class="container">
-                    <div class="hi-img">
-                        <p>~11/16</p>
-                        <img src="../img/Y_D.png" alt="D">
-                    </div>
-                    <div class="inf-meter">
-                        <div class="container osi-na-pri">
-                            <p class="osi">カンパネルラ</p>
-                            <p class="name">銀河鉄道模型　受注生産</p>
-                            <p class="price">¥21,300</p>
-                        </div>
-                        <div class="meter-app container">
-                            <div class="meter-container in-meter">
-                                <!-- 背面のメーター -->
-                                <meter class="background-meter" value="100" min="0" max="100"></meter>
-                                <!-- 前面のメーター -->
-                                <meter class="foreground-meter" value="45.4" min="0" max="100"></meter>
-                            </div>
-                            <p class="app">あと<span>３</span>回…</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="event">
-                <div class="container">
-                    <div class="hi-img">
-                        <p>~2/18</p>
-                        <img src="../img/Y_E.png" alt="E">
-                    </div>
-                    <div class="inf-meter">
-                        <div class="container osi-na-pri">
-                            <p class="osi">ミューズ</p>
-                            <p class="name">STARLIVEツアー　コチョク</p>
-                            <p class="price">¥62,000</p>
-                        </div>
-                        <div class="meter-app container">
-                            <div class="meter-container in-meter">
-                                <!-- 背面のメーター -->
-                                <meter class="background-meter" value="34.3" min="0" max="100"></meter>
-                                <!-- 前面のメーター -->
-                                <meter class="foreground-meter" value="15.6" min="0" max="100"></meter>
-                            </div>
-                            <p class="app">シフトが<br>足りません…</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <% } %>
+            <% } else { %>
+            <p>登録されたグッズはありません。</p>
+            <% } %>
         </div>
     </div>
 </div>

@@ -139,7 +139,7 @@ input[type=radio] {
 
 input[type="text"],
 input[type="date"],
-textarea.memo,
+#event-memo,#goods-memo,
 .pl {
     font-family: "Noto Serif JP", serif;
     color: #221D7E;
@@ -152,7 +152,7 @@ textarea.memo,
     height: 40px;
 }
 
-textarea.memo {
+#goods-memo, #event-memo {
     resize: vertical;
     max-width: 400px;
     max-height: 300px;
@@ -648,4 +648,20 @@ td .text {
     width: 150px;
     vertical-align: top;
     text-align: right;
+}
+
+/* フォーカス時に文字色を濃く */
+.modalosi:focus {
+    color: #221D7E; /* フォーカス時の文字色 */
+    outline: none; /* デフォルトのアウトラインを消したい場合 */
+}
+
+/* プレースホルダーの文字色を薄く */
+.modalosi::placeholder {
+    color: #A9A8C2; /* プレースホルダーの文字色 */
+}
+
+/* 入力済み状態の文字色を濃く */
+.modalosi:not(:placeholder-shown) {
+    color: #221D7E; /* プレースホルダーが表示されていない状態の文字色 */
 }
