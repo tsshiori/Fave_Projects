@@ -28,10 +28,14 @@ public class Fave extends HttpServlet {
         Map<Integer,Integer> osiout = utils.DAO.faveDAO.selectPrice(log_id);
         session.setAttribute("osiout", osiout);
 
-        ArrayList<categoryBean> categorylist = utils.DAO.categoryDAO.selectCategory(log_id);
+        ArrayList<categoryBean> categorylist = utils.DAO.categoryDAO.selectCategoryAll(log_id);
         session.setAttribute("categorylist", categorylist);
 
+        String uploadDirPath = getServletContext().getRealPath("") + File.separator + "faveImg";
+        session.setAttribute("Path", uploadDirPath);
+
         Map<Integer, String> ositaglist = new HashMap<>(); // Mapの初期化
+
 
         if (favelist != null) {
             for (faveBean fave : favelist) {

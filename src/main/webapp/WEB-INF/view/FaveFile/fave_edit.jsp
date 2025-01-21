@@ -1,4 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="utils.Bean.faveBean" %>
+<%@ page import="utils.Bean.categoryBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="utils.Bean.tagBean" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="utils.Bean.osikatuBean" %>
+<%
+    ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
+
+    faveBean fave = (faveBean) session.getAttribute("fave");
+    categoryBean category = (categoryBean) session.getAttribute("category");
+    ArrayList<tagBean> tags = (ArrayList<tagBean>) request.getAttribute("tags");
+    Map<Integer,Integer> osiprice = (Map<Integer, Integer>) session.getAttribute("osiprice");
+    ArrayList<osikatuBean> goodslist = (ArrayList<osikatuBean>) session.getAttribute("goodslist");
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -92,23 +110,26 @@
     <div class="main scroll-box">
         <p class="hissu p">※ ＊は必須項目です。</p>
         <div class="scroll-content">
-            <form action="#">
+            <form id="fedit_form" action="FaveEdit" method="post" enctype="multipart/form-data">
                 <div class="container">
                     <div class="left_t">
                         <div class="left">
                             <div class="f_img">
-                                <img src="static/img/def.png" alt="カンパネルラ" id="preview">
+                                <img src="static/faveImg/<%= fave.getImg() %>" alt="<%= fave.getImg() %>" id="preview">
                             </div>
                         </div>
 
                         <div class="container">
                             <div class="aaa container">
                                 <label class="custom-file-select" for="fileInput" id="fileLabel">
-                                    　画像のアップロード
+                                    　<%= fave.getImg() %>
                                 </label>
                             </div>
                             <!-- 非表示のファイル選択フィールド -->
-                            <input type="file" id="fileInput" onchange="updateFileName()" accept="image/*">
+                            <input type="file" name="img" id="fileInput" onchange="updateFileName()" accept="image/*">
+
+                            <input type="hidden" id="currentImageUrl" value="static/faveImg/<%= fave.getImg() %>">
+                            <input name="null_ver_img" type="hidden" id="currentImageName" value="<%= fave.getImg() %>">
                         </div>
                     </div>
 
@@ -116,14 +137,18 @@
                         <table>
                             <tr>
                                 <th><span class="hissu">＊</span>名前：</th>
-                                <td><input type="text" name="name" placeholder="名前を入力してください。"></td>
+                                <td><input type="text" name="name" placeholder="名前を入力してください。" value="<%= fave.getName() %>"><br>
+                                    <p class="error-message" style="font-size: 15px; color: red">
+                                        <%= request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : "" %>
+                                    </p>
+                                </td>
                             </tr>
                             <tr>
                                 <th>誕生日：</th>
                                 <td>
                                     <div class="form-group input-container">
                                         <input type="date" id="event-date" class="pl" name="birthday"
-                                               onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
+                                               onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)" value="<%= fave.getBirthday() %>">
                                         <span class="date-text">日付を入力してください。</span>
                                     </div>
                                 </td>
@@ -140,10 +165,19 @@
                                 </th>
                                 <td>
                                     <div class="container cc">
-                                        <select name="relatedProject" id="cont">
-                                            <option value="" disabled selected>所属/関連プロジェクトを選択してください。</option>
-                                            <option value="0">銀河鉄道の夜</option>
-                                            <option value="1">STAR★BURST★SHIP</option>
+
+                                        <select name="cate_id" id="categorySelect"  onchange="fetchTagsByCategory(this.value)">
+                                            <option value="<%= category.getCate_id() %>" selected><%= category.getCategory() %></option>
+                                            <% if (categorylist != null) { %>
+                                            <% for (categoryBean catego : categorylist) { %>
+                                            <% if (catego.getCate_id() != category.getCate_id()) { %>
+                                            <option value="<%= catego.getCate_id() %>"><%= catego.getCategory() %></option>
+                                            <% } %>
+                                            <% } %>
+                                            <option value="1">はずす</option>
+                                            <% } else { %>
+                                            <option value="1" disabled>カテゴリ未登録</option>
+                                            <% } %>
                                         </select>
                                         <!-- イベント用プラスボタン -->
                                         <div id="plusButtonCon" class="btn-plus">
@@ -167,14 +201,16 @@
                                 </th>
                                 <td>
                                     <div class="container cc">
-                                        <select name="songTeam" class="tab" disabled>
-                                            <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="0">銀河鉄道の夜</option>
-                                            <option value="1">STAR★BURST★SHIP</option>
+                                        <select class="tab" name="tab1">
+                                            <% if(tags != null && tags.size() > 0){ %>
+                                            <option value="<%= tags.get(0).getTag_id() %>" selected><%= tags.get(0).getTag() %></option>
+                                            <% }else{ %>
+                                            <option value="1" selected>曲/チーム/組名等を選択してください。</option>
+                                            <% } %>
                                         </select>
                                         <!-- イベント用プラスボタン -->
                                         <div class="btn-plus plusButtonTab">
-                                            <button class="plus3" type="button" disabled>
+                                            <button class="plus3" type="button">
                                                 <img src="static/img/plus.png" alt="plus">
                                             </button>
                                         </div>
@@ -182,92 +218,42 @@
                                 </td>
                             </tr>
 
-                            <tr>
-                                <th>
-                                    <div class="categori0 container">
-                                        <div class="categori1">
-                                            <p>　</p>
-                                        </div>
-                                        <div class="categori2">　</div>
-                                    </div>
-                                </th>
-                                <td>
-                                    <div class="cc">
-                                        <select name="songTeam" class="tab" disabled>
-                                            <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="0">銀河鉄道の夜</option>
-                                            <option value="1">STAR★BURST★SHIP</option>
-                                        </select>
-
-                                    </div>
-                                </td>
-                            </tr>
+                            <% for (int i = 1; i < 5; i++) {%>
 
                             <tr>
                                 <th>
                                     <div class="categori0 container">
                                         <div class="categori1">
+                                            <% if(i == 2){ %>
                                             <p>
                                                 ※ 最大５個まで<br>
                                                 選択できます。
                                             </p>
-                                        </div>
-                                        <div class="categori2">　</div>
-                                    </div>
-                                </th>
-                                <td>
-                                    <div class="cc">
-                                        <select name="songTeam" class="tab" disabled>
-                                            <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="0">銀河鉄道の夜</option>
-                                            <option value="1">STAR★BURST★SHIP</option>
-                                        </select>
-
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    <div class="categori0 container">
-                                        <div class="categori1">
+                                            <% }else{ %>
                                             <p>　</p>
+                                            <% } %>
                                         </div>
                                         <div class="categori2">　</div>
                                     </div>
                                 </th>
                                 <td>
                                     <div class="cc">
-                                        <select name="songTeam" class="tab" disabled>
-                                            <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="0">銀河鉄道の夜</option>
-                                            <option value="1">STAR★BURST★SHIP</option>
+                                        <select class="tab" name="tab<%= i + 1 %>">
+                                            <% if(tags != null && tags.size() > i){ %>
+                                            <option value="<%= tags.get(i).getTag_id() %>" selected><%= tags.get(i).getTag() %></option>
+                                            <% }else{ %>
+                                            <option value="1" selected>曲/チーム/組名等を選択してください。</option>
+                                            <% } %>
                                         </select>
 
                                     </div>
                                 </td>
                             </tr>
 
-                            <tr>
-                                <th>
-                                    <div class="categori0 container">
-                                        <div class="categori1">
-                                            <p>　</p>
-                                        </div>
-                                        <div class="categori2">　</div>
-                                    </div>
-                                </th>
-                                <td>
-                                    <div class="cc">
-                                        <select name="songTeam" class="tab" disabled>
-                                            <option value="" disabled selected>曲/チーム/組名等を選択してください。</option>
-                                            <option value="0">銀河鉄道の夜</option>
-                                            <option value="1">STAR★BURST★SHIP</option>
-                                        </select>
+                            <%
+                                }
+                            %>
 
-                                    </div>
-                                </td>
-                            </tr>
                         </table>
                     </div>
                 </div>
@@ -286,6 +272,7 @@
                         <button id="fe_dele"><img src="static/img/DELE.png" alt=""></button>
                     </div>
                 </div>
+                <input name="osi_id" type="hidden" value="<%= fave.getOsi_id() %>">
             </form>
         </div>
 
@@ -325,7 +312,7 @@
 </div>
 
 
-<div id="fave_add_modal" class="modal">
+<div id="fave_edit_modal" class="modal">
     <div class="modal-content0">
         <div class="modal-header">
             <h1>以下の内容でよろしいですか？</h1>
@@ -399,19 +386,22 @@
 
 <div id="favedeleModal" class="modal4">
     <div class="modal-content4">
+        <form id="fave_delete" action="FaveDeleServlet" method="POST">
         <div class="modal-header4">
             <h1>本当に削除しますか？</h1>
             <div class="modal-h4">
-                <h3 class="f_name_modal">名前：<span>カンパネルラ</span></h3>
+                <h3 class="f_name_modal">名前：<span></span></h3>
                 <h4>※ 推しのグッズ・イベント情報も
                     全て削除されます。</h4>
+                <input name="osi_id" type="hidden" value="<%= fave.getOsi_id() %>">
             </div>
         </div>
         <div class="modal-body">
             <!-- モーダル内の削除を確定するボタン -->
-            <button id="fe_Delete" type="button" class="btn">削除</button>
+            <button id="fe_Delete" type="submit" class="btn">削除</button>
             <button id="fe_can_Delete" type="button" class="btn">キャンセル</button>
         </div>
+        </form>
     </div>
 </div>
 

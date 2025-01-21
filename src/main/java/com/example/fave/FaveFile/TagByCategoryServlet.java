@@ -1,6 +1,8 @@
 package com.example.fave.FaveFile;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -13,6 +15,7 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 @WebServlet("/TagByCategoryServlet")
 public class TagByCategoryServlet extends HttpServlet {
@@ -21,7 +24,7 @@ public class TagByCategoryServlet extends HttpServlet {
 
         // リクエストパラメータから cate_id を取得
         String cateIdParam = request.getParameter("cate_id");
-        List<String> tags = null;
+        Map<Integer, String> tags = new HashMap<>();
 
         if (cateIdParam != null) {
             try {
@@ -34,8 +37,9 @@ public class TagByCategoryServlet extends HttpServlet {
         }
 
         // JSON形式で返す
+        List<Map.Entry<Integer, String>> tagList = new ArrayList<>(tags.entrySet());
         Gson gson = new Gson();
-        String json = gson.toJson(tags);
+        String json = gson.toJson(tagList);
         PrintWriter out = response.getWriter();
         out.print(json);
         out.flush();

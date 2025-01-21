@@ -1,4 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="utils.Bean.faveBean" %>
+<%@ page import="utils.Bean.categoryBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="utils.Bean.tagBean" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="utils.Bean.osikatuBean" %>
+<%
+    faveBean fave = (faveBean) session.getAttribute("fave");
+    categoryBean category = (categoryBean) session.getAttribute("category");
+    ArrayList<tagBean> tags = (ArrayList<tagBean>) request.getAttribute("tags");
+    Map<Integer,Integer> osiprice = (Map<Integer, Integer>) session.getAttribute("osiprice");
+    ArrayList<osikatuBean> goodslist = (ArrayList<osikatuBean>) session.getAttribute("goodslist");
+%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -96,22 +112,29 @@
                 <div class="left">
                     <div class="l_img">
                         <div class="f_img">
-                            <img src="static/img/com.jpg" alt="カンパネルラ" id="preview">
+                            <img src="static/faveImg/<%= fave.getImg() %>" alt="<%= fave.getName() %>>" id="preview">
                         </div>
                     </div>
 
                     <div class="fd_memo">
                         <h3>メモ</h3>
-                        <p>ジョバンニの親友<br>
-                            左利き<br>
-                            アイスなど冷たいものが好き<br>
-                            水星出身</p>
+                        <%
+                            if(fave.getOsimemo() == null || fave.getOsimemo().isEmpty()){
+                        %>
+                        <p>　</p> <!-- 空白を表示 -->
+                        <%
+                        } else {
+                        %>
+                        <p><%= fave.getOsimemo() %></p> <!-- メモを表示 -->
+                        <%
+                            }
+                        %>
                     </div>
                 </div>
                 <div class="right">
                     <div class="name container">
-                        <h1><span class="na0">名前：</span><span class="na1">カンパネルラ</span></h1>
-                        <a href="fave_edit"><img src="static/img/EDIT.png" alt="fave_edit"></a>
+                        <h1><span class="na0">名前：</span><span class="na1"><%= fave.getName() %></span></h1>
+                        <a href="fave_edit?osi_id=<%= fave.getOsi_id() %>"><img src="static/img/EDIT.png" alt="fave_edit"></a>
                     </div>
 
                     <table>
@@ -119,7 +142,21 @@
                             <td>
                                 <div class="categori0">誕生日：</div>
                             </td>
-                            <th>不明</th>
+                            <th>
+                                <%
+                                    if (fave.getBirthday() != null) {
+                                        LocalDate birthday = fave.getBirthday();  // もしLocalDate型であれば
+                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                                        %>
+                                <%= birthday.format(formatter) %>
+                                <%
+                                    } else {
+                                %>
+                                不明
+                                <%
+                                    }
+                                %>
+                            </th>
                         </tr>
                         <tr>
                             <td>
@@ -131,39 +168,39 @@
                                     <div class="categori2">：</div>
                                 </div>
                             </td>
-                            <th>銀河鉄道の夜</th>
+                            <th><%= category.getCategory() %></th>
                         </tr>
                         <tr>
                             <td>
-                                <div class="categori0 container">
-                                    <div class="categori1">
-                                        <p>曲 / チーム / 組名 等</p>
-                                    </div>
-                                    <div class="categori2">：</div>
-                                </div>
+                                <div class="categori0">曲 / チーム / 組名 等</div>
                             </td>
-                            <th>２号車組</th>
+                            <th>
+                                <%= tags != null && tags.size() > 0 ? tags.get(0).getTag() : " - " %>
+                            </th>
                         </tr>
+
+                        <%
+                            for (int i = 1; i < 5; i++) { // 最大5回までループ
+                        %>
                         <tr>
                             <td>　</td>
-                            <th>乗客組</th>
+                            <th><%= (tags != null && tags.size() > i) ? tags.get(i).getTag() : "-" %></th>
                         </tr>
-                        <tr>
-                            <td>　</td>
-                            <th>　</th>
-                        </tr>
-                        <tr>
-                            <td>　</td>
-                            <th>　</th>
-                        </tr>
-                        <tr>
-                            <td>　</td>
-                            <th>　</th>
-                        </tr>
+                        <%
+                            }
+                        %>
+
                     </table>
 
                     <div class="fd_money">
-                        <h1>奉納額：<span>¥21,600</span></h1>
+                        <%
+                            int totalPrice = osiprice != null && osiprice.containsKey(fave.getOsi_id())
+                                    ? osiprice.get(fave.getOsi_id()) : 0;
+
+                            DecimalFormat formatter = new DecimalFormat("#,###");
+                            String formattedPrice = formatter.format(totalPrice);
+                        %>
+                        <h1>奉納額：<span>¥ <%= formattedPrice %></span></h1>
                         <button id="detail_button">金額の詳細 ＞</button>
                     </div>
                 </div>
@@ -179,42 +216,34 @@
 
         <div class="modal-body">
             <div class="ikkatu">
+                <%
+                    // favelistが空でない場合、ループして表示
+                    if (goodslist != null && !goodslist.isEmpty()) {
+                        for (osikatuBean goods : goodslist) {
+                            int osiId = fave.getOsi_id(); // 現在のfaveのosi_id
+
+                            DecimalFormat format = new DecimalFormat("#,###");
+                            String forma = formatter.format(goods.getPrice());
+
+                            if(goods.getItemtype() == 0){
+                %>
                 <div class="container goods_money">
-                    <h4>アクリルパネル</h4>
-                    <h3>¥2,600</h3>
+                    <h4><%= goods.getItem() %></h4>
+                    <h3>¥ <%= forma %></h3>
                 </div>
 
+                <%
+                            }else{
+                %>
                 <div class="container event_money">
-                    <h4>アクリルパネル</h4>
-                    <h3>¥2,600</h3>
+                    <h4><%= goods.getItem() %></h4>
+                    <h3>¥ <%= forma %></h3>
                 </div>
-
-                <div class="container event_money">
-                    <h4>アクリルパネル</h4>
-                    <h3>¥2,600</h3>
-                </div>
-
-                <div class="container goods_money">
-                    <h4>アクリルパネル</h4>
-                    <h3>¥2,600</h3>
-                </div>
-
-                <div class="container goods_money">
-                    <h4>アクリルパネル</h4>
-                    <h3>¥2,600</h3>
-                </div>
-
-                <div class="container event_money">
-                    <h4>アクリルパネル</h4>
-                    <h3>¥2,600</h3>
-                </div>
-
-                <div class="container event_money">
-                    <h4>アクリルパネル</h4>
-                    <h3>¥2,600</h3>
-                </div>
-
-
+                <%
+                            }
+                        }
+                    }
+                %>
             </div>
 
 
@@ -222,6 +251,7 @@
         </div>
     </div>
 </div>
+
 
 <script src="static/js/FaveFile/fave_detail.js"></script>
 <script src="static/js/all.js"></script>

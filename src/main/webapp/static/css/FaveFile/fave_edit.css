@@ -176,7 +176,7 @@ input[type="text"]::placeholder {
     text-align: right;
 }
 
-#cont,
+#categorySelect,
 .tab {
     font-size: 16px;
     color: #221D7E;
@@ -201,9 +201,13 @@ input[type="text"]::placeholder {
     appearance: none;
 }
 
-#cont:has(option:checked[value=""]),
-.tab:has(option:checked[value=""]) {
+#categorySelect:has(option:checked[value="1"]),
+.tab:has(option:checked[value="1"]) {
     color: #A9A8C2;
+}
+
+select option.default-option {
+    color: #221D7E; /* デフォルトオプションの色 */
 }
 
 .btn-plus {
@@ -408,7 +412,7 @@ h4 {
     justify-self: end;
 }
 
-#edcon_can,edcon_can2 {
+#edcon_can,#edcon_can2 {
     font-family: "Noto Serif JP", serif;
     font-size: 19px;
     font-weight: bolder;
@@ -420,10 +424,9 @@ h4 {
     padding: 5px 20px;
     text-decoration: none;
     width: 30%;
-
 }
 
-#edcon_can:hover, edcon_can2:hover {
+#edcon_can:hover, #edcon_can2:hover {
     background-color: #ececec;
 }
 

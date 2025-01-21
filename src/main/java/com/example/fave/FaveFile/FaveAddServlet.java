@@ -2,27 +2,35 @@ package com.example.fave.FaveFile;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.http.Part;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import utils.Bean.categoryBean;
 import utils.Bean.faveBean;
 import utils.Bean.userBean;
 import utils.DAO.faveDAO;
+import utils.DAO.tagDAO;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+@MultipartConfig
 @WebServlet("/FaveAdd")
-@MultipartConfig  // アップロードファイルの処理を有効化
 public class FaveAddServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
@@ -30,7 +38,7 @@ public class FaveAddServlet extends HttpServlet {
         userBean user = (userBean) session.getAttribute("user");
         String log_id = user.getLog_id();
         ArrayList<categoryBean> categorylist = utils.DAO.categoryDAO.selectCategoryAll(log_id);
-        session.setAttribute("categorylist", categorylist);
+        session.setAttribute("categorylist",categorylist);
 
         String path = "/WEB-INF/view/FaveFile/fave_add.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);
@@ -38,67 +46,57 @@ public class FaveAddServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        // パラメータ受け取り
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
         HttpSession session = request.getSession();
 
-        String name = request.getParameter("name");
-        LocalDate birthday = null;
-        if (request.getParameter("birthday") != null && !request.getParameter("birthday").isEmpty()) {
-            birthday = LocalDate.parse(request.getParameter("birthday"));
+        int osi_id = 0;
+
+        Part filePart = request.getPart("img"); // "img" は <input name="img"> に対応
+        String fileName = "";
+        // システムの環境変数やプロパティファイルを使って絶対パスを指定
+        if(filePart == null || filePart.getSize() == 0 || filePart.getSubmittedFileName() == null){
+            fileName = "def.png";
+        } else {
+            fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            long filesize = filePart.getSize();
+            byte[] data = new byte[(int) filesize];
+            Files.copy(filePart.getInputStream(), new File(getServletContext().getRealPath("/static/faveImg") + File.separator + fileName).toPath(), StandardCopyOption.REPLACE_EXISTING);
         }
+        String name = request.getParameter("name");
+
+        // birthday が空文字の場合は null を設定
+        String birthdayParam = request.getParameter("birthday");
+        LocalDate birthday = null;
+        if (birthdayParam != null && !birthdayParam.isEmpty()) {
+            birthday = LocalDate.parse(birthdayParam);
+        }
+
+
         String osimemo = request.getParameter("osimemo");
         userBean user = (userBean) session.getAttribute("user");
         String log_id = user.getLog_id();
         int cate_id = Integer.parseInt(request.getParameter("cate_id"));
 
-        Part filePart = request.getPart("img"); // フォームから送られてきたファイルを取得
-        String fileName = extractFileName(filePart); // ファイル名を取得
+        faveBean faveB = new faveBean(osi_id, fileName, name, birthday, osimemo, log_id, cate_id);
+        int osi_id2 = faveDAO.addFave(faveB);
 
-        if (filePart != null && fileName != null) {
-            // "static/faveImg" フォルダの絶対パスを取得
-            String uploadDir = getServletContext().getRealPath("config/src/main/webapp/static/faveImg");
 
-            // uploadDirにprefixを含んでいる場合、その部分を削除
-            String prefix = "C:/Users/tsshi/IdeaProjects/glassfish/glassfish7/glassfish/domains/domain1/generated/jsp/Fave-1.0-SNAPSHOT/";
-            String cleanedPath = uploadDir.replace(prefix, "");  // 不要な前半部分を削除
-
-            // cleanedPathがすでに末尾にファイルパスを追加する準備ができているか確認
-            if (!cleanedPath.endsWith(File.separator)) {
-                cleanedPath += File.separator;  // 末尾にFile.separatorを追加
+        for (int i = 1; i <= 5; i++) {
+            int tab = 0;
+            if (request.getParameter("tab" + i) == null || request.getParameter("tab" + i).isEmpty()){
+                tab = 1;
             }
-
-            File cleanedDir = new File(cleanedPath);
-            if (!cleanedDir.exists()) {
-                cleanedDir.mkdirs(); // フォルダが存在しない場合は作成
+            if(tab != 1) {
+                tagDAO.insertOsiTag(osi_id2, tab);
             }
-
-            // 正しいパスの結合を行う
-            String filePath = cleanedPath + fileName;
-
-            // ファイルを保存する
-            filePart.write(filePath);
-
-            // データベースにファイルのパスを保存する処理
-            faveBean faveB = new faveBean(0, fileName, name, birthday, osimemo, log_id, cate_id); // DBに保存するファイル名
-            faveDAO.addFave(faveB);
         }
 
         // 処理が完了した後、遷移するページ
-        String path = "/WEB-INF/view/FaveFile/fave.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-        dispatcher.forward(request, response);
+        response.sendRedirect("Fave");
     }
 
-    // ファイル名を取得するヘルパーメソッド
-    private String extractFileName(Part part) {
-        String partHeader = part.getHeader("content-disposition");
-        for (String content : partHeader.split(";")) {
-            if (content.trim().startsWith("filename")) {
-                return content.substring(content.indexOf("=") + 2, content.length() - 1);
-            }
-        }
-        return null;
-    }
+
 }
