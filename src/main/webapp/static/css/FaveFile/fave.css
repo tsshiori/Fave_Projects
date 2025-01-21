@@ -236,3 +236,7 @@ input:checked~.base .circle .gallery {
     text-align: left;
     color: #524DAE;
 }
+
+.saiosi {
+    background-color: #FFFFD1 !important;
+}

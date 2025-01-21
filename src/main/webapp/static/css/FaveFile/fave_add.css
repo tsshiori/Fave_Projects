@@ -207,7 +207,7 @@ input[type="text"]::placeholder {
 }
 
 select option.default-option {
-    color: #A9A8C2; /* デフォルトオプションの色 */
+    color: #221D7E; /* デフォルトオプションの色 */
 }
 
 .btn-plus {
@@ -563,3 +563,4 @@ h4 {
 .memodiv td {
     width: 70%;
 }
+

@@ -45,24 +45,24 @@ public class faveDAO {
                 System.out.println("データの登録に失敗しました。");
             }
         } catch (SQLException e) {
-            System.out.println("データベースエラー: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
 
-    public static void addFave(faveBean faveB){
+    public static int addFave(faveBean faveB) {
         String sql = "INSERT INTO osi (osi_id, img, name, birthday, osimemo, log_id, cate_id) "
                 + "VALUES (NULL, ?, ?, ?, ?, ?, ?)";
+        int osi_id = 0;
 
         try (
                 Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
-                PreparedStatement pstmt = con.prepareStatement(sql);
+                PreparedStatement pstmt = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); // ここで生成されたキーを取得する設定
         ) {
             // faveBean からデータを取得
             String img = faveB.getImg(); // img を取得
             String name = faveB.getName(); // name を取得
-            String birthday = String.valueOf(faveB.getBirthday()); // birthday を取得
+            LocalDate birthday = faveB.getBirthday(); // birthday を取得
             String osimemo = faveB.getOsimemo(); // osimemo を取得
             String logId = faveB.getLog_id(); // log_id を取得
             int cateId = faveB.getCate_id(); // cate_id を取得
@@ -77,8 +77,15 @@ public class faveDAO {
 
             // SQLを実行して、影響を受けた行数を取得
             int rowsAffected = pstmt.executeUpdate();
+
             if (rowsAffected > 0) {
-                System.out.println("データが正常に登録されました。");
+                // 挿入後に生成されたキー（osi_id）を取得
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        osi_id = generatedKeys.getInt(1); // 生成されたosi_idを取得
+                        System.out.println("新しく追加されたosi_id: " + osi_id);
+                    }
+                }
             } else {
                 System.out.println("データの登録に失敗しました。");
             }
@@ -86,7 +93,10 @@ public class faveDAO {
             System.out.println("データベースエラー: " + e.getMessage());
             e.printStackTrace();
         }
+
+        return osi_id; // 新しい osi_id を返す
     }
+
 
     public static ArrayList<faveBean> selectFaveAll(String id) {
         String sql = "SELECT * FROM osi WHERE log_id = ?";
@@ -143,6 +153,30 @@ public class faveDAO {
         return result;
     }
 
+    public static Map<Integer, Integer> selectPriceByosi_id(int osi_id) {
+        String sql = "SELECT osi_id, SUM(price) AS totalprice FROM osikatu WHERE osi_id = ? GROUP BY osi_id";
+        Map<Integer, Integer> result = new HashMap<>();
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql);
+        ) {
+            pstmt.setInt(1, osi_id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int osiId = rs.getInt("osi_id");
+                    int totalPrice = rs.getInt("totalprice");
+                    result.put(osiId, totalPrice);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 
     public static int selectNameFave(String log_id, String name) {
         if (name == null || log_id == null) {
@@ -170,30 +204,101 @@ public class faveDAO {
     }
 
 
-
-
-    public static ArrayList<String> selectByLog_id(String log_id) {
-        String sql = "SELECT name FROM osi WHERE log_id = ?";
-        ArrayList<String> results = new ArrayList<>();
+    public static faveBean getFaveByOsi_id(int osi_id) {
+        String sql = "SELECT * FROM osi WHERE osi_id = ?";
+        faveBean result = null;
 
         try (
                 Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
                 PreparedStatement pstmt = con.prepareStatement(sql);
         ) {
-            pstmt.setString(1, log_id); // log_id をセット
+            // プレースホルダーに値を設定
+            pstmt.setInt(1, osi_id);
+
             try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    // 'name' カラムの値を取得して、results に追加
-                    results.add(rs.getString("name"));
+                // データが見つかった場合に faveBean を生成
+                if (rs.next()) {
+                    result = new faveBean(
+                            rs.getInt("osi_id"),
+                            rs.getString("img"),
+                            rs.getString("name"),
+                            rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null, // Date -> LocalDate
+                            rs.getString("osimemo"),
+                            rs.getString("log_id"),
+                            rs.getInt("cate_id")
+                    );
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e); // エラー発生時に例外をスロー
+            e.printStackTrace();
         }
-        return results; // 結果のリストを返す
+
+        // データが見つからなければ null を返す
+        return result;
+    }
+
+    public static void updateFave(faveBean faveB) {
+        String sql = "UPDATE osi SET img = ?, name = ?, birthday = ?, osimemo = ?, log_id = ?, cate_id = ? WHERE osi_id = ?";
+
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql);
+        ) {
+            // faveBean からデータを取得
+            String img = faveB.getImg(); // img を取得
+            String name = faveB.getName(); // name を取得
+            LocalDate birthday = faveB.getBirthday(); // birthday を取得
+            String osimemo = faveB.getOsimemo(); // osimemo を取得
+            String logId = faveB.getLog_id(); // log_id を取得
+            int cateId = faveB.getCate_id(); // cate_id を取得
+            int osiId = faveB.getOsi_id(); // 更新対象の osi_id を取得
+
+            // パラメータ設定
+            pstmt.setString(1, img); // img（NULL 許容）
+            pstmt.setString(2, name); // name（必須）
+            pstmt.setDate(3, birthday != null ? java.sql.Date.valueOf(birthday) : null); // birthday（NULL 許容）
+            pstmt.setString(4, osimemo); // osimemo（NULL 許容）
+            pstmt.setString(5, logId); // log_id（必須）
+            pstmt.setInt(6, cateId); // cate_id（必須）
+            pstmt.setInt(7, osiId); // WHERE 条件の osi_id
+
+            // SQLを実行して、影響を受けた行数を取得
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("データが正常に更新されました。");
+            } else {
+                System.out.println("データの更新に失敗しました。");
+            }
+        } catch (SQLException e) {
+            System.out.println("データベースエラー: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 
+    public static void faveDel(int osi_id) {
+        String sql = "DELETE FROM osi WHERE osi_id = ?";
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
+            // 3.プレースホルダに値をセット
+            pstmt.setInt(1, osi_id);
+
+            // 4.SQLの実行＆コミット
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
 
 }
+
+
+
 

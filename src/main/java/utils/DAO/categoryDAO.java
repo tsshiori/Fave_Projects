@@ -1,6 +1,7 @@
 package utils.DAO;
 
 import utils.Bean.categoryBean;
+import utils.Bean.faveBean;
 import utils.Bean.workBean;
 
 import java.sql.*;
@@ -95,10 +96,6 @@ public class categoryDAO {
             // プレースホルダーに値を設定
             pstmt.setString(1, log_id);
 
-            // デバッグ: SQL とプレースホルダーの確認
-            System.out.println("Executing SQL: " + sql);
-            System.out.println("With log_id: " + log_id);
-
             // クエリ実行
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -120,29 +117,32 @@ public class categoryDAO {
         return result;
     }
 
-
-    public static ArrayList<categoryBean> selectCategory (String log_id) {
-        String sql = "SELECT * FROM category WHERE log_id = ?";
-        ArrayList<categoryBean> result = new ArrayList<>();
+    public  static categoryBean selectCategory(int cate_id){
+        String sql = "SELECT * FROM category WHERE cate_id = ?";
+        categoryBean result = null;
 
         try (
                 Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
                 PreparedStatement pstmt = con.prepareStatement(sql);
         ) {
-            pstmt.setString(1, log_id);
+            // プレースホルダーに値を設定
+            pstmt.setInt(1, cate_id);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) { // 修正：複数の結果を扱えるように変更
-                    result.add(new categoryBean(
+                // データが見つかった場合に faveBean を生成
+                if (rs.next()) {
+                    result = new categoryBean(
                             rs.getInt("cate_id"),
                             rs.getString("category"),
                             rs.getString("log_id")
-                    ));
+                    );
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        // データが見つからなければ null を返す
         return result;
     }
 }

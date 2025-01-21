@@ -132,7 +132,9 @@
                             <tr>
                                 <th><span class="hissu">＊</span>名前：</th>
                                 <td><input type="text" name="name" placeholder="名前を入力してください。"><br>
-                                <%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %>
+                                    <p class="error-message" style="font-size: 15px; color: red">
+                                        <%= request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : "" %>
+                                    </p>
                                 </td>
                             </tr>
                             <tr>
@@ -157,18 +159,16 @@
                                 </th>
                                 <td>
                                     <div class="container cc">
-                                        <form action="categoryServlet" method="post">
                                             <select name="cate_id" id="categorySelect"  onchange="fetchTagsByCategory(this.value)">
-                                                <option value="-1" disabled selected>所属/関連プロジェクトを選択してください。</option>
+                                                <option value="1" selected>所属/関連プロジェクトを選択してください。</option>
                                                 <% if (categorylist != null) { %>
                                                 <% for (categoryBean category : categorylist) { %>
                                                 <option value="<%= category.getCate_id() %>"><%= category.getCategory() %></option>
                                                 <% } %>
                                                 <% } else { %>
-                                                <option value="-1" disabled>カテゴリ未登録</option>
+                                                <option value="1" disabled>カテゴリ未登録</option>
                                                 <% } %>
                                             </select>
-                                        </form>
                                         <!-- イベント用プラスボタン -->
                                         <div id="plusButtonCon" class="btn-plus">
                                             <button class="plus2" type="button">
@@ -192,7 +192,7 @@
                                 <td>
                                     <div class="container cc">
                                         <select class="tab" name="tab1" disabled>
-                                            <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
+                                            <option value="1" selected>曲/チーム/組名等を選択してください。</option>
                                         </select>
                                         <!-- イベント用プラスボタン -->
                                         <div class="btn-plus plusButtonTab">
@@ -216,7 +216,7 @@
                                 <td>
                                     <div class="cc">
                                         <select class="tab" name="tab2" disabled>
-                                            <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
+                                            <option value="1" selected>曲/チーム/組名等を選択してください。</option>
                                         </select>
 
                                     </div>
@@ -238,7 +238,7 @@
                                 <td>
                                     <div class="cc">
                                         <select class="tab" name="tab3" disabled>
-                                            <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
+                                            <option value="1" selected>曲/チーム/組名等を選択してください。</option>
                                         </select>
 
                                     </div>
@@ -257,7 +257,7 @@
                                 <td>
                                     <div class="cc">
                                         <select class="tab" name="tab4" disabled>
-                                            <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
+                                            <option value="1" selected>曲/チーム/組名等を選択してください。</option>
                                         </select>
 
                                     </div>
@@ -276,7 +276,7 @@
                                 <td>
                                     <div class="cc">
                                         <select class="tab" name="tab5" disabled>
-                                            <option value="1" disabled selected>曲/チーム/組名等を選択してください。</option>
+                                            <option value="1" selected>曲/チーム/組名等を選択してください。</option>
                                         </select>
 
                                     </div>
@@ -346,17 +346,17 @@
                 <table class="t_le">
                     <tr>
                         <th>名前：</th>
-                        <td>ミューズ</td>
+                        <td>〇〇〇〇〇〇</td>
                     </tr>
                     <tr>
                         <th>誕生日：</th>
-                        <td>9/22</td>
+                        <td>不明</td>
                     </tr>
                     <tr>
                         <th>画像：</th>
                         <td>
-                            <div class="mo-img"><img src="static/img/myu.jpg" alt="ミューズ"></div>
-                            <p>myu.jpg</p>
+                            <div class="mo-img"><img src="static/faveImg/def.png" alt="defo"></div>
+                            <p>def.png</p>
                         </td>
                     </tr>
                 </table>
@@ -364,19 +364,19 @@
                 <table class="t_ri">
                     <tr>
                         <th>所属 / 関連プロジェクト 等：</th>
-                        <td>STAR★BURST★SHIP</td>
+                        <td>　</td>
                     </tr>
                     <tr>
                         <th>曲 / チーム / 組名 等：</th>
-                        <td>流星のキセキ</td>
+                        <td>　</td>
                     </tr>
                     <tr>
                         <th>　</th>
-                        <td>宙船 ソラフネ</td>
+                        <td>　</td>
                     </tr>
                     <tr>
                         <th>　</th>
-                        <td>STAR★BURST</td>
+                        <td>　</td>
                     </tr>
                     <tr>
                         <th>　</th>
@@ -393,7 +393,7 @@
                 <table class="memodiv">
                     <tr>
                         <th>メモ：</th>
-                        <td>赤　おとめ座　神奈川出身　身長：163㎝　血液O型</td>
+                        <td>　</td>
                     </tr>
                 </table>
             </div>
@@ -406,6 +406,8 @@
         </div>
     </div>
 </div>
+
+
 
 <script src="static/js/FaveFile/fave_add.js"></script>
 <script src="static/js/all.js"></script>

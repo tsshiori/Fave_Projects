@@ -92,6 +92,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>FaveDele</servlet-name>
+        <servlet-class>com.example.fave.FaveFile.FaveDeleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FaveDele</servlet-name>
+        <url-pattern>/fave_dele</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Relate</servlet-name>
         <servlet-class>com.example.fave.FaveFile.RelateServlet</servlet-class>
     </servlet>

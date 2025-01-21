@@ -112,51 +112,38 @@ window.addEventListener("click", (event) => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const relatedProject = document.getElementById("categorySelect"); // プロジェクト選択の <select>
-    const selectElements = document.querySelectorAll('select[name^="tab"]'); // 'tab'で始まるname属性を持つselect要素を取得
-    // relatedProject が変更されたときの処理
+    const relatedProject = document.getElementById("categorySelect"); // カテゴリー選択
+    const selectElements = document.querySelectorAll('select[name^="tab"]'); // 曲/チーム/組名セレクト
+
+    // カテゴリー変更時の処理
     relatedProject.addEventListener("change", () => {
-        if (relatedProject.value !== "") {
-            // すべての songTeam の <select> を有効化
+        if (relatedProject.value !== "1") {
+            // セレクトボックスとボタンを有効化
             selectElements.forEach((selectElement) => {
-                selectElement.disabled = false; // 無効化解除
+                selectElement.disabled = false;
             });
 
-            // すべてのボタンを有効化
             const plusButtons = document.querySelectorAll(".plus3");
             plusButtons.forEach((button) => {
-                button.disabled = false; // 無効化解除
+                button.disabled = false;
             });
+
+            // 対応するタグデータを取得
+            fetchTagsByCategory(relatedProject.value);
         }
     });
 });
 
 
-// モーダルを非表示にする関数
-function closeModal(modalId) {
-    document.getElementById(modalId).style.display = "none";
-}
 
-// ウィンドウの外をクリックしたらモーダルを閉じる
-window.onclick = function(event) {
-    if (event.target.className === "modal") {
-        closeModal("modal");
-        closeModal("modalEvents");
-    }
-};
+// モーダルを非表示にする関数
+// function closeModal(modalId) {
+//     document.getElementById(modalId).style.display = "none";
+// }
+
+
 
 // category.js
-
-// カテゴリIDに基づいてタグを取得してセレクトボックスを更新
-function fetchTagsByCategory(cateId) {
-    fetch(`TagByCategoryServlet?cate_id=${cateId}`)
-        .then(response => response.json())
-        .then(data => {
-            updateTagDropdown(data);
-        })
-        .catch(error => console.error("Error:", error));
-}
-
 // タグセレクトボックスを更新する
 // カテゴリIDに基づいてタグを取得してセレクトボックスを更新
 function fetchTagsByCategory(cateId) {
@@ -164,10 +151,9 @@ function fetchTagsByCategory(cateId) {
         .then(response => response.json())
         .then(data => {
             if (data.length === 0) {
-                // データが空の場合は「未登録」を表示
-                updateTagDropdownWithNoData();
+                updateTagDropdownWithNoData(); // データがない場合
             } else {
-                updateTagDropdown(data);
+                updateTagDropdown(data); // データ更新
             }
         })
         .catch(error => console.error("Error:", error));
@@ -179,22 +165,22 @@ function updateTagDropdown(tags) {
         const tagSelect = document.getElementsByName(`tab${i}`)[0];
         tagSelect.innerHTML = "";
 
+        // デフォルトオプション
         const defaultOption = document.createElement("option");
-        defaultOption.value = "";
-        defaultOption.textContent = "曲/チーム/組名等を選択してください。"; // デフォルトメッセージ
-        defaultOption.disabled = true;
+        defaultOption.value = "1";
+        defaultOption.textContent = "曲/チーム/組名等を選択してください。";
         defaultOption.selected = true;
-        defaultOption.classList.add("default-option"); // クラスを追加
         tagSelect.appendChild(defaultOption);
 
+        // タグオプションを追加
         tags.forEach(tag => {
             const option = document.createElement("option");
-            option.value = tag;
-            option.textContent = tag;
+            option.value = tag.key; // サーバー側の値
+            option.textContent = tag.value; // 表示名
             tagSelect.appendChild(option);
         });
 
-        tagSelect.disabled = false;
+        tagSelect.disabled = false; // 有効化
     }
 }
 
@@ -204,20 +190,17 @@ function updateTagDropdownWithNoData() {
         const tagSelect = document.getElementsByName(`tab${i}`)[0];
         tagSelect.innerHTML = "";
 
+        // 「未登録」オプション
         const defaultOption = document.createElement("option");
-        defaultOption.value = "";
-        defaultOption.textContent = "未登録"; // 「未登録」を表示
+        defaultOption.value = "1";
+        defaultOption.textContent = "未登録";
         defaultOption.disabled = true;
         defaultOption.selected = true;
         tagSelect.appendChild(defaultOption);
 
-        tagSelect.disabled = true; // セレクトボックスを無効化
+        tagSelect.disabled = true; // 無効化
     }
 }
-
-
-
-
 
 // 選択済みの値を追跡するための配列
 const selectedValues = new Set();
@@ -270,12 +253,21 @@ function updateSelectOptions() {
 const modalGoods = document.getElementById('fave_add_modal');
 const buttonConfirmAdd = document.getElementById('fadd');
 const buttonCancelAdd = document.getElementById('fadd_can');
+const errorMessageDiv = document.querySelector('.error-message'); // エラーメッセージを表示するdiv
 
 // モーダルの表示/非表示
-document.getElementById('fadd_open').addEventListener('click', () => {
-    modalGoods.style.display = 'block';
+document.getElementById('fadd_open').addEventListener('click', function () {
+    const name = document.querySelector('input[name="name"]').value.trim();
+    if(name){
+        modalGoods.style.display = 'block';
+    }else{
+        errorMessageDiv.style.display = 'block';
+        errorMessageDiv.textContent = "名前を入力してください";
+    }
 });
+
 buttonCancelAdd.addEventListener('click', () => modalGoods.style.display = 'none');
+
 
 buttonConfirmAdd.addEventListener('click', () => {
     document.getElementById('fadd_form').submit();
@@ -288,9 +280,9 @@ window.addEventListener('click', (e) => {
 
 
 // モーダルを表示する関数
-function showModal(modalId) {
-    document.getElementById(modalId).style.display = "block";
-}
+// function showModal(modalId) {
+//     document.getElementById(modalId).style.display = "block";
+// }
 
 // モーダルを非表示にする関数
 function closeModal(modalId) {
@@ -304,3 +296,92 @@ window.onclick = function(event) {
         closeModal("modalEvents");
     }
 };
+
+// キャンセルボタンでモーダルを非表示
+document.getElementById('fadd_can').addEventListener('click', function () {
+    document.getElementById('fave_add_modal').style.display = 'none';
+});
+
+document.getElementById('fadd_open').addEventListener('click', function () {
+    // フォームから値を取得
+    const name = document.querySelector('input[name="name"]').value.trim();
+    const birthday = document.querySelector('input[name="birthday"]').value.trim();
+    const memo = document.querySelector('textarea[name="memo"]').value.trim();
+
+    const cateSelect = document.querySelector('select[name="cate_id"]');
+    const category = cateSelect.options[cateSelect.selectedIndex].text;
+
+    const tabs = [];
+    for (let i = 1; i <= 5; i++) {
+        const tabSelect = document.querySelector(`select[name="tab${i}"]`);
+        if (tabSelect && !tabSelect.disabled) {
+            const tabValue = tabSelect.options[tabSelect.selectedIndex].text;
+            if (tabValue !== "曲/チーム/組名等を選択してください。") {
+                tabs.push(tabValue);
+            }
+        }
+    }
+
+    // 画像の取得
+    const fileInput = document.getElementById('fileInput');
+    const fileName = fileInput.files[0] ? fileInput.files[0].name : "def.png";
+    const fileURL = fileInput.files[0] ? URL.createObjectURL(fileInput.files[0]) : "";
+
+    // モーダルの要素に値を設定
+    document.querySelector('.modal-content0 .t_le td:nth-child(2)').textContent = name || "未入力";
+    document.querySelector('.modal-content0 .t_le tr:nth-child(2) td:nth-child(2)').textContent = formatDate(birthday) || "不明";
+
+// 日付をスラッシュ区切りにフォーマットする関数
+    function formatDate(dateString) {
+        if (!dateString) return '';
+
+        const date = new Date(dateString); // 文字列から Date オブジェクトに変換
+
+        if (isNaN(date)) return ''; // 無効な日付の場合は空文字列を返す
+
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 月は 0 から始まるため +1
+        const day = String(date.getDate()).padStart(2, '0'); // 日付を 2 桁に
+
+        return `${year}/${month}/${day}`; // スラッシュ区切りにして返す
+    }
+    // 画像
+    const imageContainer = document.querySelector('.modal-content0 .t_le tr:nth-child(3) td');
+    imageContainer.innerHTML = fileURL
+        ? `<div class="mo-img"><img src="${fileURL}" alt="${fileName}"></div><p>${fileName}</p>`
+        : "<div class='mo-img'><img src='static/faveImg/def.png' alt='def.png'></div><p>def.png</p>";
+
+    // メモ
+    document.querySelector('.memodiv td').textContent = memo || "　";
+
+    // 所属/関連プロジェクト
+    document.querySelector('.t_ri tr:nth-child(1) td').textContent =
+        (category && category !== "所属/関連プロジェクトを選択してください。") ? category : "──";
+
+    // 曲/チーム/組名等
+    const tabCells = document.querySelectorAll('.t_ri tr:nth-child(n+2) td');
+    tabCells.forEach((cell, index) => {
+        cell.textContent = tabs[index] || "──";
+    });
+
+    // 残りのセルをリセット
+    for (let i = tabs.length; i < tabCells.length; i++) {
+        tabCells[i].textContent = "──";
+    }
+
+    // モーダルを表示
+    // document.getElementById('fave_add_modal').style.display = 'block';
+});
+
+// モーダルを閉じる処理
+document.querySelectorAll('.btn.close, #fadd_can').forEach(btn => {
+    btn.addEventListener('click', function () {
+        document.getElementById('fave_add_modal').style.display = 'none';
+    });
+});
+
+// キャンセルボタンでモーダルを非表示
+document.getElementById('fadd_can').addEventListener('click', function () {
+    document.getElementById('fave_add_modal').style.display = 'none';
+});
+
