@@ -49,8 +49,6 @@ public class goodsDAO {
 
         return goodslist; // 見つからない場合は空のリストを返す
     }
-
-//追加
     public static void insertGoods(LocalDate day, int price, String item, int purchase, int osi_id, int priority, String memo, int itemtype) {
         String sql = "INSERT INTO osikatu (osikatu_id, day, price, item, purchase, osi_id, priority, memo, itemtype) "
                 + " VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -65,7 +63,7 @@ public class goodsDAO {
             pstmt.setInt(5, osi_id);
             pstmt.setInt(6, priority);
             pstmt.setString(7, memo);
-            pstmt.setInt(8, itemtype);  // 修正: itemtype に変更
+            pstmt.setInt(8, itemtype);  // itemtype に変更
 
             // SQLを実行して、影響を受けた行数を取得
             int rowsAffected = pstmt.executeUpdate();
@@ -79,37 +77,5 @@ public class goodsDAO {
             e.printStackTrace();
         }
     }
-    public static ArrayList<goodsBean> selectGoods(int osikatu_id) {
-        String sql = "SELECT * FROM osikatu";  // osikatuテーブルから全件を取得
-        ArrayList<goodsBean> goodsList = new ArrayList<>();
-
-        try (Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
-             PreparedStatement pstmt = con.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            while (rs.next()) {
-                // 各カラムの値を取得
-                int osikatuId = rs.getInt("osikatu_id");
-                java.sql.Date day = rs.getDate("day");  // sql.Date型に変更
-                int price = rs.getInt("price");
-                String item = rs.getString("item");
-                int purchase = rs.getInt("purchase");
-                int osiId = rs.getInt("osi_id");
-                int priority = rs.getInt("priority");
-                String memo = rs.getString("memo");
-                int itemtype = rs.getInt("itemtype");
-
-                // goodsBeanオブジェクトを作成し、リストに追加
-                goodsBean goods = new goodsBean(osikatuId, day, price, item, purchase, osiId, priority, memo, itemtype);
-                goodsList.add(goods);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("データベースエラー: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return goodsList;  // 取得した全件データをリストとして返す
-    }
-
 
 }
