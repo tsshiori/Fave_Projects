@@ -138,4 +138,6 @@ public class goodsDAO {
         }
         return osi_id;
     }
+
+
 }

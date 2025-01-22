@@ -40,9 +40,6 @@
     </div>
 
     <!-- メーター -->
-    <div class="meter">
-        <br>
-        <h2>≪METER≫</h2>
         <div class="meter">
             <br>
             <h2>≪METER≫</h2>
@@ -73,7 +70,7 @@
                 <span class="kyuuryoubi-value">給与予定額: 45.4</span> <!-- valueを表示する要素 -->
             </div>
         </div>
-    </div>
+
 
 
 </div>
