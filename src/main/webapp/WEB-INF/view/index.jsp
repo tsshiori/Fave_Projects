@@ -1,12 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="utils.Bean.userBean" %>
-<%@ page import="utils.Bean.goodsBean" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="utils.Bean.faveBean" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.text.DecimalFormat" %>
-<%@ page import="utils.Bean.categoryBean" %>
+<%@ page import="utils.Bean.*" %>
 
 <%
     ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
@@ -15,12 +12,13 @@
     Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
     int futureWage = (int) session.getAttribute("futureWage");
     int almosthand = (int) session.getAttribute("almosthand");
+    int sum = (int) session.getAttribute("sum");
 %>
 
 <!DOCTYPE html>
 <html lang="ja">
 <%
-    ArrayList<goodsBean> goodslist = (ArrayList<goodsBean>) session.getAttribute("goodslist");
+    ArrayList<osikatuBean> goodslist = (ArrayList<osikatuBean>) session.getAttribute("goodsList");
     // セッションからユーザー情報を取得
     userBean user = (userBean) session.getAttribute("user");
     // int mainwork = user.getMainwork(); // 必要であればこちらを有効化
@@ -56,9 +54,9 @@
         <h2>≪METER≫</h2>
         <div class="meter-container">
             <!-- 背面のメーター -->
-            <meter class="background-meter" value="<%=futureWage%>" min="0" max="10000"></meter>
+            <meter class="background-meter" value="<%=futureWage%>" min="0" max="<%= sum %>>"></meter>
             <!-- 前面のメーター -->
-            <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="10000"></meter>
+            <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="<%= sum %>"></meter>
         </div>
         <div class="meterimg">
             <div class="temoti">
@@ -120,27 +118,35 @@
         </a>
 
         <div class="scroll-content ge-list">
-            <!-- グッズ詳細表示 -->
             <% if (goodslist != null && !goodslist.isEmpty()) { %>
-            <% for (goodsBean goods : goodslist) { %>
+            <%
+                for (osikatuBean goods : goodslist){
+            %>
+            <% if (goods.getItemtype() == 0 && goods.getPurchase() != 1){%>
+            <% String favename = "";
+                for (faveBean fave : favelist){
+                    if (fave.getOsi_id() == goods.getOsi_id()){
+                        favename = fave.getName();
+                    }
+            }%>
             <a class="goods_detail_open" href="#">
                 <div class="guzzu">
                     <div class="container">
                         <div class="hi-img">
-                            <p>~<%= goods.getDay() %></p>
-                            <img src="static/img/<%= goods.getItemtype() %>.png" alt="<%= goods.getItem() %>">
+                            <p><%= goods.getDay() %></p>
+                            <img src="static/img/Y_<%= goods.getPriority()%>.png" alt="<%= goods.getItem() %>">
                         </div>
                         <div class="inf-meter">
                             <div class="container osi-na-pri">
-                                <p class="osi"><%= goods.getOsi_id() %></p>
+                                <p class="osi"><%= favename %></p>
                                 <p class="name"><%= goods.getItem() %></p>
                                 <p class="price">&yen;<%= String.format("%,d", goods.getPrice()) %></p>
                             </div>
                             <div class="meter-app container">
                                 <div class="meter-container in-meter">
                                     <!-- メーター表示 -->
-                                    <meter class="background-meter" value="100" min="0" max="100"></meter>
-                                    <meter class="foreground-meter" value="<%= goods.getPurchase() %>" min="0" max="100"></meter>
+                                    <meter class="background-meter" value="100" min="0" max="<%= goods.getPrice() %>"></meter>
+                                    <meter class="foreground-meter" value="<%= user.getAmounthand() %>" min="0" max="<%= goods.getPrice() %>"></meter>
                                 </div>
                                 <p class="app">
                                     <% if (goods.getPurchase() >= 100) { %>
@@ -154,6 +160,45 @@
                     </div>
                 </div>
             </a>
+            <% }else if(goods.getPurchase() != 1){ %>
+            <% String favename = "";
+                for (faveBean fave : favelist){
+                    if (fave.getOsi_id() == goods.getOsi_id()){
+                        favename = fave.getName();
+                    }
+                }%>
+            <a class="goods_detail_open" href="#">
+                <div class="event">
+                    <div class="container">
+                        <div class="hi-img">
+                            <p><%= goods.getDay() %></p>
+                            <img src="static/img/Y_<%= goods.getPriority()%>.png" alt="<%= goods.getItem() %>">
+                        </div>
+                        <div class="inf-meter">
+                            <div class="container osi-na-pri">
+                                <p class="osi"><%= favename %></p>
+                                <p class="name"><%= goods.getItem() %></p>
+                                <p class="price">&yen;<%= String.format("%,d", goods.getPrice()) %></p>
+                            </div>
+                            <div class="meter-app container">
+                                <div class="meter-container in-meter">
+                                    <!-- メーター表示 -->
+                                    <meter class="background-meter" value="100" min="0" max="<%= goods.getPrice() %>"></meter>
+                                    <meter class="foreground-meter" value="<%= user.getAmounthand() %>" min="0" max="<%= goods.getPrice() %>"></meter>
+                                </div>
+                                <p class="app">
+                                    <% if (goods.getPurchase() >= 100) { %>
+                                    Complete！
+                                    <% } else { %>
+                                    あと<span><%= goods.getPriority() %></span>回…
+                                    <% } %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <% } %>
             <% } %>
             <% } else { %>
             <p>登録されたグッズはありません。</p>

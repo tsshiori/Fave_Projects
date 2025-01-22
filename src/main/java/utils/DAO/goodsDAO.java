@@ -78,4 +78,64 @@ public class goodsDAO {
         }
     }
 
+  
+    public static ArrayList<osikatuBean> selectGoods(int osi_id) {
+        String sql = "SELECT * FROM osikatu WHERE osi_id = ?";  // osikatuテーブルから全件を取得
+        ArrayList<osikatuBean> goodsList = new ArrayList<>();
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql);
+        ) {
+            // プレースホルダーに値を設定
+            pstmt.setInt(1, osi_id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                // データが見つかった場合に faveBean を生成
+                while (rs.next()) { // 修正：複数の結果を扱えるように変更
+                    goodsList.add(new osikatuBean(
+                            rs.getInt("osikatu_id"),
+                            rs.getDate("day") != null ? rs.getDate("day").toLocalDate() : null,
+                            rs.getInt("price"),
+                            rs.getString("item"),
+                            rs.getInt("purchase"),
+                            rs.getInt("osi_id"),
+                            rs.getInt("priority"),
+                            rs.getString("memo"),
+                            rs.getInt("itemtype")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // データが見つからなければ null を返す
+        return goodsList;
+    }
+
+    public static ArrayList<Integer> selectOsikatu_id(String log_id){
+        String sql = "SELECT osi_id FROM osi WHERE log_id = ?";
+        ArrayList<Integer> osi_id = new ArrayList<>();
+
+
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql);
+        ) {
+            pstmt.setString(1, log_id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                 while (rs.next()) {// 1件の結果を取得
+                     osi_id.add(
+                        rs.getInt("osi_id")
+                     );
+                 }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return osi_id;
+    }
 }
