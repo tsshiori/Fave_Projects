@@ -54,16 +54,6 @@
     });
 
 
-    // モーダルを非表示にする関数
-    // function closeModal(modalElement) {
-    //     modalElement.style.display = 'none';
-    // }
-    //
-    // // モーダルを表示する関数
-    // function showModal(modalElement) {
-    //     modalElement.style.display = 'block';
-    // }
-
     // モーダル外側をクリックした場合にモーダルを閉じる
     window.addEventListener("click", (event) => {
         if (event.target === easyModalGoods) closeModal(easyModalGoods);
@@ -162,11 +152,6 @@ document.getElementById('confirmReEvents').addEventListener('click', function ()
         // モーダルを表示
         document.getElementById('easyModalGoods').style.display = 'block';
     });
-
-
-
-
-
 
     // イベントモーダル
     document.getElementById('modalOpenEvents').addEventListener('click', function () {

@@ -113,7 +113,7 @@
         <br><br>
         <div id="goods" class="scroll-content group content-item active">
             <form id="goods_add" action="goods_add" method="post" class="goods_add_form">
-
+                <input type="hidden" name="itemtype" value="0">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input name="day" type="date" id="goods-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
@@ -201,7 +201,7 @@
         <!-- イベントフォーム -->
         <div id="events" class="group content-item">
             <form action="goods_add" method="post" class="events_add_form">
-                <input type="hidden" value="" name="url">
+                <input type="hidden" name="itemtype" value="1">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input name="day" type="date" id="event-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)">
@@ -209,7 +209,7 @@
                 </div>
                 <div class="form-group">
                     <label><span class="req">＊</span> イベント名：</label>
-                    <input name="itme" type="text" id="event-name" class="goods_name" placeholder="イベントの名前を入力してください。" required>
+                    <input name="item" type="text" id="event-name" class="goods_name" placeholder="イベントの名前を入力してください。" required>
                 </div>
                 <div class="form-group">
                     <label><span class="req">＊</span> 金額(円)：</label>

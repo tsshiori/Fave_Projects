@@ -64,3 +64,4 @@ public class IndexServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request, response);
     }
 }
+

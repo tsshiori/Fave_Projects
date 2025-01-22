@@ -49,8 +49,6 @@ public class goodsDAO {
 
         return goodslist; // 見つからない場合は空のリストを返す
     }
-
-//追加
     public static void insertGoods(LocalDate day, int price, String item, int purchase, int osi_id, int priority, String memo, int itemtype) {
         String sql = "INSERT INTO osikatu (osikatu_id, day, price, item, purchase, osi_id, priority, memo, itemtype) "
                 + " VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -65,7 +63,7 @@ public class goodsDAO {
             pstmt.setInt(5, osi_id);
             pstmt.setInt(6, priority);
             pstmt.setString(7, memo);
-            pstmt.setInt(8, itemtype);  // 修正: itemtype に変更
+            pstmt.setInt(8, itemtype);  // itemtype に変更
 
             // SQLを実行して、影響を受けた行数を取得
             int rowsAffected = pstmt.executeUpdate();
@@ -79,6 +77,8 @@ public class goodsDAO {
             e.printStackTrace();
         }
     }
+
+  
     public static ArrayList<osikatuBean> selectGoods(int osi_id) {
         String sql = "SELECT * FROM osikatu WHERE osi_id = ?";  // osikatuテーブルから全件を取得
         ArrayList<osikatuBean> goodsList = new ArrayList<>();
@@ -117,6 +117,7 @@ public class goodsDAO {
     public static ArrayList<Integer> selectOsikatu_id(String log_id){
         String sql = "SELECT osi_id FROM osi WHERE log_id = ?";
         ArrayList<Integer> osi_id = new ArrayList<>();
+
 
 
         try (
