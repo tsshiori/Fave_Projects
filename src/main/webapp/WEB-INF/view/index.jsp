@@ -145,7 +145,7 @@
                             <div class="meter-app container">
                                 <div class="meter-container in-meter">
                                     <!-- メーター表示 -->
-                                    <meter class="background-meter" value="100" min="0" max="<%= goods.getPrice() %>"></meter>
+                                    <meter class="background-meter" value="<%=futureWage%>" min="0" max="<%= goods.getPrice() %>"></meter>
                                     <meter class="foreground-meter" value="<%= user.getAmounthand() %>" min="0" max="<%= goods.getPrice() %>"></meter>
                                 </div>
                                 <p class="app">
@@ -183,7 +183,7 @@
                             <div class="meter-app container">
                                 <div class="meter-container in-meter">
                                     <!-- メーター表示 -->
-                                    <meter class="background-meter" value="100" min="0" max="<%= goods.getPrice() %>"></meter>
+                                    <meter class="background-meter" value="<%=futureWage%>" min="0" max="<%= goods.getPrice() %>"></meter>
                                     <meter class="foreground-meter" value="<%= user.getAmounthand() %>" min="0" max="<%= goods.getPrice() %>"></meter>
                                 </div>
                                 <p class="app">
