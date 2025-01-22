@@ -79,37 +79,62 @@ public class goodsDAO {
             e.printStackTrace();
         }
     }
-    public static ArrayList<goodsBean> selectGoods(int osikatu_id) {
-        String sql = "SELECT * FROM osikatu";  // osikatuテーブルから全件を取得
-        ArrayList<goodsBean> goodsList = new ArrayList<>();
+    public static ArrayList<osikatuBean> selectGoods(int osi_id) {
+        String sql = "SELECT * FROM osikatu WHERE osi_id = ?";  // osikatuテーブルから全件を取得
+        ArrayList<osikatuBean> goodsList = new ArrayList<>();
 
-        try (Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
-             PreparedStatement pstmt = con.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql);
+        ) {
+            // プレースホルダーに値を設定
+            pstmt.setInt(1, osi_id);
 
-            while (rs.next()) {
-                // 各カラムの値を取得
-                int osikatuId = rs.getInt("osikatu_id");
-                java.sql.Date day = rs.getDate("day");  // sql.Date型に変更
-                int price = rs.getInt("price");
-                String item = rs.getString("item");
-                int purchase = rs.getInt("purchase");
-                int osiId = rs.getInt("osi_id");
-                int priority = rs.getInt("priority");
-                String memo = rs.getString("memo");
-                int itemtype = rs.getInt("itemtype");
-
-                // goodsBeanオブジェクトを作成し、リストに追加
-                goodsBean goods = new goodsBean(osikatuId, day, price, item, purchase, osiId, priority, memo, itemtype);
-                goodsList.add(goods);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                // データが見つかった場合に faveBean を生成
+                while (rs.next()) { // 修正：複数の結果を扱えるように変更
+                    goodsList.add(new osikatuBean(
+                            rs.getInt("osikatu_id"),
+                            rs.getDate("day") != null ? rs.getDate("day").toLocalDate() : null,
+                            rs.getInt("price"),
+                            rs.getString("item"),
+                            rs.getInt("purchase"),
+                            rs.getInt("osi_id"),
+                            rs.getInt("priority"),
+                            rs.getString("memo"),
+                            rs.getInt("itemtype")
+                    ));
+                }
             }
-
         } catch (SQLException e) {
-            System.out.println("データベースエラー: " + e.getMessage());
             e.printStackTrace();
         }
-        return goodsList;  // 取得した全件データをリストとして返す
+
+        // データが見つからなければ null を返す
+        return goodsList;
     }
 
+    public static ArrayList<Integer> selectOsikatu_id(String log_id){
+        String sql = "SELECT osi_id FROM osi WHERE log_id = ?";
+        ArrayList<Integer> osi_id = new ArrayList<>();
 
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql);
+        ) {
+            pstmt.setString(1, log_id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                 while (rs.next()) {// 1件の結果を取得
+                     osi_id.add(
+                        rs.getInt("osi_id")
+                     );
+                 }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return osi_id;
+    }
 }
