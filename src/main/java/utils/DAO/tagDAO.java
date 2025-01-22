@@ -125,4 +125,23 @@ public class tagDAO {
         }
     }
 
+    public static List<String> selectTagsByCategory2(int cate_id) {
+        String sql = "SELECT tag FROM tag WHERE cate_id = ?";
+        List<String> tags = new ArrayList<>();
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql);
+        ) {
+            pstmt.setInt(1, cate_id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    tags.add(rs.getString("tag"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tags; // タグのリストを返す
+    }
+
 }
