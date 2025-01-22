@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -12,10 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&family=Yuji+Syuku&display=swap"
           rel="stylesheet">
 
-    <link rel="stylesheet" href="../../all.css">
-    <link rel="stylesheet" href="goods_edit.css">
+    <link rel="stylesheet" href="static/css/all.css">
+    <link rel="stylesheet" href="static/css/GoodsFile/goods_edit.css">
 
-    <link rel="shortcut icon" href="../../img/Time for Fave.png">
+    <link rel="shortcut icon" href="static/img/TimeforFave.png">
     <title>Goods_Edit | Time of Fave.</title>
 </head>
 
@@ -53,37 +52,37 @@
     <aside class="menu">
         <br>
         <div class="home">
-            <a href="../../index/index.html">
+            <a href="../index.jsp">
                 <h3>HOME</h3>
             </a>
         </div>
         <hr>
         <div class="fave">
-            <a href="../../FaveFile/fave/fave.html">
+            <a href="../FaveFile/fave.jsp">
                 <h3>FAVE</h3>
             </a>
         </div>
         <hr>
         <div class="relate">
-            <a href="../../FaveFile/relate/relate.html">
+            <a href="../FaveFile/relate.jsp">
                 <h3>RELATE</h3>
             </a>
         </div>
         <hr>
         <div class="shift">
-            <a href="../../ShiftFile/shift/shift.html">
+            <a href="../ShiftFile/shift.jsp">
                 <h3>SHIFT</h3>
             </a>
         </div>
         <hr>
         <div class="work">
-            <a href="../../WorkFile/work/work.html">
+            <a href="../WorkFile/work.jsp">
                 <h3>WORK</h3>
             </a>
         </div>
         <hr>
         <div class="mypage">
-            <a href="../../MypageFile/mypage/mypage.html">
+            <a href="../MypageFile/mypage.jsp">
                 <h3>MYPAGE</h3>
             </a>
         </div>
@@ -105,7 +104,7 @@
         </div>
         <br><br>
         <div id="goods" class="scroll-content group content-item active">
-            <form action="../goods/goods.html">
+            <form action="../GoodsFile/goods.jsp">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input type="date" id="date" class="pl" onfocus="hidePlaceholder(this)"
@@ -125,7 +124,7 @@
 
                 <div class="form-group">
                     <label class="favo"><span class="req">＊</span> 推し：</label>
-                    <select id="menu" name="menu">
+                    <select id="good-menu" name="menu">
                         <option value="" disabled selected hidden>推しを選択してください。</option>
                         <option value="option1">カンパネルラ</option>
                         <option value="option2">ミューズ</option>
@@ -133,7 +132,7 @@
                     <!-- グッズ用プラスボタン -->
                     <div id="plusButtonGoods" class="btn-plus">
                         <button class="plus" type="button">
-                            <img src="../../img/plus.png" alt="plus">
+                            <img src="static/img/plus.png" alt="plus">
                         </button>
                     </div>
                 </div>
@@ -142,23 +141,23 @@
                     <div class="icon container">
                         <label>
                             <input type="radio" name="icon" value="0" checked>
-                            <img src="../../img/Y_A.png" alt="a">
+                            <img src="static/img/Y_A.png" alt="a">
                         </label>
                         <label>
                             <input type="radio" name="icon" value="1">
-                            <img src="../../img/Y_B.png" alt="b">
+                            <img src="static/img/Y_B.png" alt="b">
                         </label>
                         <label>
                             <input type="radio" name="icon" value="2">
-                            <img src="../../img/Y_C.png" alt="c">
+                            <img src="static/img/Y_C.png" alt="c">
                         </label>
                         <label>
                             <input type="radio" name="icon" value="3">
-                            <img src="../../img/Y_D.png" alt="d">
+                            <img src="static/img/Y_D.png" alt="d">
                         </label>
                         <label>
                             <input type="radio" name="icon" value="4">
-                            <img src="../../img/Y_E.png" alt="e">
+                            <img src="static/img/Y_E.png" alt="e">
                         </label>
                     </div>
                 </div>
@@ -177,13 +176,13 @@
                 <div class="form-group">
                     <div class="btn">
                         <button id="modalOpenGoods" type="button" class="in">追加</button>
-                        <a class="kyan" href="../../index/index.html">キャンセル</a>
+                        <a class="kyan" href="../index.jsp">キャンセル</a>
                     </div>
                 </div>
             </form>
         </div>
         <div id="events" class="group content-item">
-            <form action="../goods/goods.html">
+            <form action="../GoodsFile/goods.jsp">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input type="date" id="event-date" class="pl" onfocus="hidePlaceholder(this)"
@@ -212,7 +211,7 @@
                     <!-- イベント用プラスボタン -->
                     <div id="plusButtonEvents" class="btn-plus">
                         <button class="plus" type="button">
-                            <img src="../../img/plus.png" alt="plus">
+                            <img src="static/img/plus.png" alt="plus">
                         </button>
                     </div>
 
@@ -222,23 +221,23 @@
                     <div class="icon container">
                         <label>
                             <input type="radio" name="icon" value="0" checked>
-                            <img src="../../img/Y_A.png" alt="a">
+                            <img src="static/img/Y_A.png" alt="a">
                         </label>
                         <label>
                             <input type="radio" name="icon" value="1">
-                            <img src="../../img/Y_B.png" alt="b">
+                            <img src="static/img/Y_B.png" alt="b">
                         </label>
                         <label>
                             <input type="radio" name="icon" value="2">
-                            <img src="../../img/Y_C.png" alt="c">
+                            <img src="static/img/Y_C.png" alt="c">
                         </label>
                         <label>
                             <input type="radio" name="icon" value="3">
-                            <img src="../../img/Y_D.png" alt="d">
+                            <img src="static/img/Y_D.png" alt="d">
                         </label>
                         <label>
                             <input type="radio" name="icon" value="4">
-                            <img src="../../img/Y_E.png" alt="e">
+                            <img src="static/img/Y_E.png" alt="e">
                         </label>
                     </div>
                 </div>
@@ -257,7 +256,7 @@
                 <div class="form-group">
                     <div class="btn">
                         <button id="modalOpenEvents" type="button" class="in">追加</button>
-                        <a class="kyan" href="../../index/index.html">キャンセル</a>
+                        <a class="kyan" href="../index.jsp">キャンセル</a>
                     </div>
                 </div>
             </form>
@@ -289,7 +288,7 @@
                 </tr>
                 <tr>
                     <th>優先度：</th>
-                    <td><img src="../../img/Y_B.png" alt="b"></td>
+                    <td><img src="static/img/Y_B.png" alt="b"></td>
                 </tr>
                 <tr>
                     <th>メモ：</th>
@@ -334,7 +333,7 @@
                 </tr>
                 <tr>
                     <th>優先度：</th>
-                    <td><img src="../../img/Y_B.png" alt="b"></td>
+                    <td><img src="static/img/Y_B.png" alt="b"></td>
                 </tr>
                 <tr>
                     <th>メモ：</th>
@@ -396,7 +395,7 @@
 </div>
 
 
-<script src="static/js/goods_edit.js"></script>
+<script src="static/js/GoodsFile/goods_edit.js"></script>
 <script src="static/js/all.js"></script>
 </body>
 

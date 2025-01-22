@@ -201,7 +201,7 @@
 
     <servlet>
         <servlet-name>GoodsEditServlet</servlet-name>
-        <servlet-class>com.example.fave.GoodsFile.GoodsAddServlet</servlet-class>
+        <servlet-class>com.example.fave.GoodsFile.GoodsEditServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GoodsEditServlet</servlet-name>

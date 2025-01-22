@@ -1,0 +1,624 @@
+@charset "utf-8";
+
+* {
+    box-sizing: border-box;
+}
+
+.main {
+    width: 85%;
+}
+
+body {
+    font-weight: bold;
+}
+
+.scroll-content {
+    width: 300px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+.toggle-container {
+    flex-wrap: nowrap;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 10;
+    /* width: calc(100% - 34px); */
+}
+
+.switch_label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 5%;
+}
+
+.switch {
+    position: relative;
+    margin-right: 10px;
+}
+
+.toggle-container input[type='checkbox'] {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.base {
+    width: 56px;
+    height: 32px;
+    border-radius: 15px;
+    background: rgba(255, 255, 209, 1);
+    position: relative;
+    transition: background-color 0.5s;
+}
+
+.title {
+    /* margin-left: 4px; */
+    font-weight: 900;
+    font-size: 17px;
+    color: #221D7E;
+    margin-right: auto;
+}
+
+.circle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    background: rgba(247, 156, 0, 1);
+    transition: 0.5s;
+}
+
+input:checked~.base {
+    background: rgba(255, 255, 209, 1);
+}
+
+input:checked~.base .circle {
+    transform: translateX(100%);
+    background: rgba(30, 183, 36, 1);
+}
+
+
+.toggle-container .note {
+    color: rgba(255, 18, 18, 1);
+    font-size: 17px;
+    text-align: right;
+    margin: 0;
+    white-space: nowrap;
+    flex-shrink: 0;
+    z-index: 10;
+    margin-right: 5%;
+}
+
+.fa-add {
+    width: 100%;
+}
+
+.req {
+    margin-right: 1%;
+    color: #FF1212;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+
+.icon {
+    width: 80%;
+    display: flex;
+    margin: 2% auto;
+    justify-content: center;
+}
+
+.icon label {
+    margin: 10px;
+}
+
+.icon img {
+    display: flex;
+    width: 130px;
+    border-radius: 100px;
+    /* display: block; */
+    margin: 0 20px;
+}
+
+.icon img:hover {
+    opacity: 0.7;
+}
+
+input[type=radio]:checked+img {
+    border: 2px solid #221D7E;
+    box-sizing: border-box;
+}
+
+input[type=radio] {
+    display: none;
+}
+
+input[type="text"],
+input[type="date"],
+textarea.memo {
+    color: #66639C;
+    font-family: "Noto Serif JP", serif;
+    height: 40px;
+    border-radius: 3px;
+    font-size: 20px;
+    width: 400px;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 0.5px solid #221D7E;
+    background: rgba(255, 255, 243, 1);
+}
+
+textarea.memo {
+    resize: vertical;
+    max-width: 400px;
+    max-height: 300px;
+    min-width: 400px;
+    min-height: 100px;
+}
+
+
+.form-group {
+    font-size: 20px;
+    text-align: left;
+    display: flex;
+    margin: 1% auto;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+}
+
+.favo {
+    margin-left: 7%;
+}
+
+.favorite {
+    margin-right: 1%;
+}
+
+.req {
+    color: rgba(255, 18, 18, 1);
+}
+
+.form-group label {
+    display: inline-block;
+    width: 150px;
+    vertical-align: top;
+    text-align: right;
+    margin-right: 5%;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+
+.small-text {
+    margin-right: 20px;
+    font-size: 0.78em;
+    color: #221D7E;
+}
+
+.form-group .memo-label {
+    display: block;
+    margin-bottom: 5%;
+}
+
+
+.btn {
+    text-align: center;
+    width: 100%;
+}
+
+.in {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3%;
+    color: #221D7E;
+    background-color: #C3F8B9;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 5%;
+}
+
+.in:hover {
+    background-color: #ddfbd7;
+}
+
+.kyan {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    margin-top: 20px;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+
+}
+
+.kyan:hover {
+    background-color: #ececec;
+}
+
+.in,
+.kyan {
+    white-space: nowrap;
+}
+
+
+
+.btn-plus {
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+/* ボタンのスタイリング */
+.plus {
+    background: none;
+    /* ボタンの背景を透明に */
+    border: none;
+    /* ボタンの境界線を消す */
+    padding: 0;
+    /* 不要な余白を消す */
+    margin: 0;
+    /* ボタンの周囲の余白を消す */
+    cursor: pointer;
+    /* カーソルをポインターに */
+    display: flex;
+    /* 画像をボタン内で中央に配置 */
+    align-items: center;
+    /* 垂直方向の中央揃え */
+    justify-content: center;
+    /* 水平方向の中央揃え */
+    width: 56px;
+    /* ボタンの幅を指定 */
+    height: 32px;
+    /* ボタンの高さを指定 */
+    justify-content: space-between;
+}
+
+/* 画像のサイズ調整 */
+.plus img {
+    width: 80%;
+    /* 画像の幅をボタンの80%に設定 */
+    height: auto;
+    /* 高さは自動調整 */
+}
+
+
+
+
+.custom-file-select {
+    width: 20.5rem;
+    color: #66639C;
+    margin-left: 6px;
+    text-align: left;
+    border-radius: 5px;
+    appearance: none;
+    padding: 5px 0 5px 5px;
+    font-size: 16px;
+    border: #221D7E 0.5px solid;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    background-image: url('../../img/UPLOAD.png');
+    /* カスタム矢印の画像 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    /* 矢印の位置 */
+    background-size: 15px;
+    /* 矢印のサイズ */
+}
+
+option {
+    font-family: "Noto Serif JP", serif;
+}
+
+select {
+    color: #66639C;
+    border-radius: 5px;
+    appearance: none;
+    width: 400px;
+    height: 40px;
+    font-family: "Noto Serif JP", serif;
+    padding: 5px;
+    padding-left: 8px;
+    font-size: 18px;
+    border: #221D7E 0.5px solid;
+    border-radius: 5px;
+    background-image: url('../../img/DOWN.png');
+    /* カスタム矢印の画像 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    /* 矢印の位置 */
+    background-size: 15px;
+    /* 矢印のサイズ */
+
+    background-color: #FFFFF3;
+}
+
+.input-container{
+    position: relative;
+}
+
+.pl {
+    font-family: "Noto Serif JP", serif;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #FFFFF3;
+    border: 1px solid #221D7E;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #A9A8C2;
+    width: 20.5rem;
+    height: 40px;
+}
+.date-text {
+    font-family: "Noto Serif JP", serif;
+    position: absolute;
+    margin-left: 50px;
+    color: #A9A8C2;
+    background-color: #FFFFF3;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* プレースホルダーを非表示にする */
+.pl:focus+.date-text{
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+/* 追加ボタンのモーダル */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: auto;
+    width: 50%;
+    height: 80%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+}
+
+.modal-header h1 {
+    color: #221D7E;
+    font-weight: bolder;
+}
+
+.modal-header {
+    padding-top: 35px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.modalClose {
+    font-size: 2rem;
+}
+
+.modal-body {
+    padding: 0 20px;
+    text-align: center;
+}
+
+.modal-body table img {
+    width: 20%;
+    border-radius: 100%;
+}
+
+.modal-body table {
+    width: 95%;
+    margin: 0 auto;
+    border-spacing: 10px;
+    font-size: 18px;
+}
+
+.modal-body table th {
+    width: 45%;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 2px;
+}
+
+.modal-body table td {
+    width: 55%;
+    font-weight: 600;
+    text-align: left;
+    margin-left: 4px;
+}
+
+
+#confirmReGoods,
+#confirmReEvents {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 5%;
+    color: #221D7E;
+    background-color: #C3F8B9;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin-right: 5%;
+}
+
+#confirmReGoods:hover {
+    background-color: #ddfbd7;
+}
+
+#confirmReEvents:hover {
+    background-color: #ddfbd7;
+}
+
+
+#cancelReGoods,
+#cancelReEvents {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    margin-top: 20px;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+
+}
+
+#cancelReGoods:hover {
+    background-color: #ececec;
+}
+
+#cancelReEvents:hover {
+    background-color: #ececec;
+}
+
+td .text {
+    font-size: 9px;
+}
+
+
+/* プラスボタンのモーダル */
+.modealbtn {
+    display: flex;
+    justify-content: center;
+}
+
+.btn3 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: bolder;
+    margin-top: 20px;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    padding: 5px 20px;
+    text-decoration: none;
+}
+
+#AddGoods,
+#AddEvents {
+    background-color: rgba(255, 224, 61, 1);
+    padding: 5px 40px;
+    margin-right: 5%;
+    margin-top: 6%;
+}
+
+#AddGoods:hover,
+#AddEvents:hover {
+    background-color: rgb(255, 234, 130);
+}
+
+#ReGoods,
+#ReEvents {
+    background-color: #FFFFF3;
+    padding: 5px 20px;
+    margin-top: 6%;
+}
+
+#ReGoods:hover,
+#ReEvents:hover {
+    background-color: #ececec;
+}
+
+.modalbody {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content2 {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 10px;
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: auto;
+    width: 50%;
+    height: 46%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+}
+
+.modalbody input[type="text"] {
+    color: #A9A8C2;
+    font-family: "Noto Serif JP", serif;
+    height: 40px;
+    border-radius: 3px;
+    font-size: 20px;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 0.5px solid #221D7E;
+    background: rgba(255, 255, 243, 1);
+    width: 20.5rem;
+    margin-left: 6px;
+}
+
+.modal-group {
+    font-size: 20px;
+    text-align: left;
+    display: flex;
+    margin: 1% auto;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.modal-group .osi {
+    display: inline-block;
+    width: 150px;
+    vertical-align: top;
+    text-align: right;
+}
