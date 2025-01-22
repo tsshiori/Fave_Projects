@@ -762,14 +762,12 @@ img {
     margin-right: auto;
     position:relative;
     top:-71px;
-    background-color: transparent; /* 背景を透明に */
 }
 
 /* 不要な transparent を削除 */
 .purchased-left-item {
     background-color: #FFFFF3;
 }
-
 
 .purchased-left-item img {
     border-radius: 50%; /* アイコンを丸くする */
