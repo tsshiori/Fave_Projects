@@ -145,4 +145,27 @@ public class categoryDAO {
         // データが見つからなければ null を返す
         return result;
     }
+
+    public static ArrayList<categoryBean> selectCategory2 (String log_id) {
+        String sql = "SELECT * FROM category WHERE log_id = ?";
+        ArrayList<categoryBean> result = new ArrayList<>();
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql);
+        ) {
+            pstmt.setString(1, log_id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) { // 修正：複数の結果を扱えるように変更
+                    result.add(new categoryBean(
+                            rs.getInt("cate_id"),
+                            rs.getString("category"),
+                            rs.getString("log_id")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
