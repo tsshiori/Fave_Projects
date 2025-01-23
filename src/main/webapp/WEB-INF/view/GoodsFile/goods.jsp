@@ -5,14 +5,24 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="utils.Bean.categoryBean" %>
+<%@ page import="utils.Bean.osikatuBean" %>
+<%@ page import="utils.Bean.userBean" %>
+<%@ page import="utils.DAO.goodsDAO" %>
 
 <%
+    userBean user = (userBean) session.getAttribute("user");
+    String log_id = user.getLog_id();
     ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
     Map<Integer, Integer> osiPriceMap = (Map<Integer, Integer>) session.getAttribute("osiout");
     ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
     Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
     int futureWage = (int) session.getAttribute("futureWage");
     int almosthand = (int) session.getAttribute("almosthand");
+    ArrayList<osikatuBean> Beforelist = (ArrayList<osikatuBean>) session.getAttribute("0_list");
+    ArrayList<osikatuBean> Afterlist = (ArrayList<osikatuBean>) session.getAttribute("1_list");
+
+
+
 %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -40,9 +50,6 @@
     </div>
 
     <!-- メーター -->
-    <div class="meter">
-        <br>
-        <h2>≪METER≫</h2>
         <div class="meter">
             <br>
             <h2>≪METER≫</h2>
@@ -73,7 +80,7 @@
                 <span class="kyuuryoubi-value">給与予定額: 45.4</span> <!-- valueを表示する要素 -->
             </div>
         </div>
-    </div>
+
 
 
 </div>
@@ -133,126 +140,107 @@
                                     <span>購入したら</span><br>
                                     <span>クリック</span>
                                     <div class="arrow">▼</div> <!-- 下向き矢印を直接追加 -->
-                                </span>
+                            </span>
                         </div>
                         <a href="goods_add" id="plus-link">
                             <img src="static/img/ADD.png" alt="ADD" class="add-icon">
                         </a>
                     </div>
+                    <script>
+                        // osikatuId に対応するフォームを送信
+                        function submitFormBuy(osikatuId) {
+                            // 対応するフォームを取得
+                            const form = document.getElementById(`buy_form_${osikatuId}`);
+                            if (form) {
+                                form.submit(); // フォームを送信
+                            } else {
+                                console.error(`Form with ID buy_form_${osikatuId} not found.`);
+                            }
+                        }
+                    </script>
 
+                    <script>
+                        // osikatuId に対応するフォームを送信
+                        function submitFormBuy(osikatuId) {
+                            // 対応するフォームを取得
+                            const form = document.getElementById(`buy_form_${osikatuId}`);
+                            if (form) {
+                                form.submit(); // フォームを送信
+                            } else {
+                                console.error(`Form with ID buy_form_${osikatuId} not found.`);
+                            }
+                        }
+                    </script>
 
-                    <!-- カンパネルラ アクリルスタンドの商品ボックス -->
-                    <div class="guzzu" style="margin-top: 20px;">
-                        <div class="container" id="item1" onclick="openModal('item1', 'グッズ：　アクリルスタンド<br> 金額(円)：　￥1,980<br> 推し：　カンパネルラ<br> 日付：　2024/11/16<br>'); event.stopPropagation();">
-                            <div class="hi-img">
-                                <p>~11/16</p>
-                                <img src="static/img/Y_A.png" alt="A" onclick="moveToPurchased(event, 'item1')">
-                            </div>
-                            <div class="inf-meter">
-                                <div class="name-container">
-                                    <div class="name-divider">
-                                        <p class="osi">カンパネルラ</p>
-                                        <hr class="divider">
-                                        <p class="name">アクリルスタンド</p>
-                                    </div>
+                    <%
+                        if (Beforelist != null && !Beforelist.isEmpty()) {
+                            for (osikatuBean bean : Beforelist) {
+                                if (bean.getItemtype() == 0 || bean.getItemtype() == 1) {
+                    %>
+                    <form action="BuyBoughtServlet" method="post" id="buy_form_<%=bean.getOsikatu_id()%>">
+                        <input type="hidden" name="osikatu_id" value="<%=bean.getOsikatu_id()%>">
+
+                        <div class="<%= bean.getItemtype() == 0 ? "guzzu" : "event" %>" style="margin-top: 20px;">
+                            <div class="container" id="item1">
+                                <!-- "hi-img" クリック時に JavaScript 関数を呼び出す -->
+                                <div class="hi-img" onclick="submitFormBuy('<%=bean.getOsikatu_id()%>')">
+                                    <p>~<%=bean.getDay()%></p>
+                                    <%
+                                        int priority = bean.getPriority();  // osikatuBean から priority を取得
+                                    %>
+
+                                    <%-- 条件に基づいて画像を表示 --%>
+                                    <% if (priority == 0) { %>
+                                    <img src="static/img/Y_0.png" alt="Priority 0">
+                                    <% } else if (priority == 1) { %>
+                                    <img src="static/img/Y_1.png" alt="Priority 1">
+                                    <% } else if (priority == 2) { %>
+                                    <img src="static/img/Y_2.png" alt="Priority 2">
+                                    <% } else if (priority == 3) { %>
+                                    <img src="static/img/Y_3.png" alt="Priority 3">
+                                    <% } else if (priority == 4) { %>
+                                    <img src="static/img/Y_4.png" alt="Priority 4">
+                                    <% } else { %>
+                                    <img src="static/img/購入済.png" alt="Default Priority">
+                                    <% } %>
                                 </div>
-                                <p class="price">¥1,980</p>
-                            </div>
-                            <div class="meter-app container">
-                                <p class="app">Complete！</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="event">
-                        <div class="container">
-                            <div class="hi-img">
-                                <img src="static/img/Y_B.png" alt="B">
-                            </div>
-                            <div class="inf-meter">
-                                <div class="name-container">
-                                    <div class="name-divider">
-                                        <p class="osi">ミューズ</p>
-                                        <hr class="divider">
-                                        <p class="name">STARMINE ver.4.0</p>
+                                <div class="inf-meter">
+                                    <div class="name-container">
+                                        <div class="name-divider">
+                                            <p class="osi">
+                                                <%
+                                                    int osi_id = bean.getOsi_id();
+                                                    faveBean fave = utils.DAO.faveDAO.getFaveByOsi_id(osi_id);
+                                                    String osiName = fave.getName();
+                                                %>
+                                                <%=osiName%>
+                                            </p>
+                                            <hr class="divider">
+                                            <p class="name"><%=bean.getItem()%></p>
+                                        </div>
                                     </div>
+                                    <p class="price">&yen;<%=String.format("%,d",bean.getPrice())%></p>
                                 </div>
-                                <p class="price">¥12,500</p>
                                 <div class="meter-app container">
-                                    <p class="app">Expected…</p>
+                                    <p class="app">Complete！</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+
+                    <%
+                            }
+                        }
+                    } else {
+                    %>
+                    <h3 style="margin-left: 60px">登録されている購入前のグッズはありません</h3>
+                    <%
+                        }
+                    %>
 
 
-                    <div class="guzzu">
-                        <div class="container">
-                            <div class="hi-img">
-                                <p>~11/16</p>
-                                <img src="static/img/Y_C.png" alt="C">
-                            </div>
-                            <div class="inf-meter">
-                                <div class="name-container">
-                                    <div class="name-divider">
-                                        <p class="osi">カンパネルラ</p>
-                                        <hr class="divider">
-                                        <p class="name">ころころぬい ランダム</p>
-                                    </div>
-                                </div>
-                                <p class="price">¥1,960</p>
-                            </div>
-                            <div class="meter-app container">
-                                <p class="app">Complete！</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="guzzu">
-                        <div class="container">
-                            <div class="hi-img">
-                                <p>~11/16</p>
-                                <img src="static/img/Y_D.png" alt="D">
-                            </div>
-                            <div class="inf-meter">
-                                <div class="name-container">
-                                    <div class="name-divider">
-                                        <p class="osi">カンパネルラ</p>
-                                        <hr class="divider">
-                                        <p class="name">銀河鉄道模型</p>
-                                    </div>
-                                </div>
-                                <p class="price">¥21,300</p>
-                            </div>
-                            <div class="meter-app container">
-                                <p class="app">Complete！</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="event">
-                        <div class="container">
-                            <div class="hi-img">
-                                <p>~2/18</p>
-                                <img src="static/img/Y_E.png" alt="E">
-                            </div>
-                            <div class="inf-meter">
-                                <div class="name-container">
-                                    <div class="name-divider">
-                                        <p class="osi">ミューズ</p>
-                                        <hr class="divider">
-                                        <p class="name">STARLIVEツアー…</p>
-                                    </div>
-                                </div>
-                                <p class="price">¥62,000</p>
-                                <div class="meter-app container">
-                                    <p class="app">Expected…</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -276,29 +264,57 @@
 
                     <!-- guzuu や event を右側に配置 -->
                     <!-- アイテムの右側の内容 -->
-                    <div class="right-side-one">
-                        <div class="guzzu-right">
-                            <div class="container" id="right-item1" onclick="openRightModal('right-item1'); event.stopPropagation();">
-                                <div class="hi-img-right">
-                                    <p>~11/16</p>
-                                    <img src="static/img/購入済.png" alt="J" class="purchase-icon" onclick="moveToLeftSide(event, 'right-item1'); event.stopPropagation();">
+                    <div class="right-side-one" style="margin-bottom: 40px">
+                        <%
+                            if (Afterlist != null && !Afterlist.isEmpty()) {
+                                for (osikatuBean bean : Afterlist) {
+                        %>
+
+                        <form action="BuyBoughtServlet" method="post" id="bought_form_<%=bean.getOsikatu_id()%>">
+                            <input type="hidden" name="osikatu_id" value="<%=bean.getOsikatu_id()%>">
+
+                        <div class="<%= bean.getItemtype() == 0 ? "guzzu-right" : "event-right" %>">
+                            <div class="container" id="item">
+                                <div class="hi-img-right" onclick="submitFormBought('<%=bean.getOsikatu_id()%>')">
+                                    <p>~<%=bean.getDay()%></p>
+                                    <img src="static/img/購入済.png" alt="Default Priority" class="purchase-icon">
                                 </div>
+
                                 <div class="inf-meter">
                                     <div class="name-container">
                                         <div class="name-divider">
-                                            <p class="osi">カンパネルラ</p>
+                                            <p class="osi">
+                                                <%
+                                                    int osi_id = bean.getOsi_id();
+                                                    faveBean fave = utils.DAO.faveDAO.getFaveByOsi_id(osi_id);
+                                                    String osiName = fave.getName();
+                                                %>
+                                                <%=osiName%>
+                                            </p>
                                             <hr class="divider">
-                                            <p class="name">アクリルパネル</p>
+                                            <p class="name"><%=bean.getItem()%></p>
                                         </div>
                                     </div>
-                                    <p class="price">¥2,600</p>
+                                    <p class="price">&yen;<%=String.format("%,d",bean.getPrice())%></p>
                                 </div>
                                 <div class="meter-app container">
                                     <p class="app">Complete！</p>
                                 </div>
                             </div>
                         </div>
+                        </form>
+
+                        <%
+                            }
+                        } else {
+                        %>
+                        <h3 style="margin-left: 60px; margin-top: 40px">登録されている購入済みのグッズはありません</h3>
+                        <%
+                            }
+                        %>
                     </div>
+
+
 
                     <!-- 右側最初のモーダル -->
                     <div id="modalOpenMain" class="modal">
@@ -340,141 +356,6 @@
                             </div>
 
                             <button id="rCloseMain" type="button" class="btn" onclick="closeRightModal()">閉じる</button>
-                        </div>
-                    </div>
-
-
-
-                    <div class="guzzu-right" id="item2">
-                            <div class="container">
-                                <div class="hi-img-right">
-                                    <!-- アイコンをクリックして左側に移動する -->
-                                    <img src="static/img/購入済.png" alt="I">
-                                </div>
-                                <div class="inf-meter">
-                                    <div class="name-container">
-                                        <div class="name-divider">
-                                            <p class="osi">ミューズ</p>
-                                            <hr class="divider">
-                                            <p class="name">ネップリ　第2弾</p>
-                                        </div>
-                                    </div>
-                                    <p class="price">¥4,000</p>
-                                </div>
-                                <div class="meter-app container">
-                                    <p class="app">Complete！</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="guzzu-right">
-                            <div class="container">
-                                <div class="hi-img-right">
-                                    <p>~11/16</p>
-                                    <img src="static/img/購入済.png" alt="J">
-                                </div>
-                                <div class="inf-meter">
-                                    <div class="name-container">
-                                        <div class="name-divider">
-                                            <p class="osi">カンパネルラ</p>
-                                            <hr class="divider">
-                                            <p class="name">もちころりん　先…</p>
-                                        </div>
-                                    </div>
-                                    <p class="price">¥2,500</p>
-                                </div>
-                                <div class="meter-app container">
-                                    <p class="app">Complete！</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="guzzu-right">
-                            <div class="container">
-                                <div class="hi-img-right">
-                                    <p>~11/16</p>
-                                    <img src="static/img/購入済.png" alt="K">
-                                </div>
-                                <div class="inf-meter">
-                                    <div class="name-container">
-                                        <div class="name-divider">
-                                            <p class="osi">カンパネルラ</p>
-                                            <hr class="divider">
-                                            <p class="name">劇場版　始まりの…</p>
-                                        </div>
-                                    </div>
-                                    <p class="price">¥11,300</p>
-                                </div>
-                                <div class="meter-app container">
-                                    <p class="app">Complete！</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="event-right">
-                            <div class="container">
-                                <div class="hi-img-right">
-                                    <p>~11/16</p>
-                                    <img src="static/img/購入済.png" alt="L">
-                                </div>
-                                <div class="inf-meter">
-                                    <div class="name-container">
-                                        <div class="name-divider">
-                                            <p class="osi">ミューズ</p>
-                                            <hr class="divider">
-                                            <p class="name">STARMINE ver.1.0</p>
-                                        </div>
-                                    </div>
-                                    <p class="price">¥9,500</p>
-                                </div>
-                                <div class="meter-app container">
-                                    <p class="app">Complete！</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="guzzu-right">
-                            <div class="container">
-                                <div class="hi-img-right">
-                                    <p>~11/16</p>
-                                    <img src="static/img/購入済.png" alt="M">
-                                </div>
-                                <div class="inf-meter">
-                                    <div class="name-container">
-                                        <div class="name-divider">
-                                            <p class="osi">カンパネルラ</p>
-                                            <hr class="divider">
-                                            <p class="name">夏の日の思い出 ド…</p>
-                                        </div>
-                                    </div>
-                                    <p class="price">¥3,200</p>
-                                </div>
-                                <div class="meter-app container">
-                                    <p class="app">Complete！</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="event-right">
-                            <div class="container">
-                                <div class="hi-img-right">
-                                    <p>~11/16</p>
-                                    <img src="static/img/購入済.png" alt="N">
-                                </div>
-                                <div class="inf-meter">
-                                    <div class="name-container">
-                                        <div class="name-divider">
-                                            <p class="osi">カンパネルラ</p>
-                                            <hr class="divider">
-                                            <p class="name">劇場版　始まりの…</p>
-                                        </div>
-                                    </div>
-                                    <p class="price">¥2,000</p>
-                                </div>
-                                <div class="meter-app container">
-                                    <p class="app">Complete！</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -613,7 +494,7 @@
 
 
 
-<script src="static/js/all.js"></script>
+
 <script src="static/js/GoodsFile/goods.js"></script>
 <script src="static/js/all.js"></script>
 
