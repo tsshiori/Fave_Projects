@@ -10,6 +10,8 @@ import jakarta.servlet.annotation.*;
 import utils.Bean.osikatuBean;
 import utils.Bean.userBean;
 import utils.DAO.goodsDAO;
+import java.util.Collections;
+import java.util.Comparator;
 
 @WebServlet("/Goods")
 public class GoodsServlet extends HttpServlet {
@@ -25,23 +27,34 @@ public class GoodsServlet extends HttpServlet {
         ArrayList<Integer> osi_id_list = utils.DAO.goodsDAO.selectOsikatu_id(log_id);
 
 // 結果を保持するリスト
-        ArrayList<ArrayList<osikatuBean>> goodsList = new ArrayList<>();
+        ArrayList<osikatuBean> purchaseZeroList = new ArrayList<>();
+        ArrayList<osikatuBean> purchaseOtherList = new ArrayList<>();
 
         if (osi_id_list != null && !osi_id_list.isEmpty()) {
             for (int osi_id : osi_id_list) {
-                // osi_id を使って osikatuBean を取得
-                ArrayList<osikatuBean> bean = goodsDAO.selectOsikatuByOsi_id(osi_id);
-                if (bean != null) {
-                    goodsList.add(bean); // リストに追加
+                // osi_id を使って osikatuBean のリストを取得
+                ArrayList<osikatuBean> beans = goodsDAO.selectOsikatuByOsi_id(osi_id);
+
+                if (beans != null) {
+                    for (osikatuBean bean : beans) {
+                        if (bean.getPurchase() == 0) {
+                            purchaseZeroList.add(bean); // purchaseが0の場合
+                        } else {
+                            purchaseOtherList.add(bean); // その他の場合
+                        }
+                    }
                 }
             }
+
+            // `priority` でソート（小さい順）
+            purchaseZeroList.sort(Comparator.comparingInt(osikatuBean::getPriority));
+            purchaseOtherList.sort(Comparator.comparingInt(osikatuBean::getPriority));
         } else {
             System.out.println("osi_id_list is empty or null.");
         }
 
-        // goodsList を確認（デバッグ用）
-        System.out.println("Retrieved goods: " + goodsList);
-
+        session.setAttribute("0_list",purchaseZeroList);
+        session.setAttribute("1_list",purchaseOtherList);
 
 
 
