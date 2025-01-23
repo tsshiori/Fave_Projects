@@ -52,11 +52,13 @@
     <div class="meter">
         <br>
         <h2>≪METER≫</h2>
+        <% if (sum != 0){%>
         <div class="meter-container">
             <!-- 背面のメーター -->
-            <meter class="background-meter" value="<%=futureWage%>" min="0" max="<%= sum %>>"></meter>
+            <meter class="background-meter" value="<%=futureWage%>" min="0" max="<%= sum %>"></meter>
             <!-- 前面のメーター -->
             <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="<%= sum %>"></meter>
+
         </div>
         <div class="meterimg">
             <div class="temoti">
@@ -68,6 +70,9 @@
                 <span class="kyuuryoubi-value">給与予定額: <%=almosthand%></span> <!-- valueを表示する要素 -->
             </div>
         </div>
+        <% }else{  %>
+        <h1 style="margin-left: 120px">未購入のグッズが登録されていません。</h1>
+        <% } %>
     </div>
 </div>
 <br>
