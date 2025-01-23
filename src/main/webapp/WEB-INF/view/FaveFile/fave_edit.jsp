@@ -258,13 +258,7 @@
                     <div class="form-group ca">
                         <label class="memo-label">メモ：</label>
                         <textarea class="memo" name="memo" placeholder="メモを入力してください。" >
-                            <%
-                                if(fave.getOsimemo() == null || fave.getOsimemo().isEmpty()){} else {
-                            %>
-                            <%= fave.getOsimemo() %>
-                            <%
-                                }
-                            %>
+                            <%if(fave.getOsimemo() == null || fave.getOsimemo().isEmpty()){} else {fave.getOsimemo();}%>
                         </textarea>
                     </div>
 

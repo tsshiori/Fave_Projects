@@ -1,6 +1,8 @@
 package com.example.fave;
 
 import java.io.*;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -51,6 +53,37 @@ public class IndexServlet extends HttpServlet {
             }
 
             session.setAttribute("sum", sum);
+
+            ArrayList<shiftBean> shiftFuture = null;
+            int futureWage = 0;
+
+            try {
+                shiftFuture = utils.DAO.shiftDAO.selectShiftAllFuture(log_id);
+
+
+                for (shiftBean shift : shiftFuture) {
+                    LocalDateTime startdatetime = shift.getStartdatetime();
+                    LocalDateTime enddatetime = shift.getEnddatetime();
+                    int work_id = shift.getWork_id();
+                    int breaktime = shift.getBreaktime();
+                    int wage = shift.getWage();
+
+                    int addWage = utils.DAO.amounthandDAO.futureWage(startdatetime,enddatetime,work_id,breaktime,wage,log_id);
+                    futureWage += addWage;
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+
+            int almosthand = user.getAmounthand();
+            int totalhand = almosthand + futureWage;
+            request.setAttribute("futureWage",totalhand);
+            request.setAttribute("almosthand",almosthand);
+
+            workBean mainwork = workDAO.selectWork(user.getMainwork());
+            session.setAttribute("mainwork", mainwork);
         } else {
             // ユーザーがセッションにいない場合の処理（例: ログイン画面にリダイレクト）
             response.sendRedirect("/login.jsp");
