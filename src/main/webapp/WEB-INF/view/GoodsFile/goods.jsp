@@ -146,56 +146,87 @@
                             <img src="static/img/ADD.png" alt="ADD" class="add-icon">
                         </a>
                     </div>
+                    <script>
+                        // osikatuId に対応するフォームを送信
+                        function submitFormBuy(osikatuId) {
+                            // 対応するフォームを取得
+                            const form = document.getElementById(`buy_form_${osikatuId}`);
+                            if (form) {
+                                form.submit(); // フォームを送信
+                            } else {
+                                console.error(`Form with ID buy_form_${osikatuId} not found.`);
+                            }
+                        }
+                    </script>
+
+                    <script>
+                        // osikatuId に対応するフォームを送信
+                        function submitFormBuy(osikatuId) {
+                            // 対応するフォームを取得
+                            const form = document.getElementById(`buy_form_${osikatuId}`);
+                            if (form) {
+                                form.submit(); // フォームを送信
+                            } else {
+                                console.error(`Form with ID buy_form_${osikatuId} not found.`);
+                            }
+                        }
+                    </script>
+
                     <%
                         if (Beforelist != null && !Beforelist.isEmpty()) {
                             for (osikatuBean bean : Beforelist) {
                                 if (bean.getItemtype() == 0 || bean.getItemtype() == 1) {
                     %>
-                    <div class="<%= bean.getItemtype() == 0 ? "guzzu" : "event" %>" style="margin-top: 20px;">
-                        <div class="container" id="item1" onclick="openModal">
-                            <div class="hi-img">
-                                <p>~<%=bean.getDay()%></p>
-                                <%
-                                    int priority = bean.getPriority();  // osikatuBean から priority を取得
-                                %>
+                    <form action="BuyBoughtServlet" method="post" id="buy_form_<%=bean.getOsikatu_id()%>">
+                        <input type="hidden" name="osikatu_id" value="<%=bean.getOsikatu_id()%>">
 
-                                <%-- 条件に基づいて画像を表示 --%>
-                                <% if (priority == 0) { %>
-                                <img src="static/img/Y_0.png" alt="Priority 0">
-                                <% } else if (priority == 1) { %>
-                                <img src="static/img/Y_1.png" alt="Priority 1">
-                                <% } else if (priority == 2) { %>
-                                <img src="static/img/Y_2.png" alt="Priority 2">
-                                <% } else if (priority == 3) { %>
-                                <img src="static/img/Y_3.png" alt="Priority 3">
-                                <% } else if (priority == 4) { %>
-                                <img src="static/img/Y_4.png" alt="Priority 4">
-                                <% } else { %>
-                                <img src="static/img/購入済.png" alt="Default Priority">
-                                <% } %>
-                            </div>
-                            <div class="inf-meter">
-                                <div class="name-container">
-                                    <div class="name-divider">
-                                        <p class="osi">
-                                            <%
-                                                int osi_id = bean.getOsi_id();
-                                                faveBean fave = utils.DAO.faveDAO.getFaveByOsi_id(osi_id);
-                                                String osiName = fave.getName();
-                                            %>
-                                            <%=osiName%>
-                                        </p>
-                                        <hr class="divider">
-                                        <p class="name"><%=bean.getItem()%></p>
-                                    </div>
+                        <div class="<%= bean.getItemtype() == 0 ? "guzzu" : "event" %>" style="margin-top: 20px;">
+                            <div class="container" id="item1">
+                                <!-- "hi-img" クリック時に JavaScript 関数を呼び出す -->
+                                <div class="hi-img" onclick="submitFormBuy('<%=bean.getOsikatu_id()%>')">
+                                    <p>~<%=bean.getDay()%></p>
+                                    <%
+                                        int priority = bean.getPriority();  // osikatuBean から priority を取得
+                                    %>
+
+                                    <%-- 条件に基づいて画像を表示 --%>
+                                    <% if (priority == 0) { %>
+                                    <img src="static/img/Y_0.png" alt="Priority 0">
+                                    <% } else if (priority == 1) { %>
+                                    <img src="static/img/Y_1.png" alt="Priority 1">
+                                    <% } else if (priority == 2) { %>
+                                    <img src="static/img/Y_2.png" alt="Priority 2">
+                                    <% } else if (priority == 3) { %>
+                                    <img src="static/img/Y_3.png" alt="Priority 3">
+                                    <% } else if (priority == 4) { %>
+                                    <img src="static/img/Y_4.png" alt="Priority 4">
+                                    <% } else { %>
+                                    <img src="static/img/購入済.png" alt="Default Priority">
+                                    <% } %>
                                 </div>
-                                <p class="price">&yen;<%=String.format("%,d",bean.getPrice())%></p>
-                            </div>
-                            <div class="meter-app container">
-                                <p class="app">Complete！</p>
+                                <div class="inf-meter">
+                                    <div class="name-container">
+                                        <div class="name-divider">
+                                            <p class="osi">
+                                                <%
+                                                    int osi_id = bean.getOsi_id();
+                                                    faveBean fave = utils.DAO.faveDAO.getFaveByOsi_id(osi_id);
+                                                    String osiName = fave.getName();
+                                                %>
+                                                <%=osiName%>
+                                            </p>
+                                            <hr class="divider">
+                                            <p class="name"><%=bean.getItem()%></p>
+                                        </div>
+                                    </div>
+                                    <p class="price">&yen;<%=String.format("%,d",bean.getPrice())%></p>
+                                </div>
+                                <div class="meter-app container">
+                                    <p class="app">Complete！</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
 
                     <%
                             }
@@ -206,6 +237,7 @@
                     <%
                         }
                     %>
+
 
 
 
@@ -237,15 +269,17 @@
                             if (Afterlist != null && !Afterlist.isEmpty()) {
                                 for (osikatuBean bean : Afterlist) {
                         %>
-                        <div></div>
+
+                        <form action="BuyBoughtServlet" method="post" id="bought_form_<%=bean.getOsikatu_id()%>">
+                            <input type="hidden" name="osikatu_id" value="<%=bean.getOsikatu_id()%>">
+
                         <div class="<%= bean.getItemtype() == 0 ? "guzzu-right" : "event-right" %>">
-                            <div class="container" id="item" onclick="openModal" >
-                                <div class="hi-img-right">
+                            <div class="container" id="item">
+                                <div class="hi-img-right" onclick="submitFormBought('<%=bean.getOsikatu_id()%>')">
                                     <p>~<%=bean.getDay()%></p>
-
                                     <img src="static/img/購入済.png" alt="Default Priority" class="purchase-icon">
-
                                 </div>
+
                                 <div class="inf-meter">
                                     <div class="name-container">
                                         <div class="name-divider">
@@ -268,6 +302,7 @@
                                 </div>
                             </div>
                         </div>
+                        </form>
 
                         <%
                             }
