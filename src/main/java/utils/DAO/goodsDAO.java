@@ -65,6 +65,8 @@ public class goodsDAO {
             pstmt.setString(7, memo);
             pstmt.setInt(8, itemtype);  // itemtype に変更
 
+
+
             // SQLを実行して、影響を受けた行数を取得
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
