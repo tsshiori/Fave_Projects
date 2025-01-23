@@ -32,8 +32,12 @@ buttonCancelEvents.addEventListener('click', () => closeModal(easyModalEvents));
 // 完了ボタン処理 (グッズ)
 buttonConfirmGoods.addEventListener('click', () => {
     const inputName = document.querySelector("#plusForm input[name='modalosi']").value;
+    if (inputName === "") {
+        alert("推しの名前を入力してください。");
+        return;
+    }
     console.log("追加する推しの名前:", inputName);
-    closeModal(easyModalGoods); // 確認後、グッズモーダルを閉じる
+    document.getElementById('plusForm').submit();
 });
 // 完了ボタン処理 (イベント)
 document.querySelector("#AddEvents").addEventListener('click', () => {
@@ -46,25 +50,26 @@ document.querySelector("#AddEvents").addEventListener('click', () => {
     document.getElementById('plusFormEvents').submit();
 });
 
-
 // モーダルを非表示にする関数
-// function closeModal(modalElement) {
-//     modalElement.style.display = 'none';
-// }
-//
-// // モーダルを表示する関数
-// function showModal(modalElement) {
-//     modalElement.style.display = 'block';
-// }
+function closeModal(modalElement) {
+    modalElement.style.display = 'none';
+}
+
+// モーダルを表示する関数
+function showModal(modalElement) {
+    modalElement.style.display = 'block';
+}
 
 // モーダル外側をクリックした場合にモーダルを閉じる
 window.addEventListener("click", (event) => {
     if (event.target === easyModalGoods) closeModal(easyModalGoods);
     if (event.target === easyModalEvents) closeModal(easyModalEvents);
 });
+
 // モーダルの「閉じる」ボタンにイベントリスナーを追加
 document.getElementById("closeModalGoods").addEventListener("click", () => closeModal(easyModalGoods));
 document.getElementById("closeModalEvents").addEventListener("click", () => closeModal(easyModalEvents));
+
 document.querySelector('.back-button').addEventListener('click', function () {
     // 保存したURLを取得
     const previousPage = localStorage.getItem('previousPage');
@@ -75,6 +80,7 @@ document.querySelector('.back-button').addEventListener('click', function () {
         alert('前のページが見つかりません');
     }
 });
+
 document.getElementById('confirmReGoods').addEventListener('click', function () {
     // フォームを取得
     const form = document.querySelector('.goods_add_form');
@@ -85,6 +91,7 @@ document.getElementById('confirmReGoods').addEventListener('click', function () 
         console.error('フォームが見つかりません');
     }
 });
+
 document.getElementById('confirmReEvents').addEventListener('click', function () {
     // フォームを取得
     const form = document.querySelector('.events_add_form'); // classのフォームを取得
@@ -95,7 +102,6 @@ document.getElementById('confirmReEvents').addEventListener('click', function ()
         console.error('フォームが見つかりません');
     }
 });
-
 
 //グッズモーダル
 document.getElementById('modalOpenGoods').addEventListener('click', function () {
@@ -132,11 +138,6 @@ document.getElementById('modalOpenGoods').addEventListener('click', function () 
     document.getElementById('easyModalGoods').style.display = 'block';
 });
 
-
-
-
-
-
 // イベントモーダル
 document.getElementById('modalOpenEvents').addEventListener('click', function () {
     document.getElementById('easyModalEvents').style.display = 'block';
@@ -171,7 +172,6 @@ document.getElementById('modalOpenEvents').addEventListener('click', function ()
     // モーダルを表示
     document.getElementById('easyModalEvents').style.display = 'block';
 });
-
 
 // デバッグ用: plusButtonGoodsの確認
 const plusButtonGoods = document.getElementById('plusButtonGoods');

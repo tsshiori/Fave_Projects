@@ -381,7 +381,7 @@
         <div class="modal-header">
             <h1>推しの追加</h1>
         </div>
-        <form id="plusForm" action="GoodsOsiAdd" method="post">
+        <form id="plusForm" action="goods_osi_add" method="post">
             <div class="modal-group">
                 <label class="osi">推しの名前：</label>
                 <input type="text" class="modalosi" name="modalosi" placeholder="推しを入力してください。">
@@ -400,7 +400,7 @@
         <div class="modal-header">
             <h1>推しの追加</h1>
         </div>
-        <form id="plusFormEvents" action="GoodsOsiAdd" method="post" enctype="application/x-www-form-urlencoded">
+        <form id="plusFormEvents" action="goods_osi_add" method="post"><!-- enctype="application/x-www-form-urlencoded" -->
             <div class="modal-group">
                 <label class="osi">推しの名前：</label>
                 <input type="text" class="modalosi" name="modalosi" placeholder="推しを入力してください。" required>
