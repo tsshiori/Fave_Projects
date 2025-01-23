@@ -157,27 +157,28 @@
                 <div class="form-group">
                     <div class="icon container">
                         <label>
-                            <input type="radio" id="icon-0" name="icon" value="0" checked>
+                            <input type="radio" id="icon-0" name="goodsicon" value="0" checked>
                             <img src="static/img/Y_0.png" alt="a">
                         </label>
                         <label>
-                            <input type="radio" id="icon-1" name="icon" value="1">
+                            <input type="radio" id="icon-1" name="goodsicon" value="1">
                             <img src="static/img/Y_1.png" alt="b">
                         </label>
                         <label>
-                            <input type="radio" id="icon-2" name="icon" value="2" checked>
+                            <input type="radio" id="icon-2" name="goodsicon" value="2" checked>
                             <img src="static/img/Y_2.png" alt="c">
                         </label>
                         <label>
-                            <input type="radio" id="icon-3" name="icon" value="3">
+                            <input type="radio" id="icon-3" name="goodsicon" value="3">
                             <img src="static/img/Y_3.png" alt="d">
                         </label>
                         <label>
-                            <input type="radio" id="icon-4" name="icon" value="4">
+                            <input type="radio" id="icon-4" name="goodsicon" value="4">
                             <img src="static/img/Y_4.png" alt="e">
                         </label>
                     </div>
                 </div>
+                <input type="hidden" name="formType" value="goods">
 
                 <!-- メモ -->
                 <div class="form-group">
@@ -245,27 +246,28 @@
                 <div class="form-group">
                     <div class="icon container">
                         <label>
-                            <input type="radio" id="icon-0-event" name="icon" value="0" checked>
+                            <input type="radio" id="event-icon-0" name="eventicon" value="0" checked>
                             <img src="static/img/Y_0.png" alt="a">
                         </label>
                         <label>
-                            <input type="radio" id="icon-1-event" name="icon" value="1">
+                            <input type="radio" id="event-icon-1" name="eventicon" value="1">
                             <img src="static/img/Y_1.png" alt="b">
                         </label>
                         <label>
-                            <input type="radio" id="icon-2-event" name="icon" value="2" checked>
+                            <input type="radio" id="event-icon-2" name="eventicon" value="2" checked>
                             <img src="static/img/Y_2.png" alt="c">
                         </label>
                         <label>
-                            <input type="radio" id="icon-3-event" name="icon" value="3">
+                            <input type="radio" id="event-icon-3" name="eventicon" value="3">
                             <img src="static/img/Y_3.png" alt="d">
                         </label>
                         <label>
-                            <input type="radio" id="icon-4-event" name="icon" value="4">
+                            <input type="radio" id="event-icon-4" name="eventicon" value="4">
                             <img src="static/img/Y_4.png" alt="e">
                         </label>
                     </div>
                 </div>
+                <input type="hidden" name="formType" value="event">
                 <!-- メモ -->
                 <div class="form-group">
                     <label class="memo-label">メモ：</label>
