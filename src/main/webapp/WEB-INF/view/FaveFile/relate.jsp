@@ -176,6 +176,7 @@
                                 </div>
                             </li>
                         </ul>
+                        </div>
                     </div>
                 </div>
                 <%
@@ -188,19 +189,17 @@
                 %>
             </div>
         </div>
-                </div>
 
-            </div>
 
 
             <button type="button" class="ADD2con">
                 <img class="ADD2" src="static/img/ADD.png">
             </button>
+
         </div>
     </div>
-
-
 </div>
+
 
 
 <%
@@ -343,7 +342,6 @@
         </form>
     </div>
 </div>
-
 
 <script src="static/js/FaveFile/relate.js"></script>
 <script src="static/js/all.js"></script>
