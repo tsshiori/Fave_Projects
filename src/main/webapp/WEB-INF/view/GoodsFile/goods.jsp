@@ -8,6 +8,8 @@
 <%@ page import="utils.Bean.osikatuBean" %>
 <%@ page import="utils.Bean.userBean" %>
 <%@ page import="utils.DAO.goodsDAO" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.time.LocalDate" %>
 
 <%
     userBean user = (userBean) session.getAttribute("user");
@@ -144,48 +146,36 @@
                             <img src="static/img/ADD.png" alt="ADD" class="add-icon">
                         </a>
                     </div>
-                    <script>
-                        // osikatuId に対応するフォームを送信
-                        function submitFormBuy(osikatuId) {
-                            // 対応するフォームを取得
-                            const form = document.getElementById(`buy_form_${osikatuId}`);
-                            if (form) {
-                                form.submit(); // フォームを送信
-                            } else {
-                                console.error(`Form with ID buy_form_${osikatuId} not found.`);
-                            }
-                        }
-                    </script>
 
-                    <script>
-                        // osikatuId に対応するフォームを送信
-                        function submitFormBuy(osikatuId) {
-                            // 対応するフォームを取得
-                            const form = document.getElementById(`buy_form_${osikatuId}`);
-                            if (form) {
-                                form.submit(); // フォームを送信
-                            } else {
-                                console.error(`Form with ID buy_form_${osikatuId} not found.`);
-                            }
-                        }
-                    </script>
 
                     <%
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                         if (Beforelist != null && !Beforelist.isEmpty()) {
                             for (osikatuBean bean : Beforelist) {
                                 if (bean.getItemtype() == 0 || bean.getItemtype() == 1) {
                     %>
                     <form action="BuyBoughtServlet" method="post" id="buy_form_<%=bean.getOsikatu_id()%>">
                         <input type="hidden" name="osikatu_id" value="<%=bean.getOsikatu_id()%>">
+                        <%
+                            if (bean.getDay() != null) {
+                                LocalDate day = (bean.getDay());  // もしLocalDate型であれば
+                                 }
+                        %>
 
-                        <div class="<%= bean.getItemtype() == 0 ? "guzzu" : "event" %>" style="margin-top: 20px;">
+                        <%
+                            int priority = bean.getPriority();  // osikatuBean から priority を取得
+                        %>
+                        <%
+                            int osi_id = bean.getOsi_id();
+                            faveBean fave = utils.DAO.faveDAO.getFaveByOsi_id(osi_id);
+                            String osiName = fave.getName();
+                        %>
+                        <div class="<%= bean.getItemtype() == 0 ? "guzzu" : "event" %>" style="margin-top: 20px;" onclick="openModal('<%=bean.getItem()%>', '<%=bean.getPrice()%>', '<%=osiName%>', '<%=bean.getDay().format(formatter)%>', '<%=priority%>','<%=bean.getMemo()%>','<%=bean.getPurchase()%>')">
                             <div class="container" id="item1">
                                 <!-- "hi-img" クリック時に JavaScript 関数を呼び出す -->
-                                <div class="hi-img" onclick="submitFormBuy('<%=bean.getOsikatu_id()%>')">
+                                <div class="hi-img" onclick="submitFormBuy('<%=bean.getOsikatu_id()%>'), event.stopPropagation();">
                                     <p>~<%=bean.getDay()%></p>
-                                    <%
-                                        int priority = bean.getPriority();  // osikatuBean から priority を取得
-                                    %>
+
 
                                     <%-- 条件に基づいて画像を表示 --%>
                                     <% if (priority == 0) { %>
@@ -206,11 +196,7 @@
                                     <div class="name-container">
                                         <div class="name-divider">
                                             <p class="osi">
-                                                <%
-                                                    int osi_id = bean.getOsi_id();
-                                                    faveBean fave = utils.DAO.faveDAO.getFaveByOsi_id(osi_id);
-                                                    String osiName = fave.getName();
-                                                %>
+
                                                 <%=osiName%>
                                             </p>
                                             <hr class="divider">
@@ -267,13 +253,27 @@
                             if (Afterlist != null && !Afterlist.isEmpty()) {
                                 for (osikatuBean bean : Afterlist) {
                         %>
+                        <%
+                            if (bean.getDay() != null) {
+                                LocalDate day = (bean.getDay());  // もしLocalDate型であれば
+                            }
+                        %>
+
+                        <%
+                            int priority = bean.getPriority();  // osikatuBean から priority を取得
+                        %>
+                        <%
+                            int osi_id2 = bean.getOsi_id();
+                            faveBean fave = utils.DAO.faveDAO.getFaveByOsi_id(osi_id2);
+                            String osiName2 = fave.getName();
+                        %>
 
                         <form action="BuyBoughtServlet" method="post" id="bought_form_<%=bean.getOsikatu_id()%>">
                             <input type="hidden" name="osikatu_id" value="<%=bean.getOsikatu_id()%>">
 
-                        <div class="<%= bean.getItemtype() == 0 ? "guzzu-right" : "event-right" %>">
+                            <div class="<%= bean.getItemtype() == 0 ? "guzzu-right" : "event-right" %>" style="margin-top: 20px;" onclick="openModal('<%=bean.getItem()%>', '<%=bean.getPrice()%>', '<%=osiName2%>', '<%=bean.getDay().format(formatter)%>', '<%=priority%>','<%=bean.getMemo()%>','<%=bean.getPurchase()%>')">
                             <div class="container" id="item">
-                                <div class="hi-img-right" onclick="submitFormBought('<%=bean.getOsikatu_id()%>')">
+                                <div class="hi-img-right" onclick="submitFormBought('<%=bean.getOsikatu_id()%>'), event.stopPropagation();">
                                     <p>~<%=bean.getDay()%></p>
                                     <img src="static/img/購入済.png" alt="Default Priority" class="purchase-icon">
                                 </div>
@@ -284,7 +284,7 @@
                                             <p class="osi">
                                                 <%
                                                     int osi_id = bean.getOsi_id();
-                                                    faveBean fave = utils.DAO.faveDAO.getFaveByOsi_id(osi_id);
+                                                    fave = utils.DAO.faveDAO.getFaveByOsi_id(osi_id);
                                                     String osiName = fave.getName();
                                                 %>
                                                 <%=osiName%>
@@ -312,97 +312,34 @@
                         %>
                     </div>
 
-
-
-                    <!-- 右側最初のモーダル -->
-                    <div id="modalOpenMain" class="modal">
-                        <div class="modal-content-right">
-                            <img src="static/img/購入済.png" alt="購入済" class="modal-image-right">
-
-                            <div class="delete-details-right">
-                            <table>
-                                <tr>
-                                    <th>グッズ：</th>
-                                    <td id="item-name">アクリルパネル</td>
-                                </tr>
-                                <tr>
-                                    <th>金額(円)：</th>
-                                    <td id="item-price">¥2,600</td>
-                                </tr>
-                                <tr>
-                                    <th>推し：</th>
-                                    <td id="item-oshi">カンパネルラ</td>
-                                </tr>
-                                <tr>
-                                    <th>日付：</th>
-                                    <td id="item-date">2024/11/16</td>
-                                </tr>
-                                <tr>
-                                    <td class="memo-label-right">メモ：</td>
-                                    <td class="value memo-value-right">ビジュがよき</td>
-                                </tr>
-                            </table>
-                            </div>
-
-                            <div class="container btn-right">
-                                <div class="img_icon">
-                                    <a href="goods_edit"><img src="static/img/EDIT2.png"></a>
-                                </div>
-                                <div class="img_icon">
-                                    <a href="#" onclick="openDeleteModal()"><img src="static/img/DELE2.png"></a>
-                                </div>
-                            </div>
-
-                            <button id="rCloseMain" type="button" class="btn" onclick="closeRightModal()">閉じる</button>
-                        </div>
                     </div>
-                </div>
 
             </div>
         </div>
     </div>
 </div>
 
-<!-- モーダルウィンドウ -->
 <div id="openModal" class="modal">
     <div class="modal-content">
         <img src="static/img/Y_A.png" alt="Y_A" class="modal-image">
         <p id="modal-content-text"></p>
         <div id="modal-details">
             <table>
-                <tr>
-                    <td>グッズ：</td>
-                    <td class="value">アクリルスタンド</td>
-                </tr>
-                <tr>
-                    <td>金額(円)：</td>
-                    <td class="value">￥1,980</td>
-                </tr>
-                <tr>
-                    <td>推し：</td>
-                    <td class="value">カンパネルラ</td>
-                </tr>
-                <tr>
-                    <td>日付：</td>
-                    <td class="value">2024/11/16</td>
-                </tr>
-                <tr>
-                    <td class="memo-label">メモ：</td>
-                    <td class="value memo-value">ビジュがよき</td>
-                </tr>
+                <!-- 動的にデータが追加される -->
             </table>
-            <div class="container btn">
-                <div class="img_icon">
-                    <a href="goods_edit"><img src="static/img/EDIT2.png"></a>
-                </div>
-                <div class="img_icon">
-                    <a href="#" onclick="openDeleteModal()"><img src="static/img/DELE2.png"></a>
-                </div>
+        </div>
+        <div class="container btn">
+            <div class="img_icon">
+                <a href="goods_edit"><img src="static/img/EDIT2.png"></a>
+            </div>
+            <div class="img_icon">
+                <a href="#" onclick="openDeleteModal()"><img src="static/img/DELE2.png"></a>
             </div>
         </div>
         <button id="mClose" type="button" class="btn" onclick="closeButton()">閉じる</button>
     </div>
 </div>
+
 
 <!-- 削除用モーダル 左 -->
 <div id="deleteModal" class="modal modal-left">
@@ -456,39 +393,6 @@
     </div>
 </div>
 
-
-<!-- 削除用モーダル 右 -->
-<div id="deleteModalRight" class="modal modal-right">
-    <div class="modal-content-center">
-        <h3>右モーダルの内容</h3>
-        <div class="delete-h4">
-            <h6>こちらは右側に表示されるモーダルです。</h6>
-        </div>
-
-        <div class="delete-details">
-            <form id="goods_del_modal_right" action="GoodsDelServlet" method="post">
-                <table>
-                    <tr>
-                        <th>画像：</th>
-                        <td><img src="static/img/購入済.png" alt="サンプル画像" class="right-image"></td>
-                    </tr>
-                    <tr>
-                        <th>商品名：</th>
-                        <td>右モーダルの商品</td>
-                    </tr>
-                    <tr>
-                        <th>金額(円)：</th>
-                        <td>¥ 3,500</td>
-                    </tr>
-                </table>
-                <input name="goods_id" type="hidden" value="right-modal-id">
-            </form>
-        </div>
-
-        <button id="mDeleteRight" type="button" class="btn delete-btn">削除</button>
-        <button id="mCancelRight" type="button" class="btn cancel-btn" onclick="closeRightModal()">キャンセル</button>
-    </div>
-</div>
 
 
 
