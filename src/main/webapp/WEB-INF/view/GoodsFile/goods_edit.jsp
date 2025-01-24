@@ -74,39 +74,38 @@
 <br>
 <div class="maincontents container">
     <aside class="menu">
-        <br>
         <div class="home">
-            <a href="../index.jsp">
+            <a href="fave">
                 <h3>HOME</h3>
             </a>
         </div>
         <hr>
         <div class="fave">
-            <a href="../FaveFile/fave.jsp">
+            <a href="fave">
                 <h3>FAVE</h3>
             </a>
         </div>
         <hr>
         <div class="relate">
-            <a href="../FaveFile/relate.jsp">
+            <a href="relate">
                 <h3>RELATE</h3>
             </a>
         </div>
         <hr>
         <div class="shift">
-            <a href="../ShiftFile/shift.jsp">
+            <a href="shift">
                 <h3>SHIFT</h3>
             </a>
         </div>
         <hr>
         <div class="work">
-            <a href="../WorkFile/work.jsp">
+            <a href="work">
                 <h3>WORK</h3>
             </a>
         </div>
         <hr>
         <div class="mypage">
-            <a href="../MypageFile/mypage.jsp">
+            <a href="my_page">
                 <h3>MYPAGE</h3>
             </a>
         </div>
