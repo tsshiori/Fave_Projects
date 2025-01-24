@@ -127,7 +127,7 @@
         </div>
         <br><br>
         <div id="goods" class="scroll-content group content-item active">
-            <form action="../GoodsFile/goods.jsp">
+            <form action="goods_edit" method="post">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input type="date" id="date" class="pl" onfocus="hidePlaceholder(this)"
@@ -163,27 +163,29 @@
                 <div class="form-group">
                     <div class="icon container">
                         <label>
-                            <input type="radio" name="icon" value="0" checked>
-                            <img src="static/img/Y_A.png" alt="a">
+                            <input type="radio" id="icon-0" name="goodsicon" value="0" checked>
+                            <img src="static/img/Y_0.png" alt="a">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="1">
-                            <img src="static/img/Y_B.png" alt="b">
+                            <input type="radio" id="icon-1" name="goodsicon" value="1">
+                            <img src="static/img/Y_1.png" alt="b">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="2">
-                            <img src="static/img/Y_C.png" alt="c">
+                            <input type="radio" id="icon-2" name="goodsicon" value="2" checked>
+                            <img src="static/img/Y_2.png" alt="c">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="3">
-                            <img src="static/img/Y_D.png" alt="d">
+                            <input type="radio" id="icon-3" name="goodsicon" value="3">
+                            <img src="static/img/Y_3.png" alt="d">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="4">
-                            <img src="static/img/Y_E.png" alt="e">
+                            <input type="radio" id="icon-4" name="goodsicon" value="4">
+                            <img src="static/img/Y_4.png" alt="e">
                         </label>
                     </div>
                 </div>
+                <input type="hidden" name="formType" value="goods">
+
 
                 <div class="form-group">
                     <label class="memo-label">メモ：</label>
@@ -205,7 +207,7 @@
             </form>
         </div>
         <div id="events" class="group content-item">
-            <form action="../GoodsFile/goods.jsp">
+            <form action="goods_edit" method="post">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input type="date" id="event-date" class="pl" onfocus="hidePlaceholder(this)"
@@ -243,27 +245,28 @@
                 <div class="form-group">
                     <div class="icon container">
                         <label>
-                            <input type="radio" name="icon" value="0" checked>
-                            <img src="static/img/Y_A.png" alt="a">
+                            <input type="radio" id="event-icon-0" name="eventicon" value="0" checked>
+                            <img src="static/img/Y_0.png" alt="a">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="1">
-                            <img src="static/img/Y_B.png" alt="b">
+                            <input type="radio" id="event-icon-1" name="eventicon" value="1">
+                            <img src="static/img/Y_1.png" alt="b">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="2">
-                            <img src="static/img/Y_C.png" alt="c">
+                            <input type="radio" id="event-icon-2" name="eventicon" value="2" checked>
+                            <img src="static/img/Y_2.png" alt="c">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="3">
-                            <img src="static/img/Y_D.png" alt="d">
+                            <input type="radio" id="event-icon-3" name="eventicon" value="3">
+                            <img src="static/img/Y_3.png" alt="d">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="4">
-                            <img src="static/img/Y_E.png" alt="e">
+                            <input type="radio" id="event-icon-4" name="eventicon" value="4">
+                            <img src="static/img/Y_4.png" alt="e">
                         </label>
                     </div>
                 </div>
+                <input type="hidden" name="formType" value="event">
 
                 <div class="form-group">
                     <label class="memo-label">メモ：</label>

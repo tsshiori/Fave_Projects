@@ -41,7 +41,7 @@
 <div class="container con">
     <!-- ロゴ -->
     <div class="logo">
-        <a href="/fave"><img src="static/img/TimeforFave.png" alt="logo"></a>
+        <a href="fave"><img src="static/img/TimeforFave.png" alt="logo"></a>
     </div>
 
     <!-- メーター -->

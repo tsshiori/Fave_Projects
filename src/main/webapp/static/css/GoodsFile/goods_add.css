@@ -139,8 +139,8 @@ input[type=radio] {
 
 input[type="text"],
 input[type="date"],
-#event-memo,#goods-memo,
-.pl {
+#event-memo,#goods-memo
+ {
     font-family: "Noto Serif JP", serif;
     color: #221D7E;
     font-size: 20px;
@@ -268,7 +268,7 @@ input[type="checkbox"] {
 
 .in,
 .kyan {
-    white-space: noweap;
+    white-space: nowrap;
 }
 
 
@@ -413,6 +413,17 @@ input[type="date"] {
     /*outline: none; !* フォーカス枠を非表示 *!*/
     color: #221D7E; /* フォーカス時の色 */
 }
+
+
+
+
+#goods-menu:has(option:checked[value=""]) {
+    color: #A9A8C2;
+}
+#event-menu:has(option:checked[value=""]){
+    color: #A9A8C2;
+}
+
 
 .pl:focus + .date-text,
 .pl:not(:placeholder-shown) + .date-text {

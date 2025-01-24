@@ -178,6 +178,34 @@ public class goodsDAO {
             e.printStackTrace();
         }
     }
+    public static void updateGoods(int osikatu_id, LocalDate day, int price, String item, int purchase, int osi_id, int priority, String memo, int itemtype) {
+        String sql = "UPDATE osikatu SET day = ?, price = ?, item = ?, purchase = ?, osi_id = ?, priority = ?, memo = ?, itemtype = ? WHERE osikatu_id = ?";
+
+        try (Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setDate(1, day != null ? java.sql.Date.valueOf(day) : null); // 日付をセット
+            pstmt.setInt(2, price);                                           // 金額をセット
+            pstmt.setString(3, item);                                         // アイテム名をセット
+            pstmt.setInt(4, purchase);                                        // 購入数をセット
+            pstmt.setInt(5, osi_id);                                          // 推しIDをセット
+            pstmt.setInt(6, priority);                                        // 優先度をセット
+            pstmt.setString(7, memo);                                         // メモをセット
+            pstmt.setInt(8, itemtype);                                        // アイテム種別をセット
+            pstmt.setInt(9, osikatu_id);                                      // 更新対象のIDを指定
+
+            // SQLを実行して、影響を受けた行数を取得
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("データが正常に更新されました。");
+            } else {
+                System.out.println("データの更新に失敗しました。");
+            }
+        } catch (SQLException e) {
+            System.out.println("データベースエラー: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 
 }
