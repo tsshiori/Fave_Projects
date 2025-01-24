@@ -6,14 +6,64 @@ function toggleModal(modalId, displayStyle) {
     }
 }
 // 左側のモーダルを開く関数
-function openModal() {
-    toggleModal('openModal', 'flex'); // モーダルを表示
+function openModal(item, price, osi, day, priority,memo,purchase) {
+    // モーダル内の要素を取得
+    const modal = document.getElementById('openModal');
+    const modalContentText = document.getElementById('modal-content-text');
+    const modalDetails = document.getElementById('modal-details');
+    const priorityImage = document.querySelector('.modal-image');  // 優先度画像の要素を取得
+
+    // データをモーダル内に設定
+    modalDetails.querySelector('table').innerHTML = `
+        <tr>
+            <td>グッズ：</td>
+            <td class="value">${item}</td>
+        </tr>
+        <tr>
+            <td>金額(円)：</td>
+            <td class="value">¥${Number(price).toLocaleString()}</td>
+        </tr>
+        <tr>
+            <td>推し：</td>
+            <td class="value">${osi}</td>
+        </tr>
+        <tr>
+            <td>日付：</td>
+            <td class="value">${day}</td>
+        </tr>
+        <tr>
+             <td class="memo-label">メモ：</td>
+             <td class="value memo-value">${memo}</td>
+        </tr>
+
+    `;
+
+    // 優先度の画像を更新
+    if(purchase == 0) {
+        priorityImage.src = `static/img/Y_${priority}.png`;  // 優先度に応じた画像を設定
+    }else{
+        priorityImage.src = `static/img/購入済.png`;  // 優先度に応じた画像を設定
+    }
+
+    // モーダルを表示
+    modal.style.display = 'block';
 }
 
-// 左側のモーダルを閉じる関数
-function closeModal() {
-    toggleModal('openModal', 'none'); // モーダルを非表示
+
+// モーダルを閉じる
+function closeButton() {
+    const modal = document.getElementById('openModal');
+    modal.style.display = 'none';
 }
+
+// モーダル外をクリックした場合に閉じる
+window.onclick = function(event) {
+    const modal = document.getElementById('openModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+};
+
 
 // 削除用モーダルを開く関数
 function openDeleteModal() {
@@ -35,6 +85,17 @@ function closeDeleteModal() {
 
 // 閉じるボタンにイベントリスナーを設定
 document.getElementById("mClose").addEventListener("click", closeModal);
+
+
+
+
+
+
+
+
+
+
+
 
 
 

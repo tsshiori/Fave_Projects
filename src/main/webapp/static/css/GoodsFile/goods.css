@@ -506,12 +506,12 @@ table{
     justify-content: right;
     align-items: center;
     position: relative; /* 今の位置を基準 */
-    top: 173px; /* 上から153px */
+    top: 150px; /* 上から153px */
     right: 10px;
 }
 
 .img_icon {
-    width: 40px; /* アイコンのサイズ */
+    width: 60px; /* アイコンのサイズ */
     height: 40px;
     display: flex;
     justify-content: center;
