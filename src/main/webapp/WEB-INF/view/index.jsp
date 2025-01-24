@@ -12,6 +12,7 @@
     Map<Integer, Integer> osiPriceMap = (Map<Integer, Integer>) session.getAttribute("osiout");
     ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
     Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
+    userBean user = (userBean) session.getAttribute("user");
     int futureWage = (int) request.getAttribute("futureWage");
     int almosthand = (int) request.getAttribute("almosthand");
     int sum = (int) session.getAttribute("sum");
@@ -23,7 +24,7 @@
 <%
     ArrayList<osikatuBean> goodslist = (ArrayList<osikatuBean>) session.getAttribute("goodsList");
     // セッションからユーザー情報を取得
-    userBean user = (userBean) session.getAttribute("user");
+
     // int mainwork = user.getMainwork(); // 必要であればこちらを有効化
 %>
 

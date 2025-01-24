@@ -5,6 +5,7 @@
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="utils.Bean.categoryBean" %>
 <%@ page import="utils.Bean.userBean" %>
+<%@ page import="utils.Bean.workBean" %>
 
 <%
     ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
@@ -12,6 +13,10 @@
     ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
     Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
     userBean user = (userBean) session.getAttribute("user");
+    int futureWage = (int) request.getAttribute("futureWage");
+    int almosthand = (int) request.getAttribute("almosthand");
+    int sum = (int) session.getAttribute("sum");
+    workBean mainwork = (workBean) session.getAttribute("mainwork");
 %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -43,22 +48,28 @@
     <div class="meter">
         <br>
         <h2>≪METER≫</h2>
+        <% if (sum != 0){%>
         <div class="meter-container">
             <!-- 背面のメーター -->
-            <meter class="background-meter" value="30920" min="0" max="99740"></meter>
+            <meter class="background-meter" value="<%=futureWage%>" min="0" max="<%= sum %>"></meter>
             <!-- 前面のメーター -->
-            <meter class="foreground-meter" value="9860" min="0" max="99740"></meter>
+            <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="<%= sum %>"></meter>
+            <input type="hidden" name="living" value="<%= user.getLiving() %>" id="live_money">
+
         </div>
         <div class="meterimg">
             <div class="temoti">
                 <img src="static/img/temoti.png" alt="temoti">
-                <span class="temoti-value">所持金額: 31.1</span> <!-- valueを表示する要素 -->
+                <span class="temoti-value">所持金額: <%=futureWage%></span> <!-- valueを表示する要素 -->
             </div>
             <div class="kyuuryoubi">
                 <img src="static/img/kyuuryoubi.png" alt="kyuuryoubi">
-                <span class="kyuuryoubi-value">給与予定額: 45.4</span> <!-- valueを表示する要素 -->
+                <span class="kyuuryoubi-value">給与予定額: <%=almosthand%></span> <!-- valueを表示する要素 -->
             </div>
         </div>
+        <% }else{  %>
+        <h1 style="margin-left: 120px">未購入のグッズが登録されていません。</h1>
+        <% } %>
     </div>
 </div>
 <br>
