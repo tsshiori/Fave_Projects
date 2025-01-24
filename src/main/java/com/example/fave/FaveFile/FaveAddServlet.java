@@ -7,8 +7,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import utils.Bean.categoryBean;
 import utils.Bean.faveBean;
+import utils.Bean.osikatuBean;
 import utils.Bean.userBean;
 import utils.DAO.faveDAO;
+import utils.DAO.goodsDAO;
 import utils.DAO.tagDAO;
 
 import java.io.File;
@@ -25,6 +27,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Comparator;
 
 @MultipartConfig
 @WebServlet("/FaveAdd")
@@ -39,6 +42,39 @@ public class FaveAddServlet extends HttpServlet {
         String log_id = user.getLog_id();
         ArrayList<categoryBean> categorylist = utils.DAO.categoryDAO.selectCategoryAll(log_id);
         session.setAttribute("categorylist",categorylist);
+
+        if (user != null) {
+            // ユーザーのlog_idを取得
+            log_id = user.getLog_id();
+
+            ArrayList<faveBean> favelist = utils.DAO.faveDAO.selectFaveAll(log_id);
+            session.setAttribute("favelist", favelist);
+
+
+            ArrayList<Integer> osi_id = goodsDAO.selectOsikatu_id(log_id);
+            // 商品情報を取得
+            ArrayList<osikatuBean> goodsList = new ArrayList<>();
+            for (int osi : osi_id) {
+                ArrayList<osikatuBean> goods = goodsDAO.selectGoods(osi);
+                goodsList.addAll(goods);
+            }
+
+            if (goodsList != null) {
+                goodsList.sort(Comparator.comparing(osikatuBean::getPriority));
+            }
+            // 取得した商品情報をリクエストスコープにセット
+            session.setAttribute("goodsList", goodsList);
+            int sum = 0;
+
+            for (osikatuBean good : goodsList) {
+                if (good.getPurchase() != 1) {
+                    sum = sum + good.getPrice();
+                }
+            }
+
+            session.setAttribute("sum", sum);
+
+        }
 
         String path = "/WEB-INF/view/FaveFile/fave_add.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);
