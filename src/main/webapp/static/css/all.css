@@ -77,6 +77,14 @@ body {
     transform: translateX(315%)
 }
 
+.kyuuryoubi img {
+    z-index: 0;
+}
+
+.temoti img {
+    z-index: 2;
+}
+
 
 
 /* 背面のメーター */
