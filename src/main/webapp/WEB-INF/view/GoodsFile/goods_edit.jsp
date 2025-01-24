@@ -1,13 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="utils.Bean.faveBean" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="utils.Bean.categoryBean" %>
 <%@ page import="utils.Bean.userBean" %>
+<%@ page import="utils.Bean.goodsBean" %>
 
 <%
+    // セッションからgoodsBeanのリストを取得
+    ArrayList<goodsBean> goodsList = session.getAttribute("goodsList") != null
+            ? (ArrayList<goodsBean>) session.getAttribute("goodsList")
+            : new ArrayList<>();
+
     ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
     Map<Integer, Integer> osiPriceMap = (Map<Integer, Integer>) session.getAttribute("osiout");
     ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
@@ -130,27 +135,40 @@
             <form action="goods_edit" method="post">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
-                    <input type="date" id="date" class="pl" onfocus="hidePlaceholder(this)"
+                    <input type="date" id="date" class="pl" value="${osikatu.day}" onfocus="hidePlaceholder(this)"
                            onblur="showPlaceholder(this)">
                     <span class="date-text">日付を入力してください。</span>
                 </div>
 
                 <div class="form-group">
                     <label ><span class="req">＊</span> グッズ名：</label>
-                    <input type="text" class="goods_name" name="goods_name" placeholder="グッズの名前を入力してください。" required>
+                    <input type="text" class="goods_name" name="goods_name" value="${osikatu.item}" placeholder="グッズの名前を入力してください。" required>
                 </div>
 
                 <div class="form-group">
                     <label><span class="req">＊</span> 金額(円)：</label>
-                    <input type="text" class="amount" name="amount" placeholder="グッズの金額を入力してください。" required>
+                    <input type="text" class="amount" name="amount" value="${osikatu.price}" placeholder="グッズの金額を入力してください。" required>
                 </div>
 
                 <div class="form-group">
                     <label class="favo"><span class="req">＊</span> 推し：</label>
-                    <select id="good-menu" name="menu">
-                        <option value="" disabled selected hidden>推しを選択してください。</option>
-                        <option value="option1">カンパネルラ</option>
-                        <option value="option2">ミューズ</option>
+                    <select id="goods-menu" name="osi_id">
+                        <option value="${osikatu.osiId}" disabled selected hidden>${osikatu.osiId}</option>
+                        <%
+                            if (favelist != null && !favelist.isEmpty()) {
+                                for (faveBean fave : favelist) {
+                        %>
+                        <option value="${osi_id}" data-name="<%= fave.getName() %>">
+                            <%= fave.getName() %>
+                        </option>
+                        <%
+                            }
+                        } else {
+                        %>
+                        <option value="-1" disabled>推しが未登録です</option>
+                        <%
+                            }
+                        %>
                     </select>
                     <!-- グッズ用プラスボタン -->
                     <div id="plusButtonGoods" class="btn-plus">
@@ -163,23 +181,23 @@
                 <div class="form-group">
                     <div class="icon container">
                         <label>
-                            <input type="radio" id="icon-0" name="goodsicon" value="0" checked>
+                            <input type="radio" id="icon-0" name="goodsicon" value="0" ${selectedIcon == '0' ? 'checked' : ''}>
                             <img src="static/img/Y_0.png" alt="a">
                         </label>
                         <label>
-                            <input type="radio" id="icon-1" name="goodsicon" value="1">
+                            <input type="radio" id="icon-1" name="goodsicon" value="1" ${selectedIcon == '1' ? 'checked' : ''}>
                             <img src="static/img/Y_1.png" alt="b">
                         </label>
                         <label>
-                            <input type="radio" id="icon-2" name="goodsicon" value="2" checked>
+                            <input type="radio" id="icon-2" name="goodsicon" value="2" ${selectedIcon == '2' ? 'checked' : ''}>
                             <img src="static/img/Y_2.png" alt="c">
                         </label>
                         <label>
-                            <input type="radio" id="icon-3" name="goodsicon" value="3">
+                            <input type="radio" id="icon-3" name="goodsicon" value="3" ${selectedIcon == '3' ? 'checked' : ''}>
                             <img src="static/img/Y_3.png" alt="d">
                         </label>
                         <label>
-                            <input type="radio" id="icon-4" name="goodsicon" value="4">
+                            <input type="radio" id="icon-4" name="goodsicon" value="4"  ${selectedIcon == '4' ? 'checked' : ''}>
                             <img src="static/img/Y_4.png" alt="e">
                         </label>
                     </div>
@@ -189,12 +207,12 @@
 
                 <div class="form-group">
                     <label class="memo-label">メモ：</label>
-                    <textarea class="memo" name="memo" placeholder="メモを入力してください。"></textarea>
+                    <textarea class="memo" name="memo" value="{% memo %}" placeholder="メモを入力してください。">${osikatu.memo}</textarea>
                 </div>
                 <br>
                 <div class="form-group">
                     <label >購入済：</label>
-                    <input type="checkbox" class="purchased" name="purchased"><span
+                    <input type="checkbox" class="purchased" name="purchased" ${purchased == 1 ? 'checked' : ''}><span
                         class="small-text">※購入済みの場合はチェックを入れてください。</span>
                 </div>
 
@@ -210,28 +228,41 @@
             <form action="goods_edit" method="post">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
-                    <input type="date" id="event-date" class="pl" onfocus="hidePlaceholder(this)"
+                    <input type="date" id="event-date" class="pl" value="${osikatu.day}" onfocus="hidePlaceholder(this)"
                            onblur="showPlaceholder(this)">
                     <span class="date-text">日付を入力してください。</span>
                 </div>
 
                 <div class="form-group">
                     <label><span class="req">＊</span> イベント名：</label>
-                    <input type="text" class="goods_name" name="goods_name" placeholder="イベントの名前を入力してください。"
+                    <input type="text" class="goods_name" name="goods_name" value="${osikatu.item}" placeholder="イベントの名前を入力してください。"
                            required>
                 </div>
 
                 <div class="form-group">
                     <label><span class="req">＊</span> 金額(円)：</label>
-                    <input type="text" class="amount" name="amount" placeholder="イベントの金額を入力してください。" required>
+                    <input type="text" class="amount" name="amount" value="${osikatu.price}" placeholder="イベントの金額を入力してください。" required>
                 </div>
 
                 <div class="form-group">
                     <label class="favo" ><span class="req">＊</span> 推し：</label>
-                    <select id="menu" name="menu">
-                        <option value="" disabled selected hidden>推しを選択してください。</option>
-                        <option value="option1">カンパネルラ</option>
-                        <option value="option2">ミューズ</option>
+                    <select id="event-menu" name="osi_id">
+                        <option value="${osikatu.osiId}" disabled selected hidden>${osikatu.osiId}</option>
+                        <%
+                            if (favelist != null && !favelist.isEmpty()) {
+                                for (faveBean fave : favelist) {
+                        %>
+                        <option value="<%= fave.getOsi_id() %>" data-name="<%= fave.getName() %>">
+                            <%= fave.getName() %>
+                        </option>
+                        <%
+                            }
+                        } else {
+                        %>
+                        <option value="-1" disabled>推しが未登録です</option>
+                        <%
+                            }
+                        %>
                     </select>
                     <!-- イベント用プラスボタン -->
                     <div id="plusButtonEvents" class="btn-plus">
@@ -245,23 +276,23 @@
                 <div class="form-group">
                     <div class="icon container">
                         <label>
-                            <input type="radio" id="event-icon-0" name="eventicon" value="0" checked>
+                            <input type="radio" id="event-icon-0" name="eventicon" value="0" ${selectedIcon == '0' ? 'checked' : ''}>
                             <img src="static/img/Y_0.png" alt="a">
                         </label>
                         <label>
-                            <input type="radio" id="event-icon-1" name="eventicon" value="1">
+                            <input type="radio" id="event-icon-1" name="eventicon" value="1" ${selectedIcon == '1' ? 'checked' : ''}>
                             <img src="static/img/Y_1.png" alt="b">
                         </label>
                         <label>
-                            <input type="radio" id="event-icon-2" name="eventicon" value="2" checked>
+                            <input type="radio" id="event-icon-2" name="eventicon" value="2" ${selectedIcon == '2' ? 'checked' : ''}>
                             <img src="static/img/Y_2.png" alt="c">
                         </label>
                         <label>
-                            <input type="radio" id="event-icon-3" name="eventicon" value="3">
+                            <input type="radio" id="event-icon-3" name="eventicon" value="3" ${selectedIcon == '3' ? 'checked' : ''}>
                             <img src="static/img/Y_3.png" alt="d">
                         </label>
                         <label>
-                            <input type="radio" id="event-icon-4" name="eventicon" value="4">
+                            <input type="radio" id="event-icon-4" name="eventicon" value="4" ${selectedIcon == '4' ? 'checked' : ''}>
                             <img src="static/img/Y_4.png" alt="e">
                         </label>
                     </div>
@@ -270,12 +301,12 @@
 
                 <div class="form-group">
                     <label class="memo-label">メモ：</label>
-                    <textarea class="memo" name="memo" placeholder="メモを入力してください。"></textarea>
+                    <textarea class="memo" name="memo" value="{% memo %}" placeholder="メモを入力してください。"></textarea>
                 </div>
                 <br>
                 <div class="form-group">
                     <label>購入済：</label>
-                    <input type="checkbox" class="purchased" name="purchased"><span
+                    <input type="checkbox" class="purchased" name="purchased" ${purchased == 1 ? 'checked' : ''}><span
                         class="small-text">※参加済みの場合はチェックを入れてください。</span>
                 </div>
 
@@ -295,44 +326,43 @@
             <h1>以下の内容でよろしいですか？</h1>
         </div>
         <div class="modal-body">
-            <table>
-                <tr>
-                    <th>日付：</th>
-                    <td>2025/1/11</td>
-                </tr>
-                <tr>
-                    <th>グッズ名：</th>
-                    <td>銀河鉄道の夜　28巻</td>
-                </tr>
-                <tr>
-                    <th>金額(円)：</th>
-                    <td>￥865</td>
-                </tr>
-                <tr>
-                    <th>推し：</th>
-                    <td>カンパネルラ</td>
-                </tr>
-                <tr>
-                    <th>優先度：</th>
-                    <td><img src="static/img/Y_B.png" alt="b"></td>
-                </tr>
-                <tr>
-                    <th>メモ：</th>
-                    <td>カンパネルラが表紙！！！！！！</td>
-                </tr>
-                <tr>
-                    <th>購入済：</th>
-                    <td><input type="checkbox" class="text">
-                        <span class="text">※購入済みの場合はチェックを入れてください。</span>
-                    </td>
-                </tr>
+            <div class="modal-body">
 
-            </table>
+                <table>
+                    <tr>
+                        <th>日付：</th>
+                        <td id="modal-goods-date"></td>
+                    </tr>
+                    <tr>
+                        <th>グッズ名：</th>
+                        <td id="modal-goods-name"></td>
+                    </tr>
+                    <tr>
+                        <th>金額(円)：</th>
+                        <td id="modal-goods-amount"></td>
+                    </tr>
+                    <tr>
+                        <th>推し：</th>
+                        <td id="modal-goods-favorite"></td>
+                    </tr>
+                    <tr>
+                        <th>優先度：</th>
+                        <td id="modal-goods-prioity"></td>
+                    </tr>
+                    <tr>
+                        <th>メモ：</th>
+                        <td id="modal-goods-memo"></td>
+                    </tr>
+                    <tr>
+                        <th>購入済：</th>
+                        <td  id="modal-goods-purchased"></td>
+                    </tr>
+                </table>
             <button id="confirmReGoods" type="button" class="btn2">追加</button>
             <button id="cancelReGoods" type="button" class="btn2">キャンセル</button>
         </div>
     </div>
-</div>
+</div></div>
 
 <div id="easyModalEvents" class="modal">
     <div class="modal-content">
@@ -343,35 +373,32 @@
             <table>
                 <tr>
                     <th>日付：</th>
-                    <td>2026/1/1</td>
+                    <td id="modal-events-date"></td>
                 </tr>
                 <tr>
                     <th>イベント名：</th>
-                    <td>Meteor</td>
+                    <td id="modal-events-name"></td>
                 </tr>
                 <tr>
                     <th>金額(円)：</th>
-                    <td>￥10,200</td>
+                    <td id="modal-events-amount"></td>
                 </tr>
                 <tr>
                     <th>推し：</th>
-                    <td>ミューズ</td>
+                    <td id="modal-events-favorite"></td>
                 </tr>
                 <tr>
                     <th>優先度：</th>
-                    <td><img src="static/img/Y_B.png" alt="b"></td>
+                    <td id="modal-events-prioity"></td>
                 </tr>
                 <tr>
                     <th>メモ：</th>
-                    <td>11:45分から！！！</td>
+                    <td id="modal-events-memo"></td>
                 </tr>
                 <tr>
-                    <th>参加済：</th>
-                    <td><input type="checkbox" class="text">
-                        <span class="text">※参加済みの場合はチェックを入れてください。</span>
-                    </td>
+                    <th>購入済：</th>
+                    <td  id="modal-events-purchased"></td>
                 </tr>
-
             </table>
             <button id="confirmReEvents" type="button" class="btn2">追加</button>
             <button id="cancelReEvents" type="button" class="btn2">キャンセル</button>
@@ -387,7 +414,7 @@
         <div class="modal-header">
             <h1>推しの追加</h1>
         </div>
-        <form id="plusForm">
+        <form id="plusForm" action="goods_osi_add" method="post">
             <div class="modal-group">
                 <label class="osi">推しの名前：</label>
                 <input type="text" class="modalosi" name="modalosi" placeholder="推しを入力してください。">
@@ -407,7 +434,7 @@
         <div class="modal-header">
             <h1>推しの追加</h1>
         </div>
-        <form id="plusFormEvents">
+        <form id="plusFormEvents" action="goods_osi_add" method="post">
             <div class="modal-group">
                 <label class="osi">推しの名前：</label>
                 <input type="text" class="modalosi" name="modalosi" placeholder="推しを入力してください。">
