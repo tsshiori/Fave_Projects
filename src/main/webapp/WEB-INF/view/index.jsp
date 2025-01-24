@@ -41,7 +41,7 @@
     <link rel="stylesheet" href="static/css/all.css">
     <link rel="stylesheet" href="static/css/index.css">
 
-    <link rel="shortcut icon" href="../img/Time for Fave.png">
+    <link rel="shortcut icon" href="static/img/TimeforFave.png">
     <title>HOME | Time of Fave.</title>
 </head>
 
@@ -178,10 +178,16 @@
                                     <% } else {
                                             int kari = goods.getPrice() - user.getAmounthand();
                                             shifttime = kari / mainwork.getHourlywage();
+
                                             if (shifttime < 1){
                                     %>
                                     　あともう少し…
                                     <% }else{ %>
+                                    <%
+                                    if (kari / mainwork.getHourlywage() >= 0 && kari % mainwork.getHourlywage() > 0){
+                                    shifttime += 1;
+                                    }
+                                    %>
                                     　あと<span><%= shifttime %></span>時間…
                                     <%
                                             }
@@ -244,6 +250,11 @@
                                     %>
                                     　あともう少し…
                                     <% }else{ %>
+                                    <%
+                                        if (kari / mainwork.getHourlywage() >= 0 && kari % mainwork.getHourlywage() > 0){
+                                            shifttime += 1;
+                                        }
+                                    %>
                                     　あと<span><%= shifttime %></span>時間…
                                     <%
                                             }
