@@ -14,6 +14,7 @@
     int futureWage = (int) session.getAttribute("futureWage");
     int almosthand = (int) session.getAttribute("almosthand");
     int sum = (int) session.getAttribute("sum");
+    userBean user = (userBean) session.getAttribute("user");
     workBean mainwork = (workBean) session.getAttribute("mainwork");
 %>
 

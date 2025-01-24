@@ -26,8 +26,8 @@
     ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
     Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
 
-    int futureWage = (int) request.getAttribute("futureWage");
-    int almosthand = (int) request.getAttribute("almosthand");
+    int futureWage = (int) session.getAttribute("futureWage");
+    int almosthand = (int) session.getAttribute("almosthand");
     int sum = (int) session.getAttribute("sum");
 %>
 <!DOCTYPE html>
