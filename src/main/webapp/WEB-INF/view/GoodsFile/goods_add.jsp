@@ -138,7 +138,7 @@
                 </div>
                 <div class="form-group">
                     <label class="favo"><span class="req">＊</span> 推し：</label>
-                    <select name="osi_id">
+                    <select id="goods-menu" name="osi_id">
                         <option value="" disabled selected hidden>推しを選択してください。</option>
                         <%
                             if (favelist != null && !favelist.isEmpty()) {
@@ -227,7 +227,7 @@
                 </div>
                 <div class="form-group">
                     <label class="favo"><span class="req">＊</span> 推し：</label>
-                    <select name="osi_id">
+                    <select id="event-menu" name="osi_id">
                         <option value="" disabled selected hidden>推しを選択してください。</option>
                         <%
                             if (favelist != null && !favelist.isEmpty()) {
