@@ -144,31 +144,7 @@
                             <img src="static/img/ADD.png" alt="ADD" class="add-icon">
                         </a>
                     </div>
-                    <script>
-                        // osikatuId に対応するフォームを送信
-                        function submitFormBuy(osikatuId) {
-                            // 対応するフォームを取得
-                            const form = document.getElementById(`buy_form_${osikatuId}`);
-                            if (form) {
-                                form.submit(); // フォームを送信
-                            } else {
-                                console.error(`Form with ID buy_form_${osikatuId} not found.`);
-                            }
-                        }
-                    </script>
 
-                    <script>
-                        // osikatuId に対応するフォームを送信
-                        function submitFormBuy(osikatuId) {
-                            // 対応するフォームを取得
-                            const form = document.getElementById(`buy_form_${osikatuId}`);
-                            if (form) {
-                                form.submit(); // フォームを送信
-                            } else {
-                                console.error(`Form with ID buy_form_${osikatuId} not found.`);
-                            }
-                        }
-                    </script>
 
                     <%
                         if (Beforelist != null && !Beforelist.isEmpty()) {
@@ -312,51 +288,7 @@
                         %>
                     </div>
 
-
-
-                    <!-- 右側最初のモーダル -->
-                    <div id="modalOpenMain" class="modal">
-                        <div class="modal-content-right">
-                            <img src="static/img/購入済.png" alt="購入済" class="modal-image-right">
-
-                            <div class="delete-details-right">
-                            <table>
-                                <tr>
-                                    <th>グッズ：</th>
-                                    <td id="item-name">アクリルパネル</td>
-                                </tr>
-                                <tr>
-                                    <th>金額(円)：</th>
-                                    <td id="item-price">¥2,600</td>
-                                </tr>
-                                <tr>
-                                    <th>推し：</th>
-                                    <td id="item-oshi">カンパネルラ</td>
-                                </tr>
-                                <tr>
-                                    <th>日付：</th>
-                                    <td id="item-date">2024/11/16</td>
-                                </tr>
-                                <tr>
-                                    <td class="memo-label-right">メモ：</td>
-                                    <td class="value memo-value-right">ビジュがよき</td>
-                                </tr>
-                            </table>
-                            </div>
-
-                            <div class="container btn-right">
-                                <div class="img_icon">
-                                    <a href="goods_edit"><img src="static/img/EDIT2.png"></a>
-                                </div>
-                                <div class="img_icon">
-                                    <a href="#" onclick="openDeleteModal()"><img src="static/img/DELE2.png"></a>
-                                </div>
-                            </div>
-
-                            <button id="rCloseMain" type="button" class="btn" onclick="closeRightModal()">閉じる</button>
-                        </div>
                     </div>
-                </div>
 
             </div>
         </div>
@@ -456,39 +388,6 @@
     </div>
 </div>
 
-
-<!-- 削除用モーダル 右 -->
-<div id="deleteModalRight" class="modal modal-right">
-    <div class="modal-content-center">
-        <h3>右モーダルの内容</h3>
-        <div class="delete-h4">
-            <h6>こちらは右側に表示されるモーダルです。</h6>
-        </div>
-
-        <div class="delete-details">
-            <form id="goods_del_modal_right" action="GoodsDelServlet" method="post">
-                <table>
-                    <tr>
-                        <th>画像：</th>
-                        <td><img src="static/img/購入済.png" alt="サンプル画像" class="right-image"></td>
-                    </tr>
-                    <tr>
-                        <th>商品名：</th>
-                        <td>右モーダルの商品</td>
-                    </tr>
-                    <tr>
-                        <th>金額(円)：</th>
-                        <td>¥ 3,500</td>
-                    </tr>
-                </table>
-                <input name="goods_id" type="hidden" value="right-modal-id">
-            </form>
-        </div>
-
-        <button id="mDeleteRight" type="button" class="btn delete-btn">削除</button>
-        <button id="mCancelRight" type="button" class="btn cancel-btn" onclick="closeRightModal()">キャンセル</button>
-    </div>
-</div>
 
 
 
