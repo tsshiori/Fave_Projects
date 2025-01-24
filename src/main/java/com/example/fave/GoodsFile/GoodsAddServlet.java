@@ -104,7 +104,7 @@ public class GoodsAddServlet extends HttpServlet {
             try {
                 purchase = Integer.parseInt(purBefore);
             } catch (NumberFormatException e) {
-                errors.add("購入金額の形式が正しくありません。");
+                errors.add("参加形式が正しくありません。");
             }
         } else {
             purchase = 0; // purchaseがnullまたは空の場合、0に設定
@@ -149,29 +149,65 @@ public class GoodsAddServlet extends HttpServlet {
             }
         }
 
-        int priority = 0;
-        String priorityString = request.getParameter("priority");
-        if (priorityString != null && !priorityString.trim().isEmpty()) {
-            try {
-                priority = Integer.parseInt(priorityString);
-            } catch (NumberFormatException e) {
-                errors.add("優先度の形式が正しくありません。");
+
+        String formType = request.getParameter("formType");
+
+// formTypeがnullでないか確認
+        if (formType != null && !formType.trim().isEmpty()) {
+            if (formType.equals("goods")) {
+                // グッズモーダルからのデータ処理
+                int goodsicon = 0;
+                String priorityString = request.getParameter("goodsicon");
+                if (priorityString != null && !priorityString.trim().isEmpty()) {
+                    try {
+                        goodsicon = Integer.parseInt(priorityString);
+                    } catch (NumberFormatException e) {
+                        errors.add("優先度の形式が正しくありません。");
+                    }
+                }
+
+                // エラーがある場合は元のページに戻る
+                if (!errors.isEmpty()) {
+                    request.setAttribute("errors", errors);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/GoodsFile/goods_add.jsp");
+                    dispatcher.forward(request, response);
+                    return;
+                }
+
+                // データベースに登録
+                goodsDAO dao = new goodsDAO();
+                dao.insertGoods(day, price, item, purchase, osiId, goodsicon, memo, itemType);
+
+                // 処理後のリダイレクト
+                response.sendRedirect("fave");
+
+            } else if (formType.equals("event")) {
+                // イベントモーダルからのデータ処理
+                int eventicon = 0;
+                String priorityString = request.getParameter("eventicon");
+                if (priorityString != null && !priorityString.trim().isEmpty()) {
+                    try {
+                        eventicon = Integer.parseInt(priorityString);
+                    } catch (NumberFormatException e) {
+                        errors.add("優先度の形式が正しくありません。");
+                    }
+                }
+
+                // エラーがある場合は元のページに戻る
+                if (!errors.isEmpty()) {
+                    request.setAttribute("errors", errors);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/EventFile/event_add.jsp");
+                    dispatcher.forward(request, response);
+                    return;
+                }
+
+                // データベースに登録
+                goodsDAO dao = new goodsDAO();
+                dao.insertGoods(day, price, item, purchase, osiId, eventicon, memo, itemType);
+
+                // 処理後のリダイレクト
+                response.sendRedirect("fave");
             }
         }
-
-        // エラーがある場合は元のページに戻る
-        if (!errors.isEmpty()) {
-            request.setAttribute("errors", errors);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/GoodsFile/goods_add.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
-
-        // データベースに登録
-        goodsDAO dao = new goodsDAO();
-        dao.insertGoods(day, price, item, purchase, osiId, priority, memo, itemType);
-
-        // 処理後のリダイレクト
-        response.sendRedirect("fave");
     }
 }

@@ -111,7 +111,7 @@ public class FaveAddServlet extends HttpServlet {
         }
 
 
-        String osimemo = request.getParameter("osimemo");
+        String osimemo = request.getParameter("memo");
         userBean user = (userBean) session.getAttribute("user");
         String log_id = user.getLog_id();
         int cate_id = Integer.parseInt(request.getParameter("cate_id"));

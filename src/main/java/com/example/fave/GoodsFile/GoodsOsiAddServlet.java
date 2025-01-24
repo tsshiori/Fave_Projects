@@ -17,7 +17,7 @@ import utils.Bean.shiftBean;
 import utils.Bean.userBean;
 import utils.DAO.goodsDAO;
 
-@WebServlet("/GoodsOsiAdd")
+
 public class GoodsOsiAddServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html; charset=UTF-8");

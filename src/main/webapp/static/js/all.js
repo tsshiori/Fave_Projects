@@ -36,8 +36,9 @@ const foregroundMeter0 = document.querySelector('.foreground-meter');
 const backgroundMeter0 = document.querySelector('.background-meter');
 
 // 初期状態でvalueを設定
-temotiValue.textContent = `所持金額: ¥${foregroundMeter0.value}`;
 const back0 = backgroundMeter0.value - foregroundMeter0.value;
+
+temotiValue.textContent = `所持金額: ¥${foregroundMeter0.value}`;
 kyuuryoubiValue.textContent = `給与予定額: ¥${back0}`;
 
 // 金額にカンマ区切りを追加する関数

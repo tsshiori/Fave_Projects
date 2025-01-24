@@ -28,7 +28,7 @@
         <div class="logo"><img src="static/img/TimeforFave.png" alt="logo"></div>
         <div class="text">
             <input type="text" name="log_id" placeholder="　ID">
-            <input type="text" name="password" placeholder="　パスワード" class="last-input">
+            <input type="password" name="password" placeholder="　パスワード" class="last-input">
             <div class="a">
                 <a href="register">新規登録はこちら ＞</a>
 

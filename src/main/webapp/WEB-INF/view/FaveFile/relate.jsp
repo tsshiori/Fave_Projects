@@ -20,6 +20,8 @@
 <%
     int futureWage = (int) session.getAttribute("futureWage");
     int almosthand = (int) session.getAttribute("almosthand");
+    int sum = (int) session.getAttribute("sum");
+    userBean user = (userBean) session.getAttribute("user");
 %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -51,11 +53,14 @@
     <div class="meter">
         <br>
         <h2>≪METER≫</h2>
+        <% if (sum != 0){%>
         <div class="meter-container">
             <!-- 背面のメーター -->
-            <meter class="background-meter" value="<%=futureWage%>" min="0" max="10000"></meter>
+            <meter class="background-meter" value="<%=futureWage%>" min="0" max="<%= sum %>"></meter>
             <!-- 前面のメーター -->
-            <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="10000"></meter>
+            <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="<%= sum %>"></meter>
+            <input type="hidden" name="living" value="<%= user.getLiving() %>" id="live_money">
+
         </div>
         <div class="meterimg">
             <div class="temoti">
@@ -67,6 +72,9 @@
                 <span class="kyuuryoubi-value">給与予定額: <%=almosthand%></span> <!-- valueを表示する要素 -->
             </div>
         </div>
+        <% }else{  %>
+        <h1 style="margin-left: 120px">未購入のグッズが登録されていません。</h1>
+        <% } %>
     </div>
 </div>
 <br>
@@ -176,6 +184,7 @@
                                 </div>
                             </li>
                         </ul>
+                        </div>
                     </div>
                 </div>
                 <%
@@ -188,19 +197,17 @@
                 %>
             </div>
         </div>
-                </div>
 
-            </div>
 
 
             <button type="button" class="ADD2con">
                 <img class="ADD2" src="static/img/ADD.png">
             </button>
+
         </div>
     </div>
-
-
 </div>
+
 
 
 <%
@@ -343,7 +350,6 @@
         </form>
     </div>
 </div>
-
 
 <script src="static/js/FaveFile/relate.js"></script>
 <script src="static/js/all.js"></script>

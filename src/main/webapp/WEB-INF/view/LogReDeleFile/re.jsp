@@ -16,7 +16,7 @@
         <p class="hissu p">※ ＊は必須項目です。</p>
         <div class="text">
             <div class="cen"><input type="text" name="log_id" placeholder="　ID" required="未入力です。"></div>
-            <div class="cen"><input type="text" name="password" placeholder="　パスワード" required="未入力です。"></div>
+            <div class="cen"><input type="password" name="password" placeholder="　パスワード" required="未入力です。"></div>
             <div class="cen"><input type="text" name="nick" placeholder="　ニックネーム" required="未入力です。"></div>
         </div>
         <div class="icon container">
@@ -42,7 +42,6 @@
 
 </div>
 
-<!-- モーダル -->
 <div id="easyModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -52,15 +51,15 @@
             <table>
                 <tr>
                     <th>ID：</th>
-                    <td id="modalId">1234ruiruroi</td>
+                    <td id="modalId"></td>
                 </tr>
                 <tr>
                     <th>パスワード：</th>
-                    <td id="modalPassword">************</td>
+                    <td id="modalPassword"></td>
                 </tr>
                 <tr>
                     <th>ニックネーム：</th>
-                    <td id="modalNick">ルイ・ルロイ</td>
+                    <td id="modalNick"></td>
                 </tr>
                 <tr>
                     <th>アイコン：</th>
@@ -68,22 +67,25 @@
                 </tr>
                 <tr>
                     <th>所持金額(円)：</th>
-                    <td id="modalAmount">¥9,680</td>
+                    <td id="modalAmount"></td>
                 </tr>
                 <tr>
                     <th>生活費(円)：</th>
-                    <td id="modalLiving">¥118,000</td>
+                    <td id="modalLiving"></td>
                 </tr>
                 <tr>
                     <th>最推し：</th>
-                    <td id="modalSai">カンパネルラ</td>
+                    <td id="modalSai"></td>
                 </tr>
             </table>
-            <button id="confirmRe" type="button" class="btn2">登録</button>
-            <button id="cancelRe" type="button" class="btn2">キャンセル</button>
+            <div class="modal-buttons">
+                <button id="confirmRe" type="button" class="btn2">登録</button>
+                <button id="cancelRe" type="button" class="btn2">キャンセル</button>
+            </div>
         </div>
     </div>
 </div>
+
 
 <script src="static/js/LogReDeleFile/re.js"></script>
 </body>

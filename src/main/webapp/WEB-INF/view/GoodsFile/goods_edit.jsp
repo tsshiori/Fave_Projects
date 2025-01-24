@@ -5,6 +5,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="utils.Bean.categoryBean" %>
+<%@ page import="utils.Bean.userBean" %>
 
 <%
     ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
@@ -13,6 +14,8 @@
     Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
     int futureWage = (int) session.getAttribute("futureWage");
     int almosthand = (int) session.getAttribute("almosthand");
+    int sum = (int) session.getAttribute("sum");
+    userBean user = (userBean) session.getAttribute("user");
 %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -44,11 +47,14 @@
     <div class="meter">
         <br>
         <h2>≪METER≫</h2>
+        <% if (sum != 0){%>
         <div class="meter-container">
             <!-- 背面のメーター -->
-            <meter class="background-meter" value="<%=futureWage%>" min="0" max="10000"></meter>
+            <meter class="background-meter" value="<%=futureWage%>" min="0" max="<%= sum %>"></meter>
             <!-- 前面のメーター -->
-            <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="10000"></meter>
+            <meter class="foreground-meter" value="<%=almosthand%>" min="0" max="<%= sum %>"></meter>
+            <input type="hidden" name="living" value="<%= user.getLiving() %>" id="live_money">
+
         </div>
         <div class="meterimg">
             <div class="temoti">
@@ -60,44 +66,46 @@
                 <span class="kyuuryoubi-value">給与予定額: <%=almosthand%></span> <!-- valueを表示する要素 -->
             </div>
         </div>
+        <% }else{  %>
+        <h1 style="margin-left: 120px">未購入のグッズが登録されていません。</h1>
+        <% } %>
     </div>
 </div>
 <br>
 <div class="maincontents container">
     <aside class="menu">
-        <br>
         <div class="home">
-            <a href="../index.jsp">
+            <a href="fave">
                 <h3>HOME</h3>
             </a>
         </div>
         <hr>
         <div class="fave">
-            <a href="../FaveFile/fave.jsp">
+            <a href="fave">
                 <h3>FAVE</h3>
             </a>
         </div>
         <hr>
         <div class="relate">
-            <a href="../FaveFile/relate.jsp">
+            <a href="relate">
                 <h3>RELATE</h3>
             </a>
         </div>
         <hr>
         <div class="shift">
-            <a href="../ShiftFile/shift.jsp">
+            <a href="shift">
                 <h3>SHIFT</h3>
             </a>
         </div>
         <hr>
         <div class="work">
-            <a href="../WorkFile/work.jsp">
+            <a href="work">
                 <h3>WORK</h3>
             </a>
         </div>
         <hr>
         <div class="mypage">
-            <a href="../MypageFile/mypage.jsp">
+            <a href="my_page">
                 <h3>MYPAGE</h3>
             </a>
         </div>
@@ -119,7 +127,7 @@
         </div>
         <br><br>
         <div id="goods" class="scroll-content group content-item active">
-            <form action="../GoodsFile/goods.jsp">
+            <form action="goods_edit" method="post">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input type="date" id="date" class="pl" onfocus="hidePlaceholder(this)"
@@ -155,27 +163,29 @@
                 <div class="form-group">
                     <div class="icon container">
                         <label>
-                            <input type="radio" name="icon" value="0" checked>
-                            <img src="static/img/Y_A.png" alt="a">
+                            <input type="radio" id="icon-0" name="goodsicon" value="0" checked>
+                            <img src="static/img/Y_0.png" alt="a">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="1">
-                            <img src="static/img/Y_B.png" alt="b">
+                            <input type="radio" id="icon-1" name="goodsicon" value="1">
+                            <img src="static/img/Y_1.png" alt="b">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="2">
-                            <img src="static/img/Y_C.png" alt="c">
+                            <input type="radio" id="icon-2" name="goodsicon" value="2" checked>
+                            <img src="static/img/Y_2.png" alt="c">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="3">
-                            <img src="static/img/Y_D.png" alt="d">
+                            <input type="radio" id="icon-3" name="goodsicon" value="3">
+                            <img src="static/img/Y_3.png" alt="d">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="4">
-                            <img src="static/img/Y_E.png" alt="e">
+                            <input type="radio" id="icon-4" name="goodsicon" value="4">
+                            <img src="static/img/Y_4.png" alt="e">
                         </label>
                     </div>
                 </div>
+                <input type="hidden" name="formType" value="goods">
+
 
                 <div class="form-group">
                     <label class="memo-label">メモ：</label>
@@ -197,7 +207,7 @@
             </form>
         </div>
         <div id="events" class="group content-item">
-            <form action="../GoodsFile/goods.jsp">
+            <form action="goods_edit" method="post">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input type="date" id="event-date" class="pl" onfocus="hidePlaceholder(this)"
@@ -235,27 +245,28 @@
                 <div class="form-group">
                     <div class="icon container">
                         <label>
-                            <input type="radio" name="icon" value="0" checked>
-                            <img src="static/img/Y_A.png" alt="a">
+                            <input type="radio" id="event-icon-0" name="eventicon" value="0" checked>
+                            <img src="static/img/Y_0.png" alt="a">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="1">
-                            <img src="static/img/Y_B.png" alt="b">
+                            <input type="radio" id="event-icon-1" name="eventicon" value="1">
+                            <img src="static/img/Y_1.png" alt="b">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="2">
-                            <img src="static/img/Y_C.png" alt="c">
+                            <input type="radio" id="event-icon-2" name="eventicon" value="2" checked>
+                            <img src="static/img/Y_2.png" alt="c">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="3">
-                            <img src="static/img/Y_D.png" alt="d">
+                            <input type="radio" id="event-icon-3" name="eventicon" value="3">
+                            <img src="static/img/Y_3.png" alt="d">
                         </label>
                         <label>
-                            <input type="radio" name="icon" value="4">
-                            <img src="static/img/Y_E.png" alt="e">
+                            <input type="radio" id="event-icon-4" name="eventicon" value="4">
+                            <img src="static/img/Y_4.png" alt="e">
                         </label>
                     </div>
                 </div>
+                <input type="hidden" name="formType" value="event">
 
                 <div class="form-group">
                     <label class="memo-label">メモ：</label>
