@@ -33,11 +33,28 @@ form {
 
 input[type="text"] {
     font-size: 20px;
-    color: #221D7E;
+    /*color: #221D7E;*/
     font-family: "Noto Serif JP", serif;
     font-weight: bold;
     height: 40px;
     width: 40%;
+    padding: 8px;
+    display: block;
+    border: 0.5px solid #221D7E;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFF3;
+    margin: 1% auto;
+    display: inline;
+}
+
+input[type="password"] {
+    font-size: 20px;
+    /*color: #221D7E;*/
+    font-family: "Noto Serif JP", serif;
+    font-weight: bold;
+    height: 40px;
+    width: 37%;
     padding: 8px;
     display: block;
     border: 0.5px solid #221D7E;
@@ -203,7 +220,7 @@ footer {
 }
 
 .modal-header {
-    margin: 40px;
+    margin: 20px;
     display: flex;
     justify-content: center;
 }
