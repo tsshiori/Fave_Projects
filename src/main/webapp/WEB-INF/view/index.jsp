@@ -184,6 +184,10 @@
                                     　あともう少し…
                                     <% }else{ %>
                                     <%
+                                        if (mainwork.getHourlywage() == 1){
+                                            shifttime = goods.getPrice();
+                                        }
+
                                     if (kari / mainwork.getHourlywage() >= 0 && kari % mainwork.getHourlywage() > 0){
                                     shifttime += 1;
                                     }

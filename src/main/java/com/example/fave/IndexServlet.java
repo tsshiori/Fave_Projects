@@ -83,7 +83,13 @@ public class IndexServlet extends HttpServlet {
             request.setAttribute("almosthand",almosthand);
 
             workBean mainwork = workDAO.selectWork(user.getMainwork());
+            if (mainwork == null) {
+                // デフォルトの workBean を作成
+                mainwork = new workBean(-1,1,"null",log_id);
+
+            }
             session.setAttribute("mainwork", mainwork);
+
         } else {
             // ユーザーがセッションにいない場合の処理（例: ログイン画面にリダイレクト）
             response.sendRedirect("/login.jsp");
@@ -97,4 +103,3 @@ public class IndexServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request, response);
     }
 }
-
