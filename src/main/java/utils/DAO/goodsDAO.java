@@ -241,5 +241,21 @@ public class goodsDAO {
         }
     }
 
+    public static void goodsDel(int osikatu_id) {
+        String sql = "DELETE FROM osikatu WHERE osikatu_id = ?";
 
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
+            // 3.プレースホルダに値をセット
+            pstmt.setInt(1, osikatu_id);
+
+            // 4.SQLの実行＆コミット
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 }

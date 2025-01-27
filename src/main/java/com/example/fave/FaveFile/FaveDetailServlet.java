@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import utils.Bean.*;
 import utils.DAO.faveDAO;
 import utils.DAO.categoryDAO;
+import utils.DAO.goodsDAO;
 import utils.DAO.tagDAO;
 
 import java.io.IOException;
@@ -24,6 +25,8 @@ public class FaveDetailServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         HttpSession session = request.getSession();
+        userBean user = (userBean) session.getAttribute("user");
+        String log_id = user.getLog_id();
 
         String idParam = request.getParameter("osi_id");
         int osi_id = Integer.parseInt(idParam);
@@ -47,6 +50,40 @@ public class FaveDetailServlet extends HttpServlet {
 
         ArrayList<osikatuBean> goodslist = utils.DAO.goodsDAO.selectOsikatuByOsi_id(osi_id);
         session.setAttribute("goodslist",goodslist);
+
+//        全部のservletに貼るコード
+
+        if (user != null) {
+            // ユーザーのlog_idを取得
+            log_id = user.getLog_id();
+
+            ArrayList<faveBean> favelist = utils.DAO.faveDAO.selectFaveAll(log_id);
+            session.setAttribute("favelist", favelist);
+
+            ArrayList<Integer> osi_id2 = goodsDAO.selectOsikatu_id(log_id);
+            // 商品情報を取得
+            ArrayList<osikatuBean> goodsList = new ArrayList<>();
+            for (int osi : osi_id2) {
+                ArrayList<osikatuBean> goods = goodsDAO.selectGoods(osi);
+                goodsList.addAll(goods);
+            }
+
+            if (goodsList != null) {
+                goodsList.sort(Comparator.comparing(osikatuBean::getPriority));
+            }
+            // 取得した商品情報をリクエストスコープにセット
+            session.setAttribute("goodsList", goodsList);
+            int sum = 0;
+
+            for (osikatuBean good : goodsList) {
+                if (good.getPurchase() != 1) {
+                    sum = sum + good.getPrice();
+                }
+            }
+
+            session.setAttribute("sum", sum);
+
+        }
 
         String path = "/WEB-INF/view/FaveFile/fave_detail.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);

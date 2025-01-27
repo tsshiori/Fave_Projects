@@ -98,7 +98,7 @@
     color: #FF1D1D;
     font-weight: bold;
     margin-top: 3%;
-    width: 27%;
+    width: 33%;
     text-align: center;
 }
 
@@ -250,4 +250,206 @@
     text-decoration: none;
     cursor: pointer;
     background-color: #ececec;
+}
+
+
+#delete_index_goods .modal-content, #delete_index_goods .modal-content-center{
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 42%;
+    height: 72%; /* 統一した高さ */
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 26px;
+    min-width: 600px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+#delete_index_goods .modal-content-center {
+    background-color: #DADCFB;
+    border: 3px solid #221D7E;
+    border-radius: 3.5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 42%;
+    height: 80%; /* 統一した高さ */
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    padding: 26px;
+    min-width: 600px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.delete-details table tr .priority img{
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+}
+
+.modal-image {
+    width: 100px; /* 必要に応じてサイズを調整 */
+    height: 100px; /* 必要に応じてサイズを調整 */
+    border-radius: 50%; /* 丸い形にする */
+    border: solid 1px #221D7E;
+    float: left; /* 左寄せにする */
+    margin-right: 80px; /* 画像とテキストの間にスペースを追加 */
+    position: relative; /* 今の位置を基準 */
+    top: 30px; /* 上から30px */
+    left: 20px;
+}
+
+table{
+    text-align: right;
+
+}
+
+.value{
+    text-align: left !important;
+}
+
+.btn{
+    margin: auto;
+}
+
+.container.btn {
+    display: flex;
+    gap: 20px; /* アイコン同士の間隔を調整 */
+    justify-content: right;
+    align-items: center;
+    position: relative; /* 今の位置を基準 */
+    top: 173px; /* 上から153px */
+    right: 10px;
+}
+
+
+
+
+
+/* 削除ボタンのスタイル */
+#goods_Delete {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 700;
+    padding: 5px 40px;
+    background-color: #FF6666;
+    border-radius: 3px;
+    margin-right: 9%;
+    height: 9%;
+    color: #221D7E;
+    border: 0.5px solid #221D7E;
+    outline: none; /* フォーカス時のアウトラインも消す */
+}
+
+#goods_DeleteRightUnique {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 700;
+    padding: 5px 40px;
+    background-color: #FF6666;
+    border-radius: 3px;
+    margin-right: 9%;
+    height: 9%;
+    color: #221D7E;
+    border: none;  /* ボーダーを消す */
+    outline: none; /* フォーカス時のアウトラインも消す */
+}
+
+#goods_Delete:hover {
+    background-color: #ff8787;
+}
+
+/* キャンセルボタンのスタイル */
+#goods_del_can {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border-radius: 3px;
+    padding: 5px 20px;
+    text-decoration: none;
+    height: 9%;
+    border: 0.5px solid #221D7E;
+}
+
+#goods_del_canRightUnique {
+    font-family: "Noto Serif JP", serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: #221D7E;
+    background-color: #FFFFF3;
+    border-radius: 3px;
+    padding: 5px 20px;
+    text-decoration: none;
+    height: 9%;
+    border: none;
+}
+
+#goods_del_can:hover {
+    background-color: #ececec;
+}
+
+/* 右側の詳細情報のスタイル */
+.delete-details {
+    font-size: 19px;
+    color: #221D7E;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    width: 60%; /* テーブル全体の幅を調整 */
+    margin-left: 25%;
+    margin-right: 15%;
+    justify-content: center;
+}
+
+.delete-details table {
+    width: 100%;
+    margin: 0 auto; /* テーブル全体を中央に配置 */
+    border-collapse: collapse;
+}
+
+.delete-details th, .delete-details td {
+    padding: 4px;
+    text-align: right; /* 各セル内の内容を中央揃え */
+    vertical-align: middle;
+}
+
+.delete-details td {
+    text-align: left !important;
+}
+
+.delete-details th {
+    width: 120px;
+    font-weight: 700;
+}
+
+.priority-image {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%; /* 丸い形にする */
+
+}
+
+.modal-body table td {
+    width: 55%;
+    font-weight: 600;
+    text-align: left;
+    margin-left: 4px;
+}
+
+td .text {
+    font-size: 9px;
+}
+
+img {
+    cursor: pointer;
 }

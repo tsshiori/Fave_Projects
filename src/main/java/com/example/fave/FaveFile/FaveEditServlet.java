@@ -4,12 +4,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import utils.Bean.categoryBean;
-import utils.Bean.faveBean;
-import utils.Bean.tagBean;
-import utils.Bean.userBean;
+import utils.Bean.*;
 import utils.DAO.categoryDAO;
 import utils.DAO.faveDAO;
+import utils.DAO.goodsDAO;
 import utils.DAO.tagDAO;
 
 import java.io.File;
@@ -46,6 +44,46 @@ public class FaveEditServlet extends HttpServlet {
         if (tags != null && !tags.isEmpty()) {
             tags.sort(Comparator.comparing(tagBean::getTag)); // タグを昇順にソート
             request.setAttribute("tags", tags); // JSP に渡す
+        }
+
+
+
+        // セッションからユーザー情報を取得
+        userBean user = (userBean) session.getAttribute("user");
+
+        String log_id;
+        // 全部のservletに貼るコード
+
+        if (user != null) {
+            // ユーザーのlog_idを取得
+            log_id = user.getLog_id();
+
+            ArrayList<faveBean> favelist = utils.DAO.faveDAO.selectFaveAll(log_id);
+            session.setAttribute("favelist", favelist);
+
+            ArrayList<Integer> osi_id_list = goodsDAO.selectOsikatu_id(log_id); //エラーが出たからosi_idをosi_id_listに変更した
+            // 商品情報を取得
+            ArrayList<osikatuBean> goodsList = new ArrayList<>();
+            for (int osi : osi_id_list) { //エラーが出たからosi_idをosi_id_listに変更した
+                ArrayList<osikatuBean> goods = goodsDAO.selectGoods(osi);
+                goodsList.addAll(goods);
+            }
+
+            if (goodsList != null) {
+                goodsList.sort(Comparator.comparing(osikatuBean::getPriority));
+            }
+            // 取得した商品情報をリクエストスコープにセット
+            session.setAttribute("goodsList", goodsList);
+            int sum = 0;
+
+            for (osikatuBean good : goodsList) {
+                if (good.getPurchase() != 1) {
+                    sum = sum + good.getPrice();
+                }
+            }
+
+            session.setAttribute("sum", sum);
+
         }
 
         request.getRequestDispatcher("/WEB-INF/view/FaveFile/fave_edit.jsp").forward(request, response);

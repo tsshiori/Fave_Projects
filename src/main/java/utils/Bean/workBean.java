@@ -6,6 +6,8 @@ public class workBean {
     private String work;
     private  String log_id;
 
+
+
     public int getWork_id() {
         return work_id;
     }
