@@ -9,19 +9,42 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import utils.Bean.goodsBean;
-import utils.Bean.osikatuBean;
-import utils.Bean.userBean;
-import utils.Bean.workBean;
+import utils.Bean.*;
 import utils.DAO.goodsDAO;
 
 
 public class GoodsEditServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String path = "/WEB-INF/view/GoodsFile/goods_edit.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-        dispatcher.forward(request, response);
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
+
+        // osikatu_id パラメータの取得
+        String osikatuidParam = request.getParameter("osikatu_id");
+        if (osikatuidParam == null || osikatuidParam.trim().isEmpty()) {
+            // エラー応答
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing or invalid osikatu_id parameter.");
+            return;
+        }
+
+        try {
+            // 数値変換
+            int osikatu_id = Integer.parseInt(osikatuidParam.trim());
+            session.setAttribute("osikatu_id", osikatu_id);
+
+            // データベース操作
+            goodsBean goods = goodsDAO.getFaveByOsikatu_id(osikatu_id);
+            session.setAttribute("goods", goods);
+
+            // JSP にフォワード
+            request.getRequestDispatcher("/WEB-INF/view/FaveFile/goods_edit.jsp").forward(request, response);
+
+        } catch (NumberFormatException e) {
+            // 数値変換エラー時の応答
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid osikatu_id format. Must be a number.");
+        }
     }
+
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html; charset=UTF-8");

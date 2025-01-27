@@ -26,7 +26,6 @@ body {
     justify-content: space-between;
     position: relative;
     z-index: 10;
-    /* width: calc(100% - 34px); */
 }
 
 .switch_label {
@@ -57,7 +56,6 @@ body {
 }
 
 .title {
-    /* margin-left: 4px; */
     font-weight: 900;
     font-size: 17px;
     color: #221D7E;
@@ -123,7 +121,6 @@ input:checked~.base .circle {
     display: flex;
     width: 130px;
     border-radius: 100px;
-    /* display: block; */
     margin: 0 20px;
 }
 
@@ -142,20 +139,20 @@ input[type=radio] {
 
 input[type="text"],
 input[type="date"],
-textarea.memo {
-    color: #66639C;
+#event-memo,#goods-memo
+{
     font-family: "Noto Serif JP", serif;
-    height: 40px;
-    border-radius: 3px;
+    color: #221D7E;
     font-size: 20px;
-    width: 400px;
+    border-radius: 5px;
     padding: 8px;
-    box-sizing: border-box;
     border: 0.5px solid #221D7E;
-    background: rgba(255, 255, 243, 1);
+    background-color: #FFFFF3;
+    width: 400px;
+    height: 40px;
 }
 
-textarea.memo {
+#goods-memo, #event-memo {
     resize: vertical;
     max-width: 400px;
     max-height: 300px;
@@ -164,11 +161,18 @@ textarea.memo {
 }
 
 
+input::placeholder,
+textarea::placeholder {
+    color: #A9A8C2;
+    font-size: 20px;
+}
+
+
 .form-group {
     font-size: 20px;
     text-align: left;
     display: flex;
-    margin: 1% auto;
+    margin: 2% auto;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -233,7 +237,7 @@ input[type="checkbox"] {
     font-weight: bold;
     margin-top: 3%;
     color: #221D7E;
-    background-color: #C3F8B9;
+    background-color: #63ACF6;
     border: 0.5px solid #221D7E;
     border-radius: 5px;
     padding: 5px 40px;
@@ -241,7 +245,7 @@ input[type="checkbox"] {
 }
 
 .in:hover {
-    background-color: #ddfbd7;
+    background-color: #98c5f3;
 }
 
 .kyan {
@@ -311,25 +315,15 @@ input[type="checkbox"] {
 
 
 
+select,
 .custom-file-select {
-    width: 20.5rem;
-    color: #66639C;
-    margin-left: 6px;
-    text-align: left;
-    border-radius: 5px;
+    color: #221D7E;
     appearance: none;
-    padding: 5px 0 5px 5px;
-    font-size: 16px;
-    border: #221D7E 0.5px solid;
+    font-family: "Noto Serif JP", serif;
+    font-size: 20px;
     border-radius: 5px;
-    background-color: #FFFFFF;
-    background-image: url('../../img/UPLOAD.png');
-    /* カスタム矢印の画像 */
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    /* 矢印の位置 */
-    background-size: 15px;
-    /* 矢印のサイズ */
+    border: 0.5px solid #221D7E;
+    background-color: #FFFFF3;
 }
 
 option {
@@ -337,59 +331,103 @@ option {
 }
 
 select {
-    color: #66639C;
-    border-radius: 5px;
-    appearance: none;
     width: 400px;
     height: 40px;
-    font-family: "Noto Serif JP", serif;
-    padding: 5px;
-    padding-left: 8px;
-    font-size: 18px;
-    border: #221D7E 0.5px solid;
-    border-radius: 5px;
+    padding: 0 8px;
     background-image: url('../../img/DOWN.png');
-    /* カスタム矢印の画像 */
     background-repeat: no-repeat;
     background-position: right 10px center;
-    /* 矢印の位置 */
     background-size: 15px;
-    /* 矢印のサイズ */
-
-    background-color: #FFFFF3;
 }
 
-.input-container{
+.custom-file-select {
+    width: 20.5rem;
+    margin-left: 6px;
+    background-image: url('../../img/UPLOAD.png');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+}
+
+#goods-menu:has(option:checked[value=""]) {
+    color: #A9A8C2;
+}
+#event-menu:has(option:checked[value=""]){
+    color: #A9A8C2;
+}
+
+.input-container {
     position: relative;
 }
 
 .pl {
     font-family: "Noto Serif JP", serif;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: #FFFFF3;
-    border: 1px solid #221D7E;
-    border-radius: 5px;
+    color: #A9A8C2;  /* 初期状態の色 */
     font-size: 20px;
-    color: #A9A8C2;
-    width: 20.5rem;
+    border-radius: 5px;
+    padding: 8px;
+    border: 0.5px solid #221D7E;
+    background-color: #FFFFF3;
+    width: 400px;
     height: 40px;
+    /*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
+    /*appearance: none;*/
+    /*background-color: #FFFFF3;*/
+    /*border: 1px solid #221D7E;*/
+    /*border-radius: 5px;*/
+    /*font-size: 20px;*/
+    /*color: #A9A8C2;*/
+    /*width: 25rem;*/
+    /*height: 40px;*/
 }
+input[type="date"] {
+    color: #A9A8C2;
+}
+
+
+
+/* プレースホルダー用のスタイル */
 .date-text {
     font-family: "Noto Serif JP", serif;
     position: absolute;
     margin-left: 50px;
-    color: #A9A8C2;
+    color: #A9A8C2;  /* 初期状態での薄い色 */
     background-color: #FFFFF3;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
     cursor: pointer;
+    /*font-family: "Noto Serif JP", serif;*/
+    /*position: absolute;*/
+    /*margin-left: 50px;*/
+    /*color: #A9A8C2;*/
+    /*background-color: #FFFFF3;*/
+    /*font-size: 20px;*/
+    /*font-weight: 400;*/
+    /*cursor: pointer;*/
+    /*transition: color 0.3s ease; !* 色の変化 *!*/
 }
 
-/* プレースホルダーを非表示にする */
-.pl:focus+.date-text{
-    display: none;
+/* フォーカス時、入力時の色変更 */
+.pl:focus {
+    /*outline: none; !* フォーカス枠を非表示 *!*/
+    color: #221D7E; /* フォーカス時の色 */
+}
+
+
+
+
+#goods-menu:has(option:checked[value=""]) {
+    color: #A9A8C2;
+}
+#event-menu:has(option:checked[value=""]){
+    color: #A9A8C2;
+}
+
+
+.pl:focus + .date-text,
+.pl:not(:placeholder-shown) + .date-text {
+    display: none; /* 入力中やフォーカス時は非表示 */
 }
 
 .hidden {
@@ -478,7 +516,7 @@ select {
     font-weight: bold;
     margin-top: 5%;
     color: #221D7E;
-    background-color: #C3F8B9;
+    background-color: #63ACF6;
     border: 0.5px solid #221D7E;
     border-radius: 5px;
     padding: 5px 40px;
@@ -486,11 +524,11 @@ select {
 }
 
 #confirmReGoods:hover {
-    background-color: #ddfbd7;
+    background-color: #98c5f3;
 }
 
 #confirmReEvents:hover {
-    background-color: #ddfbd7;
+    background-color: #98c5f3;
 }
 
 
@@ -621,4 +659,20 @@ td .text {
     width: 150px;
     vertical-align: top;
     text-align: right;
+}
+
+/* フォーカス時に文字色を濃く */
+.modalosi:focus {
+    color: #221D7E; /* フォーカス時の文字色 */
+    outline: none; /* デフォルトのアウトラインを消したい場合 */
+}
+
+/* プレースホルダーの文字色を薄く */
+.modalosi::placeholder {
+    color: #A9A8C2; /* プレースホルダーの文字色 */
+}
+
+/* 入力済み状態の文字色を濃く */
+.modalosi:not(:placeholder-shown) {
+    color: #221D7E; /* プレースホルダーが表示されていない状態の文字色 */
 }
