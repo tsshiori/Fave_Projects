@@ -66,14 +66,17 @@
 
         </div>
         <div class="meterimg">
-            <div class="temoti">
-                <img src="static/img/temoti.png" alt="temoti">
-                <span class="temoti-value">所持金額: <%=futureWage%></span> <!-- valueを表示する要素 -->
-            </div>
+
             <div class="kyuuryoubi">
                 <img src="static/img/kyuuryoubi.png" alt="kyuuryoubi">
                 <span class="kyuuryoubi-value">給与予定額: <%=almosthand%></span> <!-- valueを表示する要素 -->
             </div>
+
+            <div class="temoti">
+                <img src="static/img/temoti.png" alt="temoti">
+                <span class="temoti-value">所持金額: <%=futureWage%></span> <!-- valueを表示する要素 -->
+            </div>
+
         </div>
         <% }else{  %>
         <h1 style="margin-left: 120px">未購入のグッズが登録されていません。</h1>
@@ -146,6 +149,7 @@
                data-price="<%= goods.getPrice() %>"
                data-name="<%= favename %>"
                data-memo="<%= goods.getMemo() %>"
+               data-id="<%= goods.getOsikatu_id() %>"
             >
                 <div class="guzzu">
                     <div class="container">
@@ -218,6 +222,7 @@
                data-name="<%= favename %>"
                data-memo="<%= goods.getMemo() %>"
                data-type="<%= goods.getItemtype() %>"
+               data-id="<%= goods.getOsikatu_id() %>"
             >
                 <div class="event">
                     <div class="container">
@@ -285,7 +290,7 @@
         <div class="modal-header">
             <div class="mohe container">
                 <div class="yusendo">
-                    <img src="../img/Y_A.png" alt="Y_A">
+                    <img src="" alt="Y_A">
                 </div>
                 <div class="goodsdetail">
                     <div class="container tate">
@@ -332,39 +337,36 @@
             <table>
                 <tr>
                     <th>日付：</th>
-                    <td>2024/11/16</td>
+                    <td class="day">2024/11/16</td>
                 </tr>
                 <tr>
-                    <th>グッズ名：</th>
-                    <td>アクリルスタンド</td>
+                    <th class="type">グッズ名：</th>
+                    <td class="item">アクリルスタンド</td>
                 </tr>
                 <tr>
                     <th>金額(円)：</th>
-                    <td>¥ 1,980</td>
+                    <td class="price">¥ 1,980</td>
                 </tr>
                 <tr>
                     <th>優先度：</th>
-                    <td><img src="" alt="" class="priority-image"></td>
+                    <td class="priority"><img src="" alt="" class="priority-image"></td>
                 </tr>
                 <tr>
                     <th>推し：</th>
-                    <td>カンパネルラ</td>
+                    <td class="name">カンパネルラ</td>
                 </tr>
                 <tr>
                     <th>メモ：</th>
-                    <td>ビジュがよき</td>
-                </tr>
-                <tr>
-                    <th>購入済：</th>
-                    <td>
-                    </td>
+                    <td class="memo">ビジュがよき</td>
                 </tr>
             </table>
         </div>
 
-
-        <button id="goods_Delete" type="button" class="btn delete-btn" onclick="confirmDelete()">削除</button>
-        <button id="mCancel" type="button" class="btn cancel-btn" onclick="closeDeleteModal()">キャンセル</button>
+        <form class="del_goods_ind" action="GoodsDelServlet" method="post">
+            <input class="id" name="goods_id" type="hidden" value="">
+            <button id="goods_Delete" type="submit" class="btn delete-btn" onclick="confirmDelete()">削除</button>
+            <button id="goods_del_can" type="button" class="btn cancel-btn" onclick="closeDeleteModal()">キャンセル</button>
+        </form>
     </div>
 </div>
 

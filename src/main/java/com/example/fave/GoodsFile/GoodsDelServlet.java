@@ -8,9 +8,11 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+
 import utils.Bean.faveBean;
 import utils.Bean.osikatuBean;
 import utils.Bean.userBean;
+
 import utils.DAO.goodsDAO;
 
 @WebServlet("/GoodsDelServlet")
@@ -18,6 +20,7 @@ public class GoodsDelServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html;charset=UTF-8;"); //レスポンスデータ
+
 
         // セッションを取得
         HttpSession session = request.getSession();
@@ -63,5 +66,6 @@ public class GoodsDelServlet extends HttpServlet {
         String path = "/WEB-INF/view/GoodsFile/goods.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);
         dispatcher.forward(request, response);
+
     }
 }
