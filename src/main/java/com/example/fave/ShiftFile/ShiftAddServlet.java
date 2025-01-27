@@ -6,9 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import utils.Bean.shiftBean;
-import utils.Bean.userBean;
-import utils.Bean.workBean;
+import utils.Bean.*;
+import utils.DAO.goodsDAO;
 import utils.DAO.shiftDAO;
 import utils.DAO.workDAO;
 
@@ -18,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 
 @WebServlet("/ShiftAddServlet")
 public class ShiftAddServlet extends HttpServlet {
@@ -136,7 +136,39 @@ public class ShiftAddServlet extends HttpServlet {
         session.setAttribute("futureWage",futureWage);
 
 
+        // 全部のservletに貼るコード
 
+        if (user != null) {
+            // ユーザーのlog_idを取得
+            log_id = user.getLog_id();
+
+            ArrayList<faveBean> favelist = utils.DAO.faveDAO.selectFaveAll(log_id);
+            session.setAttribute("favelist", favelist);
+
+            ArrayList<Integer> osi_id = goodsDAO.selectOsikatu_id(log_id);
+            // 商品情報を取得
+            ArrayList<osikatuBean> goodsList = new ArrayList<>();
+            for (int osi : osi_id) {
+                ArrayList<osikatuBean> goods = goodsDAO.selectGoods(osi);
+                goodsList.addAll(goods);
+            }
+
+            if (goodsList != null) {
+                goodsList.sort(Comparator.comparing(osikatuBean::getPriority));
+            }
+            // 取得した商品情報をリクエストスコープにセット
+            session.setAttribute("goodsList", goodsList);
+            int sum = 0;
+
+            for (osikatuBean good : goodsList) {
+                if (good.getPurchase() != 1) {
+                    sum = sum + good.getPrice();
+                }
+            }
+
+            session.setAttribute("sum", sum);
+
+        }
 
         response.sendRedirect("ShiftServlet");
     }
