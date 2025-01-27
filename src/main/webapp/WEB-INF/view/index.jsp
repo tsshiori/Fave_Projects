@@ -177,8 +177,12 @@
                                 </div>
                                 <p class="app">
                                     <% int shifttime = 0;
-                                        if (goods.getPrice() <= user.getAmounthand()) { %>
+                                        if (mainwork.getWork_id() == -1){%>
+
+                                    <%  } else if (goods.getPrice() <= user.getAmounthand()) { %>
+
                                     　Complete！
+
                                     <% } else {
                                             int kari = goods.getPrice() - user.getAmounthand();
                                             shifttime = kari / mainwork.getHourlywage();
@@ -250,16 +254,25 @@
                                 </div>
                                 <p class="app">
                                     <% int shifttime = 0;
-                                        if (goods.getPrice() <= user.getAmounthand()) { %>
+                                        if (mainwork.getWork_id() == -1){%>
+
+                                    <%  } else if (goods.getPrice() <= user.getAmounthand()) { %>
+
                                     　Complete！
+
                                     <% } else {
                                         int kari = goods.getPrice() - user.getAmounthand();
                                         shifttime = kari / mainwork.getHourlywage();
+
                                         if (shifttime < 1){
                                     %>
                                     　あともう少し…
                                     <% }else{ %>
                                     <%
+                                        if (mainwork.getHourlywage() == 1){
+                                            shifttime = goods.getPrice();
+                                        }
+
                                         if (kari / mainwork.getHourlywage() >= 0 && kari % mainwork.getHourlywage() > 0){
                                             shifttime += 1;
                                         }
