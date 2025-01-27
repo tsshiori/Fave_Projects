@@ -1,6 +1,5 @@
 package utils.DAO;
 
-import utils.Bean.faveBean;
 import utils.Bean.osikatuBean;
 
 import java.sql.*;
@@ -8,9 +7,7 @@ import java.util.ArrayList;
 
 import utils.Bean.goodsBean;
 
-import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class goodsDAO {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/fave_db?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8";
@@ -178,13 +175,50 @@ public class goodsDAO {
             e.printStackTrace();
         }
     }
+
+    public static goodsBean getFaveByOsikatu_id(int osikatu_id) {
+        String sql = "SELECT * FROM osikatu WHERE osikatu_id = ?";
+        goodsBean result = null;
+
+        try (
+                Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement pstmt = con.prepareStatement(sql);
+        ) {
+            // プレースホルダーに値を設定
+            pstmt.setInt(1, osikatu_id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                // データが見つかった場合に faveBean を生成
+                if (rs.next()) {
+                    result = new goodsBean(
+                            rs.getInt("osikatu_id"),
+                            rs.getDate("day"),
+                            rs.getInt("price"),
+                            rs.getString("item"),
+                            rs.getInt("purchase"),
+                            rs.getInt("osi_id"),
+                            rs.getInt("priority"),
+                            rs.getString("memo"),
+                            rs.getInt("itemtype")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // データが見つからなければ null を返す
+        return result;
+    }
+
+
     public static void updateGoods(int osikatu_id, LocalDate day, int price, String item, int purchase, int osi_id, int priority, String memo, int itemtype) {
         String sql = "UPDATE osikatu SET day = ?, price = ?, item = ?, purchase = ?, osi_id = ?, priority = ?, memo = ?, itemtype = ? WHERE osikatu_id = ?";
 
         try (Connection con = DriverManager.getConnection(DB_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-            pstmt.setDate(1, day != null ? java.sql.Date.valueOf(day) : null); // 日付をセット
+            pstmt.setDate(1, day != null ? java.sql.Date.valueOf(day) : null);// 日付をセット
             pstmt.setInt(2, price);                                           // 金額をセット
             pstmt.setString(3, item);                                         // アイテム名をセット
             pstmt.setInt(4, purchase);                                        // 購入数をセット
