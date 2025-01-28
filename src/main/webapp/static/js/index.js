@@ -49,6 +49,12 @@ for (let i = 0; i < open.length; i++) {
         document.querySelector(".mohe .goodsdetail .tate .name").textContent = fave;
         document.querySelector(".modal-header .memo").textContent = memo;
         document.querySelector(".mohe .goodsdetail .tate .type").textContent = type === "0" ? "グッズ名：" : "イベント名：";
+        const edit = document.querySelector(".modal-body .edde");
+        edit.innerHTML = `<a class="edit" href="goods_edit?osikatu_id=${iid}" >
+                    <img src="static/img/EDIT2.png" alt="edit2">
+                </a>
+                <button type="button" class="delete" id="del_in_open"><img src="static/img/DELE2.png" alt="dele2"></button>
+       `;
 
         modal.style.display = "block";
     };
@@ -92,3 +98,5 @@ window.onclick = function(event) {
         delemodal.style.display = "none";
     }
 };
+
+
