@@ -11,7 +11,18 @@ const buttonCancelEvents = document.getElementById('ReEvents');
 const buttonConfirmEvents = document.getElementById('AddEvents');
 // 初期状態でイベントフォームを非表示
 eventsForm.style.display = 'none';
-// フォームの表示切替
+goodsForm.style.display = 'none'; // 最初はどちらも非表示にする
+
+// 初期状態でフォームを表示
+if (itemType == 1) {
+    eventsForm.style.display = 'block';
+    title.textContent = 'イベント';
+} else {
+    goodsForm.style.display = 'block';
+    title.textContent = 'グッズ';
+}
+
+// トグルクリック時にフォームを切り替え
 checkbox.addEventListener('click', () => {
     if (checkbox.checked) {
         title.textContent = 'イベント';
@@ -23,7 +34,15 @@ checkbox.addEventListener('click', () => {
         eventsForm.style.display = 'none';
     }
 });
-// モーダルの表示/非表示(グッズ、イベント)
+
+// トグルボタンのクリックイベントリスナー
+checkbox.addEventListener('click', toggleForm);
+
+// 初期状態でフォームを切り替える（ページ読み込み時に反映）
+toggleForm();
+
+
+        // モーダルの表示/非表示(グッズ、イベント)
 document.getElementById('plusButtonGoods').addEventListener('click', () => showModal(easyModalGoods));
 document.getElementById('plusButtonEvents').addEventListener('click', () => showModal(easyModalEvents));
 // キャンセルボタン処理

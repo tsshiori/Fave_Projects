@@ -124,7 +124,33 @@ public class GoodsEditServlet extends HttpServlet {
             int osi_id = Integer.parseInt(request.getParameter("osi_id"));
 
             String memo = request.getParameter("memo");
-            int itemtype = Integer.parseInt(request.getParameter("itemtype"));
+
+            // itemtype（0:グッズ, 1:イベント）の取得
+            int itemType = 0; // デフォルトはグッズ
+            String itemTypeString = request.getParameter("itemtype");
+
+            if (itemTypeString != null) {
+                try {
+                    // itemtypeをintに変換
+                    itemType = Integer.parseInt(itemTypeString);
+
+                    // itemTypeが0または1でない場合にエラーを追加
+                    if (itemType != 0 && itemType != 1) {
+                        errors.add("itemtypeは0または1でなければなりません。");
+                    }
+                } catch (NumberFormatException e) {
+                    // itemtypeの形式が正しくない場合にエラーを追加
+                    errors.add("itemtypeの形式が正しくありません。");
+                }
+            }
+
+// エラーがあれば適切に処理（例: エラーページに遷移）
+            if (!errors.isEmpty()) {
+                request.setAttribute("errors", errors);
+                request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+            }
+
+
 
 
             String formType = request.getParameter("formType");
@@ -146,7 +172,7 @@ public class GoodsEditServlet extends HttpServlet {
 
                     }
                     // DAOの更新メソッドを呼び出し
-                    utils.DAO.goodsDAO.updateGoods(osikatu_id, day, price, item, purchase, osi_id, goodsicon, memo, itemtype);
+                    utils.DAO.goodsDAO.updateGoods(osikatu_id, day, price, item, purchase, osi_id, goodsicon, memo, itemType);
 
 
                 } else if (formType.equals("event")) {
@@ -163,7 +189,7 @@ public class GoodsEditServlet extends HttpServlet {
 
                     }
                     // DAOの更新メソッドを呼び出し
-                    utils.DAO.goodsDAO.updateGoods(osikatu_id, day, price, item, purchase, osi_id, eventicon, memo, itemtype);
+                    utils.DAO.goodsDAO.updateGoods(osikatu_id, day, price, item, purchase, osi_id, eventicon, memo, itemType);
 
 
                 }
