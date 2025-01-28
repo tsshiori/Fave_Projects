@@ -141,8 +141,8 @@
             <form id="goods_edit" action="goods_edit" method="post" class="goods_edit_form">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
-                    <input name="day" type="date" id="goods-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)" value="<%= goods.getDay() %>">
-                    <span class="date-text">日付を入力してください。</span>
+                    <input name="day" type="date" id="goods-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)"  value="<%= goods.getDay() %>" required>
+
                 </div>
                 <div class="form-group">
                     <label><span class="req">＊</span> グッズ名：</label>
