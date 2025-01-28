@@ -327,9 +327,9 @@
         </div>
         <div class="modal-body">
             <div class="edde container">
-                <a class="edit" href="goods_edit">
+                <button class="edit" href="goods_edit">
                     <img src="static/img/EDIT2.png" alt="edit2">
-                </a>
+                </button>
                 <button type="button" class="delete" id="del_in_open"><img src="static/img/DELE2.png" alt="dele2"></button>
             </div>
             <div class="clo">

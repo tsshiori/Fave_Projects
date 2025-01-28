@@ -36,11 +36,11 @@ public class GoodsEditServlet extends HttpServlet {
 
         // osikatu_id パラメータの取得
         String osikatuidParam = request.getParameter("osikatu_id");
-        if (osikatuidParam == null || osikatuidParam.trim().isEmpty()) {
-            // エラー応答
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing or invalid osikatu_id parameter.");
-            return;
-        }
+//        if (osikatuidParam == null || osikatuidParam.trim().isEmpty()) {
+//            // エラー応答
+//            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing or invalid osikatu_id parameter.");
+//            return;
+//        }
 
         try {
             // 数値変換
@@ -69,8 +69,8 @@ public class GoodsEditServlet extends HttpServlet {
             // 商品情報を取得
             ArrayList<osikatuBean> goodsList = new ArrayList<>();
             for (int osi : osi_id) {
-                ArrayList<osikatuBean> goods = goodsDAO.selectGoods(osi);
-                goodsList.addAll(goods);
+                ArrayList<osikatuBean> good = goodsDAO.selectGoods(osi);
+                goodsList.addAll(good);
             }
 
             if (goodsList != null) {
@@ -94,7 +94,7 @@ public class GoodsEditServlet extends HttpServlet {
           
 
             // JSP にフォワード
-            request.getRequestDispatcher("/WEB-INF/view/FaveFile/goods_edit.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/GoodsFile/goods_edit.jsp").forward(request, response);
 
         } catch (NumberFormatException e) {
             // 数値変換エラー時の応答
