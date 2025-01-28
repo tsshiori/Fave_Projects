@@ -50,8 +50,8 @@ public class GoodsEditServlet extends HttpServlet {
             // データベース操作
             goodsBean goods = goodsDAO.getFaveByOsikatu_id(osikatu_id);
             session.setAttribute("goods", goods);
-          
-          
+
+            session.setAttribute("itemType",goods.getItemtype());
           // セッションからユーザー情報を取得
         userBean user = (userBean) session.getAttribute("user");
 

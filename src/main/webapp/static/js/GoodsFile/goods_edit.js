@@ -9,12 +9,13 @@ const buttonCancelGoods = document.getElementById('ReGoods');
 const buttonConfirmGoods = document.getElementById('AddGoods');
 const buttonCancelEvents = document.getElementById('ReEvents');
 const buttonConfirmEvents = document.getElementById('AddEvents');
+const itemType = document.getElementById("switch");
 // 初期状態でイベントフォームを非表示
 eventsForm.style.display = 'none';
 goodsForm.style.display = 'none'; // 最初はどちらも非表示にする
 
 // 初期状態でフォームを表示
-if (itemType == 1) {
+if (itemType.checked) {
     eventsForm.style.display = 'block';
     title.textContent = 'イベント';
 } else {
