@@ -6,6 +6,7 @@
 <%@ page import="utils.Bean.categoryBean" %>
 <%@ page import="utils.Bean.userBean" %>
 <%@ page import="utils.Bean.goodsBean" %>
+<%@ page import="java.util.Objects" %>
 
 <%
     // セッションからgoodsBeanのリストを取得
@@ -15,10 +16,15 @@
 
     goodsBean goods = (goodsBean) session.getAttribute("goods");
 
-
+// セッションから itemType を取得
+    int itemType = 0; // デフォルトはグッズ (0)
+    if (session.getAttribute("itemType") != null) {
+        itemType = (int) session.getAttribute("itemType");
+    }
 
 
     ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
+//    faveBean fave = (faveBean) session.getAttribute("fave");
     Map<Integer, Integer> osiPriceMap = (Map<Integer, Integer>) session.getAttribute("osiout");
     ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
     Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
@@ -121,19 +127,18 @@
         <div class="toggle-container">
             <label for="switch" class="switch_label">
                 <div class="switch">
-                    <input type="checkbox" id="switch" />
+                    <input type="checkbox" id="switch" <% if (itemType == 1) { %> checked <% } %> onchange="this.form.submit();" />
                     <div class="base">
                         <div class="circle"></div>
                     </div>
                 </div>
-                <span class="title">グッズ</span>
+                <span class="title"><%= itemType == 0 ? "グッズ" : "イベント" %></span>
             </label>
             <p class="note">※ ＊は必須項目です。</p>
         </div>
         <br><br>
-        <div id="goods" class="scroll-content group content-item active">
+        <div id="goods" class="scroll-content group content-item active  <% if (itemType != 1) { %> hidden <% } %>">
             <form id="goods_edit" action="goods_edit" method="post" class="goods_edit_form">
-<%--                <input type="hidden" name="itemtype" value="<%= goods.getOsikatu_id() %>">--%>
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input name="day" type="date" id="goods-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)" value="<%= goods.getDay() %>">
@@ -149,26 +154,26 @@
                 </div>
                 <div class="form-group">
                     <label class="favo"><span class="req">＊</span> 推し：</label>
-                    <select id="goods-menu" name="osi_id">
-                        <option value="" disabled selected hidden>推しを選択してください。</option>
+                    <select id="goods-menu" name="osi_id" onchange="fetchTagsByCategory(this.value)">
+                        <% if (favelist != null && !favelist.isEmpty()) { %>
+                        <% for (faveBean fav : favelist) { %>
                         <%
-                            for (faveBean fave : favelist) {
-                                boolean selected = (fave.getOsi_id() == goods.getOsi_id());
+                            boolean isSelected = fav != null && Objects.equals(fav.getOsi_id(), fav.getOsi_id());
                         %>
-                        <option value="<%= fave.getOsi_id() %>" data-name="<%= fave.getName() %>">
-                            <%= fave.getName() %>
+                        <option value="<%= fav.getOsi_id() %>" <%= isSelected ? "selected" : "" %>>
+                            <%= fav.getName() %>
                         </option>
-                        <%
-                            }
-                        %>
+                        <% } %>
+                        <% } else { %>
+                        <option value="-1" disabled>推しが未登録</option>
+                        <% } %>
                     </select>
                     <div id="plusButtonGoods" class="btn-plus">
-                        <button class="plus" type="button" >
+                        <button class="plus" type="button">
                             <img src="static/img/plus.png" alt="plus">
                         </button>
                     </div>
                 </div>
-                <!-- アイコンセクション -->
                 <div class="form-group">
                     <div class="icon container">
                         <label>
@@ -195,12 +200,10 @@
                 </div>
                 <input type="hidden" name="formType" value="goods">
 
-                <!-- メモ -->
                 <div class="form-group">
                     <label class="memo-label">メモ：</label>
                     <textarea id="goods-memo" class="memo" name="memo" placeholder="メモを入力してください。"><%= goods.getMemo() %></textarea>
                 </div>
-                <!-- 購入済 -->
                 <div class="form-group">
                     <label>購入済：</label>
                     <input type="checkbox" id="goods-check" class="purchased" name="purchase" value="1" <%= goods.getPurchase() == 1 ? "checked" : "" %>>
@@ -214,8 +217,8 @@
                 </div>
             </form>
         </div>
-        <!-- イベントフォーム -->
-        <div id="events" class="group content-item">
+
+        <div id="events" class="group content-item <% if (itemType != 0) { %> hidden <% } %>">
             <form action="goods_edit" method="post" class="events_edit_form">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
@@ -232,18 +235,19 @@
                 </div>
                 <div class="form-group">
                     <label class="favo"><span class="req">＊</span> 推し：</label>
-                    <select id="event-menu" name="osi_id">
-                        <option value="" disabled selected hidden>推しを選択してください。</option>
-                        <<%
-                        for (faveBean fave : favelist) {
-                            boolean selected = (fave.getOsi_id() == goods.getOsi_id());
-                    %>
-                        <option value="<%= fave.getOsi_id() %>" data-name="<%= fave.getName() %>">
-                            <%= fave.getName() %>
-                        </option>
+                    <select id="event-menu" name="osi_id" onchange="fetchTagsByCategory(this.value)">
+                        <% if (favelist != null && !favelist.isEmpty()) { %>
+                        <% for (faveBean fav : favelist) { %>
                         <%
-                            }
+                            boolean isSelected = fav != null && Objects.equals(fav.getOsi_id(), fav.getOsi_id());
                         %>
+                        <option value="<%= fav.getOsi_id() %>" <%= isSelected ? "selected" : "" %>>
+                            <%= fav.getName() %>
+                        </option>
+                        <% } %>
+                        <% } else { %>
+                        <option value="-1" disabled>推しが未登録</option>
+                        <% } %>
                     </select>
                     <div id="plusButtonEvents" class="btn-plus">
                         <button class="plus" type="button">
@@ -251,7 +255,6 @@
                         </button>
                     </div>
                 </div>
-                <!-- アイコンセクション -->
                 <div class="form-group">
                     <div class="icon container">
                         <label>
@@ -277,26 +280,24 @@
                     </div>
                 </div>
                 <input type="hidden" name="formType" value="event">
-                <!-- メモ -->
                 <div class="form-group">
                     <label class="memo-label">メモ：</label>
                     <textarea id="event-memo" class="memo" name="memo" placeholder="メモを入力してください。"><%= goods.getMemo() %></textarea>
                 </div>
-                <!-- 購入済 -->
-                <div class="form-group">
-                    <label>購入済：</label>
-                    <input type="checkbox" id="event-check" class="purchased" name="purchase" value="1" <%= goods.getPurchase() == 1 ? "checked" : "" %>>
-                    <span class="small-text">※購入済みの場合はチェックを入れてください。</span>
-                </div>
                 <div class="form-group">
                     <div class="btn">
-                        <button id="modalOpenEvents" type="button" class="in">追加</button>
+                        <button id="modalOpenEvent" type="button" class="in">追加</button>
                         <a class="kyan back-button" href="#">キャンセル</a>
                     </div>
                 </div>
             </form>
         </div>
+
     </div>
+
+<%--    <% } else { %>--%>
+<%--    <p>不正なitemTypeが指定されています。</p>--%>
+<%--    <% } %>--%>
     <div id="easyModalGoods" class="modal">
         <div class="modal-content">
             <div class="modal-header">

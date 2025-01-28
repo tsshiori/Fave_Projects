@@ -151,7 +151,7 @@
                             }
                         } else {
                         %>
-                        <option value="-1" disabled>推しが未登録です</option>
+                        <option value="-1" disabled>推しが未登録</option>
                         <%
                             }
                         %>
@@ -240,7 +240,7 @@
                             }
                         } else {
                         %>
-                        <option value="-1" disabled>推しが未登録です</option>
+                        <option value="-1" disabled>推しが未登録</option>
                         <%
                             }
                         %>
