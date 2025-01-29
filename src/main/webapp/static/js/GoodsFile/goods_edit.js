@@ -1,3 +1,16 @@
+function toggleForm() {
+    if (checkbox.checked) {
+        title.textContent = 'イベント';
+        goodsForm.style.display = 'none';
+        eventsForm.style.display = 'block';
+    } else {
+        title.textContent = 'グッズ';
+        goodsForm.style.display = 'block';
+        eventsForm.style.display = 'none';
+    }
+}
+
+
 // モーダルの要素
 const checkbox = document.getElementById('switch');
 const title = document.querySelector('.title');
@@ -101,29 +114,29 @@ document.querySelector('.back-button').addEventListener('click', function () {
     }
 });
 
-document.getElementById('confirmReGoods').addEventListener('click', function () {
-    // フォームを取得
-    const form = document.querySelector('.goods_edit_form');
-    if (form) {
-        // フォーム送信
-        form.submit();
-    } else {
-        console.error('フォームが見つかりません');
-    }
+window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('confirmReGoods').addEventListener('click', function() {
+        const form = document.querySelector('.goods_edit_form');
+        if (form) {
+            form.submit(); // フォーム送信
+            document.getElementById('easyModalGoods').style.display = 'none'; // モーダル閉じる
+        } else {
+            console.error('goods_editフォームが見つかりません');
+        }
+    });
+
+    document.getElementById('confirmReEvents').addEventListener('click', function() {
+        const form = document.querySelector('.events_edit_form');
+        if (form) {
+            form.submit(); // フォーム送信
+            document.getElementById('easyModalEvents').style.display = 'none'; // モーダル閉じる
+        } else {
+            console.error('events_editフォームが見つかりません');
+        }
+    });
 });
 
-document.getElementById('confirmReEvents').addEventListener('click', function () {
-    // フォームを取得
-    const form = document.querySelector('.events_add_form'); // classのフォームを取得
-    if (form) {
-        // フォーム送信
-        form.submit();
-    } else {
-        console.error('フォームが見つかりません');
-    }
-});
-
-//グッズモーダル
+// グッズモーダル
 document.getElementById('modalOpenGoods').addEventListener('click', function () {
     document.getElementById('easyModalGoods').style.display = 'block';
 
@@ -193,23 +206,10 @@ document.getElementById('modalOpenEvents').addEventListener('click', function ()
     document.getElementById('easyModalEvents').style.display = 'block';
 });
 
-// デバッグ用: plusButtonGoodsの確認
-const plusButtonGoods = document.getElementById('plusButtonGoods');
-if (!plusButtonGoods) {
-    console.error('plusButtonGoodsが見つかりません');
-}
+// キャンセルボタン
 document.getElementById('cancelReGoods').addEventListener('click', function() {
     document.getElementById('easyModalGoods').style.display = 'none';
 });
 document.getElementById('cancelReEvents').addEventListener('click', function() {
     document.getElementById('easyModalEvents').style.display = 'none';
-});
-document.getElementById('confirmReGoods').addEventListener('click', function() {
-    // フォーム送信
-    document.getElementById('goods_edit').submit();
-    document.getElementById('easyModalGoods').style.display = 'none'; // モーダル閉じる
-});
-document.getElementById('confirmReEvents').addEventListener('click', function() {
-    document.getElementById('events_edit').submit(); // フォーム送信
-    document.getElementById('easyModalEvents').style.display = 'none'; // モーダル閉じる
 });
