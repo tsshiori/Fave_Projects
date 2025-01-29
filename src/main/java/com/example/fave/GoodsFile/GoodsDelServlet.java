@@ -35,6 +35,9 @@ public class GoodsDelServlet extends HttpServlet {
             // ユーザーのlog_idを取得
             log_id = user.getLog_id();
 
+            int osikatu_id = Integer.parseInt(request.getParameter("goods_id"));
+            goodsDAO.goodsDel(osikatu_id);
+
             ArrayList<faveBean> favelist = utils.DAO.faveDAO.selectFaveAll(log_id);
             session.setAttribute("favelist", favelist);
 
@@ -63,9 +66,7 @@ public class GoodsDelServlet extends HttpServlet {
 
         }
 
-        String path = "/WEB-INF/view/GoodsFile/goods.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-        dispatcher.forward(request, response);
+        response.sendRedirect("fave");
 
     }
 }
