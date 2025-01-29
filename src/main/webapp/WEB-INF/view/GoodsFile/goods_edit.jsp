@@ -137,7 +137,7 @@
             <p class="note">※ ＊は必須項目です。</p>
         </div>
         <br><br>
-        <div id="goods" class="scroll-content group content-item active  <% if (itemType != 1) { %> hidden <% } %>">
+        <div id="goods" class="scroll-content group content-item active" ><%--<% if (itemType != 1) { %> hidden <% } %>"--%>
             <form id="goods_edit" action="goods_edit" method="post" class="goods_edit_form">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
@@ -158,9 +158,11 @@
                         <% if (favelist != null && !favelist.isEmpty()) { %>
                         <% for (faveBean fav : favelist) { %>
                         <%
-                            boolean isSelected = fav != null && Objects.equals(fav.getOsi_id(), fav.getOsi_id());
+                            // サーバーサイドから渡された選択されたOSi_idの値を取得する
+                            String selectedOsiId = request.getAttribute("selectedOsiId") != null ? request.getAttribute("selectedOsiId").toString() : "";
+                            boolean isSelected = fav != null && Objects.equals(fav.getOsi_id(), selectedOsiId); // selectedOsiIdと比較
                         %>
-                        <option value="<%= fav.getOsi_id() %>" <%= isSelected ? "selected" : "" %>>
+                        <option value="<%= fav.getOsi_id() %>" data-name="<%= fav.getName() %>">
                             <%= fav.getName() %>
                         </option>
                         <% } %>
@@ -212,14 +214,14 @@
                 <div class="form-group">
                     <div class="btn">
                         <button id="modalOpenGoods" type="button" class="in">追加</button>
-                        <a class="kyan back-button" href="#">キャンセル</a>
+                        <a class="kyan back-button" href="fave">キャンセル</a>
                     </div>
                 </div>
             </form>
         </div>
 
-        <div id="events" class="group content-item <% if (itemType != 0) { %> hidden <% } %>">
-            <form action="goods_edit" method="post" class="events_edit_form">
+           <div id="events" class="group content-item" ><%-- <% if (itemType != 0) { %> hidden <% } %>"--%>
+            <form id="events_edit" action="goods_edit" method="post" class="events_edit_form">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
                     <input name="day" type="date" id="event-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)" value="<%= goods.getDay() %>">
@@ -239,9 +241,10 @@
                         <% if (favelist != null && !favelist.isEmpty()) { %>
                         <% for (faveBean fav : favelist) { %>
                         <%
-                            boolean isSelected = fav != null && Objects.equals(fav.getOsi_id(), fav.getOsi_id());
+                            String selectedOsiId = request.getAttribute("selectedOsiId") != null ? request.getAttribute("selectedOsiId").toString() : "";
+                            boolean isSelected = fav != null && Objects.equals(fav.getOsi_id(), selectedOsiId);
                         %>
-                        <option value="<%= fav.getOsi_id() %>" <%= isSelected ? "selected" : "" %>>
+                        <option value="<%= fav.getOsi_id() %>" data-name="<%= fav.getName() %>">
                             <%= fav.getName() %>
                         </option>
                         <% } %>
@@ -286,8 +289,8 @@
                 </div>
                 <div class="form-group">
                     <div class="btn">
-                        <button id="modalOpenEvent" type="button" class="in">追加</button>
-                        <a class="kyan back-button" href="#">キャンセル</a>
+                        <button id="modalOpenEvents" type="button" class="in">追加</button>
+                        <a class="kyan back-button" href="fave">キャンセル</a>
                     </div>
                 </div>
             </form>

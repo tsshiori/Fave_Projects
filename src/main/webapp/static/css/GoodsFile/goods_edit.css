@@ -436,7 +436,7 @@ input[type="date"] {
 
 /* 追加ボタンのモーダル */
 .modal {
-    display: none;
+    display: none; /* 初期状態では非表示 */
     position: fixed;
     z-index: 100;
     left: 0;
@@ -676,3 +676,5 @@ td .text {
 .modalosi:not(:placeholder-shown) {
     color: #221D7E; /* プレースホルダーが表示されていない状態の文字色 */
 }
+
+
