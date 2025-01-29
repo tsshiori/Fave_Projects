@@ -66,8 +66,8 @@ close.onclick = function() {
 };
 
 // 削除モーダルを開く
-if (delopen) {
-    delopen.addEventListener('click', function() {
+document.addEventListener('click', function(event) {
+    if (event.target.closest('#del_in_open')) { // クリックされた要素が del_in_open の場合
         const image = document.querySelector("#delete_index_goods .delete-details .priority");
         image.innerHTML = `<img src="static/img/Y_${id}.png" alt="優先度${id}">`;
 
@@ -81,8 +81,9 @@ if (delopen) {
 
         modal.style.display = "none";
         delemodal.style.display = "block";
-    });
-}
+    }
+});
+
 
 // 削除モーダルを閉じる
 delecan.onclick = function() {
