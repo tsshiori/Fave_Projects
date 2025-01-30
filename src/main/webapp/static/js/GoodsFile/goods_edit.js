@@ -179,7 +179,9 @@ document.getElementById('modalOpenEvents').addEventListener('click', function ()
     const eventName = document.getElementById('event-name')?.value || '';
     const eventAmount = document.getElementById('event-amount')?.value || '';
     const eventMemo = document.getElementById('event-memo')?.value || '';
-    const eventPurchased = document.querySelector('input[name="purchase"]:checked');
+    // 購入済みチェックボックスの状態を取得
+    const eventCheckBox = document.getElementById('event-check');
+    const eventsPurchased = eventCheckBox ? eventCheckBox.checked : false; // チェックされているかどうかを取得;
 
     const eventFavoriteSelect = document.querySelector('select[name="osi_id"]');
     const eventFavoriteOption = eventFavoriteSelect?.selectedOptions[0];
@@ -197,7 +199,7 @@ document.getElementById('modalOpenEvents').addEventListener('click', function ()
     document.getElementById('modal-events-prioity').innerHTML = eventFavoriteIcon;
     document.getElementById('modal-events-memo').textContent = eventMemo;
 
-    const purchasedText = goodsPurchased ? '<span style="color: green;">✔ 購入済み</span>' : '<span style="color: red;">✘ 購入前</span>';
+    const purchasedText = eventsPurchased ? '<span style="color: green;">✔ 参加済み</span>' : '<span style="color: red;">✘ 参加前</span>';
     document.getElementById('modal-events-purchased').innerHTML = purchasedText;
 
     const eventForm = document.getElementById('events_edit');
