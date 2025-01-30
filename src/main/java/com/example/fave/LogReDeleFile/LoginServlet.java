@@ -109,7 +109,7 @@ public class LoginServlet extends HttpServlet {
                 if (user == null) {
                         // ユーザーが存在しない場合
                         request.setAttribute("errorMessage", "該当するユーザーが見つかりません。");
-                        request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/login.jsp").forward(request, response);
+                        response.sendRedirect(request.getContextPath() + "/login");
                         return;
                 }
 
@@ -126,7 +126,7 @@ public class LoginServlet extends HttpServlet {
                 } else {
                         // 認証失敗
                         request.setAttribute("errorMessage", "パスワードが間違っています。");
-                        request.getRequestDispatcher("/WEB-INF/view/LogReDeleFile/login.jsp").forward(request, response);
+                        response.sendRedirect(request.getContextPath() + "/login");
 
                 }
         }
