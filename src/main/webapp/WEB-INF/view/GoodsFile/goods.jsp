@@ -323,7 +323,7 @@
 
 <div id="openModal" class="modal">
     <div class="modal-content">
-        <img src="static/img/Y_A.png" alt="Y_A" class="modal-image">
+        <img src="static/img/Y_0.png" alt="Y_0" class="modal-image">
         <p id="modal-content-text"></p>
         <div id="modal-details">
             <table>
@@ -370,7 +370,7 @@
                 </tr>
                 <tr>
                     <th>優先度：</th>
-                    <td><img src="static/img/Y_A.png" alt="Y_A" class="priority-image"></td>
+                    <td><img src="static/img/Y_0.png" alt="Y_0" class="priority-image"></td>
                 </tr>
                 <tr>
                     <th>推し：</th>
