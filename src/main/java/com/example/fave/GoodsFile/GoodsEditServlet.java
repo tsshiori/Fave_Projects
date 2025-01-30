@@ -157,6 +157,8 @@ public class GoodsEditServlet extends HttpServlet {
                 } catch (NumberFormatException e) {
                     errors.add("購入数は数字で入力してください。");
                 }
+            }else{
+                purchase = 0;
             }
 
             int osi_id = -1;
