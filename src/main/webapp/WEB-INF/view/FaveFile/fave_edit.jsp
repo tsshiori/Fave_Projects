@@ -291,12 +291,15 @@
             <h4>曲/チーム/組名等</h4>
         </div>
         <h3>追加内容を入力してください</h3>
-        <input type="text" placeholder="曲/チーム/組名等を入力してください。">
-
-        <div class="modal-body">
-            <button id="tabAdd" type="button" class="btn">追加</button>
-            <button id="edcon_can" type="button" class="btn close">キャンセル</button>
-        </div>
+        <form action="TagAddServlet3" method="post" id="tagAdd">
+            <input type="text" name="tag" placeholder="曲/チーム/組名等を入力してください。">
+            <input type="hidden" class="cate_id" name="cate_id" value="">
+            <input type="hidden" name="osi_id" value="<%= fave.getOsi_id() %>">
+            <div class="modal-body">
+                <button id="tabAdd" type="submit" class="btn">追加</button>
+                <button id="edcon_can" type="button" class="btn close">キャンセル</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -306,12 +309,14 @@
             <h4>所属/ 関連プロジェクト等</h4>
         </div>
         <h3>追加内容を入力してください</h3>
-        <input type="text" placeholder="所属/関連プロジェクト等を入力してください。">
-
-        <div class="modal-body">
-            <button id="conAdd2" type="button" class="btn">追加</button>
-            <button id="edcon_can2" type="button" class="btn close">キャンセル</button>
-        </div>
+        <form action="CategoryAddServlet3" method="post" id="cateAdd">
+            <input type="text" name="category" placeholder="所属/関連プロジェクト等を入力してください。">
+            <input type="hidden" name="osi_id" value="<%= fave.getOsi_id() %>">
+            <div class="modal-body">
+                <button id="conAdd2" type="submit" class="btn">追加</button>
+                <button id="edcon_can2" type="button" class="btn close">キャンセル</button>
+            </div>
+        </form>
     </div>
 </div>
 

@@ -320,12 +320,14 @@
             <h4>曲/チーム/組名等</h4>
         </div>
         <h3>追加内容を入力してください</h3>
-        <input type="text" placeholder="曲/チーム/組名等を入力してください。">
-
-        <div class="modal-body">
-            <button id="tabAdd" type="button" class="btn">追加</button>
-            <button id="tabcan" type="button" class="btn close">キャンセル</button>
-        </div>
+        <form action="TagAddServlet2" method="post" id="tagAdd">
+            <input type="text" name="tag" placeholder="曲/チーム/組名等を入力してください。">
+            <input type="hidden" class="cate_id" name="cate_id" value="">
+            <div class="modal-body">
+                <button id="tabAdd" type="submit" class="btn">追加</button>
+                <button id="tabcan" type="button" class="btn close">キャンセル</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -335,12 +337,14 @@
             <h4>所属/ 関連プロジェクト等</h4>
         </div>
         <h3>追加内容を入力してください</h3>
-        <input type="text" placeholder="所属/関連プロジェクト等を入力してください。">
+        <form action="CategoryAddServlet2" method="post" id="cateAdd">
+            <input type="text" name="category" placeholder="所属/関連プロジェクト等を入力してください。">
 
-        <div class="modal-body">
-            <button id="conAdd2" type="button" class="btn">追加</button>
-            <button id="concan" type="button" class="btn close">キャンセル</button>
-        </div>
+            <div class="modal-body">
+                <button id="conAdd2" type="submit" class="btn">追加</button>
+                <button id="concan" type="button" class="btn close">キャンセル</button>
+            </div>
+        </form>
     </div>
 </div>
 

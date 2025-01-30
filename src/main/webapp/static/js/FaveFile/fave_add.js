@@ -87,6 +87,8 @@ const closeButtons = document.querySelectorAll(".close");
 // モーダルを開く処理
 openTabButton.addEventListener("click", () => {
     modalTab.style.display = "block";
+    const cate_id = document.getElementById("categorySelect");
+    document.querySelector("#tagAdd .cate_id").value = cate_id.value;
 });
 
 openConButton.addEventListener("click", () => {
@@ -384,4 +386,3 @@ document.querySelectorAll('.btn.close, #fadd_can').forEach(btn => {
 document.getElementById('fadd_can').addEventListener('click', function () {
     document.getElementById('fave_add_modal').style.display = 'none';
 });
-

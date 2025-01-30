@@ -88,10 +88,13 @@ const closeButtons = document.querySelectorAll(".close");
 // モーダルを開く処理
 openTabButton.addEventListener("click", () => {
     modalTab.style.display = "block";
+    const cate_id = document.getElementById("categorySelect");
+    document.querySelector("#tagAdd .cate_id").value = cate_id.value;
 });
 
 openConButton.addEventListener("click", () => {
     modalCon.style.display = "block";
+
 });
 
 // モーダルを閉じる処理
