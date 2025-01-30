@@ -51,47 +51,45 @@ public class GoodsEditServlet extends HttpServlet {
             goodsBean goods = goodsDAO.getFaveByOsikatu_id(osikatu_id);
             session.setAttribute("goods", goods);
 
-            session.setAttribute("itemType",goods.getItemtype());
-          // セッションからユーザー情報を取得
-        userBean user = (userBean) session.getAttribute("user");
+            session.setAttribute("itemType", goods.getItemtype());
+            // セッションからユーザー情報を取得
+            userBean user = (userBean) session.getAttribute("user");
 
-        String log_id;
-      //  全部のservletに貼るコード
+            String log_id;
+            //  全部のservletに貼るコード
 
-        if (user != null) {
-            // ユーザーのlog_idを取得
-            log_id = user.getLog_id();
+            if (user != null) {
+                // ユーザーのlog_idを取得
+                log_id = user.getLog_id();
 
-            ArrayList<faveBean> favelist = utils.DAO.faveDAO.selectFaveAll(log_id);
-            session.setAttribute("favelist", favelist);
+                ArrayList<faveBean> favelist = utils.DAO.faveDAO.selectFaveAll(log_id);
+                session.setAttribute("favelist", favelist);
 
-            ArrayList<Integer> osi_id = goodsDAO.selectOsikatu_id(log_id);
-            // 商品情報を取得
-            ArrayList<osikatuBean> goodsList = new ArrayList<>();
-            for (int osi : osi_id) {
-                ArrayList<osikatuBean> good = goodsDAO.selectGoods(osi);
-                goodsList.addAll(good);
-            }
-
-            if (goodsList != null) {
-                goodsList.sort(Comparator.comparing(osikatuBean::getPriority));
-            }
-            // 取得した商品情報をリクエストスコープにセット
-            session.setAttribute("goodsList", goodsList);
-            int sum = 0;
-
-            for (osikatuBean good : goodsList) {
-                if (good.getPurchase() != 1) {
-                    sum = sum + good.getPrice();
+                ArrayList<Integer> osi_id = goodsDAO.selectOsikatu_id(log_id);
+                // 商品情報を取得
+                ArrayList<osikatuBean> goodsList = new ArrayList<>();
+                for (int osi : osi_id) {
+                    ArrayList<osikatuBean> good = goodsDAO.selectGoods(osi);
+                    goodsList.addAll(good);
                 }
+
+                if (goodsList != null) {
+                    goodsList.sort(Comparator.comparing(osikatuBean::getPriority));
+                }
+                // 取得した商品情報をリクエストスコープにセット
+                session.setAttribute("goodsList", goodsList);
+                int sum = 0;
+
+                for (osikatuBean good : goodsList) {
+                    if (good.getPurchase() != 1) {
+                        sum = sum + good.getPrice();
+                    }
+                }
+
+                session.setAttribute("sum", sum);
+
             }
 
-            session.setAttribute("sum", sum);
-
-        }
-          
-          
-          
 
             // JSP にフォワード
             request.getRequestDispatcher("/WEB-INF/view/GoodsFile/goods_edit.jsp").forward(request, response);
@@ -115,99 +113,133 @@ public class GoodsEditServlet extends HttpServlet {
         List<String> errors = new ArrayList<>();
         try {
             // リクエストパラメータの取得
-            int osikatu_id = Integer.parseInt(request.getParameter("osikatu_id"));
+            int osikatu_id = -1;
+            String osikatuIdParam = request.getParameter("osikatu_id");
+            if (osikatuIdParam != null && !osikatuIdParam.isEmpty()) {
+                try {
+                    osikatu_id = Integer.parseInt(osikatuIdParam);
+                } catch (NumberFormatException e) {
+                    errors.add("オシカツIDは正しい形式で入力してください。");
+                }
+            }
+
             String dayParam = request.getParameter("day");
-            LocalDate day = dayParam != null && !dayParam.isEmpty() ? LocalDate.parse(dayParam) : null;
-            int price = Integer.parseInt(request.getParameter("price"));
-            String item = request.getParameter("item");
-            int purchase = Integer.parseInt(request.getParameter("purchase"));
-            int osi_id = Integer.parseInt(request.getParameter("osi_id"));
+            LocalDate day = null;
+            if (dayParam != null && !dayParam.isEmpty()) {
+                try {
+                    day = LocalDate.parse(dayParam);
+                } catch (Exception e) {
+                    errors.add("日付の形式が正しくありません。");
+                }
+            }
+
+            int price = -1;
+            String priceParam = request.getParameter("price");
+            if (priceParam != null && !priceParam.isEmpty()) {
+                try {
+                    price = Integer.parseInt(priceParam);
+                } catch (NumberFormatException e) {
+                    errors.add("価格は数字で入力してください。");
+                }
+            }
+
+            String item = "sample";
+             item = request.getParameter("item");
+            if (item == null || item.trim().isEmpty()) {
+                errors.add("アイテム名を入力してください。");
+            }
+
+            int purchase = -1;
+            String purchaseParam = request.getParameter("purchase");
+            if (purchaseParam != null && !purchaseParam.isEmpty()) {
+                try {
+                    purchase = Integer.parseInt(purchaseParam);
+                } catch (NumberFormatException e) {
+                    errors.add("購入数は数字で入力してください。");
+                }
+            }
+
+            int osi_id = -1;
+            String osiIdParam = request.getParameter("osi_id");
+            if (osiIdParam != null && !osiIdParam.isEmpty()) {
+                try {
+                    osi_id = Integer.parseInt(osiIdParam);
+                } catch (NumberFormatException e) {
+                    errors.add("オシIDは正しい形式で入力してください。");
+                }
+            }
 
             String memo = request.getParameter("memo");
 
             // itemtype（0:グッズ, 1:イベント）の取得
             int itemType = 0; // デフォルトはグッズ
             String itemTypeString = request.getParameter("itemtype");
-
             if (itemTypeString != null) {
                 try {
-                    // itemtypeをintに変換
                     itemType = Integer.parseInt(itemTypeString);
-
-                    // itemTypeが0または1でない場合にエラーを追加
                     if (itemType != 0 && itemType != 1) {
                         errors.add("itemtypeは0または1でなければなりません。");
                     }
                 } catch (NumberFormatException e) {
-                    // itemtypeの形式が正しくない場合にエラーを追加
                     errors.add("itemtypeの形式が正しくありません。");
                 }
             }
 
-// エラーがあれば適切に処理（例: エラーページに遷移）
+            // エラーがあれば適切に処理（例: エラーページに遷移）
             if (!errors.isEmpty()) {
+                // エラーメッセージがあればリクエストにセットしてforward
                 request.setAttribute("errors", errors);
-                request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/view/GoodsFile/goods_edit.jsp").forward(request, response);
+                return; // ここで処理を終了
             }
 
-
-
-
-            String formType = request.getParameter("formType");
-
+            // formTypeの取得
+            String formType = "goods";
+             formType = request.getParameter("formType");
             if (formType != null && !formType.trim().isEmpty()) {
                 if (formType.equals("goods")) {
                     // グッズモーダルからのデータ処理
                     int goodsicon = 0;
-                    String priorityString = request.getParameter("goodsicon");
-                    if (priorityString != null && !priorityString.trim().isEmpty()) {
+                    String goodsiconString = request.getParameter("goodsicon");
+                    if (goodsiconString != null && !goodsiconString.trim().isEmpty()) {
                         try {
-                            goodsicon = Integer.parseInt(priorityString);
+                            goodsicon = Integer.parseInt(goodsiconString);
                         } catch (NumberFormatException e) {
                             errors.add("優先度の形式が正しくありません。");
                         }
-
-
-
-
                     }
+
                     // DAOの更新メソッドを呼び出し
                     utils.DAO.goodsDAO.updateGoods(osikatu_id, day, price, item, purchase, osi_id, goodsicon, memo, itemType);
-
-
                 } else if (formType.equals("event")) {
                     // イベントモーダルからのデータ処理
                     int eventicon = 0;
-                    String priorityString = request.getParameter("eventicon");
-                    if (priorityString != null && !priorityString.trim().isEmpty()) {
+                    String eventiconString = request.getParameter("eventicon");
+                    if (eventiconString != null && !eventiconString.trim().isEmpty()) {
                         try {
-                            eventicon = Integer.parseInt(priorityString);
+                            eventicon = Integer.parseInt(eventiconString);
                         } catch (NumberFormatException e) {
                             errors.add("優先度の形式が正しくありません。");
                         }
-
-
                     }
+
                     // DAOの更新メソッドを呼び出し
                     utils.DAO.goodsDAO.updateGoods(osikatu_id, day, price, item, purchase, osi_id, eventicon, memo, itemType);
-
-
                 }
             }
-// セッションデータを更新
+
+            // セッションデータを更新
             ArrayList<Integer> goodslist = goodsDAO.selectOsikatu_id(log_id);
             session.setAttribute("goodslist", goodslist);
 
-
-// 完了後リダイレクト
+            // 完了後リダイレクト
             response.sendRedirect("fave");
 
-        } catch (NumberFormatException e) {
-            request.setAttribute("errorMessage", "入力されたデータが無効です。");
-            request.getRequestDispatcher("/WEB-INF/view/WorkFile/work_edit.jsp").forward(request, response);
         } catch (Exception e) {
-            request.setAttribute("errorMessage", "編集処理中にエラーが発生しました。");
-            request.getRequestDispatcher("/WEB-INF/view/WorkFile/work_edit.jsp").forward(request, response);
+            // 予期しないエラーが発生した場合もエラーメッセージを表示
+            errors.add("予期しないエラーが発生しました。再度お試しください。");
+            request.setAttribute("errors", errors);
+            request.getRequestDispatcher("/WEB-INF/view/GoodsFile/goods.jsp").forward(request, response);
         }
     }
 }

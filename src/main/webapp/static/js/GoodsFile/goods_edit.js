@@ -165,7 +165,7 @@ document.getElementById('modalOpenGoods').addEventListener('click', function () 
     const purchasedText = goodsPurchased ? '<span style="color: green;">✔ 購入済み</span>' : '<span style="color: red;">✘ 購入前</span>';
     document.getElementById('modal-goods-purchased').innerHTML = purchasedText;
 
-    const goodsForm = document.getElementById('goodsForm');
+    const goodsForm = document.getElementById('goods_edit');
     goodsForm.querySelector('input[name="formType"]').value = 'goods';
     // モーダルを表示
     document.getElementById('easyModalGoods').style.display = 'block';
@@ -179,7 +179,7 @@ document.getElementById('modalOpenEvents').addEventListener('click', function ()
     const eventName = document.getElementById('event-name')?.value || '';
     const eventAmount = document.getElementById('event-amount')?.value || '';
     const eventMemo = document.getElementById('event-memo')?.value || '';
-    const eventPurchased = document.querySelector('#event-check:checked');
+    const eventPurchased = document.querySelector('input[name="purchase"]:checked');
 
     const eventFavoriteSelect = document.querySelector('select[name="osi_id"]');
     const eventFavoriteOption = eventFavoriteSelect?.selectedOptions[0];
@@ -197,10 +197,10 @@ document.getElementById('modalOpenEvents').addEventListener('click', function ()
     document.getElementById('modal-events-prioity').innerHTML = eventFavoriteIcon;
     document.getElementById('modal-events-memo').textContent = eventMemo;
 
-    const purchasedText = eventPurchased ? '<span style="color: green;">✔ 購入済み</span>' : '<span style="color: red;">✘ 購入前</span>';
+    const purchasedText = goodsPurchased ? '<span style="color: green;">✔ 購入済み</span>' : '<span style="color: red;">✘ 購入前</span>';
     document.getElementById('modal-events-purchased').innerHTML = purchasedText;
 
-    const eventForm = document.getElementById('eventForm');
+    const eventForm = document.getElementById('events_edit');
     eventForm.querySelector('input[name="formType"]').value = 'event';
     // モーダルを表示
     document.getElementById('easyModalEvents').style.display = 'block';

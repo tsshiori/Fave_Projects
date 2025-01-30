@@ -8,10 +8,12 @@
 <%@ page import="utils.Bean.osikatuBean" %>
 <%@ page import="utils.Bean.userBean" %>
 <%@ page import="utils.DAO.goodsDAO" %>
+<%@ page import="utils.Bean.goodsBean" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.time.LocalDate" %>
 
 <%
+
     userBean user = (userBean) session.getAttribute("user");
     String log_id = user.getLog_id();
     ArrayList<faveBean> favelist = (ArrayList<faveBean>) session.getAttribute("favelist");
@@ -170,7 +172,7 @@
                             faveBean fave = utils.DAO.faveDAO.getFaveByOsi_id(osi_id);
                             String osiName = fave.getName();
                         %>
-                        <div class="<%= bean.getItemtype() == 0 ? "guzzu" : "event" %>" style="margin-top: 20px;" onclick="openModal('<%=bean.getItem()%>', '<%=bean.getPrice()%>', '<%=osiName%>', '<%=bean.getDay().format(formatter)%>', '<%=priority%>','<%=bean.getMemo()%>','<%=bean.getPurchase()%>')">
+                        <div class="<%= bean.getItemtype() == 0 ? "guzzu" : "event" %>" style="margin-top: 20px;" onclick="openModal('<%=bean.getOsikatu_id()%>','<%=bean.getItem()%>', '<%=bean.getPrice()%>', '<%=osiName%>', '<%=bean.getDay().format(formatter)%>', '<%=priority%>','<%=bean.getMemo()%>','<%=bean.getPurchase()%>')">
                             <div class="container" id="item1">
                                 <!-- "hi-img" クリック時に JavaScript 関数を呼び出す -->
                                 <div class="hi-img" onclick="submitFormBuy('<%=bean.getOsikatu_id()%>'), event.stopPropagation();">
@@ -271,7 +273,7 @@
                         <form action="BuyBoughtServlet" method="post" id="bought_form_<%=bean.getOsikatu_id()%>">
                             <input type="hidden" name="osikatu_id" value="<%=bean.getOsikatu_id()%>">
 
-                            <div class="<%= bean.getItemtype() == 0 ? "guzzu-right" : "event-right" %>" style="margin-top: 20px;" onclick="openModal('<%=bean.getItem()%>', '<%=bean.getPrice()%>', '<%=osiName2%>', '<%=bean.getDay().format(formatter)%>', '<%=priority%>','<%=bean.getMemo()%>','<%=bean.getPurchase()%>')">
+                            <div class="<%= bean.getItemtype() == 0 ? "guzzu-right" : "event-right" %>" style="margin-top: 20px;" onclick="openModal('<%=bean.getOsikatu_id()%>','<%=bean.getItem()%>', '<%=bean.getPrice()%>', '<%=osiName2%>', '<%=bean.getDay().format(formatter)%>', '<%=priority%>','<%=bean.getMemo()%>','<%=bean.getPurchase()%>')">
                             <div class="container" id="item">
                                 <div class="hi-img-right" onclick="submitFormBought('<%=bean.getOsikatu_id()%>'), event.stopPropagation();">
                                     <p>~<%=bean.getDay()%></p>
@@ -330,7 +332,9 @@
         </div>
         <div class="container btn">
             <div class="img_icon">
-                <a href="goods_edit"><img src="static/img/EDIT2.png"></a>
+                <button class="edit" id="editButton">
+                    <img src="static/img/EDIT2.png">
+                </button>
             </div>
             <div class="img_icon">
                 <a href="#" onclick="openDeleteModal()"><img src="static/img/DELE2.png"></a>
