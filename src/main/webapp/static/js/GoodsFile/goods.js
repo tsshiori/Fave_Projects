@@ -6,7 +6,16 @@ function toggleModal(modalId, displayStyle) {
     }
 }
 // 左側のモーダルを開く関数
-function openModal(item, price, osi, day, priority,memo,purchase) {
+function openModal(osikatu_id, item, price, osi, day, priority,memo,purchase) {
+    // osikatu_idを使用してURLを更新
+    const editButton = document.getElementById("editButton");
+
+    if (editButton) {
+        editButton.onclick = function () {
+            window.location.href = `goods_edit?osikatu_id=${encodeURIComponent(osikatu_id)}`;
+        };
+    }
+
     // モーダル内の要素を取得
     const modal = document.getElementById('openModal');
     const modalContentText = document.getElementById('modal-content-text');

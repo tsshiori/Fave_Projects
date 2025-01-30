@@ -139,9 +139,11 @@
         <br><br>
         <div id="goods" class="scroll-content group content-item active" ><%--<% if (itemType != 1) { %> hidden <% } %>"--%>
             <form id="goods_edit" action="goods_edit" method="post" class="goods_edit_form">
+                <input type="hidden" name="itemtype" value="0">
+                <input type="hidden" name="osikatu_id" value="<%=goods.getOsikatu_id()%>">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
-                    <input name="day" type="date" id="goods-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)"  value="<%= goods.getDay() %>" required>
+                    <input name="day" type="date" id="goods-date" class="pl" value="<%= goods.getDay() %>" required> <%--onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)" --%>
 
                 </div>
                 <div class="form-group">
@@ -213,7 +215,7 @@
                 </div>
                 <div class="form-group">
                     <div class="btn">
-                        <button id="modalOpenGoods" type="button" class="in">追加</button>
+                        <button id="modalOpenGoods" type="button" class="in">完了</button>
                         <a class="kyan back-button" href="fave">キャンセル</a>
                     </div>
                 </div>
@@ -222,9 +224,11 @@
 
            <div id="events" class="group content-item" ><%-- <% if (itemType != 0) { %> hidden <% } %>"--%>
             <form id="events_edit" action="goods_edit" method="post" class="events_edit_form">
+                <input type="hidden" name="itemtype" value="1">
+                <input type="hidden" name="osikatu_id" value="<%=goods.getOsikatu_id()%>">
                 <div class="form-group input-container">
                     <label><span class="req">＊</span> 日付：</label>
-                    <input name="day" type="date" id="event-date" class="pl" onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)" value="<%= goods.getDay() %>">
+                    <input name="day" type="date" id="event-date" class="pl" value="<%= goods.getDay() %>"> <%--onfocus="hidePlaceholder(this)" onblur="showPlaceholder(this)" --%>
                     <span class="date-text">日付を入力してください。</span>
                 </div>
                 <div class="form-group">
@@ -288,8 +292,13 @@
                     <textarea id="event-memo" class="memo" name="memo" placeholder="メモを入力してください。"><%= goods.getMemo() %></textarea>
                 </div>
                 <div class="form-group">
+                    <label>購入済：</label>
+                    <input type="checkbox" id="event-check" class="purchased" name="purchase" value="1" <%= goods.getPurchase() == 1 ? "checked" : "" %>>
+                    <span class="small-text">※購入済みの場合はチェックを入れてください。</span>
+                </div>
+                <div class="form-group">
                     <div class="btn">
-                        <button id="modalOpenEvents" type="button" class="in">追加</button>
+                        <button id="modalOpenEvents" type="button" class="in">完了</button>
                         <a class="kyan back-button" href="fave">キャンセル</a>
                     </div>
                 </div>
@@ -338,7 +347,7 @@
                         <td  id="modal-goods-purchased"></td>
                     </tr>
                 </table>
-                <button id="confirmReGoods" type="button" class="btn2">追加</button>
+                <button id="confirmReGoods" type="button" class="btn2">完了</button>
                 <button id="cancelReGoods" type="button" class="btn2">キャンセル</button>
             </div>
         </div>
@@ -380,7 +389,7 @@
                     <td  id="modal-events-purchased"></td>
                 </tr>
             </table>
-            <button id="confirmReEvents" type="button" class="btn2">追加</button>
+            <button id="confirmReEvents" type="button" class="btn2">完了</button>
             <button id="cancelReEvents" type="button" class="btn2 back-button">キャンセル</button>
         </div>
     </div>

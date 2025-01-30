@@ -58,7 +58,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&family=Yuji+Syuku&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/css/all.css">
-    <link rel="stylesheet" href="static/css/ShiftFile/shift_add.css">
+    <link rel="stylesheet" href="static/css/ShiftFile/shift_edit.css">
     <link rel="shortcut icon" href="static/img/TimeforFave.png">
     <title>SHIFT_Edit | Time of Fave.</title>
 </head>

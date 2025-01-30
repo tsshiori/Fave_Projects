@@ -237,7 +237,7 @@ input[type="checkbox"] {
     font-weight: bold;
     margin-top: 3%;
     color: #221D7E;
-    background-color: #63ACF6;
+    background-color: #C3F8B9;
     border: 0.5px solid #221D7E;
     border-radius: 5px;
     padding: 5px 40px;
@@ -245,7 +245,7 @@ input[type="checkbox"] {
 }
 
 .in:hover {
-    background-color: #98c5f3;
+    background-color: #dcf5d7;
 }
 
 .kyan {
@@ -516,7 +516,7 @@ input[type="date"] {
     font-weight: bold;
     margin-top: 5%;
     color: #221D7E;
-    background-color: #63ACF6;
+    background-color: #C3F8B9;
     border: 0.5px solid #221D7E;
     border-radius: 5px;
     padding: 5px 40px;
@@ -524,11 +524,11 @@ input[type="date"] {
 }
 
 #confirmReGoods:hover {
-    background-color: #98c5f3;
+    background-color: #dcf5d7;
 }
 
 #confirmReEvents:hover {
-    background-color: #98c5f3;
+    background-color: #dcf5d7;
 }
 
 
