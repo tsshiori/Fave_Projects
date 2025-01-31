@@ -1,4 +1,4 @@
-// モーダルを開くための関数
+﻿// モーダルを開くための関数
 function toggleModal(modalId, displayStyle) {
     const modal = document.getElementById(modalId);
     if (modal) {
@@ -6,7 +6,11 @@ function toggleModal(modalId, displayStyle) {
     }
 }
 // 左側のモーダルを開く関数
-function openModal(osikatu_id, item, price, osi, day, priority,memo,purchase) {
+function openModal(osikatu_id, item, price, osi, day, priority, memo, purchase) {
+    const modal = document.getElementById('openModal');
+    const modalDetails = document.getElementById('modal-details');
+    const priorityImage = document.querySelector('.modal-image');
+
     // osikatu_idを使用してURLを更新
     const editButton = document.getElementById("editButton");
 
@@ -16,13 +20,7 @@ function openModal(osikatu_id, item, price, osi, day, priority,memo,purchase) {
         };
     }
 
-    // モーダル内の要素を取得
-    const modal = document.getElementById('openModal');
-    const modalContentText = document.getElementById('modal-content-text');
-    const modalDetails = document.getElementById('modal-details');
-    const priorityImage = document.querySelector('.modal-image');  // 優先度画像の要素を取得
 
-    // データをモーダル内に設定
     modalDetails.querySelector('table').innerHTML = `
         <tr>
             <td>グッズ：</td>
@@ -44,19 +42,88 @@ function openModal(osikatu_id, item, price, osi, day, priority,memo,purchase) {
              <td class="memo-label">メモ：</td>
              <td class="value memo-value">${memo}</td>
         </tr>
-
     `;
 
-    // 優先度の画像を更新
     if(purchase == 0) {
-        priorityImage.src = `static/img/Y_${priority}.png`;  // 優先度に応じた画像を設定
-    }else{
-        priorityImage.src = `static/img/購入済.png`;  // 優先度に応じた画像を設定
+        priorityImage.src = `static/img/Y_${priority}.png`;
+    } else {
+        priorityImage.src = `static/img/購入済.png`;
     }
 
-    // モーダルを表示
+    // 削除ボタンに削除モーダルを開くためのデータを渡す
+    const deleteButton = document.getElementById('del');
+    deleteButton.onclick = function () {
+        openDeleteModal(osikatu_id, item, price, osi, day, priority, memo, purchase);
+    };
+
     modal.style.display = 'block';
 }
+
+    // 削除用モーダルを開く関数
+function openDeleteModal(osikatu_id, item, price, osi, day, priority, memo, purchase) {
+    const deleteModal = document.getElementById('deleteModal');
+    const deleteModalTable = document.getElementById('deleteModalTable');
+
+    // priority に応じた画像パスを決定
+    let priorityImagePath = purchase == 0
+        ? `static/img/Y_${priority}.png`
+        : `static/img/購入済.png`;
+
+    // 削除モーダルのテーブル内容を設定（画像を追加）
+    deleteModalTable.innerHTML = `
+        <tr>
+            <th>日付：</th>
+            <td class="value">${day}</td>
+        </tr>
+        <tr>
+            <th>グッズ：</th>
+            <td class="value">${item}</td>
+        </tr>
+        <tr>
+            <th>金額(円)：</th>
+            <td class="value">¥${Number(price).toLocaleString()}</td>
+        </tr>
+        <tr>
+            <th>優先度：</th>
+            <td class="value">
+                <img src="${priorityImagePath}" alt="優先度画像" class="priority-image">
+            </td>
+        </tr>
+        <tr>
+            <th>推し：</th>
+            <td class="value">${osi}</td>
+        </tr>
+        <tr>
+            <th>メモ：</th>
+            <td class="value">${memo}</td>
+        </tr>
+    `;
+
+    // hiddenフィールドにgoods_idを設定
+    document.querySelector('.del_goods input[name="goods_id"]').value = osikatu_id;
+
+    // 削除モーダルを表示
+    deleteModal.style.display = 'block';
+}
+
+// 削除ボタンを押したときにフォームを送信
+document.getElementById('mDelete').addEventListener('click', function () {
+    const deleteForm = document.querySelector('.del_goods');
+    const goodsId = deleteForm.querySelector('input[name="goods_id"]').value;
+
+    if (!goodsId) {
+        alert('削除対象が見つかりません。');
+        return;
+    }
+
+    // フォーム送信
+    deleteForm.submit();
+});
+
+
+// 閉じるボタンにイベントリスナーを設定
+document.getElementById("mClose").addEventListener("click", closeModal);
+
 
 
 // モーダルを閉じる
@@ -72,29 +139,6 @@ window.onclick = function(event) {
         modal.style.display = 'none';
     }
 };
-
-
-// 削除用モーダルを開く関数
-function openDeleteModal() {
-    toggleModal('deleteModal', 'flex'); // 削除モーダルを表示
-}
-
-// 削除用モーダルを閉じる関数
-function closeDeleteModal() {
-    toggleModal('deleteModal', 'none'); // 削除モーダルを非表示
-}
-
-// 削除ボタンを押すときに使うやつ
-// function confirmDelete() {
-//     // ここに削除処理を追加する場合は記述
-//     // 例: アイテムの削除処理を行う
-//
-//     window.location.href = 'fave.jsp';
-// }
-
-// 閉じるボタンにイベントリスナーを設定
-document.getElementById("mClose").addEventListener("click", closeModal);
-
 
 
 
@@ -127,4 +171,10 @@ function submitFormBuy(osikatuId) {
     } else {
         console.error(`Form with ID buy_form_${osikatuId} not found.`);
     }
+}
+
+function closeDeleteModal() {
+    // 削除モーダルを非表示
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.style.display = 'none';
 }

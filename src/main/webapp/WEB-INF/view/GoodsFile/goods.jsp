@@ -333,11 +333,11 @@
         <div class="container btn">
             <div class="img_icon">
                 <button class="edit" id="editButton">
-                    <img src="static/img/EDIT2.png">
+                    <img class="edit-icon" src="static/img/EDIT2.png">
                 </button>
             </div>
             <div class="img_icon">
-                <a href="#" onclick="openDeleteModal()"><img src="static/img/DELE2.png"></a>
+                <button id="del" class="edit del-icon" onclick="openDeleteModal()"><img src="static/img/DELE2.png"></button>
             </div>
         </div>
         <button id="mClose" type="button" class="btn" onclick="closeButton()">閉じる</button>
@@ -352,48 +352,21 @@
         <div class="delete-h4">
             <h6>※消した後は二度と元に戻れません。</h6>
         </div>
-
+<%--        <img src="static/img/Y_0.png" alt="Y_0" class="modal-image-del">--%>
         <div class="delete-details">
+
             <form id="goods_del_modal" action="GoodsDelServlet" method="post">
-            <table>
-                <tr>
-                    <th>日付：</th>
-                    <td>2024/11/16</td>
-                </tr>
-                <tr>
-                    <th>グッズ名：</th>
-                    <td>アクリルスタンド</td>
-                </tr>
-                <tr>
-                    <th>金額(円)：</th>
-                    <td>¥ 1,980</td>
-                </tr>
-                <tr>
-                    <th>優先度：</th>
-                    <td><img src="static/img/Y_0.png" alt="Y_0" class="priority-image"></td>
-                </tr>
-                <tr>
-                    <th>推し：</th>
-                    <td>カンパネルラ</td>
-                </tr>
-                <tr>
-                    <th>メモ：</th>
-                    <td>ビジュがよき</td>
-                </tr>
-                <tr>
-                    <th>購入済：</th>
-                    <td>
-                        <input type="checkbox" class="text">
-                        <span class="text">※購入済みの場合はチェックを入れてください。</span>
-                    </td>
-                </tr>
-            </table>
+                <table id="deleteModalTable">
+                    <!-- 動的にデータが追加される -->
+                </table>
                 <input name="goods_id" type="hidden" value="">
             </form>
         </div>
-
+<form class="del_goods" action="GoodsDelServlet" method="post">
+    <input class="id" name="goods_id" type="hidden" value="">
         <button id="mDelete" type="button" class="btn delete-btn">削除</button>
         <button id="mCancel" type="button" class="btn cancel-btn" onclick="closeDeleteModal()">キャンセル</button>
+</form>
     </div>
 </div>
 
