@@ -129,7 +129,7 @@ public class faveDAO {
     }
 
     public static Map<Integer, Integer> selectPrice(String log_id) {
-        String sql = "SELECT osikatu.osi_id, SUM(osikatu.price) AS total_price FROM osi INNER JOIN osikatu ON osi.osi_id = osikatu.osi_id WHERE osi.log_id = ? GROUP BY osikatu.osi_id";
+        String sql = "SELECT osikatu.osi_id, SUM(osikatu.price) AS total_price FROM osi INNER JOIN osikatu ON osi.osi_id = osikatu.osi_id AND purchase = 1 WHERE osi.log_id = ? GROUP BY osikatu.osi_id";
         Map<Integer, Integer> result = new HashMap<>();
 
         try (
@@ -154,7 +154,7 @@ public class faveDAO {
     }
 
     public static Map<Integer, Integer> selectPriceByosi_id(int osi_id) {
-        String sql = "SELECT osi_id, SUM(price) AS totalprice FROM osikatu WHERE osi_id = ? GROUP BY osi_id";
+        String sql = "SELECT osi_id, SUM(price) AS totalprice FROM osikatu WHERE osi_id = ?  AND purchase = 1 GROUP BY osi_id";
         Map<Integer, Integer> result = new HashMap<>();
 
         try (

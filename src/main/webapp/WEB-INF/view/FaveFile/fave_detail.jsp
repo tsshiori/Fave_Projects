@@ -241,14 +241,14 @@
                             String forma = formatter.format(goods.getPrice());
 
 
-                            if(goods.getItemtype() == 0){
+                            if(goods.getItemtype() == 0 && goods.getPurchase() == 1){
                 %>
                 <div class="container goods_money">
                     <h4><%= goods.getItem() %></h4>
                     <h3>¥ <%= forma %></h3>
                 </div>
                 <%
-                }else{
+                }else if (goods.getItemtype() == 1 && goods.getPurchase() == 1){
                 %>
                 <div class="container event_money">
                     <h4><%= goods.getItem() %></h4>
