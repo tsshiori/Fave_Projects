@@ -61,6 +61,13 @@
     top:-71px;
 }
 
+.guzzu:hover{
+    opacity: 0.7;
+}
+.event:hover{
+    opacity: 0.7;
+}
+
 .guzzu .container {
     color: #24063A;
 }
@@ -378,6 +385,11 @@
     right: 26px;
 }
 
+.add-icon:hover{
+    opacity: 0.7;
+}
+
+
 /* 右側のadd-iconを非表示にしつつ、レイアウトを維持する */
 .right-add-icon {
     display: none; /* 右側のADDアイコンを非表示にする */
@@ -487,6 +499,27 @@
     left: 20px;
 }
 
+.modal-image-del {
+    width: 100px; /* 必要に応じてサイズを調整 */
+    height: 100px; /* 必要に応じてサイズを調整 */
+    border-radius: 50%; /* 丸い形にする */
+    border: solid 1px #221D7E;
+    float: left; /* 左寄せにする */
+    margin-right: 80px; /* 画像とテキストの間にスペースを追加 */
+    position: relative; /* 今の位置を基準 */
+    top: 30px; /* 上から30px */
+    left: 20px;
+}
+
+.edit-icon:hover{
+    opacity: 0.7;
+}
+
+.del-icon:hover{
+    opacity: 0.7;
+}
+
+
 table{
     text-align: right;
 
@@ -498,6 +531,7 @@ table{
 
 .btn{
     margin: auto;
+
 }
 
 .container.btn {
@@ -614,7 +648,7 @@ table{
     margin-right: 9%;
     height: 9%;
     color: #221D7E;
-    border: none;  /* ボーダーを消す */
+    border: solid 1px #221D7E;
     outline: none; /* フォーカス時のアウトラインも消す */
 }
 
@@ -628,7 +662,7 @@ table{
     margin-right: 9%;
     height: 9%;
     color: #221D7E;
-    border: none;  /* ボーダーを消す */
+    border: solid 1px #221D7E;
     outline: none; /* フォーカス時のアウトラインも消す */
 }
 
@@ -648,7 +682,7 @@ table{
     padding: 5px 20px;
     text-decoration: none;
     height: 9%;
-    border: none;
+    border: solid 1px #221D7E;
 }
 
 #mCancelRightUnique {
@@ -662,7 +696,7 @@ table{
     padding: 5px 20px;
     text-decoration: none;
     height: 9%;
-    border: none;
+    border: solid 1px #221D7E;
 }
 
 #mCancel:hover {
