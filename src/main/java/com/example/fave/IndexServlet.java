@@ -79,8 +79,8 @@ public class IndexServlet extends HttpServlet {
 
             int almosthand = user.getAmounthand();
             int totalhand = almosthand + futureWage;
-            request.setAttribute("futureWage",totalhand);
-            request.setAttribute("almosthand",almosthand);
+            session.setAttribute("futureWage",totalhand);
+            session.setAttribute("almosthand",almosthand);
 
             workBean mainwork = workDAO.selectWork(user.getMainwork());
             if (mainwork == null) {

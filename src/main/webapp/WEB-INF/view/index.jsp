@@ -13,8 +13,8 @@
     ArrayList<categoryBean> categorylist = (ArrayList<categoryBean>) session.getAttribute("categorylist");
     Map<Integer, String> ositaglist = (Map<Integer, String>) session.getAttribute("ositaglist");
     userBean user = (userBean) session.getAttribute("user");
-    int futureWage = (int) request.getAttribute("futureWage");
-    int almosthand = (int) request.getAttribute("almosthand");
+    int futureWage = (int) session.getAttribute("futureWage");
+    int almosthand = (int) session.getAttribute("almosthand");
     int sum = (int) session.getAttribute("sum");
     workBean mainwork = (workBean) session.getAttribute("mainwork");
 %>
