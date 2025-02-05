@@ -3,6 +3,7 @@ package utils.DAO;
 import java.lang.Class;
 
 import org.mindrot.jbcrypt.BCrypt;
+import utils.Bean.categoryBean;
 import utils.Bean.shiftBean;
 import utils.Bean.userBean;
 import utils.Bean.workBean;
@@ -13,6 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static utils.DAO.workDAO.selectWorkAll;
 
@@ -121,6 +123,14 @@ public class userDAO {
                         deleteOsiStmt.executeUpdate();
                     }
 
+                    // 5. shiftテーブルのデータを削除
+                    String deleteShiftSql = "DELETE FROM shift WHERE work_id IN (SELECT work_id FROM work WHERE log_id = ?)";
+                    try (PreparedStatement deleteShiftStmt = con.prepareStatement(deleteShiftSql)) {
+                        deleteShiftStmt.setString(1, log_id);
+                        deleteShiftStmt.executeUpdate();
+                    }
+
+
                     // 4. workテーブルのデータを削除
                     String deleteWorkSql = "DELETE FROM work WHERE log_id = ?";
                     try (PreparedStatement deleteWorkStmt = con.prepareStatement(deleteWorkSql)) {
@@ -128,12 +138,72 @@ public class userDAO {
                         deleteWorkStmt.executeUpdate();
                     }
 
-                    // 5. shiftテーブルのデータを削除
-                    String deleteShiftSql = "DELETE FROM shift WHERE work_id IN (SELECT work_id FROM work WHERE log_id = ?)";
-                    try (PreparedStatement deleteShiftStmt = con.prepareStatement(deleteShiftSql)) {
-                        deleteShiftStmt.setString(1, log_id);
-                        deleteShiftStmt.executeUpdate();
+                    String sql = "SELECT * FROM category WHERE log_id = ?";
+                    ArrayList<categoryBean> result = new ArrayList<>();
+
+                    try (PreparedStatement pstmtCate = con.prepareStatement(sql)) {
+                        // プレースホルダーに値を設定
+                        pstmtCate.setString(1, log_id);
+
+                        // クエリ実行
+                        try (ResultSet rsCate = pstmtCate.executeQuery()) {
+                            while (rsCate.next()) {
+                                result.add(
+                                        new categoryBean(
+                                                rsCate.getInt("cate_id"),     // cate_id カラム
+                                                rsCate.getString("category"), // category カラム
+                                                rsCate.getString("log_id")    // log_id カラム
+                                        )
+                                );
+                            }
+                        }
                     }
+
+                    // `category` のデータがある場合、それを削除
+                    if (!result.isEmpty()) {
+                        String sql1 = "DELETE FROM category WHERE cate_id = ?";
+                        String sql2 = "DELETE FROM tag WHERE cate_id = ?";
+                        String sql3 = "DELETE FROM ositag WHERE tag_id = ?";
+
+                        try (
+                                PreparedStatement pstmt1 = con.prepareStatement(sql1);
+                                PreparedStatement pstmt2 = con.prepareStatement(sql2);
+                                PreparedStatement pstmt3 = con.prepareStatement(sql3)
+                        ) {
+                            for (categoryBean cate : result) {
+                                int cate_id = cate.getCate_id(); // `categoryBean` から `cate_id` を取得
+
+                                // `tag` テーブルから `tag_id` を取得
+                                String sqlTag = "SELECT tag_id FROM tag WHERE cate_id = ?";
+                                List<Integer> tags = new ArrayList<>();
+
+                                try (PreparedStatement pstmtCate = con.prepareStatement(sqlTag)) {
+                                    pstmtCate.setInt(1, cate_id);
+                                    try (ResultSet rsTag = pstmtCate.executeQuery()) {
+                                        while (rsTag.next()) {
+                                            tags.add(rsTag.getInt("tag_id")); // 修正：rsTag を使用
+                                        }
+                                    }
+                                }
+
+                                // `ositag` テーブルのデータを削除
+                                for (Integer tag : tags) {
+                                    pstmt3.setInt(1, tag);
+                                    pstmt3.executeUpdate();
+                                }
+
+                                // `tag` テーブルの関連データを削除
+                                pstmt2.setInt(1, cate_id);
+                                pstmt2.executeUpdate();
+
+                                // `category` テーブルのデータを削除
+                                pstmt1.setInt(1, cate_id);
+                                pstmt1.executeUpdate();
+                            }
+                        }
+                    }
+
+
 
                     // 6. 最後にaccountテーブルのデータを削除
                     String deleteAccountSql = "DELETE FROM account WHERE log_id = ?";
