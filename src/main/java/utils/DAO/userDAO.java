@@ -3,10 +3,7 @@ package utils.DAO;
 import java.lang.Class;
 
 import org.mindrot.jbcrypt.BCrypt;
-import utils.Bean.categoryBean;
-import utils.Bean.shiftBean;
-import utils.Bean.userBean;
-import utils.Bean.workBean;
+import utils.Bean.*;
 
 import java.sql.*;
 
@@ -116,12 +113,7 @@ public class userDAO {
                         deleteOsikatuStmt.executeUpdate();
                     }
 
-                    // 3. osiテーブルのデータを削除
-                    String deleteOsiSql = "DELETE FROM osi WHERE log_id = ?";
-                    try (PreparedStatement deleteOsiStmt = con.prepareStatement(deleteOsiSql)) {
-                        deleteOsiStmt.setString(1, log_id);
-                        deleteOsiStmt.executeUpdate();
-                    }
+
 
                     // 5. shiftテーブルのデータを削除
                     String deleteShiftSql = "DELETE FROM shift WHERE work_id IN (SELECT work_id FROM work WHERE log_id = ?)";
@@ -159,6 +151,23 @@ public class userDAO {
                         }
                     }
 
+//                    String Sql = "SELECT osi_id FROM osi WHERE log_id = ?";
+//                    ArrayList<Integer> faves = new ArrayList<>();
+//
+//                    try (PreparedStatement pstmtCate = con.prepareStatement(Sql)) {
+//                        // プレースホルダーに値を設定
+//                        pstmtCate.setString(1, log_id);
+//
+//                        // クエリ実行
+//                        try (ResultSet rsCate = pstmtCate.executeQuery()) {
+//                            while (rsCate.next()) {
+//                                faves.add(
+//                                                rsCate.getInt("osi_id")     // cate_id カラム
+//                                );
+//                            }
+//                        }
+//                    }
+
                     // `category` のデータがある場合、それを削除
                     if (!result.isEmpty()) {
                         String sql1 = "DELETE FROM category WHERE cate_id = ?";
@@ -170,8 +179,11 @@ public class userDAO {
                                 PreparedStatement pstmt2 = con.prepareStatement(sql2);
                                 PreparedStatement pstmt3 = con.prepareStatement(sql3)
                         ) {
+
                             for (categoryBean cate : result) {
                                 int cate_id = cate.getCate_id(); // `categoryBean` から `cate_id` を取得
+
+
 
                                 // `tag` テーブルから `tag_id` を取得
                                 String sqlTag = "SELECT tag_id FROM tag WHERE cate_id = ?";
@@ -195,6 +207,14 @@ public class userDAO {
                                 // `tag` テーブルの関連データを削除
                                 pstmt2.setInt(1, cate_id);
                                 pstmt2.executeUpdate();
+
+                                // 3. osiテーブルのデータを削除
+                                String deleteOsiSql = "DELETE FROM osi WHERE log_id = ?";
+                                try (PreparedStatement deleteOsiStmt = con.prepareStatement(deleteOsiSql)) {
+                                    deleteOsiStmt.setString(1, log_id);
+                                    deleteOsiStmt.executeUpdate();
+                                }
+
 
                                 // `category` テーブルのデータを削除
                                 pstmt1.setInt(1, cate_id);
