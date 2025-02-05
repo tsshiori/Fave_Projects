@@ -16,7 +16,7 @@ import utils.Bean.userBean;
 import utils.DAO.goodsDAO;
 import utils.DAO.shiftDAO;
 
-@WebServlet("/shift")
+@WebServlet("/ShiftServlet")
 public class ShiftServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
