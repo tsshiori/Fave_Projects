@@ -127,14 +127,7 @@
         <url-pattern>/my_page_edit</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>ShiftServlet</servlet-name>
-        <servlet-class>com.example.fave.ShiftFile.ShiftServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ShiftServlet</servlet-name>
-        <url-pattern>/shift</url-pattern>
-    </servlet-mapping>
+
 
     <servlet>
         <servlet-name>ShiftEditServlet</servlet-name>
