@@ -168,60 +168,71 @@ public class userDAO {
 //                        }
 //                    }
 
-                    // `category` のデータがある場合、それを削除
                     if (!result.isEmpty()) {
-                        String sql1 = "DELETE FROM category WHERE cate_id = ?";
-                        String sql2 = "DELETE FROM tag WHERE cate_id = ?";
-                        String sql3 = "DELETE FROM ositag WHERE tag_id = ?";
+                        // トランザクション開始
+                        con.setAutoCommit(false);
+
+                        // SQL準備
+                        String sqlDeleteOsiTag = "DELETE FROM ositag WHERE tag_id = ?";
+                        String sqlDeleteTag = "DELETE FROM tag WHERE cate_id = ?";
+                        String sqlDeleteOsi = "DELETE FROM osi WHERE cate_id = ?";
+                        String sqlDeleteCategory = "DELETE FROM category WHERE cate_id = ?";
 
                         try (
-                                PreparedStatement pstmt1 = con.prepareStatement(sql1);
-                                PreparedStatement pstmt2 = con.prepareStatement(sql2);
-                                PreparedStatement pstmt3 = con.prepareStatement(sql3)
+                                PreparedStatement pstmtDeleteOsiTag = con.prepareStatement(sqlDeleteOsiTag);
+                                PreparedStatement pstmtDeleteTag = con.prepareStatement(sqlDeleteTag);
+                                PreparedStatement pstmtDeleteOsi = con.prepareStatement(sqlDeleteOsi);
+                                PreparedStatement pstmtDeleteCategory = con.prepareStatement(sqlDeleteCategory)
                         ) {
 
                             for (categoryBean cate : result) {
-                                int cate_id = cate.getCate_id(); // `categoryBean` から `cate_id` を取得
-
-
+                                int cate_id = cate.getCate_id(); // categoryBean から cate_id を取得
 
                                 // `tag` テーブルから `tag_id` を取得
-                                String sqlTag = "SELECT tag_id FROM tag WHERE cate_id = ?";
+                                String sqlSelectTag = "SELECT tag_id FROM tag WHERE cate_id = ?";
                                 List<Integer> tags = new ArrayList<>();
 
-                                try (PreparedStatement pstmtCate = con.prepareStatement(sqlTag)) {
-                                    pstmtCate.setInt(1, cate_id);
-                                    try (ResultSet rsTag = pstmtCate.executeQuery()) {
+                                try (PreparedStatement pstmtSelectTag = con.prepareStatement(sqlSelectTag)) {
+                                    pstmtSelectTag.setInt(1, cate_id);
+                                    try (ResultSet rsTag = pstmtSelectTag.executeQuery()) {
                                         while (rsTag.next()) {
-                                            tags.add(rsTag.getInt("tag_id")); // 修正：rsTag を使用
+                                            tags.add(rsTag.getInt("tag_id"));
                                         }
                                     }
                                 }
 
                                 // `ositag` テーブルのデータを削除
                                 for (Integer tag : tags) {
-                                    pstmt3.setInt(1, tag);
-                                    pstmt3.executeUpdate();
+                                    pstmtDeleteOsiTag.setInt(1, tag);
+                                    pstmtDeleteOsiTag.executeUpdate();
                                 }
 
-                                // `tag` テーブルの関連データを削除
-                                pstmt2.setInt(1, cate_id);
-                                pstmt2.executeUpdate();
+                                // `tag` テーブルのデータを削除
+                                pstmtDeleteTag.setInt(1, cate_id);
+                                pstmtDeleteTag.executeUpdate();
 
-                                // 3. osiテーブルのデータを削除
-                                String deleteOsiSql = "DELETE FROM osi WHERE log_id = ?";
-                                try (PreparedStatement deleteOsiStmt = con.prepareStatement(deleteOsiSql)) {
-                                    deleteOsiStmt.setString(1, log_id);
-                                    deleteOsiStmt.executeUpdate();
-                                }
-
+                                // `osi` テーブルのデータを削除
+                                pstmtDeleteOsi.setInt(1, cate_id);
+                                pstmtDeleteOsi.executeUpdate();
 
                                 // `category` テーブルのデータを削除
-                                pstmt1.setInt(1, cate_id);
-                                pstmt1.executeUpdate();
+                                pstmtDeleteCategory.setInt(1, cate_id);
+                                pstmtDeleteCategory.executeUpdate();
                             }
+
+                            // すべて成功したらコミット
+                            con.commit();
+
+                        } catch (Exception e) {
+                            // エラー時はロールバック
+                            con.rollback();
+                            e.printStackTrace();
+                        } finally {
+                            // オートコミットを元に戻す
+                            con.setAutoCommit(true);
                         }
                     }
+
 
 
 
