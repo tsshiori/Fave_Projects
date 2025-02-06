@@ -270,7 +270,7 @@
                     <div class="form-group">
                         <div class="btn">
                             <button id="fed_open" type="button" class="in">完了</button>
-                            <a class="kyan" href="fave_detail">キャンセル</a>
+                            <a class="kyan" href="fave_list">キャンセル</a>
                         </div>
                         <div class="f_dele">
                             <button id="fe_dele"><img src="static/img/DELE.png" alt=""></button>
